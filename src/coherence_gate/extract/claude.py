@@ -17,7 +17,7 @@ class ClaudeExtractor:
     def __init__(self, pin: ModelPin, settings: ExtractionSettings | None = None) -> None:
         self.pin = pin
         self.settings = settings or ExtractionSettings()
-        self.client = anthropic.Anthropic()  # AnthropicVertex(project_id, region) is the Vertex swap (HLD §8)
+        self.client = anthropic.Anthropic(timeout=self.settings.timeout_s, max_retries=2)  # AnthropicVertex(project_id, region) is the Vertex swap (HLD §8)
 
     def extract(self, document: str, *, doc_id: str, tracer: Tracer, schema: Schema) -> Extraction:
         prompt = render_prompt(schema, document, self.settings.prompt_version)

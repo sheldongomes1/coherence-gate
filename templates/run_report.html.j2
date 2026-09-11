@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Coherence Gate — run {{ run_id }}</title>
+<style>
+ :root{--bg:#fbfaf7;--fg:#1c1b19;--muted:#6b6862;--line:#e4e1da;--ok:#1f7a4d;--okbg:#e6f4ec;--bad:#b3261e;--badbg:#fbe9e7;--warn:#8a5a00;--warnbg:#fff3d6;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+ body{margin:0;padding:24px 20px 60px;background:var(--bg);color:var(--fg);font:14px/1.45 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:1180px;margin-inline:auto}
+ h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:34px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}h3{font-size:15px;margin:22px 0 8px}
+ .sub{color:var(--muted)}.kpis{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
+ .kpi{border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:150px;background:#fff}.kpi b{display:block;font-size:20px}.kpi span{color:var(--muted);font-size:12px}
+ table{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--line);font-size:13px}th,td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}th{background:#f3f1ec;font-weight:600}
+ .lane-AUTO_CLEAR{background:var(--okbg);color:var(--ok);border-radius:4px;padding:1px 6px;font-weight:600}.lane-TRIAGE{background:var(--badbg);color:var(--bad);border-radius:4px;padding:1px 6px;font-weight:600}
+ .t-CLEAN{color:var(--ok)}.t-MISMATCH,.t-TS_ABSENT,.t-BOOKING_ABSENT{color:var(--bad);font-weight:600}.t-EXTRACTOR_DISAGREEMENT,.t-MALFORMED_EXTRACTION{color:var(--warn);font-weight:600}
+ .sev-critical{font-weight:600}.cite{font-family:var(--mono);font-size:12px;color:#333;background:#f6f4ef;border-left:3px solid #cfc9bd;padding:3px 8px;margin:3px 0;white-space:pre-wrap}
+ .query{border:1px solid var(--line);border-left:4px solid var(--bad);background:#fff;padding:10px 12px;margin:8px 0;border-radius:4px}.query .cls{font-family:var(--mono);font-size:12px;color:var(--muted)}
+ .mono{font-family:var(--mono);font-size:12px}.wrap{overflow-x:auto}details summary{cursor:pointer;color:var(--muted)}
+</style></head><body>
+<h1>Coherence Gate — run {{ run_id }}</h1>
+<div class="sub">term sheet vs booking · {{ docs|length }} document(s) · models {{ models|join(', ') }} · total cost ${{ '%.4f'|format(total_cost) }}</div>
+<div class="kpis">
+ <div class="kpi"><b>{{ n_auto_docs }}/{{ docs|length }}</b><span>documents auto-cleared (zero human touch)</span></div>
+ <div class="kpi"><b>{{ n_auto_fields }}/{{ n_fields }}</b><span>fields auto-cleared</span></div>
+ <div class="kpi"><b>{{ n_triage }}</b><span>findings in triage</span></div>
+ <div class="kpi"><b>{{ n_model_calls }}</b><span>model calls traced</span></div>
+</div>
+<p class="sub">Models extract and explain; code decides. Every field is cited to its source span or explicitly declared absent. A field auto-clears only when both families agree <em>and</em> the comparator passes.</p>
+{% for d in docs %}
+<h2 id="{{ d.doc_id }}">{{ d.doc_id }} <span class="lane-{{ d.document_lane }}">{{ d.document_lane }}</span> <span class="sub mono">trade_id {{ d.trade_id }} · sha {{ d.sha256[:12] }} · ${{ '%.4f'|format(d.cost_usd) }} · booking via {{ d.booking_transport }}</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+{% for f in d.findings %}
+<tr><td class="mono">{{ f.field }}</td><td class="t-{{ f.type }}">{{ f.type }}</td><td class="sev-{{ f.severity }}">{{ f.severity }}</td><td><span class="lane-{{ f.lane }}">{{ f.lane }}</span></td>
+<td class="mono">{{ 'ABSENT' if f.ts_value is none else f.ts_value }}</td><td class="mono">{{ 'ABSENT' if f.booking_value is none else f.booking_value }}</td>
+<td>{% for c in f.citations %}<div class="cite">“{{ c.text_span }}” <span class="sub">[{{ c.char_range[0] }}–{{ c.char_range[1] }}]</span></div>{% endfor %}{% if f.type != 'CLEAN' %}<div class="sub">{{ f.detail }}</div>{% endif %}</td></tr>
+{% endfor %}</tbody></table></div>
+{% set tq = d.findings|selectattr('triage')|list %}{% if tq %}
+<h3>Desk queries (drafted by the triage agent; verdicts above were decided by code)</h3>
+{% for f in tq %}<div class="query"><div class="cls">{{ f.field }} · {{ f.type }} · classification {{ f.triage.classification }}</div><div>{{ f.triage.desk_query }}</div><div class="sub" style="margin-top:6px">rationale: {{ f.triage.rationale }}</div></div>{% endfor %}
+{% endif %}
+<details><summary>trace for {{ d.doc_id }} ({{ d.trace|length }} steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+{% for l in d.trace %}<tr><td class="mono">{{ l.step }}</td><td class="mono">{{ l.model or '' }}</td><td class="mono">{{ l.model_version or '' }}</td><td>{{ l.prompt_tokens }}</td><td>{{ l.output_tokens }}</td><td>{{ l.latency_ms }}</td><td>{{ '%.4f'|format(l.cost_usd) }}</td><td>{{ l.outcome }}</td></tr>{% endfor %}
+</tbody></table></div></details>
+{% endfor %}
+<p class="sub" style="margin-top:40px">Generated by Coherence Gate. Static HTML, no scripts. Trace: trace.jsonl in this run directory.</p>
+</body></html>

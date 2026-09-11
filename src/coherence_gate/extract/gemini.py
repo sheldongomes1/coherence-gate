@@ -20,8 +20,9 @@ class GeminiExtractor:
         self.pin = pin
         self.settings = settings or ExtractionSettings()
         # Same code path serves Vertex: GOOGLE_GENAI_USE_VERTEXAI=true + project/location env (HLD §8).
-        self.client = genai.Client() if os.environ.get("GOOGLE_GENAI_USE_VERTEXAI") else \
-            genai.Client(api_key=os.environ["GOOGLE_API_KEY"])
+        http = gt.HttpOptions(timeout=self.settings.timeout_s * 1000)  # google-genai timeout is in ms
+        self.client = genai.Client(http_options=http) if os.environ.get("GOOGLE_GENAI_USE_VERTEXAI") else \
+            genai.Client(api_key=os.environ["GOOGLE_API_KEY"], http_options=http)
 
     def extract(self, document: str, *, doc_id: str, tracer: Tracer, schema: Schema) -> Extraction:
         prompt = render_prompt(schema, document, self.settings.prompt_version)

@@ -190,3 +190,28 @@ every field is present).
 
 **Consequences:** Values "as written" are strings by nature, so the contract is more honest,
 not less. A one-element list for a stepping field stays a list; a flat level is a scalar.
+
+## ADR-17: Triage sees the finding, its citations and the booking field, not the document
+
+**Date:** 2026-09-11
+**Status:** Accepted
+
+**Context:** The triage agent drafts one desk query per non-clean finding. It could be given
+the whole term sheet (richest context) or only what the deterministic pipeline already
+anchored.
+
+**Decision:** Per finding, the prompt contains: field and its schema description, finding
+type with its meaning, severity, both extracted values, the booking field and value, the
+comparator's detail string, and the verbatim citation spans from both extractors. No full
+document, no full booking record. One Opus call per finding, structured output, ~400 input
+tokens.
+
+**Alternatives considered:** Full document per call (~8× the tokens on Opus; the query can
+drift into terms nobody flagged; and it re-opens a door for the model to "re-decide" the
+match). One batched call per document (cheaper on multi-finding documents, harder to
+validate per finding; the golden set has one finding per document anyway).
+
+**Consequences:** The desk query can only cite what the extractors cited, which is exactly
+the provenance the desk should see. A discrepancy explained by an unrelated clause elsewhere
+will not be noticed by triage; that is a Phase 2 item (give triage the guard-located
+neighbourhood of the field).

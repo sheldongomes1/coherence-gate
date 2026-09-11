@@ -97,3 +97,9 @@ def test_autocall_levels_string_forms():
     assert normalize_value(spec, "100 per cent., 95 per cent., 90 per cent.") == [Decimal(100), Decimal(95), Decimal(90)]
     assert normalize_value(spec, "100% / 95% / 90%") == [Decimal(100), Decimal(95), Decimal(90)]
     assert normalize_value(S.spec("autocall_observation_dates"), ["April 17, 2027", "October 17, 2027"]) == ["2027-04-17", "2027-10-17"]
+
+
+def test_enum_strips_parentheticals_and_trailing_period():
+    assert norm_enum("barrier_type", "American (continuous observation)", ("european", "american", "none")) == "american"
+    assert norm_enum("barrier_type", "European (Final Valuation Date only)", ("european", "american", "none")) == "european"
+    assert norm_enum("settlement", "Cash settlement.", ("cash", "physical")) == "cash"

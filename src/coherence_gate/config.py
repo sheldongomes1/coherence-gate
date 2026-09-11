@@ -31,6 +31,7 @@ class ExtractionSettings:
     gemini_thinking_level: str | None = "medium"
     max_output_tokens_gemini: int = 32000
     max_output_tokens_claude: int = 16000
+    timeout_s: float = 240.0
     temperature: float = 0.0
 
 

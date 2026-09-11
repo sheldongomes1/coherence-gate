@@ -41,7 +41,7 @@ def build_context(golden: Path, out_dir: Path, *, stub: bool, config: Config | N
     triage = None
     if with_triage:
         from ..triage.agent import TriageAgent  # S3
-        triage = TriageAgent(config.triage)
+        triage = TriageAgent(config.triage, effort=config.extraction.claude_effort)
     return RunContext(run_id=run_id, out_dir=run_dir, config=config, tracer=tracer, schema=load_schema(),
                       booking=booking, extractors=extractors, triage=triage)
 

@@ -34,3 +34,10 @@
 - Lesson: on Gemini 3.x, `max_output_tokens` is a budget for reasoning plus answer. Set it per family, bill thoughts as output (they are), and let the effort sweep show what the reasoning buys.
 - Fix / rework: 32k ceiling for Gemini, 16k for Claude, both in config; trace records thoughts in `output_tokens`.
 - Post angle: "The cheapest model call in my pipeline became the most expensive one, because thinking is output."
+
+## 2026-09-11 — A model call with no timeout hung the eval for two hours
+- Situation: first full 12-document eval, running in the background.
+- What broke / what we assumed: after G05, the Gemini call never returned; the process sat at 0% CPU for two hours with no error. The preceding Claude call for the same document had taken 14 minutes (SDK retries on a flaky connection). Neither client had a request timeout.
+- Lesson: in an eval harness, an API call that can hang is worse than one that fails, because "still running" looks like progress. Every model call gets a hard timeout and a traced outcome; the SDK's own retries are bounded and visible in latency.
+- Fix / rework: `timeout_s: 240` in config, applied to both clients (google-genai in ms, anthropic in s with max_retries=2). The partial run is logged in eval_log.md as aborted, not hidden.
+- Post angle: "My eval didn't fail. It just never finished. That is the failure mode to design against."

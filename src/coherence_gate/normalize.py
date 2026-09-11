@@ -131,8 +131,12 @@ def norm_ticker(v: Any) -> str:
 
 
 def norm_enum(key: str, v: Any, allowed: tuple[str, ...]) -> str:
-    s = str(v).strip().lower().replace("_", "_")
+    s = str(v).strip().lower()
     table = ENUM_SYNONYMS.get(key, {})
+    if s in table:
+        return table[s]
+    # "American (continuous observation)" -> "american"; "Cash settlement." -> "cash"
+    s = re.sub(r"\(.*?\)", "", s).strip().rstrip(".").strip()
     if s in table:
         return table[s]
     if s in {a.lower() for a in allowed}:

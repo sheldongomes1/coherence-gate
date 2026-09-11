@@ -61,6 +61,48 @@ def cmd_trace(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_report(a: argparse.Namespace) -> int:
+    from .report.html import render
+    run = _latest(Path(a.latest)) if a.latest else Path(a.run)
+    out = render(run)
+    console.print(f"wrote {out}")
+    return 0
+
+
+DEMO = [
+    ("G11", "Clean document. Both families agree on every field, the comparator passes, the document AUTO-CLEARS. Zero human touch, and zero model calls after extraction."),
+    ("G10", "The term sheet never states the knock-in level; the booking has 70%. Both extractors DECLARE ABSENT, code raises TS_ABSENT (critical) and the triage agent drafts the desk query. The absence announced itself."),
+    ("G09", "The coupon is printed as 2.0625% per quarter (8.25% p.a.). Whatever each family extracts, normalize.py brings it to 8.25 per annum; the merger agrees; the comparator matches the booking. Code decided, not a prompt."),
+]
+
+
+def cmd_demo(a: argparse.Namespace) -> int:
+    from .eval.harness import build_context
+    from .pipeline import run_document
+    from .report.html import render
+    a.triage = True
+    ctx = build_context(Path(a.golden), Path(a.out), stub=a.stub, booking_transport=a.booking, with_triage=True)
+    console.rule("[bold]Coherence Gate — demo")
+    try:
+        for doc_id, story in DEMO:
+            console.print(f"\n[bold]{doc_id}[/] — {story}")
+            r = run_document(Path(a.golden) / "termsheets" / f"{doc_id}.txt", ctx)
+            t = Table("field", "type", "lane", "term sheet", "booking", title=f"{doc_id}: document lane = {r.document_lane}  cost ${r.cost_usd:.4f}")
+            for f in r.findings:
+                if f.type != "CLEAN" or doc_id == "G11":
+                    t.add_row(f.field, f.type, f.lane, str(f.ts_value if f.ts_value is not None else "ABSENT"), str(f.booking_value if f.booking_value is not None else "ABSENT"))
+            console.print(t)
+            for f in r.findings:
+                if f.triage:
+                    console.print(f"[bold]desk query ({f.field}, {f.triage.classification}):[/] {f.triage.desk_query}")
+    finally:
+        ctx.booking.close()
+    out = render(ctx.out_dir)
+    console.rule()
+    console.print(f"report: {out}\ntrace:  {ctx.tracer.path}   (make trace)\neval:   run `make eval` for eval_report.md; history in eval_log.md")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="cg", description="Coherence Gate")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -75,8 +117,8 @@ def main(argv: list[str] | None = None) -> int:
     e = sub.add_parser("eval"); common(e); e.add_argument("--only", nargs="*"); e.set_defaults(fn=cmd_eval)
     r = sub.add_parser("run"); common(r); r.add_argument("termsheet"); r.add_argument("--trade-id"); r.set_defaults(fn=cmd_run)
     t = sub.add_parser("trace"); t.add_argument("--latest", nargs="?", const="runs"); t.add_argument("--run"); t.set_defaults(fn=cmd_trace)
-    for name in ("demo", "report"):
-        d = sub.add_parser(name); d.set_defaults(fn=lambda a, n=name: sys.exit(f"`cg {n}` is built in S4"))
+    rp = sub.add_parser("report"); rp.add_argument("--latest", nargs="?", const="runs"); rp.add_argument("--run"); rp.set_defaults(fn=cmd_report)
+    dm = sub.add_parser("demo"); common(dm); dm.set_defaults(fn=cmd_demo)
     a = p.parse_args(argv)
     return a.fn(a)
 

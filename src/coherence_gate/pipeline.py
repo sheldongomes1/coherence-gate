@@ -105,6 +105,8 @@ def persist(r: DocumentResult, ctx: RunContext) -> None:
     (d / "merged.json").write_text(json.dumps(r.merged, indent=2, default=str))
     (d / "booking.json").write_text(json.dumps(r.booking, indent=2, default=str))
     (d / "findings.json").write_text(json.dumps([f.model_dump() for f in r.findings], indent=2, default=str))
+    (d / "triage.json").write_text(json.dumps([{**f.model_dump(), "triage": f.triage.model_dump() if f.triage else None}
+                                               for f in r.findings if f.lane is Lane.TRIAGE], indent=2, default=str))
     auto = [f.model_dump() for f in r.findings if f.lane is Lane.AUTO_CLEAR]
     (d / "auto_clear.json").write_text(json.dumps(auto, indent=2, default=str))
     (d / "summary.json").write_text(json.dumps({
