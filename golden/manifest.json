@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "generator": "scripts/gen_golden.py",
+  "history": [
+    {
+      "date": "2026-09-11",
+      "note": "initial labels, generated from parameters (ADR-13)"
+    }
+  ],
+  "documents": [
+    {
+      "id": "G01",
+      "layout": "prose",
+      "trade_id": "SN-2026-0101",
+      "termsheet": "termsheets/G01.txt",
+      "booking": "bookings/SN-2026-0101.json",
+      "truth": "truth/G01.json",
+      "planted": [
+        {
+          "field": "barrier_level_pct",
+          "type": "MISMATCH",
+          "note": "TS 65, booking 70",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "G02",
+      "layout": "table",
+      "trade_id": "SN-2026-0102",
+      "termsheet": "termsheets/G02.txt",
+      "booking": "bookings/SN-2026-0102.json",
+      "truth": "truth/G02.json",
+      "planted": [
+        {
+          "field": "autocall_observation_dates",
+          "type": "MISMATCH",
+          "note": "second observation 2027-11-12 -> 2027-11-15 (+1 business day)",
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "G03",
+      "layout": "clauses",
+      "trade_id": "SN-2026-0103",
+      "termsheet": "termsheets/G03.txt",
+      "booking": "bookings/SN-2026-0103.json",
+      "truth": "truth/G03.json",
+      "planted": [
+        {
+          "field": "day_count",
+          "type": "MISMATCH",
+          "note": "TS ACT/360, booking 30/360",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "G04",
+      "layout": "letter",
+      "trade_id": "SN-2026-0104",
+      "termsheet": "termsheets/G04.txt",
+      "booking": "bookings/SN-2026-0104.json",
+      "truth": "truth/G04.json",
+      "planted": [
+        {
+          "field": "coupon_memory",
+          "type": "MISMATCH",
+          "note": "TS has memory clause, booking false",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "G05",
+      "layout": "prose",
+      "trade_id": "SN-2026-0105",
+      "termsheet": "termsheets/G05.txt",
+      "booking": "bookings/SN-2026-0105.json",
+      "truth": "truth/G05.json",
+      "planted": [
+        {
+          "field": "notional",
+          "type": "MISMATCH",
+          "note": "TS 10,000,000, booking 1,000,000",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "G06",
+      "layout": "table",
+      "trade_id": "SN-2026-0106",
+      "termsheet": "termsheets/G06.txt",
+      "booking": "bookings/SN-2026-0106.json",
+      "truth": "truth/G06.json",
+      "planted": [
+        {
+          "field": "currency",
+          "type": "MISMATCH",
+          "note": "TS USD, booking CAD",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "G07",
+      "layout": "clauses",
+      "trade_id": "SN-2026-0107",
+      "termsheet": "termsheets/G07.txt",
+      "booking": "bookings/SN-2026-0107.json",
+      "truth": "truth/G07.json",
+      "planted": [
+        {
+          "field": "autocall_level_pct",
+          "type": "MISMATCH",
+          "note": "TS step-down 100/95/90, booking flat 100/100/100",
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "G08",
+      "layout": "letter",
+      "trade_id": "SN-2026-0108",
+      "termsheet": "termsheets/G08.txt",
+      "booking": "bookings/SN-2026-0108.json",
+      "truth": "truth/G08.json",
+      "planted": [
+        {
+          "field": "underlyings",
+          "type": "MISMATCH",
+          "note": "TS SX5E, booking SPX",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "G09",
+      "layout": "prose",
+      "trade_id": "SN-2026-0109",
+      "termsheet": "termsheets/G09.txt",
+      "booking": "bookings/SN-2026-0109.json",
+      "truth": "truth/G09.json",
+      "planted": [],
+      "traps": [
+        {
+          "field": "coupon_rate_pct",
+          "expect": "CLEAN",
+          "note": "TS 2.0625% per quarter (8.25% p.a.); booking 8.25 quarterly"
+        }
+      ]
+    },
+    {
+      "id": "G10",
+      "layout": "table",
+      "trade_id": "SN-2026-0110",
+      "termsheet": "termsheets/G10.txt",
+      "booking": "bookings/SN-2026-0110.json",
+      "truth": "truth/G10.json",
+      "planted": [
+        {
+          "field": "barrier_level_pct",
+          "type": "TS_ABSENT",
+          "note": "TS omits the knock-in level; booking has 70",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "G11",
+      "layout": "clauses",
+      "trade_id": "SN-2026-0111",
+      "termsheet": "termsheets/G11.txt",
+      "booking": "bookings/SN-2026-0111.json",
+      "truth": "truth/G11.json",
+      "planted": [],
+      "clean_control": true
+    },
+    {
+      "id": "G12",
+      "layout": "letter",
+      "trade_id": "SN-2026-0112",
+      "termsheet": "termsheets/G12.txt",
+      "booking": "bookings/SN-2026-0112.json",
+      "truth": "truth/G12.json",
+      "planted": [],
+      "clean_control": true
+    }
+  ]
+}

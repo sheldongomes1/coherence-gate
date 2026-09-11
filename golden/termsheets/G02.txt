@@ -1,0 +1,41 @@
+NORTHBRIDGE CAPITAL MARKETS (CANADA) INC.
+Structured Notes Programme, Series 2026
+FINAL TERMS SUMMARY — SN-2026-0102
+
+Product                      | Single index Autocallable Note
+Issuer                       | Northbridge Capital Markets (Canada) Inc.
+Trade Reference              | SN-2026-0102
+Notional Amount              | EUR 3,000,000.00
+Currency                     | EUR
+Trade Date                   | 2026-05-12
+Issue Date                   | 2026-05-19
+Maturity Date                | 2028-05-19
+Underlying(s)                | EURO STOXX 50 Index (SX5E)
+Initial Level                | 100.00% of closing level on Trade Date
+Coupon                       | 9.00% per annum, payable semi-annually
+Coupon Frequency             | Semiannual
+Coupon Memory                | Yes
+Day Count Fraction           | Actual/365 (Fixed)
+Autocall Observation Dates   | 2027-05-12, 2027-11-12, 2028-05-12
+Autocall Level               | 100.00% of Initial Level
+Knock-in Type                | American (continuous observation)
+Knock-in Level               | 60.00% of Initial Level
+Settlement                   | Cash
+Business Day Convention      | Following
+Business Days                | Toronto, New York, London
+Calculation Agent            | Issuer
+Governing Law                | Ontario
+
+Notes to the table
+
+Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.
+
+Knock-in Event: the Notes are subject to a knock-in barrier observed continuously on each Scheduled Trading Day from the Trade Date to the Final Valuation Date (American observation) at a Knock-in Level of 60.00% of the Initial Level. If a Knock-in Event has occurred and the Notes have not been redeemed early, the Final Redemption Amount will be reduced in line with the performance of the Underlying.
+
+Automatic Early Redemption: if on any Autocall Observation Date the closing level of the Underlying is at or above 100.00% of the Initial Level, the Notes redeem early at 100% of the Notional Amount plus the Coupon then due. Autocall Observation Dates: 2027-05-12, 2027-11-12, 2028-05-12.
+
+Fees and distribution: the Issue Price includes distribution fees of up to 1.50% of the Notional Amount payable to the distributor. The Issuer's hedging costs are estimated at 0.35% per annum. These amounts are not Coupons and are not payable to Noteholders.
+
+RISK FACTORS (SUMMARY). An investment in the Notes involves risks. Investors may lose some or all of their investment. The Notes are unsecured obligations of the Issuer and are subject to the credit risk of the Issuer. The secondary market, if any, may be illiquid; a bid price, where available, may be up to 3.00% below the theoretical value of the Notes. Past performance of the Underlying is not a reliable indicator of future performance. A 10% decline in the Underlying does not translate into a 10% decline in the value of the Notes; the relationship is non-linear and depends on remaining maturity, volatility and interest rates.
+
+This document is an indicative term sheet and does not constitute an offer. The Notes will be issued under the Issuer's Structured Notes Programme, Series 2026 and are subject to the Base Prospectus and the applicable Final Terms. In the event of inconsistency between this term sheet and the Final Terms, the Final Terms prevail. Not for distribution in the United States or to U.S. persons. Governing law: Ontario. Calculation Agent: the Issuer.

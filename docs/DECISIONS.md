@@ -76,7 +76,8 @@ hallucinates a level) and still "catch" the field while getting the story wrong.
 
 **Decision:** Headline `catch_rate` counts a hit only when doc, field, and finding type all
 match the manifest. A second row, `catch_rate_field_only`, counts any non-CLEAN finding on
-the planted field. Both rows carry n=10.
+the planted field. Both rows carry n=9: INSTRUCTIONS list ten discrepant documents, but G09 is
+a must-not-flag trap and is scored as its own row (`trap_resolved`, n=1).
 
 **Alternatives considered:** Strict only: hides type confusion, which is exactly the
 absence-vs-mismatch distinction the product sells. Lenient only: lets a hallucinated barrier

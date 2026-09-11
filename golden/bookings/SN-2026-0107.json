@@ -1,0 +1,31 @@
+{
+  "trade_id": "SN-2026-0107",
+  "issuer": "Northbridge Capital Markets (Canada) Inc.",
+  "notional": 6000000,
+  "currency": "EUR",
+  "trade_date": "2026-01-20",
+  "issue_date": "2026-01-27",
+  "maturity_date": "2029-01-29",
+  "underlyings": [
+    "SX5E"
+  ],
+  "initial_level_pct": 100,
+  "barrier_type": "european",
+  "barrier_level_pct": 55,
+  "coupon_rate_pct": 8,
+  "coupon_frequency": "annual",
+  "coupon_memory": true,
+  "autocall_observation_dates": [
+    "2027-01-20",
+    "2028-01-20",
+    "2028-07-20"
+  ],
+  "autocall_level_pct": [
+    100,
+    100,
+    100
+  ],
+  "day_count": "30/360",
+  "settlement": "cash",
+  "business_day_convention": "following"
+}

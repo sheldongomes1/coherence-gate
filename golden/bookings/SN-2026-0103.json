@@ -1,0 +1,29 @@
+{
+  "trade_id": "SN-2026-0103",
+  "issuer": "Northbridge Capital Markets (Canada) Inc.",
+  "notional": 8000000,
+  "currency": "CAD",
+  "trade_date": "2026-03-03",
+  "issue_date": "2026-03-10",
+  "maturity_date": "2029-03-12",
+  "underlyings": [
+    "SPTSX60",
+    "BVERSA10"
+  ],
+  "initial_level_pct": 100,
+  "barrier_type": "european",
+  "barrier_level_pct": 70,
+  "coupon_rate_pct": 6.8,
+  "coupon_frequency": "quarterly",
+  "coupon_memory": true,
+  "autocall_observation_dates": [
+    "2027-03-03",
+    "2027-09-03",
+    "2028-03-03",
+    "2028-09-05"
+  ],
+  "autocall_level_pct": 100,
+  "day_count": "30/360",
+  "settlement": "cash",
+  "business_day_convention": "mod_following"
+}
