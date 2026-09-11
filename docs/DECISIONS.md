@@ -60,3 +60,65 @@ true.
 ## ADR-9 Repository is private until the demo is ready
 **Decision.** Create `sheldongomes1/coherence-gate` private; flip to public (or add the
 interviewer as a collaborator) on Sunday with the showcase run committed.
+
+---
+*From here on, ADRs follow Nygard format and are produced at Socratic checkpoints
+(multiple-choice, fast mode). Alternatives are recorded with the reason they lost.*
+
+## ADR-10: Catch scoring is strict on (field, type); field-only catch is a diagnostic row
+
+**Date:** 2026-09-11
+**Status:** Accepted
+
+**Context:** `catch_rate` is the headline number. G10 plants `TS_ABSENT` on
+`barrier_level_pct`. A pipeline could report `MISMATCH` on the same field (e.g. an extractor
+hallucinates a level) and still "catch" the field while getting the story wrong.
+
+**Decision:** Headline `catch_rate` counts a hit only when doc, field, and finding type all
+match the manifest. A second row, `catch_rate_field_only`, counts any non-CLEAN finding on
+the planted field. Both rows carry n=10.
+
+**Alternatives considered:** Strict only: hides type confusion, which is exactly the
+absence-vs-mismatch distinction the product sells. Lenient only: lets a hallucinated barrier
+level count as catching an omission; the silent-failure test would pass for the wrong reason.
+
+**Consequences:** Type confusion is visible as the gap between the two rows. Prompt
+iterations that trade one for the other show up in `eval_log.md`.
+
+## ADR-11: BVERSA10 appears as an underlying index ticker in three documents
+
+**Date:** 2026-09-11
+**Status:** Accepted
+
+**Context:** The evaluator (RBC, Head of Equities Technology) should see an underlying he
+recognises. BVERSA10 is an index ticker.
+
+**Decision:** BVERSA10 is the sole underlying in one clean control (G12), one underlying in
+a two-index worst-of basket with SPTSX60 in one planted document (G03, day-count mismatch),
+and the underlying in the G09 normalizer-trap document. Ticker normalization treats it like
+any other: upper, strip, suffix removed.
+
+**Alternatives considered:** Only in a clean doc (too easy to miss in the demo); in the G08
+underlying-swap doc (would make the planted finding about the ticker the evaluator is
+watching, which reads as staged).
+
+**Consequences:** The demo shows BVERSA10 auto-clearing (G12) and surviving the trap (G09).
+
+## ADR-12: Synthetic documents use a fictional issuer; no real bank is named
+
+**Date:** 2026-09-11
+**Status:** Accepted
+
+**Context:** The demo is for RBC. Realistic term sheets need an issuer, parties, and
+boilerplate.
+
+**Decision:** Issuer is "Northbridge Capital Markets (Canada) Inc." (fictional), programme
+"Structured Notes Programme, Series 2026". Documents are CAD/USD flavoured with SPTSX60,
+SPX, SX5E, BVERSA10 as underlyings. GOAL.md already forbids real term sheets; this extends it
+to real names.
+
+**Alternatives considered:** Naming RBC as issuer for realism: fabricated documents carrying
+a real bank's name are a liability in a portfolio repo and add nothing to the technical
+demo.
+
+**Consequences:** The G06 currency plant (USD vs CAD) is natural for a Canadian issuer.
