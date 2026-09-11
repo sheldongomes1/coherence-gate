@@ -123,3 +123,24 @@ a real bank's name are a liability in a portfolio repo and add nothing to the te
 demo.
 
 **Consequences:** The G06 currency plant (USD vs CAD) is natural for a Canadian issuer.
+
+## ADR-14: Ambiguous numeric dates are rejected, never guessed
+
+**Date:** 2026-09-11
+**Status:** Accepted
+
+**Context:** "03/04/2026" is 3 April day-first and 4 March month-first. Documents are
+European/Canadian desk paper, so day-first is the likely convention, but the gate's value is
+that it does not guess.
+
+**Decision:** `norm_date` accepts ISO, long-form, and dd-Mon-yyyy dates, and slash dates only
+when the day part exceeds 12. Otherwise it raises `NormalizeError`, which the pipeline turns
+into a `MALFORMED_EXTRACTION` finding on that field; the desk sees the date it must confirm.
+
+**Alternatives considered:** Assume day-first (silent wrong date on a US-format document,
+then a confident comparator verdict). Currency-conditional parsing (a hidden rule; fails
+model-risk review).
+
+**Consequences:** A document that only writes dates numerically and ambiguously will always
+go to triage on those fields. That is the intended behaviour; the false-flag rate will show
+its cost if it happens in the golden set (it does not: all four layouts use unambiguous forms).
