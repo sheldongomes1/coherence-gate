@@ -1,0 +1,44 @@
+# Coherence Gate — one command per success criterion (GOAL.md).
+# Requires: uv (https://docs.astral.sh/uv/) and a .env with both API keys.
+UV      ?= uv
+PY      := $(UV) run python
+RUN_DIR ?= runs
+
+.PHONY: help setup demo eval test lint trace models report clean
+
+help:
+	@echo "make setup   - create venv + install deps (uv sync)"
+	@echo "make test    - unit tests (deterministic core; no API calls)"
+	@echo "make eval    - full pipeline over golden/ then score vs manifest -> eval_report.md"
+	@echo "make demo    - the 5-minute walkthrough (G11 auto-clear, G10 absence, G09 trap, report, trace)"
+	@echo "make trace   - pretty-print the latest run's trace.jsonl"
+	@echo "make report  - re-render run_report.html for the latest run"
+	@echo "make models  - list live model ids on both APIs (verify pins in config/models.yaml)"
+
+setup:
+	$(UV) sync --extra dev
+	@test -f .env || (cp .env.example .env && echo ">> wrote .env — fill in GOOGLE_API_KEY and ANTHROPIC_API_KEY")
+
+test:
+	$(UV) run pytest
+
+lint:
+	$(UV) run ruff check src tests
+
+eval:
+	$(PY) -m coherence_gate.cli eval --golden golden --out $(RUN_DIR)
+
+demo:
+	$(PY) -m coherence_gate.cli demo --golden golden --out $(RUN_DIR)
+
+trace:
+	$(PY) -m coherence_gate.cli trace --latest $(RUN_DIR)
+
+report:
+	$(PY) -m coherence_gate.cli report --latest $(RUN_DIR)
+
+models:
+	$(PY) scripts/list_models.py
+
+clean:
+	rm -rf $(RUN_DIR)/2* .pytest_cache .ruff_cache

@@ -1,0 +1,20 @@
+# secrets
+.env
+.env.*
+!.env.example
+# python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+# runs are generated; keep the one showcased run via runs/showcase (added explicitly)
+runs/*
+!runs/.gitkeep
+!runs/showcase/
+# editor / os
+.DS_Store
+.idea/
+.vscode/

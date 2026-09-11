@@ -1,0 +1,38 @@
+[project]
+name = "coherence-gate"
+version = "0.1.0"
+description = "Eval-gated agent that checks a structured-note term sheet against its booking record before a confirmation goes out wrong."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Sheldon Gomes", email = "sheldon.gomes@gmail.com" }]
+dependencies = [
+    "google-genai>=1.30",
+    "anthropic>=0.92",
+    "pydantic>=2.8",
+    "jinja2>=3.1",
+    "mcp>=1.10",
+    "python-dotenv>=1.0",
+    "pyyaml>=6.0",
+    "rich>=13.7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.2", "pytest-cov>=5.0", "ruff>=0.5"]
+
+[project.scripts]
+cg = "coherence_gate.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/coherence_gate"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
