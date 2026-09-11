@@ -103,3 +103,11 @@ def test_enum_strips_parentheticals_and_trailing_period():
     assert norm_enum("barrier_type", "American (continuous observation)", ("european", "american", "none")) == "american"
     assert norm_enum("barrier_type", "European (Final Valuation Date only)", ("european", "american", "none")) == "european"
     assert norm_enum("settlement", "Cash settlement.", ("cash", "physical")) == "cash"
+
+
+def test_json_array_inside_string_value_and_plain_decimals():
+    spec = S.spec("autocall_level_pct")
+    assert normalize_value(spec, '["100 per cent.", "95 per cent.", "90 per cent."]') == [Decimal(100), Decimal(95), Decimal(90)]
+    assert normalize_value(S.spec("underlyings"), '["SPX Index", "SX5E Index"]') == ["SPX", "SX5E"]
+    assert str(norm_decimal("70%")) == "70" and str(norm_decimal("10,000,000")) == "10000000"
+    assert str(norm_decimal("8.2500")) == "8.25" and str(norm_decimal("2.0625") * 4) == "8.2500"

@@ -16,6 +16,7 @@ Canonical forms:
 """
 from __future__ import annotations
 
+import json
 import re
 from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
@@ -101,14 +102,20 @@ def norm_decimal(v: Any) -> Decimal:
     d = _dec(m[1])
     if m[2]:
         d = d * _MULT[m[2]]
-    return d.normalize()
+    return _plain(d)
 
 
 def _dec(s: str) -> Decimal:
     try:
-        return Decimal(s).normalize()
+        return _plain(Decimal(s))
     except InvalidOperation as exc:
         raise NormalizeError(f"not a decimal: {s!r}") from exc
+
+
+def _plain(d: Decimal) -> Decimal:
+    """normalize() but never in exponent form: 70 not 7E+1, 8.25 not 8.2500."""
+    d = d.normalize()
+    return d.quantize(Decimal(1)) if d == d.to_integral() else d
 
 
 def norm_currency(v: Any) -> str:
@@ -158,9 +165,22 @@ def norm_bool(v: Any) -> bool:
     raise NormalizeError(f"not a boolean: {v!r}")
 
 
+def _unwrap_json_array(v: Any) -> Any:
+    """'["100%", "95%"]' (a JSON array written inside a string value) -> ["100%", "95%"]."""
+    if isinstance(v, str) and v.lstrip().startswith("[") and v.rstrip().endswith("]"):
+        try:
+            parsed = json.loads(v)
+            if isinstance(parsed, list):
+                return [str(x) for x in parsed]
+        except json.JSONDecodeError:
+            pass
+    return v
+
+
 def _as_list(v: Any, *, split_commas: bool = True) -> list:
     """Arrays pass through. A string splits on ';' '/' or newline; on ',' only when asked
     (dates like 'April 17, 2026' must not be split)."""
+    v = _unwrap_json_array(v)
     if isinstance(v, (list, tuple)):
         return list(v)
     if isinstance(v, str):
@@ -186,10 +206,11 @@ def normalize_value(spec: FieldSpec, value: Any, *, context: dict[str, Any] | No
                 if freq is None:
                     raise NormalizeError("coupon_rate_pct quoted per period but coupon_frequency unknown")
                 rate = rate * PERIODS_PER_YEAR[norm_enum("coupon_frequency", freq, tuple(PERIODS_PER_YEAR))]
-        return rate.normalize()
+        return _plain(rate)
     if t == "date":
         return norm_date(value)
     if t == "decimal":
+        value = _unwrap_json_array(value) if spec.name == "autocall_level_pct" else value
         if isinstance(value, list) or (spec.name == "autocall_level_pct" and isinstance(value, str)
                                        and len(_as_list(value)) > 1):
             return [norm_decimal(x) for x in _as_list(value)]  # step-down list; a 1-element list stays a list
