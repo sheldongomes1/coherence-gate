@@ -144,3 +144,49 @@ model-risk review).
 **Consequences:** A document that only writes dates numerically and ambiguously will always
 go to triage on those fields. That is the intended behaviour; the false-flag rate will show
 its cost if it happens in the golden set (it does not: all four layouts use unambiguous forms).
+
+## ADR-15: Extraction runs at medium effort on both families; high is a logged sweep
+
+**Date:** 2026-09-11
+**Status:** Accepted
+
+**Context:** Claude Opus 5 exposes `output_config.effort`; Gemini 3.8 Flash exposes a
+thinking level. Extraction is copy-and-cite, but G09 (per-period vs per-annum) and G10
+(deferred barrier level) reward care. Cost per document is a reported metric.
+
+**Decision:** Default `claude_effort: medium`, `gemini_thinking_level: medium`
+(`config/models.yaml`). After the first full eval, one rerun at high on both, logged in
+`eval_log.md` with both rates and cost, decides the shipped default.
+
+**Alternatives considered:** High from the start (best demo odds, tens of seconds per Opus
+call, no evidence the extra spend buys anything). Low (cheapest; likely over-flags, and the
+false-flag row would be the first place it shows).
+
+**Consequences:** The effort sweep is itself eval material: "here is what reasoning depth
+bought on this task, in catch rate, false flags and dollars."
+
+## ADR-16: One flat, union-free, string-typed output schema for both families
+
+**Date:** 2026-09-11
+**Status:** Accepted
+
+**Context:** The first Claude call failed with HTTP 400: the structured-output compiler
+limits a schema to 16 union-typed parameters; the Pydantic-derived schema had 60 (`anyOf`
+for nullable values and citations). Gemini accepted the union schema and scored 19/19 on G11.
+
+**Decision (amended same day after a second 400, "compiled grammar too large", on 20 nested
+per-field objects):** Both extractors are constrained with the same hand-built schema of
+three flat maps keyed by field, `status` / `value` / `citation`. Every value is a string "as
+written" (array of strings for list fields), "" stands for null. Zero unions, zero nested
+per-field objects. The per-field `note` is dropped from the extraction contract (triage is
+where explanation lives). The guard enforces the pairing invariants; the normalizer turns
+strings into canonical types. Output ceilings are per family because Gemini's cap includes
+thinking tokens (32k Gemini, 16k Claude).
+
+**Alternatives considered:** Keep unions for Gemini and strings for Claude (two contracts to
+version, and the asymmetry would confound the agreement rate). Fewer fields (schema is
+frozen). Turn off structured outputs on Claude and parse free JSON (loses the guarantee that
+every field is present).
+
+**Consequences:** Values "as written" are strings by nature, so the contract is more honest,
+not less. A one-element list for a stepping field stays a list; a flat level is a scalar.

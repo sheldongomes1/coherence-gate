@@ -89,3 +89,11 @@ def test_decimal_strips_period_words(raw, val):
             norm_decimal(raw)  # trailing clause is not a unit; the extractor should not return it
     else:
         assert norm_decimal(raw) == Decimal(val)
+
+
+def test_autocall_levels_string_forms():
+    spec = S.spec("autocall_level_pct")
+    assert normalize_value(spec, "100%") == Decimal(100)
+    assert normalize_value(spec, "100 per cent., 95 per cent., 90 per cent.") == [Decimal(100), Decimal(95), Decimal(90)]
+    assert normalize_value(spec, "100% / 95% / 90%") == [Decimal(100), Decimal(95), Decimal(90)]
+    assert normalize_value(S.spec("autocall_observation_dates"), ["April 17, 2027", "October 17, 2027"]) == ["2027-04-17", "2027-10-17"]

@@ -31,7 +31,8 @@ def build_context(golden: Path, out_dir: Path, *, stub: bool, config: Config | N
     else:
         from ..extract.claude import ClaudeExtractor  # S2
         from ..extract.gemini import GeminiExtractor  # S2
-        extractors = {Family.gemini: GeminiExtractor(config.gemini), Family.claude: ClaudeExtractor(config.claude)}
+        extractors = {Family.gemini: GeminiExtractor(config.gemini, config.extraction),
+                      Family.claude: ClaudeExtractor(config.claude, config.extraction)}
     if booking_transport == "mcp":
         from ..booking.mcp_client import McpBookingClient  # S1
         booking = McpBookingClient(golden / "bookings")

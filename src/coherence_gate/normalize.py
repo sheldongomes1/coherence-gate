@@ -154,11 +154,15 @@ def norm_bool(v: Any) -> bool:
     raise NormalizeError(f"not a boolean: {v!r}")
 
 
-def _as_list(v: Any) -> list:
+def _as_list(v: Any, *, split_commas: bool = True) -> list:
+    """Arrays pass through. A string splits on ';' '/' or newline; on ',' only when asked
+    (dates like 'April 17, 2026' must not be split)."""
     if isinstance(v, (list, tuple)):
         return list(v)
-    if isinstance(v, str) and ("," in v or ";" in v):
-        return [p.strip() for p in re.split(r"[;,]", v) if p.strip()]
+    if isinstance(v, str):
+        seps = r"[;/\n]|,\s*" if split_commas else r"[;/\n]"
+        parts = [p.strip() for p in re.split(seps, v) if p.strip()]
+        return parts if len(parts) > 1 else [v]
     return [v]
 
 
@@ -182,8 +186,9 @@ def normalize_value(spec: FieldSpec, value: Any, *, context: dict[str, Any] | No
     if t == "date":
         return norm_date(value)
     if t == "decimal":
-        if isinstance(value, list):                  # autocall_level_pct may be a list
-            return [norm_decimal(x) for x in value]
+        if isinstance(value, list) or (spec.name == "autocall_level_pct" and isinstance(value, str)
+                                       and len(_as_list(value)) > 1):
+            return [norm_decimal(x) for x in _as_list(value)]  # step-down list; a 1-element list stays a list
         return norm_decimal(value)
     if t == "iso4217":
         return norm_currency(value)
@@ -192,7 +197,7 @@ def normalize_value(spec: FieldSpec, value: Any, *, context: dict[str, Any] | No
     if t == "list[ticker]":
         return [norm_ticker(x) for x in _as_list(value)]
     if t == "list[date]":
-        return [norm_date(x) for x in _as_list(value)]
+        return [norm_date(x) for x in _as_list(value, split_commas=False)]
     if t == "enum":
         return norm_enum(spec.name, value, spec.enum or ())
     if t == "bool":

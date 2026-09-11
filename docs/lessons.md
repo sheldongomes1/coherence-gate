@@ -20,3 +20,17 @@
 - Lesson: the boundary between "value as written" and "canonical value" is where prompts leak decision logic. If the prompt has to say "strip the words per annum", the rule is in the wrong place.
 - Fix / rework: the decimal normalizer strips period words (per annum, p.a., per quarter, of the Initial Level); a trailing clause like ", payable semi-annually" still fails, by design.
 - Post angle: "Every rule I was tempted to put in the prompt became a unit test instead."
+
+## 2026-09-11 — "Structured output" has a grammar budget, and 20 nested objects blew it
+- Situation: first real Claude extraction call in S2.
+- What broke / what we assumed: HTTP 400 twice. First "too many union-typed parameters (60, limit 16)", then, with unions removed, "compiled grammar is too large". The schema was semantically fine; its *shape* (20 per-field objects × 4 properties) was the problem. Gemini accepted every variant.
+- Lesson: constrained decoding compiles your JSON schema into a grammar. Nesting and unions multiply grammar size; flat maps keyed by field name carry the same information at a fraction of the cost. Design the output shape for the compiler, not for the reader.
+- Fix / rework: three flat maps (status / value / citation), zero unions, same contract for both families (ADR-16). Probed four shapes with a 10-token document before touching the pipeline: 400s are free.
+- Post angle: "My extraction schema was rejected by a grammar compiler. The fix was a data-shape decision, not a prompt."
+
+## 2026-09-11 — Gemini's output cap includes its thinking
+- Situation: Gemini returned truncated JSON with finish reason MAX_TOKENS at an 8k ceiling.
+- What broke / what we assumed: `thoughts_token_count` was 7,678 of the 8,000; the JSON itself needed ~1.5k. The cap counts reasoning. Thinking volume also swung 3k→12k between identical calls.
+- Lesson: on Gemini 3.x, `max_output_tokens` is a budget for reasoning plus answer. Set it per family, bill thoughts as output (they are), and let the effort sweep show what the reasoning buys.
+- Fix / rework: 32k ceiling for Gemini, 16k for Claude, both in config; trace records thoughts in `output_tokens`.
+- Post angle: "The cheapest model call in my pipeline became the most expensive one, because thinking is output."

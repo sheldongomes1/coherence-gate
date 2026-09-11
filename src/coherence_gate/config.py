@@ -25,10 +25,21 @@ class ModelPin:
 
 
 @dataclass(frozen=True)
+class ExtractionSettings:
+    prompt_version: str = "extract_v1"
+    claude_effort: str = "medium"
+    gemini_thinking_level: str | None = "medium"
+    max_output_tokens_gemini: int = 32000
+    max_output_tokens_claude: int = 16000
+    temperature: float = 0.0
+
+
+@dataclass(frozen=True)
 class Config:
     gemini: ModelPin
     claude: ModelPin
     triage: ModelPin
+    extraction: ExtractionSettings = ExtractionSettings()
     root: Path = ROOT
 
     @property
@@ -55,4 +66,6 @@ def load_config(path: Path = MODELS_YAML) -> Config:
         gemini=_pin(raw["extractors"]["gemini"], "CG_MODEL_GEMINI"),
         claude=_pin(raw["extractors"]["claude"], "CG_MODEL_CLAUDE"),
         triage=_pin(raw["triage"], "CG_MODEL_TRIAGE"),
+        extraction=ExtractionSettings(**{k: v for k, v in (raw.get("extraction") or {}).items()
+                                         if k in ExtractionSettings.__dataclass_fields__}),
     )

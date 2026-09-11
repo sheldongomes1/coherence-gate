@@ -21,3 +21,10 @@ triage:
   model: claude-opus-5
   price_per_1m_input_usd: 5.00
   price_per_1m_output_usd: 25.00
+extraction:
+  prompt_version: extract_v1
+  claude_effort: medium          # ADR-15: medium first, sweep to high in a logged rerun
+  gemini_thinking_level: medium  # google-genai ThinkingConfig.thinking_level; null = provider default
+  max_output_tokens_gemini: 32000   # cap INCLUDES thinking tokens on Gemini 3.x; medium thinking used ~3-8k
+  max_output_tokens_claude: 16000   # includes adaptive-thinking tokens; non-streaming safe
+  temperature: 0
