@@ -124,5 +124,8 @@ code, model supplies only the verbatim span (ADR-3); merger compares normalized 
 | CS7c STALE | done | attested hashes in `summary.json`; `test_stale.py` |
 | CS4 Versa reference lane | done (code + fixtures) | `reference/`, ADR-23, G09/G14/G03 planted |
 | CS7b model-swap diff | done | `eval_diff.md` (medium vs low sweep), `make eval-diff` |
-| Release run on 15 docs, pdf source, reference lane | pending | chain running |
-| MODEL-RISK filled, showcase frozen, v0.2.0 tag | pending | after the release run |
+| CS8a OTel-shaped traces | done | `otel` span on every trace line (ADR-25); no exporter wired |
+| CS8b desk feedback capture | done | `cg feedback <doc>:<field> --verdict … --note …` → `feedback/feedback.jsonl`; desk-view marker |
+| CS8c feedback → proposals | done (code); one real cycle pending | `cg propose` → `proposals/<kind>/…md` with the PROPOSAL ONLY footer |
+| Release run on 15 docs, pdf source, reference lane | RC1 done (15/17, one Gemini output-cap event), RC2 running | `eval_log.md` |
+| MODEL-RISK filled, showcase frozen, v0.2.0 tag | pending | after RC2 + rehearsal |

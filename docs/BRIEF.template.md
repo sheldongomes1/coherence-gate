@@ -64,6 +64,14 @@ per-annum in the booking (resolved by deterministic normalization, not flagged),
 document that genuinely omits its barrier level (produces a critical `TS_ABSENT` finding,
 never a blank).
 
+**A booking-time gate, not an overnight batch:** `cg check` runs the whole pipeline on one
+document when the trade is born or amended, when catching it is cheapest; an attestation is
+bound to the document and booking hashes and expires the moment either is amended (STALE),
+so silence is earned continuously. A model deprecation is a rerun and a diff (`eval_diff.md`),
+not a quarter of rework. Feedback from the desk becomes proposed golden-set additions and
+judgment changes, human-approved, admitted through the same eval gate, visible in a diff; the
+model itself never learns silently.
+
 **Ingestion is measured, not assumed:** the same eval runs on the canonical text and on the
 parsed PDF; the difference is the parse tax and it is printed in the report.
 
@@ -85,8 +93,12 @@ as external replication of an index level, applied to extraction. Every model ca
 tolerances and the golden set are versioned, so a model deprecation is a rerun and a diff,
 not a quarter of rework. Both model families are first-class in Vertex Model Garden, the
 pipeline is a sequence of tool-shaped steps built on ADK patterns with books-and-records
-reached only through MCP, so the whole thing runs inside an existing Google Cloud governance
-posture unchanged.
+reached only through MCP, traces are OTel-shaped (on Agent Engine they land in Cloud Trace and
+Logging without re-instrumentation), and the parsing vendor sits behind one swappable
+interface, so the whole thing runs inside an existing Google Cloud governance posture
+unchanged. Marginal cost in the desk's units: about {cost} per document, {cost_book} for the
+demo book of {n_docs}; the document-coherence layer's marginal cost per additional strategy is
+effectively flat.
 
 ## Where this goes
 

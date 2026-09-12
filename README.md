@@ -34,6 +34,12 @@ make models                # list live model ids on both APIs (verify the pins i
 
 Do not run `make demo` and `make eval` at the same time on one set of API keys: the runs compete for the same rate limits and a slow Gemini call can time out, which the gate reports honestly as a wholesale extraction failure (ADR-18) but which makes a poor demo.
 
+**Feedback loop (CS8).** `uv run cg feedback G01:barrier_level_pct --verdict desk_rejected --note "…"`
+records a desk disposition (in production, a button on the desk-view row; the CLI stands in for it).
+`uv run cg propose` turns feedback into reviewable proposals under `proposals/`, each ending with
+"PROPOSAL ONLY". Nothing is applied by the system: a human applies a proposal in its own commit, runs
+`make eval`, and `make eval-diff` shows the effect. The model never learns.
+
 Other useful entry points: `uv run cg run golden/termsheets/G05.txt --triage` runs one
 document; `uv run cg eval --stub` runs the harness with no model calls (the Phase 0 state);
 `--booking direct` bypasses the MCP transport with the same interface.
@@ -139,6 +145,8 @@ Both families are first-class in Vertex Model Garden: Gemini through `google-gen
 `GOOGLE_GENAI_USE_VERTEXAI=true`, Claude through `AnthropicVertex`. The pipeline is a
 sequence of tool-shaped steps with the booking store behind MCP, so it wraps as an ADK agent
 on Agent Engine without redesign and runs under one existing Google Cloud governance
-surface. Traces are newline JSON, BigQuery-loadable as is.
+surface. Traces are newline JSON with an OpenTelemetry GenAI-shaped span on every line
+(`gen_ai.request.model`, token usage, tool spans), so on Agent Engine they land in Cloud Trace
+and Cloud Logging without re-instrumentation; export is not wired in this build.
 
 — Sheldon Gomes
