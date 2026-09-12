@@ -14,9 +14,9 @@ with an LLM-drafted desk query citing the clause and the booking field.
 catch rate on planted discrepancies and false-flag rate on clean fields, with its ceiling
 stated.
 
-> Status: **design complete, build in progress** (Phase 1, step S0). See
-> [`docs/DESIGN.md`](docs/DESIGN.md) for the phase plan and
-> [`eval_log.md`](eval_log.md) for the numbers as they move.
+> Status: **Phase 1 built end to end** (S0–S4). Numbers live in [`BRIEF.md`](BRIEF.md)
+> (generated from a run, never typed) and every iteration is in [`eval_log.md`](eval_log.md).
+> Phase plan and cut lines: [`docs/DESIGN.md`](docs/DESIGN.md).
 
 ## Quick start
 
@@ -24,13 +24,22 @@ stated.
 git clone https://github.com/sheldongomes1/coherence-gate && cd coherence-gate
 make setup                 # uv venv + deps; writes .env from .env.example
 # fill GOOGLE_API_KEY and ANTHROPIC_API_KEY in .env
-make test                  # deterministic core, no API calls
-make eval                  # 12 golden docs -> runs/<ts>/eval_report.md
-make demo                  # the 5-minute walkthrough
+make test                  # deterministic core: 50+ unit tests, no API calls, ~2 s
+make demo                  # the 5-minute walkthrough (3 documents, triage on, ~3 min, ~$0.40)
+make eval                  # all 12 golden docs -> runs/<ts>/eval_report.md (~10 min, ~$1.40)
 make trace                 # every model call of the latest run: model, version, tokens, latency, cost
+make report RUN=...        # re-render run_report.html; make brief RUN=runs/<ts> regenerates BRIEF.md
+make models                # list live model ids on both APIs (verify the pins in config/models.yaml)
 ```
 
-## The 5-minute demo
+Other useful entry points: `uv run cg run golden/termsheets/G05.txt --triage` runs one
+document; `uv run cg eval --stub` runs the harness with no model calls (the Phase 0 state);
+`--booking direct` bypasses the MCP transport with the same interface.
+
+## The 5-minute demo (`make demo`)
+
+Everything below is printed by the command; the HTML report and the trace are written to
+`runs/<ts>/`. A frozen copy of a real run is committed under `runs/showcase/`.
 
 1. **G11, a clean document** auto-clears: both extractors agree on every field, the
    comparator passes, no human touch, one trace line per step.
@@ -40,9 +49,20 @@ make trace                 # every model call of the latest run: model, version,
 3. **G09, "2.0625% per quarter (8.25% p.a.)"**: the two families may extract different raw
    numbers; `normalize.py` maps both to 8.25 per annum; no finding. Code decided, not a
    prompt.
-4. **`eval_report.md`**: catch rate, false-flag rate, cross-family agreement, auto-clear
-   correctness, cost per document, and the honest ceiling (n=12, directional).
-5. **`trace.jsonl`**: one full run, every model call traced.
+4. **`eval_report.md`** (`make eval`): catch rate on planted discrepancies, false-flag rate on
+   clean fields, cross-family agreement, auto-clear correctness, cost per document, and the
+   honest ceiling (n=12, directional). `eval_log.md` shows every iteration, including the
+   run that hung and the normalizer fixes.
+5. **`make trace`**: one full run, every model call with model id, provider-reported version,
+   tokens, latency and cost.
+
+## What the eval measures (and cannot)
+
+Mutation-testing framing: each planted discrepancy is a mutant, catch rate is kill rate.
+Nine planted findings, one must-not-flag trap (per-quarter vs per-annum coupon), two clean
+controls that measure over-flagging. Strict catch requires the right field *and* the right
+finding type; a field-only row is shown as a diagnostic. The eval only sees error classes it
+plants, on four synthetic layout families, with one prompt per family. n=12: directional.
 
 ## Architecture
 
@@ -74,17 +94,19 @@ booking store (JSON) ─► MCP tool booking_lookup(trade_id) ──────
 | [`docs/DESIGN.md`](docs/DESIGN.md) | phases 1–3, priorities, cut lines, timeline |
 | [`docs/HLD.md`](docs/HLD.md) | components, data flows, trust boundaries, autonomy model |
 | [`docs/LLD.md`](docs/LLD.md) | module contracts, normalization and tolerance tables, scoring formulas |
-| [`docs/DECISIONS.md`](docs/DECISIONS.md) | ADRs |
-| [`BRIEF.md`](BRIEF.md) | one page for the evaluator (results filled from the eval report) |
+| [`docs/DECISIONS.md`](docs/DECISIONS.md) | 17 ADRs, including the ones made at build checkpoints (schema shape, effort, triage context) |
+| [`docs/lessons.md`](docs/lessons.md) | what broke during the build and what it taught |
+| [`BRIEF.md`](BRIEF.md) | one page for the evaluator; results table generated from a run by `scripts/fill_brief.py` |
 | [`eval_log.md`](eval_log.md) | every prompt/schema/normalizer iteration and what it did to both rates |
 
 ## Layout
 
 ```
 schema/termsheet_v1.json     frozen schema, 20 fields, critical flags
-golden/                      12 term sheets, 12 bookings, 12 truth files, manifest.json
-prompts/                     extract_v1.md, triage_v1.md (versioned)
-config/models.yaml           pinned model ids and prices
+golden/                      12 term sheets, 12 bookings, 12 truth files, manifest.json (generated: scripts/gen_golden.py)
+prompts/                     extract_v1.md, triage_v1.md (versioned; a change = new file + eval_log line)
+config/models.yaml           pinned model ids, prices, effort settings, timeouts
+templates/                   run_report.html.j2
 src/coherence_gate/          normalize · merger · comparator · lanes · booking/ (MCP) · extract/ · triage/ · eval/ · report/
 tests/                       unit tests for the deterministic core, no network
 runs/                        one directory per run (git-ignored); runs/showcase is committed

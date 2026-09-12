@@ -46,3 +46,7 @@ clean:
 showcase:
 	@test -n "$(RUN)" || (echo "usage: make showcase RUN=runs/<ts>"; exit 1)
 	rm -rf runs/showcase && cp -r $(RUN) runs/showcase && echo "frozen $(RUN) -> runs/showcase"
+
+brief:
+	@test -n "$(RUN)" || (echo "usage: make brief RUN=runs/<ts>"; exit 1)
+	$(PY) scripts/fill_brief.py $(RUN)
