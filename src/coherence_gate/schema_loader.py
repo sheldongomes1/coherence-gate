@@ -6,7 +6,7 @@ schema both extractors are constrained with, and the list of comparison keys.
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -49,6 +49,7 @@ class Schema:
     product_type: str = "note"
     non_compared: frozenset[str] = NON_COMPARED
     relations: tuple[dict, ...] = ()   # deterministic cross-field rules (comparator.check_relations)
+    tolerances: dict = field(default_factory=dict)  # per-field declared tolerances (CS8c cycle); default none
 
     @property
     def names(self) -> list[str]:
@@ -91,7 +92,7 @@ def load_schema(path: Path = SCHEMA_PATH) -> Schema:
     )
     nc = frozenset(raw["non_compared"]) if "non_compared" in raw else NON_COMPARED
     return Schema(version=str(raw["version"]), fields=fields, product_type=raw.get("product_type", "note"),
-                  non_compared=nc, relations=tuple(raw.get("relations", [])))
+                  non_compared=nc, relations=tuple(raw.get("relations", [])), tolerances=dict(raw.get("tolerances", {})))
 
 
 @lru_cache(maxsize=1)

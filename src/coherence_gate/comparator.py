@@ -21,6 +21,26 @@ TOLERANCE_V1 = {"date": "exact", "decimal": "exact", "iso4217": "exact", "ticker
                 "enum": "exact", "bool": "exact", "list": "exact_ordered", "str": "exact"}
 
 
+def _within_tolerance(spec, ts_val: Any, bk_val: Any, schema: Schema) -> bool:
+    """Schema-declared per-field tolerance (v2 `tolerances` block), e.g.
+    {"autocall_observation_dates": {"type": "date_days", "days": 3}}. Absent -> exact only.
+    A tolerance is a versioned judgment artifact: it is applied in its own commit and re-measured."""
+    tol = (getattr(schema, "tolerances", None) or {}).get(spec.name)
+    if not tol or tol.get("type") != "date_days":
+        return False
+    from datetime import date
+    days = int(tol.get("days", 0))
+
+    def d(x):
+        return date.fromisoformat(str(x))
+    try:
+        if isinstance(ts_val, list) and isinstance(bk_val, list):
+            return len(ts_val) == len(bk_val) and all(abs((d(a) - d(b)).days) <= days for a, b in zip(ts_val, bk_val))
+        return abs((d(ts_val) - d(bk_val)).days) <= days
+    except (ValueError, TypeError):
+        return False
+
+
 def _fmt(v: Any) -> str:
     return "ABSENT" if v is None else str(v)
 
@@ -61,6 +81,9 @@ def compare(doc_id: str, merged: dict[str, MergedField], booking: BookingLookup,
                                     detail=f"term sheet has {_fmt(m.value)}; booking has no {key}"))
         elif values_equal(m.value, bk):
             findings.append(Finding(**base, type=FindingType.CLEAN, ts_value=m.value, booking_value=bk, detail="match"))
+        elif _within_tolerance(spec, m.value, bk, schema):
+            findings.append(Finding(**base, type=FindingType.CLEAN, ts_value=m.value, booking_value=bk,
+                                    detail=f"within declared tolerance {schema.tolerances[key]} (schema v{schema.version})"))
         else:
             findings.append(Finding(**base, type=FindingType.MISMATCH, ts_value=m.value, booking_value=bk,
                                     detail=f"TS {_fmt(m.value)} ≠ booking {_fmt(bk)}"))
