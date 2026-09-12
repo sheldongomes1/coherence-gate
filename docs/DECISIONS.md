@@ -215,3 +215,25 @@ validate per finding; the golden set has one finding per document anyway).
 the provenance the desk should see. A discrepancy explained by an unrelated clause elsewhere
 will not be noticed by triage; that is a Phase 2 item (give triage the guard-located
 neighbourhood of the field).
+
+## ADR-18: A wholesale extractor failure gets one code-written note, not N triage calls
+
+**Date:** 2026-09-11
+**Status:** Accepted
+
+**Context:** In the first `make demo`, Gemini timed out on G11 while a full eval was running
+concurrently. All 19 fields became `MALFORMED_EXTRACTION`, the document went to TRIAGE (correct),
+and the triage agent drafted 19 near-identical desk queries for one technical event ($0.32).
+
+**Decision:** If every field of one extractor is `Malformed` for the same reason (API error,
+timeout, refusal, non-JSON), the pipeline attaches a deterministic `TriageNote`
+("No desk action: extraction failed wholesale … rerun the gate") to each affected finding,
+writes a `SKIPPED_WHOLESALE_FAILURE` trace line, and makes no triage calls. Per-field
+malformations (one bad citation) still go to the model.
+
+**Alternatives considered:** One batched triage call for the group (still a model explaining
+a timeout). Retrying the extractor (retry-until-pass is banned in the eval path; SDK-level
+bounded retries already ran).
+
+**Consequences:** Technical failures are visible, cheap and honest: the document does not
+auto-clear, the desk is not spammed, and the trace says why.

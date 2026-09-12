@@ -41,3 +41,10 @@
 - Lesson: in an eval harness, an API call that can hang is worse than one that fails, because "still running" looks like progress. Every model call gets a hard timeout and a traced outcome; the SDK's own retries are bounded and visible in latency.
 - Fix / rework: `timeout_s: 240` in config, applied to both clients (google-genai in ms, anthropic in s with max_retries=2). The partial run is logged in eval_log.md as aborted, not hidden.
 - Post angle: "My eval didn't fail. It just never finished. That is the failure mode to design against."
+
+## 2026-09-11 — The demo's clean document went to triage, and that was the right answer
+- Situation: first `make demo` while a 12-document eval was running on the same API keys.
+- What broke / what we assumed: Gemini hit the new 240 s timeout on G11. Every field became MALFORMED, the document went to TRIAGE, and the triage agent wrote 19 polite desk queries about a read timeout.
+- Lesson: the gate did exactly what it promised (no crash, no invented values, no auto-clear on missing evidence). The waste was asking a model to explain a technical failure 19 times. Code knows the cause; code should write the note.
+- Fix / rework: ADR-18 short-circuit; never run demo and eval concurrently on one key (README note).
+- Post angle: "When my clean control failed to auto-clear, the system was right and my demo plan was wrong."

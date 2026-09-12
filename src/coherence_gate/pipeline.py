@@ -15,7 +15,7 @@ from .config import Config
 from .extract.base import Extractor
 from .schema_loader import Schema
 from .trace import Tracer
-from .types import Extraction, Family, FieldExtraction, Finding, Lane, NormalizedField, Status
+from .types import Extraction, Family, FieldExtraction, Finding, FindingType, Lane, Malformed, NormalizedField, Status, TriageNote
 
 
 @dataclass
@@ -44,6 +44,16 @@ class DocumentResult:
     cost_usd: float = 0.0
     out_dir: Path | None = None
     extras: dict = field(default_factory=dict)
+
+
+def _wholesale_failures(extractions: dict[Family, Extraction]) -> dict[Family, str]:
+    """Families whose EVERY field is Malformed with one shared reason (API error, timeout, refusal, non-JSON)."""
+    out: dict[Family, str] = {}
+    for fam, ext in extractions.items():
+        reasons = {v.reason for v in ext.fields.values() if isinstance(v, Malformed)}
+        if len(reasons) == 1 and all(isinstance(v, Malformed) for v in ext.fields.values()):
+            out[fam] = reasons.pop()
+    return out
 
 
 def _agreed_trade_id(norm: dict[Family, dict[str, NormalizedField]]) -> str | None:
@@ -82,9 +92,25 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None) -
     ctx.tracer.step(doc_id=doc_id, step="compare", outcome=doc_lane,
                     detail={t: sum(f.type == t for f in findings) for t in {f.type for f in findings}})
 
-    # 7. triage (model, only for TRIAGE findings; a clean document makes no further calls)
+    # 7. triage (model, only for TRIAGE findings; a clean document makes no further calls).
+    #    A wholesale extractor failure (timeout, API error, refusal, non-JSON) is a technical
+    #    event, not a documentary question: code writes ONE note for every affected field and
+    #    no model is asked to explain it (ADR-18).
+    wholesale = _wholesale_failures(extractions)
+    if wholesale:
+        reason = "; ".join(f"{fam}: {why}" for fam, why in wholesale.items())
+        for f in findings:
+            if f.type is FindingType.MALFORMED_EXTRACTION and f.lane is Lane.TRIAGE:
+                f.triage = TriageNote(classification="EXTRACTION_QUALITY",
+                                      desk_query=f"No desk action: extraction failed wholesale ({reason}). "
+                                                 "This is a technical failure, not a document/booking discrepancy. Rerun the gate.",
+                                      cited_clause="", booking_field=f.field,
+                                      booking_value="ABSENT" if f.booking_value is None else str(f.booking_value),
+                                      rationale="every field of one extractor failed for the same technical reason")
+        ctx.tracer.step(doc_id=doc_id, step="triage", outcome="SKIPPED_WHOLESALE_FAILURE", detail=reason)
     if ctx.triage is not None:
-        ctx.triage.triage(doc_id=doc_id, document=text, findings=[f for f in findings if f.lane is Lane.TRIAGE],
+        ctx.triage.triage(doc_id=doc_id, document=text,
+                          findings=[f for f in findings if f.lane is Lane.TRIAGE and f.triage is None],
                           booking=lookup, tracer=ctx.tracer)
 
     result = DocumentResult(doc_id=doc_id, sha256=sha, trade_id=tid,
