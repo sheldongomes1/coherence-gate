@@ -24,6 +24,7 @@
 <p class="sub">Models extract and explain; code decides. Every field is cited to its source span or explicitly declared absent. A field auto-clears only when both families agree <em>and</em> the comparator passes.</p>
 {% for d in docs %}
 <h2 id="{{ d.doc_id }}">{{ d.doc_id }} <span class="lane-{{ d.document_lane }}">{{ d.document_lane }}</span> <span class="sub mono">trade_id {{ d.trade_id }} · sha {{ d.sha256[:12] }} · ${{ '%.4f'|format(d.cost_usd) }} · booking via {{ d.booking_transport }}</span></h2>
+{% if d.source == 'pdf' and d.parse %}<div class="sub">Citations reference the parsed text ({{ d.parse.vendor }}{% if d.parse.mode %}, {{ d.parse.mode }}{% endif %}{% if d.parse.job_id %}, parse job {{ d.parse.job_id }}{% endif %}); markdown sha {{ (d.parse.markdown_sha256 or '')[:12] }}, source PDF sha {{ (d.parse.pdf_sha256 or '')[:12] }}. The PDF is upstream evidence; the parsed artifact is what the gate read.</div>{% else %}<div class="sub">Citations reference the canonical text file (source: txt).</div>{% endif %}
 <div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
 {% for f in d.findings %}
 <tr><td class="mono">{{ f.field }}</td><td class="t-{{ f.type }}">{{ f.type }}</td><td class="sev-{{ f.severity }}">{{ f.severity }}</td><td><span class="lane-{{ f.lane }}">{{ f.lane }}</span></td>

@@ -25,8 +25,17 @@ test:
 lint:
 	$(UV) run ruff check src tests
 
-eval:
-	$(PY) -m coherence_gate.cli eval --golden golden --out $(RUN_DIR)
+eval:            ## default source: parsed PDF (Mixedbread); parse artifacts cached in golden/parsed
+	$(PY) -m coherence_gate.cli eval --golden golden --out $(RUN_DIR) --source pdf
+
+eval-txt:        ## ablation baseline: canonical text, no parsing
+	$(PY) -m coherence_gate.cli eval --golden golden --out $(RUN_DIR) --source txt
+
+parse:           ## pre-parse every golden PDF (versioned artifacts in golden/parsed)
+	$(PY) -m coherence_gate.cli parse --golden golden
+
+ablation:        ## make ablation TXT=runs/<ts> PDF=runs/<ts>
+	$(PY) -m coherence_gate.cli ablation --txt-run $(TXT) --pdf-run $(PDF)
 
 demo:
 	$(PY) -m coherence_gate.cli demo --golden golden --out $(RUN_DIR)

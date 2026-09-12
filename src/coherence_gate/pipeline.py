@@ -28,6 +28,9 @@ class RunContext:
     booking: BookingClient
     extractors: dict[Family, Extractor]
     triage: Any | None = None  # TriageAgent (S3)
+    source: str = "txt"         # "pdf" -> parse stage; "txt" -> read the canonical .txt (ablation / fallback)
+    parser: Any | None = None   # ingest.Parser when source == "pdf"
+    parsed_dir: Path | None = None
 
 
 @dataclass
@@ -43,6 +46,8 @@ class DocumentResult:
     document_lane: Lane
     cost_usd: float = 0.0
     out_dir: Path | None = None
+    source: str = "txt"
+    parse_meta: dict | None = None
     extras: dict = field(default_factory=dict)
 
 
@@ -61,11 +66,36 @@ def _agreed_trade_id(norm: dict[Family, dict[str, NormalizedField]]) -> str | No
     return vals.pop() if len(vals) == 1 else None
 
 
-def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None) -> DocumentResult:
+def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
+                 pdf_path: Path | None = None) -> DocumentResult:
+    """`doc_path` is the canonical .txt; when ctx.source == "pdf", `pdf_path` is parsed and the
+    parsed markdown becomes the source text every citation anchors into (CS2 citation chain)."""
     doc_id = doc_path.stem
-    text = doc_path.read_text()
+    parse_meta = None
+    if ctx.source == "pdf":
+        from .ingest import parse_document
+        assert pdf_path is not None and ctx.parser is not None and ctx.parsed_dir is not None
+        with ctx.tracer.timed(doc_id=doc_id, step="parse") as u:
+            try:
+                res, cached = parse_document(doc_id, pdf_path, ctx.parser, ctx.parsed_dir)
+            except Exception as exc:  # noqa: BLE001 — a parse failure is an outcome; fall back to the .txt
+                u.outcome, u.detail = "PARSE_ERROR", f"{type(exc).__name__}: {str(exc)[:200]}"
+                res, cached = None, False
+            if res is not None:
+                u.outcome = "CACHED" if cached else "OK"
+                u.model_version = f"{res.meta.get('vendor')}:{res.meta.get('mode', '')}"
+                u.detail = {"vendor": res.meta.get("vendor"), "job_id": res.meta.get("job_id"),
+                            "parse_latency_ms": res.meta.get("latency_ms"), "cost_usd": res.meta.get("cost_usd"),
+                            "pdf_sha256": res.meta.get("pdf_sha256"), "markdown_sha256": res.meta.get("markdown_sha256")}
+        if res is not None:
+            text, parse_meta = res.markdown, res.meta
+        else:
+            text, parse_meta = doc_path.read_text(), {"vendor": "none", "fallback": "txt", "reason": "parse error"}
+    else:
+        text = doc_path.read_text()
     sha = hashlib.sha256(text.encode()).hexdigest()
-    ctx.tracer.step(doc_id=doc_id, step="load", outcome="OK", detail={"sha256": sha, "chars": len(text)})
+    ctx.tracer.step(doc_id=doc_id, step="load", outcome="OK",
+                    detail={"source": ctx.source, "sha256": sha, "chars": len(text)})
 
     # 1. dual-family extraction, concurrently (independent by design — neither sees the other)
     with ThreadPoolExecutor(max_workers=2) as pool:
@@ -118,7 +148,7 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None) -
                             normalized={str(k): v for k, v in norm.items()},
                             merged={k: m.model_dump() for k, m in merged.items()},
                             booking=lookup.model_dump(), findings=findings, document_lane=doc_lane,
-                            cost_usd=ctx.tracer.total_cost(doc_id))
+                            cost_usd=ctx.tracer.total_cost(doc_id), source=ctx.source, parse_meta=parse_meta)
     persist(result, ctx)
     return result
 
@@ -137,5 +167,6 @@ def persist(r: DocumentResult, ctx: RunContext) -> None:
     (d / "auto_clear.json").write_text(json.dumps(auto, indent=2, default=str))
     (d / "summary.json").write_text(json.dumps({
         "doc_id": r.doc_id, "sha256": r.sha256, "trade_id": r.trade_id, "document_lane": r.document_lane,
-        "cost_usd": r.cost_usd, "n_auto_clear": len(auto), "n_triage": len(r.findings) - len(auto)}, indent=2))
+        "cost_usd": r.cost_usd, "n_auto_clear": len(auto), "n_triage": len(r.findings) - len(auto),
+        "source": r.source, "parse": r.parse_meta}, indent=2, default=str))
     r.out_dir = d

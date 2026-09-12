@@ -17,6 +17,7 @@ dependencies = [
     "weasyprint>=70.0",
     "beautifulsoup4>=4.15.0",
     "pypdf>=6.18.1",
+    "mixedbread>=0.54.0",
 ]
 
 [project.optional-dependencies]

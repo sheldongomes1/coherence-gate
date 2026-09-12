@@ -55,3 +55,10 @@
 - Lesson: on n=12 one miss is the difference between 100% and 89%. The honest move is to ship the setting that caught everything, print the cheaper setting's numbers next to it, and say the sample is too small to know whether the miss is stable.
 - Fix / rework: ADR-19; the brief carries the trade-off sentence; the env knob makes the sweep reproducible in one command.
 - Post angle: "My cheapest config was 9× faster. I didn't ship it, and the reason is a table, not a feeling."
+
+## 2026-09-12 — Every network call that lacks a hard timeout will eventually prove it
+- Situation: pre-parsing the 12 golden PDFs with Mixedbread before the CS2 ablation.
+- What broke / what we assumed: eleven parses took 2–13 seconds; G10's took 3.6 hours. The SDK's `poll_timeout_ms` bounds the polling loop, not a single stalled HTTP request. Same failure class as the Gemini hang the day before, on a different vendor.
+- Lesson: the bound has to sit at the transport layer (per-request timeout + bounded retries), not at the application loop above it. Vendors differ in everything except this.
+- Fix / rework: `Mixedbread(timeout=60, max_retries=2)`; the parse step is traced with its own latency so a stall is visible in the run, not just in wall-clock.
+- Post angle: "Three vendors, one bug: the missing timeout. It is never the model that hangs; it is the socket."

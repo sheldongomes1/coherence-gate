@@ -60,6 +60,8 @@ class EvalResult:
     auto_clear_violations: list[dict] = field(default_factory=list)
     models: list[dict] = field(default_factory=list)
     stub: bool = False
+    source: str = "txt"
+    field_accuracy: dict[str, dict[str, bool]] = field(default_factory=dict)  # family -> "doc:field" -> correct
 
     def summary(self) -> dict[str, Any]:
         r = lambda x: {"hit": x.hit, "n": x.n}  # noqa: E731
@@ -69,7 +71,9 @@ class EvalResult:
                 "trap_resolved": r(self.trap_resolved), "auto_clear_correctness": r(self.auto_clear_correctness),
                 "agreement": r(self.agreement),
                 "extraction_accuracy": {k: r(v) for k, v in self.extraction_accuracy.items()},
-                "cost_total_usd": self.cost_total, "cost_per_doc_usd": self.cost_per_doc}
+                "cost_total_usd": self.cost_total, "cost_per_doc_usd": self.cost_per_doc,
+                "source": self.source, "field_accuracy": self.field_accuracy,
+                "planted_detail": self.planted_detail, "false_flag_detail": self.false_flag_detail}
 
 
 def _truth_equal(truth_val: Any, nf) -> bool:
@@ -130,12 +134,15 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
     # agreement + extraction accuracy
     agree = sum(1 for r in results.values() for m in r.merged.values() if m["agree"])
     acc: dict[str, int] = {str(Family.gemini): 0, str(Family.claude): 0}
+    field_acc: dict[str, dict[str, bool]] = {fam: {} for fam in acc}
     for d in docs:
         truth = json.loads((golden / d["truth"]).read_text())
         r = results[d["id"]]
         for fam in acc:
             for k in keys:
-                acc[fam] += _truth_equal(truth.get(k, "ABSENT"), r.normalized[fam][k])
+                ok = _truth_equal(truth.get(k, "ABSENT"), r.normalized[fam][k])
+                acc[fam] += ok
+                field_acc[fam][f"{d['id']}:{k}"] = bool(ok)
     n_fields = len(results) * len(keys)
 
     costs = [r.cost_usd for r in results.values()]
@@ -155,14 +162,15 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
         cost_total=total, cost_per_doc=round(total / max(len(costs), 1), 4),
         cost_min=round(min(costs, default=0), 4), cost_max=round(max(costs, default=0), 4),
         n_docs=len(results), planted_detail=planted_detail, false_flag_detail=ff_detail,
-        auto_clear_violations=violations, models=models,
+        auto_clear_violations=violations, models=models, source=ctx.source, field_accuracy=field_acc,
         stub=all(l.get("detail") and "stub" in str(l.get("detail")) for l in ctx.tracer.lines if l["step"].startswith("extract:")),
     )
 
 
 def render_markdown(ev: EvalResult) -> str:
     n_planted = ev.catch_strict.n
-    lines = [f"# eval_report.md — run {ev.run_id}" + (" (STUB PIPELINE — no model calls)" if ev.stub else ""), ""]
+    lines = [f"# eval_report.md — run {ev.run_id}" + (" (STUB PIPELINE — no model calls)" if ev.stub else "")
+             + f" — source: {ev.source}", ""]
     lines += ["## Results", "", "| metric | result | n |", "|---|---|---|"]
     for r in (ev.catch_strict, ev.catch_field_only, ev.false_flag_fields, ev.false_flag_docs, ev.trap_resolved,
               ev.auto_clear_correctness, ev.agreement, *ev.extraction_accuracy.values()):

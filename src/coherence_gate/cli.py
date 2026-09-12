@@ -21,7 +21,7 @@ def _latest(run_root: Path) -> Path:
 def cmd_eval(a: argparse.Namespace) -> int:
     from .eval.harness import run_eval
     ev = run_eval(Path(a.golden), Path(a.out), stub=a.stub, booking_transport=a.booking, with_triage=a.triage,
-                  only=a.only)
+                  only=a.only, source=a.source, parser_name=a.parser)
     console.print(f"[bold]run {ev.run_id}[/] → {ev.run_dir}/eval_report.md")
     t = Table("metric", "result")
     for r in (ev.catch_strict, ev.catch_field_only, ev.false_flag_fields, ev.false_flag_docs, ev.trap_resolved,
@@ -35,9 +35,13 @@ def cmd_eval(a: argparse.Namespace) -> int:
 def cmd_run(a: argparse.Namespace) -> int:
     from .eval.harness import build_context
     from .pipeline import run_document
-    ctx = build_context(Path(a.golden), Path(a.out), stub=a.stub, booking_transport=a.booking, with_triage=a.triage)
+    ctx = build_context(Path(a.golden), Path(a.out), stub=a.stub, booking_transport=a.booking, with_triage=a.triage,
+                        source=a.source, parser_name=a.parser)
     try:
-        r = run_document(Path(a.termsheet), ctx, trade_id=a.trade_id)
+        doc = Path(a.termsheet)
+        pdf = doc if doc.suffix.lower() == ".pdf" else None
+        txt = doc if doc.suffix.lower() == ".txt" else Path(a.golden) / "termsheets" / f"{doc.stem}.txt"
+        r = run_document(txt, ctx, trade_id=a.trade_id, pdf_path=pdf)
     finally:
         ctx.booking.close()
     console.print(f"[bold]{r.doc_id}[/] lane={r.document_lane} trade_id={r.trade_id} cost=${r.cost_usd:.4f} → {r.out_dir}")
@@ -58,6 +62,27 @@ def cmd_trace(a: argparse.Namespace) -> int:
                   str(l["output_tokens"]), str(l["latency_ms"]), f"{l['cost_usd']:.4f}", str(l["outcome"]))
     console.print(t)
     console.print(f"total cost ${sum(l['cost_usd'] for l in lines):.4f} over {len(lines)} steps")
+    return 0
+
+
+def cmd_parse(a: argparse.Namespace) -> int:
+    """Pre-parse every golden PDF into golden/parsed (versioned artifacts)."""
+    import json
+    from .ingest import get_parser, parse_document
+    golden = Path(a.golden); parser = get_parser(a.parser)
+    manifest = json.loads((golden / "manifest.json").read_text())
+    for e in manifest["documents"]:
+        if not e.get("pdf"):
+            continue
+        res, cached = parse_document(e["id"], golden / e["pdf"], parser, golden / "parsed")
+        console.print(f"{e['id']}: {'cached' if cached else 'parsed'} via {res.meta.get('vendor')} job={res.meta.get('job_id')} {res.meta.get('latency_ms')} ms, {len(res.markdown)} chars")
+    return 0
+
+
+def cmd_ablation(a: argparse.Namespace) -> int:
+    from .eval.ablation import render_parse_tax
+    out = render_parse_tax(Path(a.txt_run), Path(a.pdf_run))
+    console.print(f"wrote {out} (and appended to {Path(a.pdf_run) / 'eval_report.md'})")
     return 0
 
 
@@ -113,10 +138,14 @@ def main(argv: list[str] | None = None) -> int:
         sp.add_argument("--stub", action="store_true", help="no model calls (S0 checkpoint)")
         sp.add_argument("--booking", choices=["mcp", "direct"], default="direct")
         sp.add_argument("--triage", action="store_true", help="run the triage agent on TRIAGE findings")
+        sp.add_argument("--source", choices=["pdf", "txt"], default="pdf", help="pdf: parse stage + citations into parsed text; txt: canonical text (ablation/fallback)")
+        sp.add_argument("--parser", choices=["mixedbread", "local"], default="mixedbread")
 
     e = sub.add_parser("eval"); common(e); e.add_argument("--only", nargs="*"); e.set_defaults(fn=cmd_eval)
     r = sub.add_parser("run"); common(r); r.add_argument("termsheet"); r.add_argument("--trade-id"); r.set_defaults(fn=cmd_run)
     t = sub.add_parser("trace"); t.add_argument("--latest", nargs="?", const="runs"); t.add_argument("--run"); t.set_defaults(fn=cmd_trace)
+    pa = sub.add_parser("parse"); pa.add_argument("--golden", default="golden"); pa.add_argument("--parser", choices=["mixedbread", "local"], default="mixedbread"); pa.set_defaults(fn=cmd_parse)
+    ab = sub.add_parser("ablation"); ab.add_argument("--txt-run", required=True); ab.add_argument("--pdf-run", required=True); ab.set_defaults(fn=cmd_ablation)
     rp = sub.add_parser("report"); rp.add_argument("--latest", nargs="?", const="runs"); rp.add_argument("--run"); rp.set_defaults(fn=cmd_report)
     dm = sub.add_parser("demo"); common(dm); dm.set_defaults(fn=cmd_demo)
     a = p.parse_args(argv)

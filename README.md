@@ -32,6 +32,8 @@ make report RUN=...        # re-render run_report.html; make brief RUN=runs/<ts>
 make models                # list live model ids on both APIs (verify the pins in config/models.yaml)
 ```
 
+Do not run `make demo` and `make eval` at the same time on one set of API keys: the runs compete for the same rate limits and a slow Gemini call can time out, which the gate reports honestly as a wholesale extraction failure (ADR-18) but which makes a poor demo.
+
 Other useful entry points: `uv run cg run golden/termsheets/G05.txt --triage` runs one
 document; `uv run cg eval --stub` runs the harness with no model calls (the Phase 0 state);
 `--booking direct` bypasses the MCP transport with the same interface.
