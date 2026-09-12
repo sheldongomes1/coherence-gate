@@ -243,10 +243,23 @@
       "version": "2",
       "date": "2026-09-12",
       "note": "Added 7 index_* fields (Underlying Index section) shared with the option schema, so term-sheet claims about the underlying can be checked against the index methodology (reference lane) and the booking's underlying static data. v1 stays for the v0.1 record."
+    },
+    {
+      "version": "2",
+      "date": "2026-09-12",
+      "note": "CS8c cycle: applied proposal (3-day tolerance on autocall_observation_dates) in its own commit to measure it; see eval_diff.md and the follow-up commit for accept/hold."
     }
   ],
   "product_type": "note",
   "non_compared": [
     "coupon_rate_basis"
-  ]
+  ],
+  "tolerances": {
+    "autocall_observation_dates": {
+      "type": "date_days",
+      "days": 3,
+      "origin": "proposals/judgment_change/20260912-191532_G02_autocall_observation_dates_desk_rejected.md",
+      "note": "APPLIED FOR MEASUREMENT: desk says +1..3 day booking dates are business-day adjustments. The eval decides (CS8c cycle)."
+    }
+  }
 }
