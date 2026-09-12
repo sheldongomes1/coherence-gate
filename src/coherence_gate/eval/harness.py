@@ -77,4 +77,10 @@ def run_eval(golden: Path, out_dir: Path, *, stub: bool, booking_transport: str 
     ev = scoring.score(manifest, results, ctx, golden)
     (ctx.out_dir / "eval_report.md").write_text(scoring.render_markdown(ev))
     (ctx.out_dir / "summary.json").write_text(json.dumps(ev.summary(), indent=2))
+    try:  # the two pages are generated per run (CS5); a rendering error must not lose the eval
+        from ..report.desk_view import render as render_desk
+        from ..report.html import render as render_html
+        render_html(ctx.out_dir); render_desk(ctx.out_dir)
+    except Exception as exc:  # noqa: BLE001
+        ctx.tracer.step(doc_id="-", step="render", outcome="ERROR", detail=str(exc)[:200])
     return ev

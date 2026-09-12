@@ -1,0 +1,152 @@
+{
+  "SN-2026-0101": {
+    "doc_id": "G01",
+    "product_type": "note",
+    "underlying": "SPX",
+    "notional": "USD 5,000,000",
+    "maturity": "2029-04-23",
+    "delta_pct_notional": "-67%",
+    "vega_usd_per_vol_pt": "-2,500",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "SN-2026-0102": {
+    "doc_id": "G02",
+    "product_type": "note",
+    "underlying": "SX5E",
+    "notional": "EUR 3,000,000",
+    "maturity": "2028-05-19",
+    "delta_pct_notional": "-58%",
+    "vega_usd_per_vol_pt": "-1,200",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "SN-2026-0103": {
+    "doc_id": "G03",
+    "product_type": "note",
+    "underlying": "SPTSX60 / BVERSA10",
+    "notional": "CAD 8,000,000",
+    "maturity": "2029-03-12",
+    "delta_pct_notional": "-20%",
+    "vega_usd_per_vol_pt": "-3,200",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "SN-2026-0104": {
+    "doc_id": "G04",
+    "product_type": "note",
+    "underlying": "SPX / SX5E",
+    "notional": "USD 2,500,000",
+    "maturity": "2028-06-16",
+    "delta_pct_notional": "-47%",
+    "vega_usd_per_vol_pt": "-1,000",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "SN-2026-0105": {
+    "doc_id": "G05",
+    "product_type": "note",
+    "underlying": "SPX",
+    "notional": "USD 10,000,000",
+    "maturity": "2028-02-24",
+    "delta_pct_notional": "-68%",
+    "vega_usd_per_vol_pt": "-10,000",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "SN-2026-0106": {
+    "doc_id": "G06",
+    "product_type": "note",
+    "underlying": "SPTSX60",
+    "notional": "USD 4,000,000",
+    "maturity": "2029-07-16",
+    "delta_pct_notional": "-66%",
+    "vega_usd_per_vol_pt": "-3,200",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "SN-2026-0107": {
+    "doc_id": "G07",
+    "product_type": "note",
+    "underlying": "SX5E",
+    "notional": "EUR 6,000,000",
+    "maturity": "2029-01-29",
+    "delta_pct_notional": "-62%",
+    "vega_usd_per_vol_pt": "-6,000",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "SN-2026-0108": {
+    "doc_id": "G08",
+    "product_type": "note",
+    "underlying": "SX5E",
+    "notional": "USD 7,500,000",
+    "maturity": "2028-08-18",
+    "delta_pct_notional": "-34%",
+    "vega_usd_per_vol_pt": "-3,750",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "SN-2026-0109": {
+    "doc_id": "G09",
+    "product_type": "note",
+    "underlying": "BVERSA10",
+    "notional": "CAD 5,000,000",
+    "maturity": "2029-05-07",
+    "delta_pct_notional": "-56%",
+    "vega_usd_per_vol_pt": "-4,000",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "SN-2026-0110": {
+    "doc_id": "G10",
+    "product_type": "note",
+    "underlying": "SPX",
+    "notional": "USD 3,500,000",
+    "maturity": "2029-09-10",
+    "delta_pct_notional": "-63%",
+    "vega_usd_per_vol_pt": "-3,150",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "SN-2026-0111": {
+    "doc_id": "G11",
+    "product_type": "note",
+    "underlying": "SPX / SPTSX60",
+    "notional": "USD 4,500,000",
+    "maturity": "2028-06-02",
+    "delta_pct_notional": "-28%",
+    "vega_usd_per_vol_pt": "-2,700",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "SN-2026-0112": {
+    "doc_id": "G12",
+    "product_type": "note",
+    "underlying": "BVERSA10",
+    "notional": "USD 7,500,000",
+    "maturity": "2030-05-17",
+    "delta_pct_notional": "-41%",
+    "vega_usd_per_vol_pt": "-3,000",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "OP-2026-0114": {
+    "doc_id": "G13",
+    "product_type": "otc_option",
+    "underlying": "BVERSA10",
+    "notional": "USD 25,000,000",
+    "maturity": "2028-05-08",
+    "delta_pct_notional": "58%",
+    "vega_usd_per_vol_pt": "+25,000",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "OP-2026-0117": {
+    "doc_id": "G14",
+    "product_type": "otc_option",
+    "underlying": "BVERSA10",
+    "notional": "USD 40,000,000",
+    "maturity": "2027-06-15",
+    "delta_pct_notional": "71%",
+    "vega_usd_per_vol_pt": "+16,000",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  },
+  "OP-2026-0121": {
+    "doc_id": "G15",
+    "product_type": "otc_option",
+    "underlying": "BVERSA10",
+    "notional": "USD 25,000,000",
+    "maturity": "2028-07-20",
+    "delta_pct_notional": "45%",
+    "vega_usd_per_vol_pt": "+20,000",
+    "label": "indicative fixture \u2014 not computed by Coherence Gate"
+  }
+}

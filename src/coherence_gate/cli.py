@@ -87,10 +87,11 @@ def cmd_ablation(a: argparse.Namespace) -> int:
 
 
 def cmd_report(a: argparse.Namespace) -> int:
+    from .report.desk_view import render as render_desk
     from .report.html import render
     run = _latest(Path(a.latest)) if a.latest else Path(a.run)
-    out = render(run)
-    console.print(f"wrote {out}")
+    out = render(run); desk = render_desk(run)
+    console.print(f"wrote {out}\nwrote {desk}")
     return 0
 
 
@@ -122,9 +123,10 @@ def cmd_demo(a: argparse.Namespace) -> int:
                     console.print(f"[bold]desk query ({f.field}, {f.triage.classification}):[/] {f.triage.desk_query}")
     finally:
         ctx.booking.close()
-    out = render(ctx.out_dir)
+    from .report.desk_view import render as render_desk
+    out = render(ctx.out_dir); desk = render_desk(ctx.out_dir)
     console.rule()
-    console.print(f"report: {out}\ntrace:  {ctx.tracer.path}   (make trace)\neval:   run `make eval` for eval_report.md; history in eval_log.md")
+    console.print(f"desk view: {desk}\nreport:    {out}\ntrace:     {ctx.tracer.path}   (make trace)\neval:      run `make eval` for eval_report.md; history in eval_log.md")
     return 0
 
 

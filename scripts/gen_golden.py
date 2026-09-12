@@ -470,6 +470,23 @@ def main() -> None:
             entry["clean_control"] = True
         manifest["documents"].append(entry)
     (GOLDEN / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    # Desk-view fixtures: indicative risk figures for the demo book, deterministic per trade id,
+    # NOT computed by the gate and labelled as such on the page (V2-CHANGES CS5).
+    import hashlib as _h
+    fx = {}
+    for p in DOCS + OPTIONS:
+        seed = int(_h.sha256(p["trade_id"].encode()).hexdigest()[:8], 16)
+        is_opt = p.get("product") == "otc_option"
+        fx[p["trade_id"]] = {
+            "doc_id": p["id"], "product_type": "otc_option" if is_opt else "note",
+            "underlying": " / ".join(p["underlyings"]),
+            "notional": f"{p['currency']} {p['notional']:,}",
+            "maturity": p["expiration_date"] if is_opt else p["maturity_date"],
+            "delta_pct_notional": f"{(35 + seed % 45) if is_opt else -(20 + seed % 50)}%",
+            "vega_usd_per_vol_pt": f"{'+' if is_opt else '-'}{(p['notional'] * (0.0004 + (seed % 7) * 0.0001)):,.0f}",
+            "label": "indicative fixture — not computed by Coherence Gate",
+        }
+    (GOLDEN / "desk_fixtures.json").write_text(json.dumps(fx, indent=2) + "\n")
     alldocs = DOCS + OPTIONS
     words = [len((GOLDEN / "termsheets" / f"{p['id']}.txt").read_text().split()) for p in alldocs]
     print(f"wrote {len(alldocs)} docs (html+pdf+txt) -> {GOLDEN}; words min/max {min(words)}/{max(words)}; pages {pages}; "

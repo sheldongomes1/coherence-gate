@@ -313,3 +313,26 @@ evaluating relations only on the booking (misses a self-inconsistent term sheet)
 
 **Consequences:** The Underlying Index sub-schema is deferred to CS4 (reference lane) to keep
 CS3 focused. Golden set grows to 15 documents, 12 planted findings, 1 trap, 3 clean controls.
+
+## ADR-22: Desk-view trust states are derived from finding types by a fixed table; consequences state direction only
+
+**Date:** 2026-09-12
+**Status:** Accepted (v0.2 CS5)
+
+**Context:** The desk view is the front door: one row per position, one trust state, one line
+of consequence. Anything a model wrote here would be a second, unverified verdict.
+
+**Decision:** Trust state is computed from the run's typed findings: any `MISMATCH`,
+`TS_ABSENT`, `BOOKING_ABSENT` or `RELATION_VIOLATION` → MISMATCH (red); otherwise any
+`EXTRACTOR_DISAGREEMENT` or `MALFORMED_EXTRACTION` → DISAGREEMENT (amber); otherwise
+ATTESTED (green); STALE (grey) when the attested document or booking hash has moved (CS7c).
+The consequence line comes from a `(finding type, field) → template` table with `{ts}` and
+`{bk}` values, direction words computed by code (booked lower than documented → "under-hedged"),
+never a magnitude. Risk figures are labelled indicative fixtures. Rows sort red → stale →
+amber → green and link to the run report anchor.
+
+**Alternatives considered:** Letting the triage agent write the desk line (a model verdict
+on the front page); showing greeks computed by the system (out of scope, GOAL.md).
+
+**Consequences:** A new finding type or field needs a template row or falls back to the
+generic "{field} booked {bk} vs {ts} documented" line, which is honest but flat.
