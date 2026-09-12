@@ -91,9 +91,18 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
     book = (cfg.get("book") or {}).get("name", "Demo book")
     fx_path = ROOT / "golden" / "desk_fixtures.json"
     fixtures = json.loads(fx_path.read_text()) if fx_path.exists() else {}
+    fb_path = ROOT / "feedback" / "feedback.jsonl"
+    verdicts: dict[str, str] = {}
+    if fb_path.exists():
+        for l in fb_path.read_text().splitlines():
+            if l.strip():
+                r = json.loads(l); verdicts[r["finding_id"]] = r["verdict"]
     rows = []
     for d in data["docs"]:
         state, why = trust_state(d["findings"])
+        marks = sorted({verdicts[f"{d['doc_id']}:{f['field']}"] for f in d["findings"] if f"{d['doc_id']}:{f['field']}" in verdicts})
+        if marks:
+            why += " · desk verdict recorded: " + ", ".join(m.replace("desk_", "") for m in marks)
         stale = _stale_reason(run_dir, d, store_dir)
         if stale:
             state, why = "STALE", stale

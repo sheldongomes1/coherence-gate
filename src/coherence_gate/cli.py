@@ -139,6 +139,37 @@ def cmd_check(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_feedback(a: argparse.Namespace) -> int:
+    """CS8b: record a desk disposition on a finding. In production this is a button on the desk-view
+    row; the CLI stands in for it. Feedback never alters model or pipeline behaviour: it feeds
+    `cg propose`, whose output is human-reviewed and eval-gated (docs/V2-CHANGES.md CS8)."""
+    import json
+    from datetime import datetime, timezone
+    fb = Path(a.file); fb.parent.mkdir(parents=True, exist_ok=True)
+    if a.list or not a.finding_id:
+        rows = [json.loads(l) for l in fb.read_text().splitlines() if l.strip()] if fb.exists() else []
+        t = Table("ts", "run", "finding", "type", "verdict", "note", title=f"desk feedback ({len(rows)})")
+        for r in rows:
+            t.add_row(r["ts"][:16], r.get("run_id", ""), r["finding_id"], r.get("finding_type", ""), r["verdict"], (r.get("note") or "")[:60])
+        console.print(t)
+        return 0
+    run = Path(a.run) if a.run else _latest(Path("runs"))
+    doc_id, _, field = a.finding_id.partition(":")
+    fpath = run / doc_id / "findings.json"
+    if not fpath.exists():
+        sys.exit(f"no findings for {doc_id} in {run}")
+    f = next((x for x in json.loads(fpath.read_text()) if x["field"] == field), None)
+    if f is None:
+        sys.exit(f"finding {a.finding_id} not found in {run}")
+    row = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "run_id": run.name, "finding_id": a.finding_id,
+           "doc_id": doc_id, "field": field, "finding_type": f["type"], "severity": f["severity"], "verdict": a.verdict,
+           "note": a.note, "ts_value": f.get("ts_value"), "booking_value": f.get("booking_value"), "detail": f.get("detail")}
+    with fb.open("a") as fh:
+        fh.write(json.dumps(row, default=str) + "\n")
+    console.print(f"recorded {a.verdict} on {a.finding_id} ({f['type']}) → {fb}")
+    return 0
+
+
 def cmd_report(a: argparse.Namespace) -> int:
     from .report.desk_view import render as render_desk
     from .report.html import render
@@ -206,6 +237,11 @@ def main(argv: list[str] | None = None) -> int:
     ck.add_argument("--product", choices=["note", "otc_option"], help="override product detection")
     ck.add_argument("--no-triage", action="store_true"); ck.add_argument("--all", action="store_true", help="list CLEAN fields too")
     ck.add_argument("--parsed-dir", help="where parsed artifacts are cached (default golden/parsed)"); ck.set_defaults(fn=cmd_check)
+    fb = sub.add_parser("feedback", help="record a desk verdict on a finding (feeds cg propose; never changes behaviour)")
+    fb.add_argument("finding_id", nargs="?", help="<doc_id>:<field>, e.g. G01:barrier_level_pct")
+    fb.add_argument("--verdict", choices=["desk_accepted", "desk_rejected"]); fb.add_argument("--note", default="")
+    fb.add_argument("--run", help="run directory the finding came from (default: latest under runs/)")
+    fb.add_argument("--file", default="feedback/feedback.jsonl"); fb.add_argument("--list", action="store_true"); fb.set_defaults(fn=cmd_feedback)
     pa = sub.add_parser("parse"); pa.add_argument("--golden", default="golden"); pa.add_argument("--parser", choices=["mixedbread", "local"], default="mixedbread"); pa.set_defaults(fn=cmd_parse)
     ab = sub.add_parser("ablation"); ab.add_argument("--txt-run", required=True); ab.add_argument("--pdf-run", required=True); ab.set_defaults(fn=cmd_ablation)
     rp = sub.add_parser("report"); rp.add_argument("--latest", nargs="?", const="runs"); rp.add_argument("--run"); rp.set_defaults(fn=cmd_report)

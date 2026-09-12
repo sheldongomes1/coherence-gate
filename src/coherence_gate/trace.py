@@ -46,6 +46,13 @@ class Tracer:
             "prompt_tokens": prompt_tokens, "output_tokens": output_tokens,
             "latency_ms": latency_ms, "cost_usd": cost_usd,
             "outcome": outcome, "detail": detail,
+            # CS8a: OpenTelemetry-shaped span (GenAI semantic conventions where they apply). The flat
+            # keys above stay for the report readers; on Agent Engine these attributes land in
+            # Cloud Trace / Logging without re-instrumentation. Export is not wired (no auth on the
+            # critical path this weekend).
+            "otel": otel_span(step=step, run_id=self.run_id, doc_id=doc_id, model=model, model_version=model_version,
+                              prompt_tokens=prompt_tokens, output_tokens=output_tokens, latency_ms=latency_ms,
+                              cost_usd=cost_usd, outcome=outcome),
         }
         self.lines.append(line)
         with self.path.open("a") as fh:
@@ -72,6 +79,32 @@ class Tracer:
 
     def total_cost(self, doc_id: str | None = None) -> float:
         return round(sum(l["cost_usd"] for l in self.lines if doc_id is None or l["doc_id"] == doc_id), 6)
+
+
+_PROVIDER = {"gemini": "gcp.gemini", "claude": "anthropic"}
+
+
+def otel_span(*, step: str, run_id: str, doc_id: str, model: str | None, model_version: str | None,
+              prompt_tokens: int, output_tokens: int, latency_ms: int, cost_usd: float, outcome: str) -> dict:
+    """One span in the shape of the OTel GenAI semantic conventions (gen_ai.*) with tool spans
+    for parse / booking_lookup / compare-type steps. Names are the convention's; values are ours."""
+    kind, name, attrs = "INTERNAL", step, {}
+    if step.startswith("extract:") or step.startswith("triage"):
+        fam = step.split(":")[1] if ":" in step else "claude"
+        kind, name = "CLIENT", f"gen_ai.{'extract' if step.startswith('extract') else 'triage'}"
+        attrs = {"gen_ai.operation.name": "chat", "gen_ai.provider.name": _PROVIDER.get(fam, fam),
+                 "gen_ai.request.model": model, "gen_ai.response.model": model_version,
+                 "gen_ai.usage.input_tokens": prompt_tokens, "gen_ai.usage.output_tokens": output_tokens,
+                 "gen_ai.response.finish_reasons": [outcome]}
+    elif step in ("parse", "booking_lookup", "reference_load"):
+        kind, name = "CLIENT", f"gen_ai.tool.{step}"
+        attrs = {"gen_ai.operation.name": "execute_tool", "gen_ai.tool.name": step,
+                 "gen_ai.tool.type": "extension" if step == "booking_lookup" else "function"}
+    elif step in ("merge", "compare", "reference_check", "detect_product", "load", "config", "render"):
+        attrs = {"code.function": step}
+    attrs.update({"coherence_gate.run_id": run_id, "coherence_gate.doc_id": doc_id, "coherence_gate.outcome": outcome,
+                  "coherence_gate.cost_usd": cost_usd})
+    return {"name": name, "kind": kind, "duration_ms": latency_ms, "attributes": attrs}
 
 
 def read_trace(path: Path) -> list[dict]:

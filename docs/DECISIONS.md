@@ -392,3 +392,24 @@ the one-contract symmetry). Free JSON without a grammar (loses the every-field g
 
 **Consequences:** The smoke test on both products now precedes any full run (lesson learned
 at the cost of two wasted evals). Prompt v2 and reference_v1 describe the new shape.
+
+## ADR-25: OTel attributes are added to trace lines, not swapped in for the flat keys
+
+**Date:** 2026-09-12
+**Status:** Accepted (v0.2 CS8a)
+
+**Context:** CS8a asks for trace records in the shape of the OpenTelemetry GenAI semantic
+conventions. Three committed runs and every report reader consume the flat keys.
+
+**Decision:** Every trace line gains an `otel` object (`name`, `kind`, `duration_ms`,
+`attributes` with `gen_ai.request.model`, `gen_ai.response.model`,
+`gen_ai.usage.input_tokens/output_tokens`, `gen_ai.provider.name`, `gen_ai.operation.name`,
+tool spans for parse / booking lookup, `code.function` for deterministic steps, plus
+`coherence_gate.*` attributes for run id, doc id, outcome and cost). The flat keys stay. No
+exporter is wired; on Agent Engine the attributes map onto Cloud Trace without re-instrumentation.
+
+**Alternatives considered:** Renaming the flat keys (breaks the frozen showcase runs and every
+reader for a cosmetic gain). Wiring a real OTLP exporter (auth on the critical path, ruled
+out by the plan).
+
+**Consequences:** Trace lines are ~40% larger. `trace_view` is unchanged.

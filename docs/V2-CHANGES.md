@@ -317,3 +317,71 @@ BRIEF v2 additions from this change set (one sentence each):
 - deprecation is a diff, not a quarter (point to eval_diff.md);
 - attestation expires with amendment (STALE) — silence is earned
   continuously.
+
+────────────────────────────────────────────────────────────────────
+CHANGE SET 8 — Feedback loop + OTel-shaped traces (build LAST, only
+after CS1–CS7 checkpoints all pass; ~2–2.5 h total)
+────────────────────────────────────────────────────────────────────
+Framing rule for everything in this change set: THE MODEL NEVER LEARNS.
+Feedback improves the versioned judgment artifacts (golden set, tolerances,
+prompts, consequence templates) through human-approved, eval-gated changes.
+Any implementation where feedback silently alters model behavior or
+pipeline decisions violates SKILL.md Rule 6 and is wrong.
+
+8a. OTel-shaped traces (~30 min)
+- Restructure trace.jsonl records to follow OpenTelemetry GenAI semantic
+  conventions where they apply: span name per step, attributes for
+  model/version, input/output tokens, latency, cost; parse and MCP tool
+  calls as tool spans. Content unchanged — this is field naming/shape.
+- One line in BRIEF deployability: "traces are OTel-shaped; on Agent Engine
+  they land in Cloud Trace/Logging without re-instrumentation."
+- Do NOT wire actual GCP export this weekend; no auth on the critical path.
+CHECKPOINT: trace_view.py still renders; one sample span validates against
+the intended attribute names.
+FALLBACK: skip entirely; keep existing trace shape. Zero demo impact.
+
+8b. Desk feedback capture (~30 min)
+- `cg feedback <finding_id> --verdict desk_accepted|desk_rejected
+  [--note "..."]` appends one JSON line to feedback/feedback.jsonl
+  (finding id, doc id, field, finding type, verdict, note, timestamp,
+  run id). In production this is a button on the desk view row; the CLI
+  stands in for it honestly (say so in README).
+- desk_view rows may render a small "desk verdict recorded" marker when
+  feedback exists for a finding (cosmetic, optional).
+CHECKPOINT: two feedback entries recorded against real run findings and
+visible via a `cg feedback --list` (or plain cat).
+
+8c. `cg propose` — feedback → reviewable proposals (~1–1.5 h)
+- Reads feedback.jsonl + the referenced findings/runs. LLM (triage-context
+  containment rules apply: only the finding, its citations, the feedback
+  note) drafts artifacts into proposals/ — NEVER applies anything:
+  * golden-candidate/<id>.md — a rejected-finding class not represented in
+    the golden set: proposed document snippet/case + suggested label +
+    which metric it would exercise (usually false-flag);
+  * judgment-change/<id>.md — a proposed change to tolerance table, prompt,
+    or consequence template, with rationale citing the feedback entries and
+    a stated predicted effect ("should reduce false flags on date fields;
+    catch rate should not move");
+  * error-register/<id>.md — pattern entry when feedback shows a repeated
+    desk complaint with no proposed change yet.
+- Each proposal file ends with the fixed footer: "PROPOSAL ONLY — apply via
+  its own commit, rerun `make eval`, review the diff. Nothing in this file
+  has been applied."
+- Workflow demo (one real cycle for the package): reject one finding via
+  cg feedback -> cg propose -> human-review the proposal -> apply it in its
+  own commit -> rerun eval -> eval_diff.md shows the effect. That cycle,
+  committed, is the continuous-improvement story told in artifacts.
+CHECKPOINT: one full cycle exists in git history (feedback -> proposal ->
+applied commit -> eval rerun -> diff). Proposals directory contains at least
+one UNAPPLIED proposal too, proving the human gate is real.
+FALLBACK: ship 8b only; `cg propose` becomes a described roadmap line —
+the feedback log alone still tells the story's first half.
+
+BRIEF v2 addition (one sentence): "Feedback from the desk becomes proposed
+golden-set additions and judgment changes — human-approved, admitted through
+the same eval gate, visible in a diff; the model itself never learns
+silently."
+MODEL-RISK.md addition (section 5 Ongoing monitoring, one bullet): "Desk
+dispositions feed a proposal queue for golden-set and judgment changes;
+proposals are human-approved and eval-gated; no feedback path alters model
+or pipeline behavior directly."

@@ -78,6 +78,10 @@ by the extraction step. Models read and explain; code decides.
   trust is continuous, not one-shot.
 - Drift alarm: cross-family agreement rate trended; a sustained drop signals
   model or document-population drift before accuracy visibly degrades.
+- Desk dispositions feed a proposal queue for golden-set and judgment
+  changes; proposals are human-approved and admitted through the same eval
+  gate (see eval_diff.md); no feedback path alters model or pipeline
+  behavior directly.
 
 ## 6. Model change management
 
