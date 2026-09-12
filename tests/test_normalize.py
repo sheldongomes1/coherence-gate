@@ -111,3 +111,13 @@ def test_json_array_inside_string_value_and_plain_decimals():
     assert normalize_value(S.spec("underlyings"), '["SPX Index", "SX5E Index"]') == ["SPX", "SX5E"]
     assert str(norm_decimal("70%")) == "70" and str(norm_decimal("10,000,000")) == "10000000"
     assert str(norm_decimal("8.2500")) == "8.25" and str(norm_decimal("2.0625") * 4) == "8.2500"
+
+
+def test_verbose_enum_and_bool_forms_from_gemini():
+    assert norm_enum("barrier_type", "European observation", ("european", "american", "none")) == "european"
+    assert norm_enum("business_day_convention", "Modified Following Business Day Convention", ("following", "mod_following", "preceding")) == "mod_following"
+    assert norm_enum("business_day_convention", "Following Business Day Convention", ("following", "mod_following", "preceding")) == "following"
+    assert norm_enum("day_count", "Actual/360 day count basis", ("30/360", "ACT/360", "ACT/365")) == "ACT/360"
+    assert norm_bool("No memory feature") is False and norm_bool("Memory feature") is True
+    with pytest.raises(NormalizeError):
+        norm_bool("maybe")

@@ -146,6 +146,12 @@ def norm_enum(key: str, v: Any, allowed: tuple[str, ...]) -> str:
     s = re.sub(r"\(.*?\)", "", s).strip().rstrip(".").strip()
     if s in table:
         return table[s]
+    # verbose as-written forms: "European observation", "Modified Following Business Day Convention",
+    # "Actual/360 day count basis", "cash settlement"
+    s = re.sub(r"\b(observation|barrier|knock-in|business day convention|convention|day count( fraction| basis)?|settlement|basis)\b", "", s)
+    s = re.sub(r"\s+", " ", s).strip(" .,-")
+    if s in table:
+        return table[s]
     if s in {a.lower() for a in allowed}:
         return next(a for a in allowed if a.lower() == s)
     s2 = s.replace(" ", "_")
@@ -157,11 +163,16 @@ def norm_enum(key: str, v: Any, allowed: tuple[str, ...]) -> str:
 def norm_bool(v: Any) -> bool:
     if isinstance(v, bool):
         return v
-    s = str(v).strip().lower()
-    if s in {"true", "yes", "y", "1"}:
+    s = str(v).strip().lower().rstrip(".")
+    if s in {"true", "yes", "y", "1", "applicable"}:
         return True
-    if s in {"false", "no", "n", "0"}:
+    if s in {"false", "no", "n", "0", "not applicable", "n/a", "none"}:
         return False
+    # as-written clause fragments: "No memory feature" / "Memory feature" / "memory: yes"
+    if re.match(r"^(no|without|not)\b", s):
+        return False
+    if re.match(r"^(with|has|memory|yes)\b", s):
+        return True
     raise NormalizeError(f"not a boolean: {v!r}")
 
 
