@@ -18,6 +18,18 @@ _WS = re.compile(r"\s+")
 
 _TAG = re.compile(r"<[^>]+>")
 _SEP = re.compile(r"[\s|]+")
+_ENTITY = {"&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'", "&apos;": "'", "&nbsp;": " "}
+_TAG_OR_ENTITY = re.compile(r"<[^>]+>|&(?:amp|lt|gt|quot|#39|apos|nbsp);")
+
+
+def _clean_span(span: str) -> str:
+    """What the model may have pasted around the words: HTML tags, literal escape sequences
+    ("\\n", "\\t"), entities. None of it is evidence; the words are."""
+    span = _TAG.sub(" ", span)
+    span = span.replace("\\n", " ").replace("\\t", " ").replace("\\r", " ")
+    for ent, ch in _ENTITY.items():
+        span = span.replace(ent, ch)
+    return span
 
 
 def _view(document: str) -> tuple[str, list[int]]:
@@ -27,10 +39,10 @@ def _view(document: str) -> tuple[str, list[int]]:
     view offsets back to ORIGINAL offsets, so char_range always refers to the artifact on disk."""
     out, idx = [], []
     i = 0
-    for m in _TAG.finditer(document):
+    for m in _TAG_OR_ENTITY.finditer(document):
         for j in range(i, m.start()):
             out.append(" " if document[j] == "|" else document[j]); idx.append(j)
-        out.append(" "); idx.append(m.start())
+        out.append(_ENTITY.get(m.group(0), " ")); idx.append(m.start())
         i = m.end()
     for j in range(i, len(document)):
         out.append(" " if document[j] == "|" else document[j]); idx.append(j)
@@ -46,7 +58,7 @@ def locate(span: str, document: str) -> tuple[int, int] | None:
     i = document.find(span)
     if i >= 0:
         return (i, i + len(span))
-    parts = [re.escape(p) for p in _SEP.split(span.strip()) if p]
+    parts = [re.escape(p) for p in _SEP.split(_clean_span(span).strip()) if p]
     if not parts:
         return None
     pattern = re.compile(r"\s+".join(parts))

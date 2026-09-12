@@ -1,17 +1,17 @@
 {
   "vendor": "mixedbread",
-  "job_id": "f6ac8f3a-bf03-48ee-aea7-fd7db2048ac4",
-  "file_id": "c0a57ae6-b825-4eb3-87bd-af7369593c0b",
+  "job_id": "820581dd-2c5f-47be-8ac7-bcabd888cd02",
+  "file_id": "25b4002a-c4eb-4411-aa01-683867fe042f",
   "mode": "high_quality",
   "return_format": "markdown",
   "chunking": "page",
   "pages": 2,
-  "latency_ms": 6746,
+  "latency_ms": 6845,
   "cost_usd": null,
   "sdk_version": "0.54.0",
-  "parsed_at": "2026-09-12T08:00:07",
+  "parsed_at": "2026-09-12T11:56:17",
   "doc_id": "G02",
   "pdf": "golden/pdf/G02.pdf",
-  "pdf_sha256": "3db9708c0d4ce2891d40695f919a7b8f7d92fa6fb48bb8800405095752ff28f0",
+  "pdf_sha256": "e2181bd263a72dcfcc10e73620eb8cca0b4551cec2948b087e481cd9422198b6",
   "markdown_sha256": "2ec26a9bcba9c70c69240ddd6e1d35ac5102dd20ed4f5560332c622bcb7a6185"
 }

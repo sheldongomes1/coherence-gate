@@ -71,3 +71,11 @@ def test_locate_across_parsed_html_table_and_markdown_pipes():
     s2, e2 = locate("Trade Date | 2026-05-12", pipes)
     assert pipes[s2:e2] == "Trade Date | 2026-05-12"
     assert locate("Trade Date | 2026-05-13", md) is None               # a wrong value still fails
+
+
+def test_locate_tolerates_pasted_tags_escapes_and_entities():
+    md = "<tr>\n    <td>Underlying(s)</td>\n    <td>S&amp;P 500 Index (SPX)</td>\n  </tr>"
+    s, e = locate("<td>Underlying(s)</td>\\n    <td>S&P 500 Index (SPX)</td>", md)
+    assert md[s:e].startswith("Underlying(s)") and md[s:e].endswith("(SPX)")
+    s2, e2 = locate("S&P 500 Index (SPX)", md)
+    assert md[s2:e2] == "S&amp;P 500 Index (SPX)"
