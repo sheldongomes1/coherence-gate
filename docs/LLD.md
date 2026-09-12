@@ -329,3 +329,39 @@ runs/<YYYYMMDD-HHMMSS>/
   `tests/fixtures/` run through normalize→merge→compare and reproduce every manifest finding
   exactly, with zero extra findings.
 - `test_scoring.py`: metric arithmetic on a synthetic result.
+
+
+## 18. v0.2 module contracts (added 2026-09-12)
+
+- `ingest/parser.py`: `Parser.parse(pdf) -> ParseResult(markdown, meta)`; `MixedbreadParser`
+  (files.create → parsing.jobs.create(markdown, high_quality, page) → poll; `timeout=60,
+  max_retries=2`), `LocalParser` (pdftotext -layout). `parse_document(doc_id, pdf, parser,
+  cache_dir) -> (result, cached)` keyed by pdf sha256 + vendor; artifacts `golden/parsed/<id>.md`
+  + `.meta.json`. Trace step `parse` with outcome OK | CACHED | PARSE_ERROR (falls back to .txt).
+- `schema_loader`: `Schema.product_type / non_compared / relations / relation_keys`;
+  `load_products()`, `schema_for(pt)`, `all_schemas()`, `detect_product(text) -> (pt, how)`.
+  `schema/termsheet_v2.json` (27 fields, 26 compared), `option_v1.json` (28/28),
+  `index_methodology_v1.json` (14; `binding`, `claim`, `return_type_map`).
+- `comparator.check_relations(doc_id, merged, booking, schema)`: one finding per relation, key
+  `rel:<name>`, CLEAN with "not evaluable (…)" when inputs are missing.
+- `reference/lane.py`: `load_reference(ctx) -> ReferenceRules | None` (parse + dual extraction,
+  cached by (markdown sha, prompt sha, model) in `golden/reference/extraction_<family>.json`);
+  `check_reference(doc_id, merged, rules, schema) -> [Finding]` with keys `ref:<claim>`;
+  `rules_from_values()` for tests. Only documents with an Underlying Index section produce
+  reference findings.
+- `extract/schema_guard.locate`: exact → whitespace-insensitive → tag/pipe/entity-stripped view
+  with an offset map back to the artifact; spans are cleaned of pasted tags, "\\n" escapes and
+  entities before matching.
+- `pipeline.run_document(doc_path, ctx, trade_id, pdf_path, product_type)`: steps
+  `parse? → load → detect_product → extract×2 → merge → booking_lookup → compare (+relations,
+  +reference_check) → triage → persist`; `summary.json` carries `source`, `parse`,
+  `product_type`, `attested_hashes` (document sha, canonical booking sha).
+- `report/desk_view.py`: `trust_state(findings)`, `consequence(finding)`, `render(run_dir)`;
+  STALE when `attested_hashes` no longer match the current parsed text / booking store.
+- `cli`: `eval --source pdf|txt --parser --no-reference`, `parse`, `ablation`, `check <doc>
+  --trade --product --all --no-triage`, `report`, `demo`. Make: `golden parse eval eval-txt
+  ablation check eval-diff brief showcase`.
+- `eval/scoring`: per-document schema keys; `rel:*`/`ref:*` in the false-flag denominator when
+  present; `field_accuracy`, `by_product`, `reference_lane` in `summary.json`; report v2 order.
+- `eval/ablation.render_parse_tax(txt_run, pdf_run)` → `parse_tax.md` appended to the pdf run's
+  report. `scripts/eval_diff.py`, `scripts/fill_brief.py`, `scripts/fill_model_risk.py`.

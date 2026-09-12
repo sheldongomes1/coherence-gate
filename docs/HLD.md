@@ -157,3 +157,31 @@ keeps Phase 1 honest about "runs under an existing governance surface".
 | Model deprecation between now and the call | Pins in one file; `make models` lists live ids; rerun eval and diff (Rule 6) |
 | Cost surprise | Two calls per doc + ≤20 triage calls; printed per document in the report |
 | ChromeOS dev box memory (6 GB, no swap) | No parallelism beyond 2 concurrent model calls; runs are small |
+
+
+## 10. v0.2 additions (2026-09-12; docs/V2-CHANGES.md, ADR-20..23)
+
+```
+ document.pdf ──► parse(pdf) ─► parsed/<doc>.md (versioned, hashed) ─► [detect product: code]
+ (note | OTC option)  Mixedbread | local-fallback        │
+                                                         ├─► Extractor A / B (schema per product) ─► guard ─► normalize ─► merge
+ methodology.pdf ─► same parse ─► Extractor A / B (reference schema) ─► merge ─► ReferenceRules
+                                                         │                                   │
+ booking (MCP) ─────────────────────────────────────────► comparator + relations + reference check (code)
+                                                         │
+                                          findings (typed; rel:* and ref:* keys) ─► lanes ─► triage (LLM)
+                                                         │
+                       desk_view.html (trust states, STALE by hash) · run_report.html · eval_report.md (parse tax, sweep)
+```
+
+| Component | Kind | Decides? | Notes |
+|---|---|---|---|
+| `ingest/` | vendor ML behind one interface | no | canonical text = parsed markdown; citations anchor into it; artifacts hashed and cached |
+| `schema/products.json` + `detect_product` | code | product type | keyword detection; manifest may state it |
+| `comparator.check_relations` | code | cross-field arithmetic | `product_equals`; CLEAN states "not evaluable" rather than staying silent |
+| `reference/` | models extract the rulebook; code checks | rule vs claim | `binding: rule | default | deferred` (ADR-23); `ref:*` findings |
+| `report/desk_view.py` | code | trust state, consequence line | fixed tables (ADR-22); STALE from hashes (CS7c) |
+| `cli check` | orchestration | — | one document live, any booking edit; same pipeline |
+
+Trust boundaries unchanged: models never decide; the parse vendor is swappable; the reference
+lane can only flag `rule` bindings; a wholesale extractor failure short-circuits triage.
