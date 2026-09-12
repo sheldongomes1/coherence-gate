@@ -27,8 +27,9 @@ class GeminiExtractor:
         self.client = genai.Client(http_options=http) if os.environ.get("GOOGLE_GENAI_USE_VERTEXAI") else \
             genai.Client(api_key=os.environ["GOOGLE_API_KEY"], http_options=http)
 
-    def extract(self, document: str, *, doc_id: str, tracer: Tracer, schema: Schema) -> Extraction:
-        prompt = render_prompt(schema, document, self.settings.prompt_version)
+    def extract(self, document: str, *, doc_id: str, tracer: Tracer, schema: Schema,
+                prompt_version: str | None = None) -> Extraction:
+        prompt = render_prompt(schema, document, prompt_version or self.settings.prompt_version)
         cfg = gt.GenerateContentConfig(
             system_instruction=SYSTEM,
             response_mime_type="application/json",

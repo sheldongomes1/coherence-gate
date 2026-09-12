@@ -22,6 +22,7 @@ MEANING = {
     "BOOKING_ABSENT": "the term sheet states this field but the booking record has no value",
     "MALFORMED_EXTRACTION": "an extractor returned an invalid or uncitable value for this field",
     "RELATION_VIOLATION": "a deterministic cross-field arithmetic rule fails on the term sheet, the booking, or both (the detail shows the arithmetic)",
+    "REFERENCE_INCONSISTENT": "the term sheet's description of the underlying index contradicts the index methodology (the 'booking value' shown is the methodology's rule)",
 }
 TRIAGE_SCHEMA = {
     "type": "object", "additionalProperties": False,
@@ -50,6 +51,8 @@ class TriageAgent:
     def render(self, f: Finding) -> str:
         if f.field.startswith("rel:"):
             desc = "cross-field arithmetic relation (deterministic)"
+        elif f.field.startswith("ref:"):
+            desc = "term-sheet claim about the underlying index, checked against the index methodology"
         else:
             desc = next((sp.description for sc in self.schemas.values() for sp in sc.fields if sp.name == f.field), "")
         return _env().get_template(f"{PROMPT_VERSION}.md").render(

@@ -30,7 +30,8 @@ class Extractor(Protocol):
     family: Family
     pin: ModelPin
 
-    def extract(self, document: str, *, doc_id: str, tracer: Tracer, schema: Schema) -> Extraction: ...
+    def extract(self, document: str, *, doc_id: str, tracer: Tracer, schema: Schema,
+                prompt_version: str | None = None) -> Extraction: ...
 
 
 @lru_cache(maxsize=1)
@@ -98,7 +99,8 @@ class StubExtractor:
     def __init__(self, family: Family, pin: ModelPin) -> None:
         self.family, self.pin = family, pin
 
-    def extract(self, document: str, *, doc_id: str, tracer: Tracer, schema: Schema) -> Extraction:
+    def extract(self, document: str, *, doc_id: str, tracer: Tracer, schema: Schema,
+                prompt_version: str | None = None) -> Extraction:
         with tracer.timed(doc_id=doc_id, step=f"extract:{self.family}", pin=self.pin) as u:
             u.outcome = "API_ERROR"
             u.detail = "stub extractor: no model call made (S0)"

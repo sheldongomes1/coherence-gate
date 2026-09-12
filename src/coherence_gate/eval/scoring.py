@@ -75,6 +75,7 @@ class EvalResult:
                 "extraction_accuracy": {k: r(v) for k, v in self.extraction_accuracy.items()},
                 "cost_total_usd": self.cost_total, "cost_per_doc_usd": self.cost_per_doc,
                 "source": self.source, "field_accuracy": self.field_accuracy, "by_product": self.by_product,
+                "reference_lane": self.reference_lane,
                 "planted_detail": self.planted_detail, "false_flag_detail": self.false_flag_detail}
 
 
@@ -132,7 +133,8 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
     # false flags on clean fields
     ff_detail, n_clean = [], 0
     for doc in results:
-        for k in check_keys_of[doc]:
+        ref_keys = [f.field for f in results[doc].findings if f.field.startswith("ref:")]
+        for k in check_keys_of[doc] + ref_keys:
             if (doc, k) in excluded:
                 continue
             n_clean += 1
@@ -159,6 +161,19 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
                 field_acc[fam][f"{d['id']}:{k}"] = bool(ok)
     n_fields = sum(len(keys_of[d]) for d in results)
 
+    # reference lane (CS4): planted REFERENCE_INCONSISTENT caught; deferred/default fields never flagged
+    ref_planted = [(d_, f_, t_) for d_, f_, t_ in planted if t_ == "REFERENCE_INCONSISTENT"]
+    ref_caught = sum(1 for d_, f_, t_ in ref_planted if (x := by_doc[d_].get(f_)) and x.type == t_)
+    ref_findings = [f for r in results.values() for f in r.findings if f.field.startswith("ref:")]
+    ref_ran = any(l["step"] == "reference_check" for l in ctx.tracer.lines)
+    reference_lane = None
+    if ref_ran or ref_planted:
+        deferred_flags = sum(1 for f in ref_findings if f.type == FindingType.REFERENCE_INCONSISTENT and "deferred" in f.detail)
+        reference_lane = {"ran": ref_ran, "catch": f"{ref_caught}/{len(ref_planted)}", "checks": len(ref_findings),
+                          "flags": sum(1 for f in ref_findings if f.type == FindingType.REFERENCE_INCONSISTENT),
+                          "deferred_false_flags": deferred_flags,
+                          "not_evaluable": sum(1 for f in ref_findings if "not evaluable" in f.detail)}
+
     costs = [r.cost_usd for r in results.values()]
     total = round(sum(costs), 4)
     models = [{"family": p.family, "model": p.model, "pinned": p.pinned,
@@ -177,6 +192,7 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
         cost_min=round(min(costs, default=0), 4), cost_max=round(max(costs, default=0), 4),
         n_docs=len(results), planted_detail=planted_detail, false_flag_detail=ff_detail,
         auto_clear_violations=violations, models=models, source=ctx.source, field_accuracy=field_acc, by_product=by_product,
+        reference_lane=reference_lane,
         stub=all(l.get("detail") and "stub" in str(l.get("detail")) for l in ctx.tracer.lines if l["step"].startswith("extract:")),
     )
 
@@ -252,7 +268,15 @@ def render_markdown(ev: EvalResult) -> str:
     lines += ["## 5. Reference lane (term sheet claims vs the Bloomberg Versa methodology)", ""]
     if ev.reference_lane:
         rl = ev.reference_lane
-        lines += [f"| planted reference incoherences caught | {rl.get('catch')} | deferred-parameter false flags | {rl.get('deferred_false_flags')} |", ""]
+        lines += ["| metric | result |", "|---|---|",
+                  f"| lane ran (methodology parsed + extracted by both families, merged by code) | {'yes' if rl['ran'] else 'NO — planted reference cases scored as misses'} |",
+                  f"| planted reference incoherences caught (right field, type REFERENCE_INCONSISTENT) | {rl['catch']} |",
+                  f"| reference checks performed (documents with an Underlying Index section × mapped rules) | {rl['checks']} |",
+                  f"| reference flags raised | {rl['flags']} |",
+                  f"| flags on parameters the methodology defers or merely defaults (must be 0) | {GREEN if rl['deferred_false_flags'] == 0 else RED} {rl['deferred_false_flags']} |",
+                  f"| checks not evaluable (families disagreed on the rule or the claim) | {rl['not_evaluable']} |", "",
+                  "A parameter the methodology defers to the index-specific document (e.g. Volatility Target) is reported as "
+                  "`deferred`, never as a flag; the term sheet's value is checked against the booking's static data instead.", ""]
     else:
         lines += ["Not run in this release: the reference lane is Change Set 4 (docs/V2-CHANGES.md) and is reported here when built.", ""]
     # 6. sweep

@@ -82,11 +82,14 @@ def test_lists_from_strings():
 
 
 @pytest.mark.parametrize("raw,val", [("7.5% per annum", "7.5"), ("8.25% p.a.", "8.25"), ("2.0625% per quarter", "2.0625"),
-                                     ("65% of the Initial Level", "65"), ("9.00% per annum, payable semi-annually", None)])
+                                     ("65% of the Initial Level", "65"), ("9.00% per annum, payable semi-annually", "9"),
+                                     ("0.50% per annum, deducted daily from the Index Value", "0.5"),
+                                     ("0.02% on changes in Underlying Index units, as provided in the Index Methodology", "0.02"),
+                                     ("10% decline in the Underlying does not translate into a 10% decline", None)])
 def test_decimal_strips_period_words(raw, val):
     if val is None:
         with pytest.raises(NormalizeError):
-            norm_decimal(raw)  # trailing clause is not a unit; the extractor should not return it
+            norm_decimal(raw)  # a second number in the descriptor makes the value ambiguous: refuse
     else:
         assert norm_decimal(raw) == Decimal(val)
 

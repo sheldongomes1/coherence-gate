@@ -22,7 +22,7 @@ triage:
   price_per_1m_input_usd: 5.00
   price_per_1m_output_usd: 25.00
 extraction:
-  prompt_version: extract_v1
+  prompt_version: extract_v2      # v2 = v1 wording generalised to any trade document + index_* fields (CS4)
   claude_effort: medium          # ADR-15: medium first, sweep to high in a logged rerun
   gemini_thinking_level: medium  # google-genai ThinkingConfig.thinking_level; null = provider default
   max_output_tokens_gemini: 32000   # cap INCLUDES thinking tokens on Gemini 3.x; medium thinking used ~3-8k

@@ -18,7 +18,7 @@ from . import scoring
 
 def build_context(golden: Path, out_dir: Path, *, stub: bool, config: Config | None = None,
                   booking_transport: str = "direct", with_triage: bool = False,
-                  source: str = "txt", parser_name: str = "mixedbread") -> RunContext:
+                  source: str = "txt", parser_name: str = "mixedbread", reference: bool = False) -> RunContext:
     config = config or load_config()
     run_id = datetime.now().strftime("%Y%m%d-%H%M%S")
     run_dir = out_dir / run_id
@@ -28,7 +28,7 @@ def build_context(golden: Path, out_dir: Path, *, stub: bool, config: Config | N
     tracer.step(doc_id="-", step="config", outcome="OK", detail={
         "models": {p.family: p.model for p in config.pins}, "extraction": asdict(config.extraction),
         "prompt_sha": prompt_sha(config.extraction.prompt_version), "stub": stub, "booking_transport": booking_transport,
-        "source": source, "parser": parser_name if source == "pdf" else None})
+        "source": source, "parser": parser_name if source == "pdf" else None, "reference_lane": reference})
     for pin in config.pins:
         if not pin.pinned:
             tracer.step(doc_id="-", step="config", outcome="UNPINNED_MODEL", model=pin.model)
@@ -50,20 +50,26 @@ def build_context(golden: Path, out_dir: Path, *, stub: bool, config: Config | N
         from ..triage.agent import TriageAgent  # S3
         triage = TriageAgent(config.triage, effort=config.extraction.claude_effort)
     parser = None
-    if source == "pdf":
+    if source == "pdf" or reference:
         from ..ingest import get_parser
         parser = get_parser(parser_name)
-    return RunContext(run_id=run_id, out_dir=run_dir, config=config, tracer=tracer, schema=load_schema(),
-                      booking=booking, extractors=extractors, triage=triage,
-                      source=source, parser=parser, parsed_dir=golden / "parsed")
+    ctx = RunContext(run_id=run_id, out_dir=run_dir, config=config, tracer=tracer, schema=load_schema(),
+                     booking=booking, extractors=extractors, triage=triage,
+                     source=source, parser=parser, parsed_dir=golden / "parsed")
+    if reference and not stub:
+        from ..reference import load_reference
+        ctx.reference = load_reference(ctx)
+    return ctx
 
 
 def run_eval(golden: Path, out_dir: Path, *, stub: bool, booking_transport: str = "direct",
              with_triage: bool = False, only: list[str] | None = None,
-             source: str = "txt", parser_name: str = "mixedbread") -> scoring.EvalResult:
+             source: str = "txt", parser_name: str = "mixedbread", reference: bool | None = None) -> scoring.EvalResult:
     manifest = json.loads((golden / "manifest.json").read_text())
+    if reference is None:
+        reference = "reference" in manifest
     ctx = build_context(golden, out_dir, stub=stub, booking_transport=booking_transport, with_triage=with_triage,
-                        source=source, parser_name=parser_name)
+                        source=source, parser_name=parser_name, reference=reference)
     results: dict[str, DocumentResult] = {}
     try:
         for entry in manifest["documents"]:

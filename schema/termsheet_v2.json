@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "coherence-gate/termsheet/v2",
+  "title": "Structured-note term sheet extraction schema, v2 (v0.2 CS4: + Underlying Index sub-schema)",
+  "description": "Every field is extracted WITH a citation or explicitly DECLARED_ABSENT. `critical` drives finding severity. Normalization rules live in normalize.py, never here and never in a prompt.",
+  "version": "2",
+  "fields": [
+    {
+      "name": "trade_id",
+      "type": "str",
+      "critical": true,
+      "description": "Desk/booking trade identifier as printed on the term sheet (e.g. 'SN-2026-0417')."
+    },
+    {
+      "name": "issuer",
+      "type": "str",
+      "critical": true,
+      "description": "Legal issuer name."
+    },
+    {
+      "name": "notional",
+      "type": "decimal",
+      "critical": true,
+      "description": "Aggregate principal amount, numeric. '10,000,000' -> 10000000; 'USD 10mm' -> 10000000."
+    },
+    {
+      "name": "currency",
+      "type": "iso4217",
+      "critical": true,
+      "description": "Three-letter ISO-4217 code of the notional."
+    },
+    {
+      "name": "trade_date",
+      "type": "date",
+      "critical": true,
+      "description": "Trade / pricing date, ISO-8601."
+    },
+    {
+      "name": "issue_date",
+      "type": "date",
+      "critical": false,
+      "description": "Issue / settlement date of the note, ISO-8601."
+    },
+    {
+      "name": "maturity_date",
+      "type": "date",
+      "critical": true,
+      "description": "Scheduled maturity / final redemption date, ISO-8601."
+    },
+    {
+      "name": "underlyings",
+      "type": "list[ticker]",
+      "critical": true,
+      "description": "Bloomberg tickers of the underlying(s), e.g. ['SX5E', 'SPX']. Order as listed in the document."
+    },
+    {
+      "name": "initial_level_pct",
+      "type": "decimal",
+      "critical": true,
+      "description": "Initial reference level as percent of spot on the strike date. Almost always 100."
+    },
+    {
+      "name": "barrier_type",
+      "type": "enum",
+      "critical": true,
+      "enum": [
+        "european",
+        "american",
+        "none"
+      ],
+      "description": "Knock-in barrier observation style. 'observed at maturity only' -> european; 'continuously observed' -> american."
+    },
+    {
+      "name": "barrier_level_pct",
+      "type": "decimal|absent",
+      "critical": true,
+      "description": "Knock-in barrier as percent of initial level. If the document has no barrier level, DECLARE ABSENT \u2014 never guess."
+    },
+    {
+      "name": "coupon_rate_pct",
+      "type": "decimal",
+      "critical": true,
+      "description": "Coupon rate AS WRITTEN in the document, with the period it is quoted for captured in coupon_rate_basis. Normalization to per-annum is done in code."
+    },
+    {
+      "name": "coupon_rate_basis",
+      "type": "enum",
+      "critical": true,
+      "enum": [
+        "per_annum",
+        "per_period"
+      ],
+      "description": "Whether coupon_rate_pct is quoted per annum or per coupon period. Companion to coupon_rate_pct; not compared to booking directly."
+    },
+    {
+      "name": "coupon_frequency",
+      "type": "enum",
+      "critical": true,
+      "enum": [
+        "monthly",
+        "quarterly",
+        "semiannual",
+        "annual"
+      ],
+      "description": "Coupon payment frequency."
+    },
+    {
+      "name": "coupon_memory",
+      "type": "bool",
+      "critical": true,
+      "description": "True if missed coupons are recoverable at a later observation (memory / snowball / catch-up clause)."
+    },
+    {
+      "name": "autocall_observation_dates",
+      "type": "list[date]|absent",
+      "critical": false,
+      "description": "Scheduled autocall observation dates, ISO-8601, in order. Absent if the note is not autocallable."
+    },
+    {
+      "name": "autocall_level_pct",
+      "type": "decimal|list[decimal]|absent",
+      "critical": false,
+      "description": "Autocall trigger level(s) as percent of initial. A single number if flat; a list aligned to observation dates if stepping."
+    },
+    {
+      "name": "day_count",
+      "type": "enum",
+      "critical": true,
+      "enum": [
+        "30/360",
+        "ACT/360",
+        "ACT/365"
+      ],
+      "description": "Day count fraction convention for coupon accrual."
+    },
+    {
+      "name": "settlement",
+      "type": "enum",
+      "critical": false,
+      "enum": [
+        "cash",
+        "physical"
+      ],
+      "description": "Settlement method at maturity."
+    },
+    {
+      "name": "business_day_convention",
+      "type": "enum",
+      "critical": false,
+      "enum": [
+        "following",
+        "mod_following",
+        "preceding"
+      ],
+      "description": "Business day adjustment convention."
+    },
+    {
+      "name": "index_administrator",
+      "type": "str|absent",
+      "critical": false,
+      "description": "Administrator of the underlying index as named in the document's Underlying Index section (e.g. 'Bloomberg Index Services Limited'). ABSENT if the document has no such section."
+    },
+    {
+      "name": "index_return_type",
+      "type": "enum|absent",
+      "critical": true,
+      "enum": [
+        "type_i",
+        "type_ii",
+        "type_iii",
+        "type_iv"
+      ],
+      "description": "The methodology return type cited for the underlying index ('Type I under the Index Methodology' -> type_i). ABSENT if not stated."
+    },
+    {
+      "name": "index_return_treatment",
+      "type": "enum|absent",
+      "critical": true,
+      "enum": [
+        "excess_return",
+        "total_return"
+      ],
+      "description": "Return treatment stated for the underlying index: 'Excess Return' or 'Total Return'. ABSENT if not stated."
+    },
+    {
+      "name": "index_vol_target_pct",
+      "type": "decimal|absent",
+      "critical": true,
+      "description": "Volatility Target of the underlying index in percent per annum, as stated. ABSENT if not stated."
+    },
+    {
+      "name": "index_rebalance_frequency",
+      "type": "enum|absent",
+      "critical": true,
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "quarterly"
+      ],
+      "description": "Rebalancing cadence stated for the underlying index ('Each Index Business Day' -> daily). ABSENT if not stated."
+    },
+    {
+      "name": "index_deduction_factor_pct",
+      "type": "decimal|absent",
+      "critical": false,
+      "description": "Deduction Factor in percent per annum, as stated. ABSENT if not stated."
+    },
+    {
+      "name": "index_transaction_cost_rate_pct",
+      "type": "decimal|absent",
+      "critical": false,
+      "description": "Transaction Cost Rate in percent, as stated. ABSENT if not stated."
+    }
+  ],
+  "extraction_output": {
+    "per_field": {
+      "status": "EXTRACTED | DECLARED_ABSENT",
+      "value": "typed per field; null iff DECLARED_ABSENT",
+      "citation": {
+        "text_span": "verbatim substring of the source document",
+        "char_range": [
+          0,
+          0
+        ]
+      },
+      "note": "optional free text from the extractor (never used by the comparator)"
+    },
+    "invariants": [
+      "Every schema field appears exactly once.",
+      "status == EXTRACTED  => value is non-null AND citation.text_span is a verbatim substring of the document.",
+      "status == DECLARED_ABSENT => value is null AND citation is null.",
+      "A field that is missing from the output, or has null value with status EXTRACTED, is a MALFORMED_EXTRACTION finding \u2014 never a blank."
+    ]
+  },
+  "history": [
+    {
+      "version": "1",
+      "date": "2026-09-11",
+      "note": "Initial freeze. Added coupon_rate_basis (not in INSTRUCTIONS table) so the G09 per-quarter/per-annum trap is resolved in normalize.py from an extracted fact, not from prompt-side arithmetic."
+    },
+    {
+      "version": "2",
+      "date": "2026-09-12",
+      "note": "Added 7 index_* fields (Underlying Index section) shared with the option schema, so term-sheet claims about the underlying can be checked against the index methodology (reference lane) and the booking's underlying static data. v1 stays for the v0.1 record."
+    }
+  ],
+  "product_type": "note",
+  "non_compared": [
+    "coupon_rate_basis"
+  ]
+}

@@ -42,6 +42,11 @@ VERSA10 = dict(
     tcr="0.02% on changes in Underlying Index units, as provided in the Index Methodology",
     currency="USD",
 )
+# Canonical index claims as printed in the approved Underlying Index section (truth for index_* fields).
+VERSA10_TRUTH = dict(index_administrator="Bloomberg Index Services Limited", index_return_type="type_i",
+                     index_return_treatment="excess_return", index_vol_target_pct=10, index_rebalance_frequency="daily",
+                     index_deduction_factor_pct=0.5, index_transaction_cost_rate_pct=0.02)
+INDEX_KEYS = list(VERSA10_TRUTH)
 INDEX_PROSE = {
     "SPX": "the S&P 500 Index (Bloomberg: SPX Index), a price return index administered by S&P Dow Jones Indices LLC",
     "SX5E": "the EURO STOXX 50 Index (Bloomberg: SX5E Index), a price return index administered by STOXX Ltd.",
@@ -83,8 +88,9 @@ DOCS: list[dict] = [
          coupon_rate_pct=6.8, coupon_rate_basis="per_annum", coupon_frequency="quarterly", coupon_memory=True,
          autocall_observation_dates=["2027-03-03", "2027-09-03", "2028-03-03", "2028-09-05"],
          autocall_level_pct=100, day_count="ACT/360", settlement="cash", business_day_convention="mod_following",
-         booking_overrides={"day_count": "30/360"},
-         planted=[dict(field="day_count", type="MISMATCH", note="TS ACT/360, booking 30/360")]),
+         booking_overrides={"day_count": "30/360", "index_vol_target_pct": 12},
+         planted=[dict(field="day_count", type="MISMATCH", note="TS ACT/360, booking 30/360"),
+                  dict(field="index_vol_target_pct", type="MISMATCH", note="TS 10% (methodology defers, not checkable), booking static 12%")]),
     dict(id="G04", layout="letter", trade_id="SN-2026-0104", notional=2_500_000, currency="USD",
          trade_date="2026-06-09", issue_date="2026-06-16", maturity_date="2028-06-16",
          underlyings=["SPX", "SX5E"], initial_level_pct=100, barrier_type="european", barrier_level_pct=60,
@@ -131,8 +137,12 @@ DOCS: list[dict] = [
          coupon_rate_pct=2.0625, coupon_rate_basis="per_period", coupon_frequency="quarterly", coupon_memory=False,
          autocall_observation_dates=["2027-04-28", "2027-10-28", "2028-04-28", "2028-10-30"],
          autocall_level_pct=100, day_count="30/360", settlement="cash", business_day_convention="mod_following",
-         booking_overrides={},
-         planted=[], traps=[dict(field="coupon_rate_pct", expect="CLEAN", note="TS 2.0625% per quarter (8.25% p.a.); booking 8.25 quarterly")]),
+         index_overrides={"return_treatment": "Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process"},
+         index_truth_overrides={"index_return_treatment": "total_return"},
+         booking_overrides={"index_return_treatment": "excess_return"},
+         planted=[dict(field="ref:index_return_treatment", type="REFERENCE_INCONSISTENT", note="TS says Total Return for a Type I index; methodology: Type I is Excess Return"),
+                  dict(field="index_return_treatment", type="MISMATCH", note="TS total_return vs booking static excess_return", secondary=True)],
+         traps=[dict(field="coupon_rate_pct", expect="CLEAN", note="TS 2.0625% per quarter (8.25% p.a.); booking 8.25 quarterly")]),
     dict(id="G10", layout="table", trade_id="SN-2026-0110", notional=3_500_000, currency="USD",
          trade_date="2026-09-01", issue_date="2026-09-08", maturity_date="2029-09-10",
          underlyings=["SPX"], initial_level_pct=100, barrier_type="european", barrier_level_pct="ABSENT",
@@ -177,8 +187,12 @@ OPTIONS: list[dict] = [
          valuation_date="2027-06-15", expiration_date="2027-06-15", automatic_exercise=True,
          premium_pct=3.60, premium_amount=1_440_000, premium_payment_date="2026-06-17", cash_settlement_days=3,
          settlement_currency="USD", calculation_agent="Party A",
-         booking_overrides={"participation_rate_pct": 95},
-         planted=[dict(field="participation_rate_pct", type="MISMATCH", note="documented 100%, booked 95%")]),
+         index_overrides={"rebalancing": "Each calendar month, in accordance with the Index Methodology"},
+         index_truth_overrides={"index_rebalance_frequency": "monthly"},
+         booking_overrides={"participation_rate_pct": 95, "index_rebalance_frequency": "daily"},
+         planted=[dict(field="participation_rate_pct", type="MISMATCH", note="documented 100%, booked 95%"),
+                  dict(field="ref:index_rebalance_frequency", type="REFERENCE_INCONSISTENT", note="TS says monthly rebalancing; methodology: every Index Business Day"),
+                  dict(field="index_rebalance_frequency", type="MISMATCH", note="TS monthly vs booking static daily", secondary=True)]),
     # G15: premium documented 4.15% = USD 1,037,500 on 25mm; booking premium computed off the wrong notional (20mm).
     dict(id="G15", product="otc_option", trade_id="OP-2026-0121", buyer=BUYER, seller=ISSUER, option_style="european",
          option_type="call", underlyings=["BVERSA10"], notional=25_000_000, currency="USD",
@@ -363,7 +377,7 @@ def render_context(p: dict) -> dict:
         underlying_prose=("The Underlying is " + underlying_phrase(p).replace("the worst performing of ", "the worst performing of ")
                           if p["underlyings"] != ["BVERSA10"] else ""),
         initial_level=pct(p["initial_level_pct"], s),
-        index=VERSA10 if "BVERSA10" in p["underlyings"] else None,
+        index=({**VERSA10, **p.get("index_overrides", {})} if "BVERSA10" in p["underlyings"] else None),
         coupon_phrase=rate_phrase(p, s), coupon_clause=coupon_clause(p, s),
         coupon_frequency_word=p["coupon_frequency"].capitalize(), coupon_memory=p["coupon_memory"],
         coupon_barrier=pct(p["coupon_barrier_pct"], s) if p.get("coupon_barrier_pct") else None,
@@ -398,7 +412,7 @@ def option_context(p: dict) -> dict:
         strike=pct(p["strike_level_pct"], s), participation=pct(p["participation_rate_pct"], s),
         settlement_days_word=DAYS_WORD[p["cash_settlement_days"]], settlement_currency=p["settlement_currency"],
         option_style_word=p["option_style"].capitalize(), option_type_word=p["option_type"].capitalize(),
-        index=VERSA10,
+        index={**VERSA10, **p.get("index_overrides", {})},
     )
 
 
@@ -419,11 +433,17 @@ def html_to_pdf(html: str, out: Path) -> int:
 
 
 # ----------------------------------------------------------------------------- outputs
+def index_truth_of(p: dict) -> dict:
+    if "BVERSA10" not in p["underlyings"]:
+        return {k: "ABSENT" for k in INDEX_KEYS}
+    return {**VERSA10_TRUTH, **p.get("index_truth_overrides", {})}
+
+
 def truth_of(p: dict) -> dict:
     """The document's own truth in canonical (comparison-key) space: coupon per annum."""
     if p.get("product") == "otc_option":
-        return {k: p[k] for k in OPTION_FIELDS}
-    t = {k: (ISSUER if k == "issuer" else p[k]) for k in FIELDS}
+        return {**{k: p[k] for k in OPTION_FIELDS}, **index_truth_of(p)}
+    t = {**{k: (ISSUER if k == "issuer" else p[k]) for k in FIELDS}, **index_truth_of(p)}
     if p["coupon_rate_basis"] == "per_period":
         t["coupon_rate_pct"] = round(p["coupon_rate_pct"] * PERIODS[p["coupon_frequency"]], 6)
     return t
@@ -444,7 +464,8 @@ def main() -> None:
                 "generator": "scripts/gen_golden.py",
                 "history": [{"date": "2026-09-11", "note": "initial labels, generated from parameters (ADR-13)"},
                             {"date": "2026-09-12", "note": "v0.2 CS1: PDF+HTML+TXT per document from approved templates; G12 economics replaced by the approved template's (ADR-20); Versa docs carry the Underlying Index section"},
-                            {"date": "2026-09-12", "note": "v0.2 CS3: OTC option product (schema option_v1): G13 = approved OP-2026-0114 (clean control), G14 participation 100->95, G15 premium off the wrong notional (MISMATCH + RELATION_VIOLATION)"}],
+                            {"date": "2026-09-12", "note": "v0.2 CS3: OTC option product (schema option_v1): G13 = approved OP-2026-0114 (clean control), G14 participation 100->95, G15 premium off the wrong notional (MISMATCH + RELATION_VIOLATION)"},
+                            {"date": "2026-09-12", "note": "v0.2 CS4: index_* claims in truth/bookings (schema termsheet_v2 / option_v1); reference mutants: G09 Type I called Total Return, G14 monthly rebalancing (both REFERENCE_INCONSISTENT + MISMATCH vs booking static), G03 vol target 10 vs booking 12 (MISMATCH only: the methodology defers vol target)"}],
                 "documents": []}
     pages = {}
     for p in DOCS + OPTIONS:
@@ -469,6 +490,9 @@ def main() -> None:
         if p.get("clean_control"):
             entry["clean_control"] = True
         manifest["documents"].append(entry)
+    manifest["reference"] = {"index_methodology": {"document": "reference/Bloomberg-Versa-Indices-Methodology.pdf",
+                                                    "schema": "index_methodology_v1.json", "prompt": "reference_v1",
+                                                    "note": "real BISL document, 34 pages; the only non-synthetic input"}}
     (GOLDEN / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     # Desk-view fixtures: indicative risk figures for the demo book, deterministic per trade id,
     # NOT computed by the gate and labelled as such on the page (V2-CHANGES CS5).

@@ -7,6 +7,18 @@ from datetime import date
 from pathlib import Path
 
 from coherence_gate import comparator, lanes, merger, normalize
+from coherence_gate.reference import check_reference
+from coherence_gate.reference.lane import rules_from_values
+
+# The rulebook as the methodology states it (canonical values; vol target deferred).
+METHODOLOGY_TRUTH = {"administrator": "Bloomberg Index Services Limited", "methodology_date": "2025-03-21",
+                     "type_i_return_treatment": "excess_return", "type_ii_return_treatment": "total_return",
+                     "type_iii_return_treatment": "excess_return", "type_iv_return_treatment": "total_return",
+                     "rebalance_frequency": "daily", "index_value_floor": 0, "volatility_target_pct": "ABSENT",
+                     "default_deduction_factor_pct": 0, "default_transaction_cost_rate_pct": 0,
+                     "default_determination_lag_days": 1, "default_exposure_direction_type": "long_only",
+                     "default_volatility_value_selection": "highest"}
+RULES = rules_from_values(METHODOLOGY_TRUTH)
 from coherence_gate.schema_loader import load_schema, schema_for
 from coherence_gate.types import (BookingLookup, Citation, Extraction, Family, FieldExtraction, FindingType,
                                   Lane, Status)
@@ -44,6 +56,20 @@ def as_written(truth: dict, family: Family, schema=None) -> Extraction:
                 v = f"{v} (Party B)"
             elif spec.name in ("option_style", "option_type"):
                 v = v.capitalize()
+            elif spec.name == "index_return_type":
+                v = {"type_i": "Type I", "type_ii": "Type II"}.get(v, v) + " under the Index Methodology"
+            elif spec.name == "index_return_treatment":
+                v = {"excess_return": "Excess Return", "total_return": "Total Return"}[v] + " (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process"
+            elif spec.name == "index_rebalance_frequency":
+                v = {"daily": "Each Index Business Day, in accordance with the Index Methodology", "monthly": "Each calendar month, in accordance with the Index Methodology"}[v]
+            elif spec.name == "index_vol_target_pct":
+                v = f"{v}% per annum"
+            elif spec.name == "index_deduction_factor_pct":
+                v = f"{v:.2f}% per annum, deducted daily from the Index Value"
+            elif spec.name == "index_transaction_cost_rate_pct":
+                v = f"{v}% on changes in Underlying Index units, as provided in the Index Methodology"
+            elif spec.name == "index_administrator":
+                v = v + ", authorised and regulated by the Financial Conduct Authority as a benchmark administrator"
             elif spec.name == "coupon_rate_pct":
                 if truth["coupon_rate_basis"] == "per_period":
                     v = f"{v / PERIODS[truth['coupon_frequency']]:g}% per {truth['coupon_frequency'][:-2]}"
@@ -81,6 +107,7 @@ def run_doc(entry, golden=GOLDEN):
     m = merger.merge(a, b, sc)
     lk = BookingLookup(trade_id=entry["trade_id"], found=True, record=booking, transport="direct")
     f = comparator.compare(entry["id"], m, lk, sc) + comparator.check_relations(entry["id"], m, lk, sc)
+    f += check_reference(entry["id"], m, RULES, sc)
     f, lane = lanes.assign(f)
     return {x.field: x for x in f}, lane, m
 

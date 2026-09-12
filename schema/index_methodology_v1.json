@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "coherence-gate/index_methodology/v1",
+  "title": "Index methodology reference schema, v1 (Bloomberg Versa Indices Methodology)",
+  "description": "Rules and defaults stated by the methodology. `binding: rule` fields are unconditional and checkable against a term sheet's claims; `binding: default` fields are 'unless the index-specific document states otherwise' and are NOT checkable (a term sheet may legitimately differ). A parameter the methodology only defines but never fixes (e.g. Volatility Target) must be DECLARED_ABSENT.",
+  "version": "1",
+  "product_type": "index_methodology",
+  "non_compared": [],
+  "fields": [
+    {
+      "name": "administrator",
+      "type": "str",
+      "critical": true,
+      "binding": "rule",
+      "claim": "index_administrator",
+      "description": "The entity that makes the methodology available and administers the indices."
+    },
+    {
+      "name": "methodology_date",
+      "type": "date",
+      "critical": false,
+      "binding": "rule",
+      "description": "Date of the methodology document."
+    },
+    {
+      "name": "type_i_return_treatment",
+      "type": "enum",
+      "critical": true,
+      "binding": "rule",
+      "enum": [
+        "excess_return",
+        "total_return"
+      ],
+      "description": "Return treatment of a Type I index ('The Index Value is Excess Return' -> excess_return)."
+    },
+    {
+      "name": "type_ii_return_treatment",
+      "type": "enum",
+      "critical": true,
+      "binding": "rule",
+      "enum": [
+        "excess_return",
+        "total_return"
+      ],
+      "description": "Return treatment of a Type II index."
+    },
+    {
+      "name": "type_iii_return_treatment",
+      "type": "enum",
+      "critical": true,
+      "binding": "rule",
+      "enum": [
+        "excess_return",
+        "total_return"
+      ],
+      "description": "Return treatment of a Type III index."
+    },
+    {
+      "name": "type_iv_return_treatment",
+      "type": "enum",
+      "critical": true,
+      "binding": "rule",
+      "enum": [
+        "excess_return",
+        "total_return"
+      ],
+      "description": "Return treatment of a Type IV index."
+    },
+    {
+      "name": "rebalance_frequency",
+      "type": "enum",
+      "critical": true,
+      "binding": "rule",
+      "claim": "index_rebalance_frequency",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "quarterly"
+      ],
+      "description": "Rebalance Date definition ('Every Index Business Day' -> daily)."
+    },
+    {
+      "name": "index_value_floor",
+      "type": "decimal",
+      "critical": false,
+      "binding": "rule",
+      "description": "The level at which the Index Value is floored ('floored at zero' -> 0)."
+    },
+    {
+      "name": "volatility_target_pct",
+      "type": "decimal|absent",
+      "critical": true,
+      "binding": "deferred",
+      "claim": "index_vol_target_pct",
+      "description": "The Volatility Target value. The methodology defines the term but fixes no value (it is in the index-specific document): DECLARE ABSENT unless a number is stated."
+    },
+    {
+      "name": "default_deduction_factor_pct",
+      "type": "decimal|absent",
+      "critical": false,
+      "binding": "default",
+      "claim": "index_deduction_factor_pct",
+      "description": "Deduction Factor default ('Unless specified, the Deduction Factor is zero' -> 0)."
+    },
+    {
+      "name": "default_transaction_cost_rate_pct",
+      "type": "decimal|absent",
+      "critical": false,
+      "binding": "default",
+      "claim": "index_transaction_cost_rate_pct",
+      "description": "Transaction Cost Rate default ('Unless explicitly stated otherwise ... is zero' -> 0)."
+    },
+    {
+      "name": "default_determination_lag_days",
+      "type": "decimal|absent",
+      "critical": false,
+      "binding": "default",
+      "description": "Determination Lag default in Index Business Days (one)."
+    },
+    {
+      "name": "default_exposure_direction_type",
+      "type": "enum|absent",
+      "critical": false,
+      "binding": "default",
+      "enum": [
+        "long_only",
+        "directional"
+      ],
+      "description": "Exposure Direction Type default ('Long-only')."
+    },
+    {
+      "name": "default_volatility_value_selection",
+      "type": "enum|absent",
+      "critical": false,
+      "binding": "default",
+      "enum": [
+        "highest",
+        "lowest",
+        "average"
+      ],
+      "description": "Volatility Value Selection default ('Highest')."
+    }
+  ],
+  "return_type_map": {
+    "type_i": "type_i_return_treatment",
+    "type_ii": "type_ii_return_treatment",
+    "type_iii": "type_iii_return_treatment",
+    "type_iv": "type_iv_return_treatment"
+  },
+  "history": [
+    {
+      "version": "1",
+      "date": "2026-09-12",
+      "note": "Initial, from the Bloomberg Versa Indices Methodology dated 21 March 2025."
+    }
+  ]
+}

@@ -336,3 +336,35 @@ on the front page); showing greeks computed by the system (out of scope, GOAL.md
 
 **Consequences:** A new finding type or field needs a template row or falls back to the
 generic "{field} booked {bk} vs {ts} documented" line, which is honest but flat.
+
+## ADR-23: Reference lane semantics — rule, default, deferred
+
+**Date:** 2026-09-12
+**Status:** Accepted (v0.2 CS4)
+
+**Context:** The Bloomberg Versa methodology fixes some things unconditionally (Type I is
+Excess Return; rebalance every Index Business Day; Index Value floored at zero; the
+administrator), states others as defaults "unless the index-specific document states
+otherwise" (deduction factor, transaction cost, determination lag), and merely defines
+others without a value (Volatility Target). A naive check would flag a term sheet's 10%
+volatility target against a rulebook that never states one.
+
+**Decision:** The methodology schema carries `binding: rule | default | deferred` per field
+and a `claim` mapping to the term-sheet field it governs. Only `rule` bindings can produce
+`REFERENCE_INCONSISTENT`; `default` and `deferred` produce CLEAN findings whose detail says
+why they were not checked. The return-treatment rule is checked as a pair: the term sheet's
+(Type, treatment) against the methodology's type→treatment map. Reference findings use the
+`ref:<claim>` key so they coexist with the booking comparison on the same field, and they
+count in the false-flag denominator only for documents that make index claims. The
+methodology is extracted by both families and merged by code; a rule the families disagree
+on is "not evaluable", never a flag. Extractions are cached by (markdown sha, prompt sha,
+model) because the rulebook does not change between runs; the trace says CACHED.
+
+**Alternatives considered:** Checking every term-sheet index parameter against the
+methodology (flags on deferred parameters, exactly the false-positive class that kills desk
+trust). An LLM judging whether a claim "is consistent with" the methodology (a decision in a
+prompt).
+
+**Consequences:** Three planted reference cases: G09 (Type I called Total Return), G14
+(monthly rebalancing), G03 (vol target: booking-static mismatch only, deferred in the
+rulebook by design). Volatility Target is the demo's "the gate knows what it cannot check".

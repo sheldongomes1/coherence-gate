@@ -14,7 +14,7 @@ from ..config import ROOT
 from .html import load_run
 
 TEMPLATES = ROOT / "templates"
-RED_TYPES = {"MISMATCH", "TS_ABSENT", "BOOKING_ABSENT", "RELATION_VIOLATION"}
+RED_TYPES = {"MISMATCH", "TS_ABSENT", "BOOKING_ABSENT", "RELATION_VIOLATION", "REFERENCE_INCONSISTENT"}
 AMBER_TYPES = {"EXTRACTOR_DISAGREEMENT", "MALFORMED_EXTRACTION"}
 
 # finding type / field -> one line of desk consequence. `{ts}` documented, `{bk}` booked.
@@ -34,6 +34,10 @@ CONSEQUENCE = {
     ("TS_ABSENT", None): "term sheet is silent on {field}; booking carries {bk} — booked term has no documentary basis",
     ("BOOKING_ABSENT", None): "{field} documented as {ts} but not booked — term missing from the system of record",
     ("RELATION_VIOLATION", "rel:premium_arithmetic"): "premium arithmetic fails on the booking — premium booked off the wrong notional",
+    ("REFERENCE_INCONSISTENT", "ref:index_return_treatment"): "term sheet calls the index {ts} but its methodology says {bk} — payoff described on the wrong index economics",
+    ("REFERENCE_INCONSISTENT", "ref:index_rebalance_frequency"): "term sheet says the index rebalances {ts} but the rulebook says {bk} — the hedge described is not the index that trades",
+    ("REFERENCE_INCONSISTENT", None): "term sheet describes the index contrary to its methodology ({field}: documented {ts}, rulebook {bk})",
+    ("MISMATCH", "index_vol_target_pct"): "index vol target booked {bk} vs {ts} documented — static data describes a different index",
     ("MISMATCH", None): "{field} booked {bk} vs {ts} documented",
 }
 

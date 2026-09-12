@@ -7,33 +7,228 @@
   "product_type": "otc_option",
   "non_compared": [],
   "fields": [
-    {"name": "trade_id",               "type": "str",      "critical": true,  "description": "Transaction reference as printed (e.g. 'OP-2026-0114')."},
-    {"name": "buyer",                  "type": "str",      "critical": true,  "description": "Legal name of the option buyer (Party B)."},
-    {"name": "seller",                 "type": "str",      "critical": true,  "description": "Legal name of the option seller (Party A)."},
-    {"name": "option_style",           "type": "enum",     "critical": true,  "enum": ["european", "american"], "description": "Exercise style."},
-    {"name": "option_type",            "type": "enum",     "critical": true,  "enum": ["call", "put"], "description": "Call or put."},
-    {"name": "underlyings",            "type": "list[ticker]", "critical": true, "description": "Bloomberg ticker(s) of the underlying index, e.g. ['BVERSA10']."},
-    {"name": "notional",               "type": "decimal",  "critical": true,  "description": "Notional Amount, numeric."},
-    {"name": "currency",               "type": "iso4217",  "critical": true,  "description": "Currency of the Notional Amount."},
-    {"name": "trade_date",             "type": "date",     "critical": true,  "description": "Trade Date, ISO-8601."},
-    {"name": "effective_date",         "type": "date",     "critical": false, "description": "Effective Date, ISO-8601."},
-    {"name": "strike_level_pct",       "type": "decimal",  "critical": true,  "description": "Strike Level as percent of the Initial Index Level."},
-    {"name": "participation_rate_pct", "type": "decimal",  "critical": true,  "description": "Participation Rate in percent."},
-    {"name": "valuation_date",         "type": "date",     "critical": true,  "description": "Valuation Date (final observation), ISO-8601."},
-    {"name": "expiration_date",        "type": "date",     "critical": true,  "description": "Expiration Date, ISO-8601."},
-    {"name": "automatic_exercise",     "type": "bool",     "critical": false, "description": "True if Automatic Exercise is applicable."},
-    {"name": "premium_pct",            "type": "decimal",  "critical": true,  "description": "Premium as percent of the Notional Amount."},
-    {"name": "premium_amount",         "type": "decimal",  "critical": true,  "description": "Premium amount in currency, numeric, as printed."},
-    {"name": "premium_payment_date",   "type": "date",     "critical": false, "description": "Premium Payment Date, ISO-8601."},
-    {"name": "cash_settlement_days",   "type": "decimal",  "critical": false, "description": "Number of Currency Business Days after the Valuation Date on which cash settlement is paid ('Three' -> 3)."},
-    {"name": "settlement_currency",    "type": "iso4217",  "critical": false, "description": "Settlement Currency."},
-    {"name": "calculation_agent",      "type": "str",      "critical": false, "description": "Calculation Agent as named ('Party A' or a legal name)."}
+    {
+      "name": "trade_id",
+      "type": "str",
+      "critical": true,
+      "description": "Transaction reference as printed (e.g. 'OP-2026-0114')."
+    },
+    {
+      "name": "buyer",
+      "type": "str",
+      "critical": true,
+      "description": "Legal name of the option buyer (Party B)."
+    },
+    {
+      "name": "seller",
+      "type": "str",
+      "critical": true,
+      "description": "Legal name of the option seller (Party A)."
+    },
+    {
+      "name": "option_style",
+      "type": "enum",
+      "critical": true,
+      "enum": [
+        "european",
+        "american"
+      ],
+      "description": "Exercise style."
+    },
+    {
+      "name": "option_type",
+      "type": "enum",
+      "critical": true,
+      "enum": [
+        "call",
+        "put"
+      ],
+      "description": "Call or put."
+    },
+    {
+      "name": "underlyings",
+      "type": "list[ticker]",
+      "critical": true,
+      "description": "Bloomberg ticker(s) of the underlying index, e.g. ['BVERSA10']."
+    },
+    {
+      "name": "notional",
+      "type": "decimal",
+      "critical": true,
+      "description": "Notional Amount, numeric."
+    },
+    {
+      "name": "currency",
+      "type": "iso4217",
+      "critical": true,
+      "description": "Currency of the Notional Amount."
+    },
+    {
+      "name": "trade_date",
+      "type": "date",
+      "critical": true,
+      "description": "Trade Date, ISO-8601."
+    },
+    {
+      "name": "effective_date",
+      "type": "date",
+      "critical": false,
+      "description": "Effective Date, ISO-8601."
+    },
+    {
+      "name": "strike_level_pct",
+      "type": "decimal",
+      "critical": true,
+      "description": "Strike Level as percent of the Initial Index Level."
+    },
+    {
+      "name": "participation_rate_pct",
+      "type": "decimal",
+      "critical": true,
+      "description": "Participation Rate in percent."
+    },
+    {
+      "name": "valuation_date",
+      "type": "date",
+      "critical": true,
+      "description": "Valuation Date (final observation), ISO-8601."
+    },
+    {
+      "name": "expiration_date",
+      "type": "date",
+      "critical": true,
+      "description": "Expiration Date, ISO-8601."
+    },
+    {
+      "name": "automatic_exercise",
+      "type": "bool",
+      "critical": false,
+      "description": "True if Automatic Exercise is applicable."
+    },
+    {
+      "name": "premium_pct",
+      "type": "decimal",
+      "critical": true,
+      "description": "Premium as percent of the Notional Amount."
+    },
+    {
+      "name": "premium_amount",
+      "type": "decimal",
+      "critical": true,
+      "description": "Premium amount in currency, numeric, as printed."
+    },
+    {
+      "name": "premium_payment_date",
+      "type": "date",
+      "critical": false,
+      "description": "Premium Payment Date, ISO-8601."
+    },
+    {
+      "name": "cash_settlement_days",
+      "type": "decimal",
+      "critical": false,
+      "description": "Number of Currency Business Days after the Valuation Date on which cash settlement is paid ('Three' -> 3)."
+    },
+    {
+      "name": "settlement_currency",
+      "type": "iso4217",
+      "critical": false,
+      "description": "Settlement Currency."
+    },
+    {
+      "name": "calculation_agent",
+      "type": "str",
+      "critical": false,
+      "description": "Calculation Agent as named ('Party A' or a legal name)."
+    },
+    {
+      "name": "index_administrator",
+      "type": "str|absent",
+      "critical": false,
+      "description": "Administrator of the underlying index as named in the document's Underlying Index section (e.g. 'Bloomberg Index Services Limited'). ABSENT if the document has no such section."
+    },
+    {
+      "name": "index_return_type",
+      "type": "enum|absent",
+      "critical": true,
+      "enum": [
+        "type_i",
+        "type_ii",
+        "type_iii",
+        "type_iv"
+      ],
+      "description": "The methodology return type cited for the underlying index ('Type I under the Index Methodology' -> type_i). ABSENT if not stated."
+    },
+    {
+      "name": "index_return_treatment",
+      "type": "enum|absent",
+      "critical": true,
+      "enum": [
+        "excess_return",
+        "total_return"
+      ],
+      "description": "Return treatment stated for the underlying index: 'Excess Return' or 'Total Return'. ABSENT if not stated."
+    },
+    {
+      "name": "index_vol_target_pct",
+      "type": "decimal|absent",
+      "critical": true,
+      "description": "Volatility Target of the underlying index in percent per annum, as stated. ABSENT if not stated."
+    },
+    {
+      "name": "index_rebalance_frequency",
+      "type": "enum|absent",
+      "critical": true,
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "quarterly"
+      ],
+      "description": "Rebalancing cadence stated for the underlying index ('Each Index Business Day' -> daily). ABSENT if not stated."
+    },
+    {
+      "name": "index_deduction_factor_pct",
+      "type": "decimal|absent",
+      "critical": false,
+      "description": "Deduction Factor in percent per annum, as stated. ABSENT if not stated."
+    },
+    {
+      "name": "index_transaction_cost_rate_pct",
+      "type": "decimal|absent",
+      "critical": false,
+      "description": "Transaction Cost Rate in percent, as stated. ABSENT if not stated."
+    }
   ],
   "relations": [
-    {"name": "premium_arithmetic", "type": "product_equals",
-     "factors": [{"field": "premium_pct", "scale": "0.01"}, {"field": "notional"}], "equals": "premium_amount",
-     "tolerance_abs": "0.01", "critical": true,
-     "description": "premium_pct × notional must equal premium_amount within one cent, on the term sheet AND on the booking. A booked premium computed off the wrong notional violates it."}
+    {
+      "name": "premium_arithmetic",
+      "type": "product_equals",
+      "factors": [
+        {
+          "field": "premium_pct",
+          "scale": "0.01"
+        },
+        {
+          "field": "notional"
+        }
+      ],
+      "equals": "premium_amount",
+      "tolerance_abs": "0.01",
+      "critical": true,
+      "description": "premium_pct \u00d7 notional must equal premium_amount within one cent, on the term sheet AND on the booking. A booked premium computed off the wrong notional violates it."
+    }
   ],
-  "history": [{"version": "1", "date": "2026-09-12", "note": "Initial; fields from V2-CHANGES CS3 and the approved OP-2026-0114 template."}]
+  "history": [
+    {
+      "version": "1",
+      "date": "2026-09-12",
+      "note": "Initial; fields from V2-CHANGES CS3 and the approved OP-2026-0114 template."
+    },
+    {
+      "version": "1",
+      "date": "2026-09-12",
+      "note": "Same day: added the 7 index_* Underlying Index fields (CS4)."
+    }
+  ]
 }

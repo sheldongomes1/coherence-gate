@@ -29,6 +29,7 @@ class RunContext:
     extractors: dict[Family, Extractor]
     triage: Any | None = None  # TriageAgent (S3)
     schemas: dict[str, Schema] = field(default_factory=all_schemas)  # product_type -> schema (CS3)
+    reference: Any | None = None  # reference.ReferenceRules when the Versa lane is on (CS4)
     source: str = "txt"         # "pdf" -> parse stage; "txt" -> read the canonical .txt (ablation / fallback)
     parser: Any | None = None   # ingest.Parser when source == "pdf"
     parsed_dir: Path | None = None
@@ -136,6 +137,12 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
     # 5. compare (code), 6. lanes (code)
     findings = comparator.compare(doc_id, merged, lookup, schema)
     findings += comparator.check_relations(doc_id, merged, lookup, schema)
+    if ctx.reference is not None:
+        from .reference import check_reference
+        ref_findings = check_reference(doc_id, merged, ctx.reference, schema)
+        findings += ref_findings
+        ctx.tracer.step(doc_id=doc_id, step="reference_check", outcome="OK" if ref_findings else "NO_CLAIMS",
+                        detail={t: sum(f.type == t for f in ref_findings) for t in {f.type for f in ref_findings}})
     findings, doc_lane = lanes.assign(findings)
     ctx.tracer.step(doc_id=doc_id, step="compare", outcome=doc_lane,
                     detail={t: sum(f.type == t for f in findings) for t in {f.type for f in findings}})

@@ -27,6 +27,7 @@ class FindingType(StrEnum):
     BOOKING_ABSENT = "BOOKING_ABSENT"
     MALFORMED_EXTRACTION = "MALFORMED_EXTRACTION"  # ADR-7
     RELATION_VIOLATION = "RELATION_VIOLATION"      # v0.2 CS3: a deterministic cross-field rule failed
+    REFERENCE_INCONSISTENT = "REFERENCE_INCONSISTENT"  # v0.2 CS4: a term-sheet claim about the index contradicts its methodology
 
 
 class Severity(StrEnum):

@@ -53,6 +53,21 @@ ENUM_SYNONYMS: dict[str, dict[str, str]] = {
                                 "preceding": "preceding", "preceding business day": "preceding"},
 }
 
+# Enum resolution by regex-contains for claims written as prose (checked after exact/synonym lookup).
+ENUM_CONTAINS: dict[str, list[tuple[str, str]]] = {
+    "index_return_type": [(r"\btype\s*iv\b", "type_iv"), (r"\btype\s*iii\b", "type_iii"), (r"\btype\s*ii\b", "type_ii"), (r"\btype\s*i\b", "type_i")],
+    "index_return_treatment": [(r"excess\s*return", "excess_return"), (r"total\s*return", "total_return")],
+    "index_rebalance_frequency": [(r"(each|every|per)\s+(index\s+)?business\s+day|\bdaily\b", "daily"), (r"\bweek", "weekly"),
+                                  (r"\bmonth", "monthly"), (r"\bquarter", "quarterly")],
+    "type_i_return_treatment": [(r"excess\s*return", "excess_return"), (r"total\s*return", "total_return")],
+    "type_ii_return_treatment": [(r"excess\s*return", "excess_return"), (r"total\s*return", "total_return")],
+    "type_iii_return_treatment": [(r"excess\s*return", "excess_return"), (r"total\s*return", "total_return")],
+    "type_iv_return_treatment": [(r"excess\s*return", "excess_return"), (r"total\s*return", "total_return")],
+    "rebalance_frequency": [(r"(each|every|per)\s+(index\s+)?business\s+day|\bdaily\b", "daily"), (r"\bweek", "weekly"),
+                            (r"\bmonth", "monthly"), (r"\bquarter", "quarterly")],
+    "default_exposure_direction_type": [(r"long[- ]only", "long_only"), (r"directional", "directional")],
+    "default_volatility_value_selection": [(r"highest", "highest"), (r"lowest", "lowest"), (r"average", "average")],
+}
 _NUMBER_WORDS = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8,
                  "nine": 9, "ten": 10}
 _MULT = {"k": 1_000, "m": 1_000_000, "mm": 1_000_000, "mn": 1_000_000, "million": 1_000_000,
@@ -105,7 +120,13 @@ def norm_decimal(v: Any) -> Decimal:
     s = s.replace(",", "").replace("%", "").replace("per cent", "").replace("percent", "").strip().rstrip(".")
     m = re.fullmatch(r"(-?\d+(?:\.\d+)?)\s*(k|mm|mn|m|million|bn|b|billion)?", s)
     if not m:
-        raise NormalizeError(f"unrecognised decimal {v!r}")
+        # "0.50 deducted daily from the index value": a leading number followed by a descriptor that
+        # contains NO other number is the value as written (a second number would be ambiguous).
+        m2 = re.fullmatch(r"(-?\d+(?:\.\d+)?)\s*(k|mm|mn|m|million|bn|b|billion)?\s+[a-z][^0-9]*", s)
+        if m2:
+            m = m2
+        else:
+            raise NormalizeError(f"unrecognised decimal {v!r}")
     d = _dec(m[1])
     if m[2]:
         d = d * _MULT[m[2]]
@@ -164,6 +185,9 @@ def norm_enum(key: str, v: Any, allowed: tuple[str, ...]) -> str:
     s2 = s.replace(" ", "_")
     if s2 in {a.lower() for a in allowed}:
         return next(a for a in allowed if a.lower() == s2)
+    for pat, val in ENUM_CONTAINS.get(key, []):
+        if re.search(pat, str(v).lower()):
+            return val
     raise NormalizeError(f"{key}: {v!r} not in {list(allowed)}")
 
 
@@ -246,8 +270,11 @@ def normalize_value(spec: FieldSpec, value: Any, *, context: dict[str, Any] | No
     if t == "bool":
         return norm_bool(value)
     if t == "str":
-        # "Lakeshore Life Insurance Company (Party B)" -> "Lakeshore Life Insurance Company"
-        return re.sub(r"\s*\((party [ab]|the (buyer|seller|issuer))\)\s*$", "", str(value).strip(), flags=re.I).strip()
+        out = re.sub(r"\s*\((party [ab]|the (buyer|seller|issuer))\)\s*$", "", str(value).strip(), flags=re.I).strip()
+        if spec.name in ("index_administrator", "administrator"):
+            # "Bloomberg Index Services Limited, authorised and regulated by ..." / '... ("BISL")' -> legal name only
+            out = re.sub(r"\s*\(.*?\)", "", out).split(",")[0].strip()
+        return out
     raise NormalizeError(f"{spec.name}: no normalizer for type {spec.type}")
 
 
