@@ -25,6 +25,7 @@ def load_run(run_dir: Path) -> dict:
             f["triage"] = triage.get(f["field"])
         booking = json.loads((d / "booking.json").read_text()) if (d / "booking.json").exists() else {}
         docs.append({**summary, "findings": findings, "booking_transport": booking.get("transport", "?"),
+                     "attested_hashes": summary.get("attested_hashes"),
                      "trace": [l for l in trace if l["doc_id"] == summary["doc_id"]]})
     return {"run_id": run_dir.name, "docs": docs, "trace": trace}
 

@@ -86,6 +86,58 @@ def cmd_ablation(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_check(a: argparse.Namespace) -> int:
+    """CS7a live check: one document against its booking, compact verdict, full artifacts."""
+    import time
+    from .eval.harness import build_context
+    from .pipeline import run_document
+    from .report.desk_view import render as render_desk
+    from .report.html import render
+    t0 = time.perf_counter()
+    doc = Path(a.document)
+    src = "pdf" if doc.suffix.lower() == ".pdf" else "txt"
+    ctx = build_context(Path(a.golden), Path(a.out), stub=a.stub, booking_transport=a.booking, with_triage=not a.no_triage,
+                        source=src, parser_name=a.parser)
+    if a.parsed_dir:
+        ctx.parsed_dir = Path(a.parsed_dir)
+    try:
+        txt = doc if src == "txt" else Path(a.golden) / "termsheets" / f"{doc.stem}.txt"
+        if src == "pdf" and not txt.exists():
+            txt = doc  # arbitrary PDF: the parsed markdown is the only text; doc_id = stem
+        r = run_document(txt, ctx, trade_id=a.trade, pdf_path=doc if src == "pdf" else None, product_type=a.product)
+    finally:
+        ctx.booking.close()
+    render(ctx.out_dir); render_desk(ctx.out_dir)
+    secs = time.perf_counter() - t0
+    from .report.desk_view import consequence, trust_state
+    fdicts = [f.model_dump() for f in r.findings]
+    state, why = trust_state(fdicts)
+    console.rule(f"[bold]{r.doc_id} · {r.product_type} · trade {r.trade_id} · {state}")
+    console.print(why)
+    t = Table("field", "type", "lane", "documented", "booked", "consequence / citation")
+    for f in r.findings:
+        if f.type == "CLEAN" and not a.all:
+            continue
+        cite = f.citations[0].text_span[:70] + "…" if f.citations else ""
+        cons = consequence(f.model_dump()) if f.type in ("MISMATCH", "TS_ABSENT", "BOOKING_ABSENT", "RELATION_VIOLATION") else f.detail[:90]
+        t.add_row(f.field, f.type, f.lane, str(f.ts_value if f.ts_value is not None else "ABSENT"),
+                  str(f.booking_value if f.booking_value is not None else "ABSENT"), f"{cons}\n[dim]{cite}[/]")
+    console.print(t)
+    n_clean = sum(f.type == "CLEAN" for f in r.findings)
+    console.print(f"[dim]{n_clean} fields CLEAN (auto-clear) not shown; --all to list them[/]")
+    for f in r.findings:
+        if f.triage and f.type != "CLEAN":
+            console.print(f"[bold]desk query ({f.field}):[/] {f.triage.desk_query}")
+    parse = r.parse_meta or {}
+    steps = [l["step"] for l in ctx.tracer.lines]
+    console.print(f"\n{'parsed (' + str(parse.get('vendor')) + ', job ' + str(parse.get('job_id')) + ') + ' if src == 'pdf' else ''}"
+                  f"extracted x2 + compared{' + relations' if any(x.field.startswith('rel:') for x in r.findings) else ''}"
+                  f"{' + triaged x' + str(sum(1 for s_ in steps if s_.startswith('triage:'))) if not a.no_triage else ''} in {secs:.0f}s, ${r.cost_usd:.4f}"
+                  f" · effort: {ctx.config.extraction.claude_effort}/{ctx.config.extraction.gemini_thinking_level} (see eval sweep)"
+                  f"\nartifacts: {r.out_dir}  ·  desk_view.html / run_report.html alongside")
+    return 0
+
+
 def cmd_report(a: argparse.Namespace) -> int:
     from .report.desk_view import render as render_desk
     from .report.html import render
@@ -146,6 +198,11 @@ def main(argv: list[str] | None = None) -> int:
     e = sub.add_parser("eval"); common(e); e.add_argument("--only", nargs="*"); e.set_defaults(fn=cmd_eval)
     r = sub.add_parser("run"); common(r); r.add_argument("termsheet"); r.add_argument("--trade-id"); r.set_defaults(fn=cmd_run)
     t = sub.add_parser("trace"); t.add_argument("--latest", nargs="?", const="runs"); t.add_argument("--run"); t.set_defaults(fn=cmd_trace)
+    ck = sub.add_parser("check", help="live check: one document (pdf or txt) against its booking"); common(ck)
+    ck.add_argument("document"); ck.add_argument("--trade", help="trade id (default: the id both extractors read)")
+    ck.add_argument("--product", choices=["note", "otc_option"], help="override product detection")
+    ck.add_argument("--no-triage", action="store_true"); ck.add_argument("--all", action="store_true", help="list CLEAN fields too")
+    ck.add_argument("--parsed-dir", help="where parsed artifacts are cached (default golden/parsed)"); ck.set_defaults(fn=cmd_check)
     pa = sub.add_parser("parse"); pa.add_argument("--golden", default="golden"); pa.add_argument("--parser", choices=["mixedbread", "local"], default="mixedbread"); pa.set_defaults(fn=cmd_parse)
     ab = sub.add_parser("ablation"); ab.add_argument("--txt-run", required=True); ab.add_argument("--pdf-run", required=True); ab.set_defaults(fn=cmd_ablation)
     rp = sub.add_parser("report"); rp.add_argument("--latest", nargs="?", const="runs"); rp.add_argument("--run"); rp.set_defaults(fn=cmd_report)

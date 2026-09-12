@@ -53,6 +53,13 @@ class DocumentResult:
     extras: dict = field(default_factory=dict)
 
 
+def booking_hash(record: dict | None) -> str | None:
+    """Canonical hash of a booking record (sorted keys, compact JSON) so two stores agree."""
+    if record is None:
+        return None
+    return hashlib.sha256(json.dumps(record, sort_keys=True, separators=(",", ":"), default=str).encode()).hexdigest()
+
+
 def _wholesale_failures(extractions: dict[Family, Extraction]) -> dict[Family, str]:
     """Families whose EVERY field is Malformed with one shared reason (API error, timeout, refusal, non-JSON)."""
     out: dict[Family, str] = {}
@@ -154,13 +161,18 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
                           findings=[f for f in findings if f.lane is Lane.TRIAGE and f.triage is None],
                           booking=lookup, tracer=ctx.tracer)
 
+    # CS7c: bind this attestation to what was read — the source text and the canonical booking.
+    # desk_view recomputes both at page time; if either moved, the row is STALE.
+    attested = {"document_path": str((ctx.parsed_dir / f"{doc_id}.md") if (ctx.source == "pdf" and parse_meta and parse_meta.get("vendor") != "none") else doc_path),
+                "document_sha256": sha, "booking_trade_id": tid,
+                "booking_sha256": booking_hash(lookup.record) if lookup.found else None}
     result = DocumentResult(doc_id=doc_id, sha256=sha, trade_id=tid,
                             extractions={str(k): v for k, v in extractions.items()},
                             normalized={str(k): v for k, v in norm.items()},
                             merged={k: m.model_dump() for k, m in merged.items()},
                             booking=lookup.model_dump(), findings=findings, document_lane=doc_lane,
                             cost_usd=ctx.tracer.total_cost(doc_id), source=ctx.source, parse_meta=parse_meta,
-                            product_type=product_type)
+                            product_type=product_type, extras={"attested_hashes": attested})
     persist(result, ctx)
     return result
 
@@ -180,5 +192,6 @@ def persist(r: DocumentResult, ctx: RunContext) -> None:
     (d / "summary.json").write_text(json.dumps({
         "doc_id": r.doc_id, "sha256": r.sha256, "trade_id": r.trade_id, "document_lane": r.document_lane,
         "cost_usd": r.cost_usd, "n_auto_clear": len(auto), "n_triage": len(r.findings) - len(auto),
-        "source": r.source, "parse": r.parse_meta, "product_type": r.product_type}, indent=2, default=str))
+        "source": r.source, "parse": r.parse_meta, "product_type": r.product_type,
+        "attested_hashes": r.extras.get("attested_hashes")}, indent=2, default=str))
     r.out_dir = d

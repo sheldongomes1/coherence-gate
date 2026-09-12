@@ -62,3 +62,6 @@ brief:
 
 golden:
 	$(PY) scripts/gen_golden.py
+
+check:           ## make check DOC=path/to/doc.pdf [TRADE=id]
+	$(PY) -m coherence_gate.cli check $(DOC) $(if $(TRADE),--trade $(TRADE),) --out $(RUN_DIR)/check

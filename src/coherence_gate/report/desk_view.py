@@ -77,7 +77,7 @@ def _fixture(doc_id: str, trade_id: str, fixtures: dict) -> dict:
     return fx
 
 
-def render(run_dir: Path, out: Path | None = None) -> Path:
+def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None) -> Path:
     data = load_run(run_dir)
     cfg = yaml.safe_load((ROOT / "config" / "report.yaml").read_text()) if (ROOT / "config" / "report.yaml").exists() else {}
     book = (cfg.get("book") or {}).get("name", "Demo book")
@@ -86,7 +86,7 @@ def render(run_dir: Path, out: Path | None = None) -> Path:
     rows = []
     for d in data["docs"]:
         state, why = trust_state(d["findings"])
-        stale = _stale_reason(run_dir, d)
+        stale = _stale_reason(run_dir, d, store_dir)
         if stale:
             state, why = "STALE", stale
         fx = _fixture(d["doc_id"], d["trade_id"] or "", fixtures)
@@ -117,20 +117,25 @@ def render(run_dir: Path, out: Path | None = None) -> Path:
     return out
 
 
-def _stale_reason(run_dir: Path, d: dict) -> str | None:
-    """CS7c: an attestation is bound to (parsed document sha, booking sha). If either current
-    artifact differs from what the run attested, the row is STALE. Only ATTESTED rows can go stale."""
+def _stale_reason(run_dir: Path, d: dict, store_dir: Path | None = None) -> str | None:
+    """CS7c: an attestation is bound to (source text sha, canonical booking sha). At page time
+    both are recomputed from the current files; if either moved, the row is STALE with the reason.
+    No watchers, no daemons: a hash comparison when the page is generated."""
     att = d.get("attested_hashes") if isinstance(d, dict) else None
     if not att:
         return None
+    from ..booking import store
+    from ..pipeline import booking_hash
     moved = []
-    for label, path, sha in (("document", att.get("document_path"), att.get("document_sha256")),
-                             ("booking", att.get("booking_path"), att.get("booking_sha256"))):
-        if path and sha and Path(path).exists():
-            cur = hashlib.sha256(Path(path).read_bytes()).hexdigest()
-            if cur != sha:
-                moved.append(label)
+    doc_path = att.get("document_path")
+    if doc_path and att.get("document_sha256") and Path(doc_path).exists():
+        if hashlib.sha256(Path(doc_path).read_text().encode()).hexdigest() != att["document_sha256"]:
+            moved.append("document")
+    tid = att.get("booking_trade_id")
+    if tid and att.get("booking_sha256"):
+        res = store.lookup(store_dir or (ROOT / "golden" / "bookings"), tid)
+        if not res["found"] or booking_hash(res["record"]) != att["booking_sha256"]:
+            moved.append("booking")
     if not moved:
         return None
-    what = " and ".join(moved)
-    return f"attestation invalidated — {what} changed since last check; re-check queued"
+    return f"attestation invalidated — {' and '.join(moved)} {'changed' if len(moved) == 1 else 'both changed'} since last check; re-check queued"

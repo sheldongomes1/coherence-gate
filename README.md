@@ -38,10 +38,26 @@ Other useful entry points: `uv run cg run golden/termsheets/G05.txt --triage` ru
 document; `uv run cg eval --stub` runs the harness with no model calls (the Phase 0 state);
 `--booking direct` bypasses the MCP transport with the same interface.
 
-## The 5-minute demo (`make demo`)
+## The 5-minute demo (v0.2)
 
-Everything below is printed by the command; the HTML report and the trace are written to
-`runs/<ts>/`. A frozen copy of a real run is committed under `runs/showcase/`.
+1. **Open the OTC option PDF** (`templates/golden/OP-2026-0114_approved.pdf`): the shape of the
+   real trade, an insurer hedging fixed-indexed-annuity crediting on Versa 10.
+2. **`runs/showcase/desk_view.html`**, the 6am page: the attested book, the rows that need
+   attention with one line of desk consequence each, and the cost line for the whole book.
+3. **Click a red row**, for example the participation mismatch: the run-report anchor shows the
+   typed finding, both families' verbatim citations into the parsed text (parse job id shown),
+   and the drafted desk query.
+   **3b. Change the booking yourself** (any field in `golden/bookings/<trade>.json`) and run
+   `make check DOC=golden/pdf/G14.pdf`: the generic pipeline catches the edit class or, if it
+   does not, that is a finding for the honest ceiling. Regenerate the desk view and the row is
+   STALE until the re-check attests it again.
+4. **The refused-ambiguity moment**: an all-numeric date like 03/04/2026 becomes a finding, not a
+   guess (ADR-14).
+5. **`eval_report.md`**: strict catch rate with the field-level row beneath, false flags at equal
+   prominence, the parse tax, the effort sweep, and the honest ceiling. End on the ceiling.
+
+The older three-document walkthrough (`make demo`) still runs: G11 auto-clears, G10 announces
+its missing barrier, G09 survives the per-quarter/per-annum trap.
 
 1. **G11, a clean document** auto-clears: both extractors agree on every field, the
    comparator passes, no human touch, one trace line per step.
