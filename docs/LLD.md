@@ -11,7 +11,8 @@ def run_document(doc_path: Path, trade_id: str | None, ctx: RunContext) -> Docum
 Steps, each a tool-shaped function `(inputs, ctx) -> outputs` that appends one trace line:
 `load_document → extract_gemini ∥ extract_claude → guard → normalize → merge →
 booking_lookup → compare → assign_lanes → triage (only TRIAGE findings) → persist`.
-`trade_id` defaults to the `trade_id` field on which both extractors agree; if they do not,
+`trade_id` defaults to the `trade_id` field on which both extractors agree (after
+normalization); if they do not,
 the document cannot be looked up and every field becomes `BOOKING_ABSENT` with a note (this
 is itself the correct verdict: an unidentifiable document cannot auto-clear).
 
@@ -64,10 +65,11 @@ lands on a clean field, so over-strict guarding is visible.
 
 ### 3.1 `schema_loader.py`
 `load_schema() -> Schema` reads `schema/termsheet_v1.json` into `FieldSpec(name, type,
-critical, enum, description)`. `build_extraction_model(schema) -> type[BaseModel]` uses
-`pydantic.create_model` to produce a model with one `FieldExtraction`-shaped attribute per
-schema field, all required. Its JSON schema is what both extractors are constrained with, so
-the JSON file is the single source of truth for prompt, validation, and comparison.
+critical, enum, description)` and exposes `names`, `comparison_keys` (19: all fields minus
+`coupon_rate_basis`) and `prompt_table()`. The JSON file is the single source of truth for
+the prompt table, the output schema (`extract/base.py::raw_extraction_json_schema`, see
+§9.1a) and the comparison keys. (`build_extraction_model` still exists for tests; the
+Pydantic-derived JSON schema is NOT what the models are constrained with, see ADR-16.)
 
 ## 4. `normalize.py` — canonical forms (pure functions, unit-tested)
 
@@ -167,17 +169,31 @@ guess. No tolerances, no normalization rules, no examples of arithmetic (Rule 3)
 idiom differences are limited to: system vs user placement and the structured-output
 mechanism.
 
+### 9.1a Output contract (as built, ADR-16)
+Both families are constrained with ONE hand-built, union-free JSON schema of three flat maps
+keyed by field name: `status` (enum EXTRACTED | DECLARED_ABSENT), `value` (string as written;
+array of strings for list fields; "" / [] when absent), `citation` (verbatim span string; ""
+when absent). No per-field `note`. Claude's structured-output grammar compiler rejected both
+the Pydantic-derived schema (60 union-typed parameters, limit 16) and 20 nested per-field
+objects ("compiled grammar too large"); the three-map shape compiles on both APIs. The guard
+(`_per_field`) converts the maps to per-field records before validation.
+
 ### 9.2 `gemini.py`
-`google-genai`: `client.models.generate_content(model=pin, contents=[document + task],
-config=GenerateContentConfig(system_instruction=..., response_mime_type="application/json",
-response_json_schema=<extraction model JSON schema>, temperature=0))`. Usage from
-`response.usage_metadata`; `model_version` from `response.model_version`.
+`google-genai`: `client.models.generate_content(model=pin, contents=prompt,
+config=GenerateContentConfig(system_instruction=SYSTEM, response_mime_type="application/json",
+response_json_schema=<three-map schema>, temperature=0, max_output_tokens=32000,
+thinking_config=ThinkingConfig(thinking_level=<config>)))`. The output cap INCLUDES thinking
+tokens on Gemini 3.x (an 8k cap truncated the JSON). `HttpOptions(timeout=ms,
+retry_options=HttpRetryOptions(attempts=2))`: without explicit bounds one call retried for
+2.2 h. Usage from `usage_metadata` (thoughts billed as output); `model_version` from the response.
 
 ### 9.3 `claude.py`
-`anthropic` SDK 1.x: `client.messages.parse(model=pin, max_tokens=16000, system=...,
-messages=[...], output_format=<ExtractionModel>)` (structured outputs; exact kwarg verified
-against the claude-api skill's Python README at build time), adaptive thinking default,
-`effort` default. Usage from `response.usage`; `model_version = response.model`.
+`anthropic` SDK 1.x: `client.messages.create(model=pin, max_tokens=16000, system=SYSTEM,
+messages=[...], output_config={"effort": <config>, "format": {"type": "json_schema",
+"schema": <three-map schema>}})`; JSON is the first text block. Adaptive thinking is the
+model default. `Anthropic(timeout=240, max_retries=2)`. `stop_reason == "refusal"` is a
+`REFUSAL` outcome (all fields Malformed), no fallback model is invoked (the trace must name
+the pinned model that actually ran).
 Both extractors are wrapped by `trace.timed_call(step="extract:<family>")`, which records
 tokens, latency, and outcome (`OK | MALFORMED | API_ERROR`). An API error after the SDK's own
 retries is an outcome, not an exception: every field becomes `MALFORMED_EXTRACTION` with
@@ -207,8 +223,9 @@ per line so a crash mid-run still leaves a readable trace.
 
 ## 11. `triage/agent.py`
 
-Input per finding: the `Finding`, the booking field name and value, both citation spans, and
-the full document. Prompt `prompts/triage_v1.md`: "Classify and draft a desk query. Do not
+Input per finding (ADR-17): the `Finding`, its schema description, the finding type's
+meaning, both extracted values, the booking field name and value, the comparator detail and
+both citation spans. NOT the full document and NOT the full booking record. Prompt `prompts/triage_v1.md`: "Classify and draft a desk query. Do not
 decide whether the values match; that has been decided. Cite the clause verbatim and the
 booking field by name." Output constrained to `TriageNote` via structured outputs. Model:
 `claude-opus-5` (pin). One call per TRIAGE finding, traced as `triage:<field>`. A malformed
@@ -216,7 +233,10 @@ triage response yields `TriageNote(classification="EXTRACTION_QUALITY", desk_que
 unavailable: {reason}>")`; the finding still reaches the queue.
 
 Clean documents never invoke triage (zero model calls after extraction), which is the
-tiered-autonomy cost story in the report.
+tiered-autonomy cost story in the report. A wholesale extractor failure (every field of one
+family Malformed for one reason: timeout, API error, refusal, non-JSON) gets a deterministic
+note from the pipeline and no triage calls (ADR-18); the trace line is
+`triage / SKIPPED_WHOLESALE_FAILURE`.
 
 ## 12. `cli.py`
 

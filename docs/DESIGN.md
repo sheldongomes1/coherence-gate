@@ -50,6 +50,13 @@ trace.
   Cloud Run job for batch runs.
 - Per-field autonomy policy derived from eval history: a field earns AUTO_CLEAR only after
   N consecutive evals with 0 false flags on it.
+- Transport resilience learned in Phase 1: Gemini calls on a consumer connection hung or
+  retried for hours until timeouts and retry bounds were made explicit; Gemini 3.8 Flash's
+  thinking volume varies 1k–30k tokens per identical call. Phase 2 routes both families
+  through Vertex AI (regional endpoint, quota, VPC-SC) and pins a thinking level chosen by the
+  effort sweep in `eval_log.md`.
+- Triage gets the guard-located neighbourhood of the field (±N lines around the citation), so
+  an explanatory clause elsewhere can be noticed without handing it the whole document.
 
 ### Phase 3 — Extension (the roadmap line in BRIEF.md).
 - Reconciliation break triage: same gate over two structured records (front-office vs
