@@ -29,10 +29,35 @@ class Parser(Protocol):
     def parse(self, pdf: Path) -> ParseResult: ...
 
 
+DROP_ELEMENTS = {"footer", "header", "page-number", "page-footer", "page-header"}
+
+
+def compose_markdown(chunks) -> str:
+    """Rebuild the document text from parsed elements, dropping running headers/footers and page
+    numbers so a sentence split by a page break is contiguous again (the v0.2 ablation's residual
+    parse tax was exactly that). Section headers keep the vendor's '## ' rendering; tables stay HTML."""
+    parts: list[str] = []
+    for ch in chunks:
+        els = [e.model_dump() if hasattr(e, "model_dump") else e for e in (ch.elements or [])]
+        if not els:
+            parts.append(ch.content or "")
+            continue
+        for el in els:
+            if el.get("type") in DROP_ELEMENTS:
+                continue
+            c = (el.get("content") or "").strip()
+            if not c:
+                continue
+            parts.append(f"## {c}" if el.get("type") in ("section-header", "title") else c)
+    return "\n\n".join(parts) + "\n"
+
+
 class MixedbreadParser:
-    """Mixedbread Parsing API: upload -> create job (markdown, high_quality, page chunks) -> poll."""
+    """Mixedbread Parsing API: upload -> create job (markdown, high_quality, page chunks) -> poll ->
+    compose markdown from elements without headers/footers (composition v2)."""
 
     name = "mixedbread"
+    composition = "elements-v2-no-header-footer"
 
     def __init__(self, mode: str = "high_quality", poll_timeout_s: float = 300.0) -> None:
         from mixedbread import Mixedbread  # the only vendor import in the codebase
@@ -60,10 +85,12 @@ class MixedbreadParser:
         if job.status != "completed" or job.result is None:
             raise RuntimeError(f"mixedbread job {job.id} status={job.status} error={job.error}")
         chunks = job.result.chunks or []
-        md = "\n\n".join((c.content or "") for c in chunks)
+        md = compose_markdown(chunks)
+        dropped = sum(1 for c in chunks for e in (c.elements or []) if (e.model_dump() if hasattr(e, "model_dump") else e).get("type") in DROP_ELEMENTS)
         return ParseResult(markdown=md, meta={
             "vendor": self.name, "job_id": job.id, "file_id": f.id, "mode": self.mode, "return_format": "markdown",
-            "chunking": "page", "pages": len(chunks), "latency_ms": latency,
+            "chunking": "page", "pages": len(chunks), "latency_ms": latency, "composition": self.composition,
+            "dropped_elements": dropped,
             "cost_usd": None,  # not reported by the API; stated as such in the report
             "sdk_version": self.sdk_version, "parsed_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
         })
@@ -73,11 +100,12 @@ class LocalParser:
     """pdftotext -layout. The fallback when no vendor key or the vendor misbehaves."""
 
     name = "local-fallback"
+    composition = "pdftotext-layout"
 
     def parse(self, pdf: Path) -> ParseResult:
         t0 = time.perf_counter()
         out = subprocess.run(["pdftotext", "-layout", str(pdf), "-"], capture_output=True, text=True, check=True).stdout
-        return ParseResult(markdown=out, meta={"vendor": self.name, "tool": "pdftotext -layout", "job_id": None,
+        return ParseResult(markdown=out, meta={"vendor": self.name, "tool": "pdftotext -layout", "job_id": None, "composition": self.composition,
                                                "latency_ms": int((time.perf_counter() - t0) * 1000), "cost_usd": 0.0,
                                                "parsed_at": time.strftime("%Y-%m-%dT%H:%M:%S")})
 
@@ -102,7 +130,8 @@ def parse_document(doc_id: str, pdf: Path, parser: Parser, cache_dir: Path) -> t
     digest = sha256(pdf)
     if md_path.exists() and meta_path.exists():
         meta = json.loads(meta_path.read_text())
-        if meta.get("pdf_sha256") == digest and meta.get("vendor") == parser.name:
+        if (meta.get("pdf_sha256") == digest and meta.get("vendor") == parser.name
+                and meta.get("composition") == getattr(parser, "composition", None)):
             return ParseResult(markdown=md_path.read_text(), meta=meta), True
     res = parser.parse(pdf)
     res.meta.update({"doc_id": doc_id, "pdf": str(pdf), "pdf_sha256": digest,

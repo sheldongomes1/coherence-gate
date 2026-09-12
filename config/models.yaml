@@ -25,7 +25,7 @@ extraction:
   prompt_version: extract_v2      # v2 = v1 wording generalised to any trade document + index_* fields (CS4)
   claude_effort: medium          # ADR-15: medium first, sweep to high in a logged rerun
   gemini_thinking_level: medium  # google-genai ThinkingConfig.thinking_level; null = provider default
-  max_output_tokens_gemini: 32000   # cap INCLUDES thinking tokens on Gemini 3.x; medium thinking used ~3-8k
+  max_output_tokens_gemini: 65000   # cap INCLUDES thinking tokens on Gemini 3.x; at 27 fields medium thinking reached 32k and truncated the JSON (run 175615, G03)
   max_output_tokens_claude: 16000   # includes adaptive-thinking tokens; non-streaming safe
   temperature: 0
   timeout_s: 240        # per HTTP request; the SDKs retry twice on transient errors
