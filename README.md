@@ -114,6 +114,9 @@ booking store (JSON) ─► MCP tool booking_lookup(trade_id) ──────
 | [`docs/LLD.md`](docs/LLD.md) | module contracts, normalization and tolerance tables, scoring formulas |
 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | 17 ADRs, including the ones made at build checkpoints (schema shape, effort, triage context) |
 | [`docs/lessons.md`](docs/lessons.md) | what broke during the build and what it taught |
+| [`docs/V2-CHANGES.md`](docs/V2-CHANGES.md) | the v0.2 change sets (PDF ingestion, option product, reference lane, desk view, live check) |
+| [`docs/MODEL-RISK.md`](docs/MODEL-RISK.md) | model-risk summary in committee format, values filled from a run |
+| [`eval_diff.md`](eval_diff.md) | a model/effort change as a before/after diff: "a deprecation is a rerun and a comparison" |
 | [`BRIEF.md`](BRIEF.md) | one page for the evaluator; results table generated from a run by `scripts/fill_brief.py` |
 | [`eval_log.md`](eval_log.md) | every prompt/schema/normalizer iteration and what it did to both rates |
 

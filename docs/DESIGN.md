@@ -109,3 +109,20 @@ code, model supplies only the verbatim span (ADR-3); merger compares normalized 
 | 4. clean docs zero-touch; discrepant docs triage note | S1 lanes + S3 triage |
 | 5. one observability trace | S2 trace writer, S4 trace view |
 | 6. one-page BRIEF | S4 |
+
+
+## 7. v0.2 status (2026-09-12, from docs/V2-CHANGES.md; order per ADR-20)
+
+| Change set | Status | Evidence |
+|---|---|---|
+| CS1 PDF golden set | done | `make golden`: 15 HTML/PDF/TXT from the approved templates, 4 layouts |
+| CS2 Mixedbread ingestion + citation chain + parse-tax ablation | done | `golden/parsed/`, `--source pdf|txt`, `parse_tax.md`; guard hardened for parsed tables |
+| CS6 eval report v2 + brief v2 | done | `eval_report.md` sections 1–11; `make brief` |
+| CS3 option product + arithmetic relation | done (code + fixtures) | `option_v1.json`, `rel:premium_arithmetic`, G13–G15 |
+| CS5 desk view | done | `desk_view.html` per run, ADR-22 |
+| CS7a live check | done | `make check DOC=… TRADE=…`, `scripts/rehearse_check.py` |
+| CS7c STALE | done | attested hashes in `summary.json`; `test_stale.py` |
+| CS4 Versa reference lane | done (code + fixtures) | `reference/`, ADR-23, G09/G14/G03 planted |
+| CS7b model-swap diff | done | `eval_diff.md` (medium vs low sweep), `make eval-diff` |
+| Release run on 15 docs, pdf source, reference lane | pending | chain running |
+| MODEL-RISK filled, showcase frozen, v0.2.0 tag | pending | after the release run |
