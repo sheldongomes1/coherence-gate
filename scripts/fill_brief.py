@@ -22,7 +22,11 @@ def _parse_tax(run: Path) -> str:
     deg = re.search(r"Fields degraded by parsing \((\d+)\)", txt)
     rows = re.findall(r"\| extraction_accuracy \((\w+)\) \| (\d+/\d+) \| (\d+/\d+) \| ([+-]\d+) \|", txt)
     parts = [f"{fam} {a}→{b} ({d})" for fam, a, b, d in rows]
-    return (", ".join(parts) if parts else "see parse_tax.md") + (f"; {deg.group(1)} field(s) degraded" if deg else "")
+    ws = re.search(r"\*\*Wholesale events, not parse tax:\*\* (.*)", txt)
+    note = f"; {deg.group(1)} field(s) degraded by parsing" if deg else ""
+    if ws:
+        note += " (the remaining delta is an extractor deadline/API event in one run, not parsing)"
+    return (", ".join(parts) if parts else "see parse_tax.md") + note
 
 
 ac_ok = s["auto_clear_correctness"]["hit"] == s["auto_clear_correctness"]["n"]
