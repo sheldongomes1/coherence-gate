@@ -27,3 +27,10 @@ def test_stale_on_booking_amendment(tmp_path):
     r2 = run_document(ROOT / "golden" / "termsheets" / "G11.txt", ctx, trade_id="SN-2026-0111")
     d2 = load_run(ctx.out_dir)["docs"][0]
     assert _stale_reason(ctx.out_dir, d2, store) is None
+
+
+def test_build_context_honours_bookings_dir(tmp_path):
+    store = tmp_path / "b"; store.mkdir()
+    ctx = build_context(ROOT / "golden", tmp_path / "runs", stub=True, bookings_dir=store)
+    assert Path(ctx.booking.store_dir) == store
+    ctx.booking.close()
