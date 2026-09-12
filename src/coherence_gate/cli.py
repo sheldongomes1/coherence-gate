@@ -170,6 +170,16 @@ def cmd_feedback(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_propose(a: argparse.Namespace) -> int:
+    """CS8c: feedback -> proposals/ (never applied)."""
+    from .feedback import propose_all
+    written = propose_all(Path(a.file), Path(a.out), Path("runs"), only_unproposed=not a.all)
+    for p in written:
+        console.print(f"proposal: {p}")
+    console.print(f"{len(written)} proposal(s) written. Nothing applied: review, apply in its own commit, `make eval`, `make eval-diff`.")
+    return 0
+
+
 def cmd_report(a: argparse.Namespace) -> int:
     from .report.desk_view import render as render_desk
     from .report.html import render
@@ -242,6 +252,9 @@ def main(argv: list[str] | None = None) -> int:
     fb.add_argument("--verdict", choices=["desk_accepted", "desk_rejected"]); fb.add_argument("--note", default="")
     fb.add_argument("--run", help="run directory the finding came from (default: latest under runs/)")
     fb.add_argument("--file", default="feedback/feedback.jsonl"); fb.add_argument("--list", action="store_true"); fb.set_defaults(fn=cmd_feedback)
+    pp = sub.add_parser("propose", help="draft reviewable proposals from desk feedback (never applies anything)")
+    pp.add_argument("--file", default="feedback/feedback.jsonl"); pp.add_argument("--out", default="proposals")
+    pp.add_argument("--all", action="store_true", help="re-draft entries that already have a proposal"); pp.set_defaults(fn=cmd_propose)
     pa = sub.add_parser("parse"); pa.add_argument("--golden", default="golden"); pa.add_argument("--parser", choices=["mixedbread", "local"], default="mixedbread"); pa.set_defaults(fn=cmd_parse)
     ab = sub.add_parser("ablation"); ab.add_argument("--txt-run", required=True); ab.add_argument("--pdf-run", required=True); ab.set_defaults(fn=cmd_ablation)
     rp = sub.add_parser("report"); rp.add_argument("--latest", nargs="?", const="runs"); rp.add_argument("--run"); rp.set_defaults(fn=cmd_report)
