@@ -1,0 +1,32 @@
+{
+  "trade_id": "OP-2026-0121",
+  "buyer": "Lakeshore Life Insurance Company",
+  "seller": "Northbridge Capital Markets (Canada) Inc.",
+  "option_style": "european",
+  "option_type": "call",
+  "underlyings": [
+    "BVERSA10"
+  ],
+  "notional": 25000000,
+  "currency": "USD",
+  "trade_date": "2026-07-20",
+  "effective_date": "2026-07-22",
+  "strike_level_pct": 100,
+  "participation_rate_pct": 100,
+  "valuation_date": "2028-07-20",
+  "expiration_date": "2028-07-20",
+  "automatic_exercise": true,
+  "premium_pct": 4.15,
+  "premium_amount": 830000,
+  "premium_payment_date": "2026-07-22",
+  "cash_settlement_days": 3,
+  "settlement_currency": "USD",
+  "calculation_agent": "Party A",
+  "index_administrator": "Bloomberg Index Services Limited",
+  "index_return_type": "type_i",
+  "index_return_treatment": "excess_return",
+  "index_vol_target_pct": 10,
+  "index_rebalance_frequency": "daily",
+  "index_deduction_factor_pct": 0.5,
+  "index_transaction_cost_rate_pct": 0.02
+}

@@ -25,5 +25,12 @@
   "autocall_level_pct": 100,
   "day_count": "30/360",
   "settlement": "cash",
-  "business_day_convention": "mod_following"
+  "business_day_convention": "mod_following",
+  "index_administrator": "Bloomberg Index Services Limited",
+  "index_return_type": "type_i",
+  "index_return_treatment": "total_return",
+  "index_vol_target_pct": 10,
+  "index_rebalance_frequency": "daily",
+  "index_deduction_factor_pct": 0.5,
+  "index_transaction_cost_rate_pct": 0.02
 }

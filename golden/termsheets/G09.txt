@@ -19,7 +19,7 @@ Bloomberg Versa 10 Index — BVERSA10 Index
 Index Administrator
 Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator
 Return Treatment
-Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process
+Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process
 Volatility Target
 10% per annum
 Volatility Calculation

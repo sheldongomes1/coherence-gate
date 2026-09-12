@@ -28,5 +28,12 @@
   ],
   "day_count": "30/360",
   "settlement": "cash",
-  "business_day_convention": "following"
+  "business_day_convention": "following",
+  "index_administrator": "ABSENT",
+  "index_return_type": "ABSENT",
+  "index_return_treatment": "ABSENT",
+  "index_vol_target_pct": "ABSENT",
+  "index_rebalance_frequency": "ABSENT",
+  "index_deduction_factor_pct": "ABSENT",
+  "index_transaction_cost_rate_pct": "ABSENT"
 }

@@ -9,6 +9,14 @@
     {
       "date": "2026-09-12",
       "note": "v0.2 CS1: PDF+HTML+TXT per document from approved templates; G12 economics replaced by the approved template's (ADR-20); Versa docs carry the Underlying Index section"
+    },
+    {
+      "date": "2026-09-12",
+      "note": "v0.2 CS3: OTC option product (schema option_v1): G13 = approved OP-2026-0114 (clean control), G14 participation 100->95, G15 premium off the wrong notional (MISMATCH + RELATION_VIOLATION)"
+    },
+    {
+      "date": "2026-09-12",
+      "note": "v0.2 CS4: index_* claims in truth/bookings (schema termsheet_v2 / option_v1); reference mutants: G09 Type I called Total Return, G14 monthly rebalancing (both REFERENCE_INCONSISTENT + MISMATCH vs booking static), G03 vol target 10 vs booking 12 (MISMATCH only: the methodology defers vol target)"
     }
   ],
   "documents": [
@@ -65,6 +73,12 @@
           "field": "day_count",
           "type": "MISMATCH",
           "note": "TS ACT/360, booking 30/360",
+          "severity": "critical"
+        },
+        {
+          "field": "index_vol_target_pct",
+          "type": "MISMATCH",
+          "note": "TS 10% (methodology defers, not checkable), booking static 12%",
           "severity": "critical"
         }
       ]
@@ -174,7 +188,21 @@
       "html": "html/G09.html",
       "booking": "bookings/SN-2026-0109.json",
       "truth": "truth/G09.json",
-      "planted": [],
+      "planted": [
+        {
+          "field": "ref:index_return_treatment",
+          "type": "REFERENCE_INCONSISTENT",
+          "note": "TS says Total Return for a Type I index; methodology: Type I is Excess Return",
+          "severity": "critical"
+        },
+        {
+          "field": "index_return_treatment",
+          "type": "MISMATCH",
+          "note": "TS total_return vs booking static excess_return",
+          "secondary": true,
+          "severity": "critical"
+        }
+      ],
       "traps": [
         {
           "field": "coupon_rate_pct",
@@ -227,6 +255,84 @@
       "truth": "truth/G12.json",
       "planted": [],
       "clean_control": true
+    },
+    {
+      "id": "G13",
+      "layout": "approved-option",
+      "product_type": "otc_option",
+      "trade_id": "OP-2026-0114",
+      "termsheet": "termsheets/G13.txt",
+      "pdf": "pdf/G13.pdf",
+      "html": "html/G13.html",
+      "booking": "bookings/OP-2026-0114.json",
+      "truth": "truth/G13.json",
+      "planted": [],
+      "clean_control": true
+    },
+    {
+      "id": "G14",
+      "layout": "approved-option",
+      "product_type": "otc_option",
+      "trade_id": "OP-2026-0117",
+      "termsheet": "termsheets/G14.txt",
+      "pdf": "pdf/G14.pdf",
+      "html": "html/G14.html",
+      "booking": "bookings/OP-2026-0117.json",
+      "truth": "truth/G14.json",
+      "planted": [
+        {
+          "field": "participation_rate_pct",
+          "type": "MISMATCH",
+          "note": "documented 100%, booked 95%",
+          "severity": "critical"
+        },
+        {
+          "field": "ref:index_rebalance_frequency",
+          "type": "REFERENCE_INCONSISTENT",
+          "note": "TS says monthly rebalancing; methodology: every Index Business Day",
+          "severity": "critical"
+        },
+        {
+          "field": "index_rebalance_frequency",
+          "type": "MISMATCH",
+          "note": "TS monthly vs booking static daily",
+          "secondary": true,
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "G15",
+      "layout": "approved-option",
+      "product_type": "otc_option",
+      "trade_id": "OP-2026-0121",
+      "termsheet": "termsheets/G15.txt",
+      "pdf": "pdf/G15.pdf",
+      "html": "html/G15.html",
+      "booking": "bookings/OP-2026-0121.json",
+      "truth": "truth/G15.json",
+      "planted": [
+        {
+          "field": "premium_amount",
+          "type": "MISMATCH",
+          "note": "TS 1,037,500; booking 830,000 (= 4.15% \u00d7 20mm, wrong notional)",
+          "severity": "critical"
+        },
+        {
+          "field": "rel:premium_arithmetic",
+          "type": "RELATION_VIOLATION",
+          "note": "booking: 4.15% \u00d7 25,000,000 \u2260 830,000",
+          "severity": "critical"
+        }
+      ]
     }
-  ]
+  ],
+  "reference": {
+    "index_methodology": {
+      "document": "reference/Bloomberg-Versa-Indices-Methodology.pdf",
+      "schema": "index_methodology_v1.json",
+      "prompt": "reference_v1",
+      "note": "real BISL document, 34 pages; the only non-synthetic input"
+    }
+  }
 }
