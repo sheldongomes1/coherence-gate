@@ -1,9 +1,36 @@
 {
   "doc_id": "G11",
-  "sha256": "9c91fad55a41843ee1a9c4feef33d5e8d02637ffae67690cf9aa5b7f079c5f93",
+  "sha256": "dc3382d5c56f116a4ccc33f69c2894f0b18f4c27bee44f9e76d19dd98bcfb1ba",
   "trade_id": "SN-2026-0111",
   "document_lane": "AUTO_CLEAR",
-  "cost_usd": 0.083279,
-  "n_auto_clear": 19,
-  "n_triage": 0
+  "cost_usd": 0.097772,
+  "n_auto_clear": 26,
+  "n_triage": 0,
+  "source": "pdf",
+  "parse": {
+    "vendor": "mixedbread",
+    "job_id": "35f5604f-ead8-4edc-97d4-f890bb5461f8",
+    "file_id": "7c625d1f-97bb-4b90-aaf8-564810ecebfb",
+    "mode": "high_quality",
+    "return_format": "markdown",
+    "chunking": "page",
+    "pages": 2,
+    "latency_ms": 2385,
+    "composition": "elements-v2-no-header-footer",
+    "dropped_elements": 4,
+    "cost_usd": null,
+    "sdk_version": "0.54.0",
+    "parsed_at": "2026-09-12T18:15:13",
+    "doc_id": "G11",
+    "pdf": "golden/pdf/G11.pdf",
+    "pdf_sha256": "35f03961492889217978ef5c31efa6ad23972996426fae847255da85706e389e",
+    "markdown_sha256": "dc3382d5c56f116a4ccc33f69c2894f0b18f4c27bee44f9e76d19dd98bcfb1ba"
+  },
+  "product_type": "note",
+  "attested_hashes": {
+    "document_path": "golden/parsed/G11.md",
+    "document_sha256": "dc3382d5c56f116a4ccc33f69c2894f0b18f4c27bee44f9e76d19dd98bcfb1ba",
+    "booking_trade_id": "SN-2026-0111",
+    "booking_sha256": "6a0a1a818db16da6805f237c49fe371ece398db765209c6d183e1cad192083d5"
+  }
 }

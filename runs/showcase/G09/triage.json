@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "id": "G09:index_return_treatment",
+    "doc_id": "G09",
+    "field": "index_return_treatment",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": "total_return",
+    "booking_value": "excess_return",
+    "citations": [
+      {
+        "text_span": "Total Return (Type I under the Index Methodology)",
+        "char_range": [
+          3034,
+          3083
+        ]
+      },
+      {
+        "text_span": "Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
+        "char_range": [
+          3034,
+          3159
+        ]
+      }
+    ],
+    "detail": "TS total_return \u2260 booking excess_return",
+    "lane": "TRIAGE",
+    "triage": null
+  },
+  {
+    "id": "G09:ref:index_return_treatment",
+    "doc_id": "G09",
+    "field": "ref:index_return_treatment",
+    "type": "REFERENCE_INCONSISTENT",
+    "severity": "critical",
+    "ts_value": "total_return",
+    "booking_value": "excess_return",
+    "citations": [
+      {
+        "text_span": "Total Return (Type I under the Index Methodology)",
+        "char_range": [
+          3034,
+          3083
+        ]
+      },
+      {
+        "text_span": "Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
+        "char_range": [
+          3034,
+          3159
+        ]
+      }
+    ],
+    "detail": "term sheet calls a type_i index 'total_return'; the methodology says type_i is excess_return",
+    "lane": "TRIAGE",
+    "triage": null
+  }
+]

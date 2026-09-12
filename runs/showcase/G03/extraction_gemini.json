@@ -7,10 +7,10 @@
       "status": "EXTRACTED",
       "value": "SN-2026-0103",
       "citation": {
-        "text_span": "Tranche reference SN-2026-0103",
+        "text_span": "with reference SN-2026-0103 in an aggregate Notional Amount of CAD 8,000,000.",
         "char_range": [
-          118,
-          148
+          441,
+          518
         ]
       },
       "note": null
@@ -19,22 +19,22 @@
       "status": "EXTRACTED",
       "value": "Northbridge Capital Markets (Canada) Inc.",
       "citation": {
-        "text_span": "The Notes are issued by Northbridge Capital Markets (Canada) Inc..",
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
         "char_range": [
-          161,
-          227
+          353,
+          426
         ]
       },
       "note": null
     },
     "notional": {
       "status": "EXTRACTED",
-      "value": "8,000,000 CAD",
+      "value": "8000000",
       "citation": {
-        "text_span": "The aggregate Notional Amount is 8,000,000 CAD.",
+        "text_span": "in an aggregate Notional Amount of CAD 8,000,000.",
         "char_range": [
-          262,
-          309
+          469,
+          518
         ]
       },
       "note": null
@@ -43,46 +43,46 @@
       "status": "EXTRACTED",
       "value": "CAD",
       "citation": {
-        "text_span": "The Specified Currency is CAD and all payments under the Notes are made in CAD.",
+        "text_span": "in an aggregate Notional Amount of CAD 8,000,000.",
         "char_range": [
-          310,
-          389
+          469,
+          518
         ]
       },
       "note": null
     },
     "trade_date": {
       "status": "EXTRACTED",
-      "value": "March 3, 2026",
+      "value": "2026-03-03",
       "citation": {
-        "text_span": "Trade Date: March 3, 2026.",
+        "text_span": "The Trade Date is 3 March 2026",
         "char_range": [
-          401,
-          427
+          696,
+          726
         ]
       },
       "note": null
     },
     "issue_date": {
       "status": "EXTRACTED",
-      "value": "March 10, 2026",
+      "value": "2026-03-10",
       "citation": {
-        "text_span": "Issue Date: March 10, 2026.",
+        "text_span": "the Issue Date is 10 March 2026",
         "char_range": [
-          428,
-          455
+          728,
+          759
         ]
       },
       "note": null
     },
     "maturity_date": {
       "status": "EXTRACTED",
-      "value": "March 12, 2029",
+      "value": "2029-03-12",
       "citation": {
-        "text_span": "Maturity Date: March 12, 2029, subject to adjustment in accordance with Condition 9.",
+        "text_span": "the Scheduled Maturity Date is 12 March 2029",
         "char_range": [
-          456,
-          540
+          764,
+          808
         ]
       },
       "note": null
@@ -90,26 +90,26 @@
     "underlyings": {
       "status": "EXTRACTED",
       "value": [
-        "SPTSX60 Index",
-        "BVERSA10 Index"
+        "SPTSX60",
+        "BVERSA10"
       ],
       "citation": {
-        "text_span": "The Notes are linked to the worst performing of the S&P/TSX 60 Index (Bloomberg: SPTSX60 Index) and the BVERSA10 Index (Bloomberg: BVERSA10 Index).",
+        "text_span": "S&P/TSX 60 Index (Bloomberg: SPTSX60 Index) and the Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index).",
         "char_range": [
-          557,
-          704
+          590,
+          695
         ]
       },
       "note": null
     },
     "initial_level_pct": {
       "status": "EXTRACTED",
-      "value": "100 per cent.",
+      "value": "100%",
       "citation": {
-        "text_span": "The Initial Level is 100 per cent. of the official closing level of each Underlying on the Trade Date.",
+        "text_span": "The Initial Level of the Underlying is 100% of its official closing level on the Trade Date",
         "char_range": [
-          705,
-          807
+          877,
+          968
         ]
       },
       "note": null
@@ -118,34 +118,34 @@
       "status": "EXTRACTED",
       "value": "european",
       "citation": {
-        "text_span": "the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 70 per cent. of the Initial Level.",
+        "text_span": "observed on the Final Valuation Date only (European observation)",
         "char_range": [
-          1689,
-          1855
+          4115,
+          4179
         ]
       },
       "note": null
     },
     "barrier_level_pct": {
       "status": "EXTRACTED",
-      "value": "70 per cent.",
+      "value": "70%",
       "citation": {
-        "text_span": "at a Knock-in Level of 70 per cent. of the Initial Level.",
+        "text_span": "Knock-in Level of 70% of the Initial Level.",
         "char_range": [
-          1798,
-          1855
+          4185,
+          4228
         ]
       },
       "note": null
     },
     "coupon_rate_pct": {
       "status": "EXTRACTED",
-      "value": "6.8 per cent.",
+      "value": "6.8%",
       "citation": {
-        "text_span": "the Notes bear a Coupon of 6.8 per cent. per annum, payable quarterly.",
+        "text_span": "conditional Coupon of 6.8% per annum",
         "char_range": [
-          853,
-          923
+          3201,
+          3237
         ]
       },
       "note": null
@@ -154,10 +154,10 @@
       "status": "EXTRACTED",
       "value": "per_annum",
       "citation": {
-        "text_span": "the Notes bear a Coupon of 6.8 per cent. per annum, payable quarterly.",
+        "text_span": "conditional Coupon of 6.8% per annum",
         "char_range": [
-          853,
-          923
+          3201,
+          3237
         ]
       },
       "note": null
@@ -166,10 +166,10 @@
       "status": "EXTRACTED",
       "value": "quarterly",
       "citation": {
-        "text_span": "the Notes bear a Coupon of 6.8 per cent. per annum, payable quarterly.",
+        "text_span": "payable quarterly, payable quarterly in arrears",
         "char_range": [
-          853,
-          923
+          3239,
+          3286
         ]
       },
       "note": null
@@ -180,8 +180,8 @@
       "citation": {
         "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.",
         "char_range": [
-          1023,
-          1299
+          3415,
+          3692
         ]
       },
       "note": null
@@ -189,68 +189,152 @@
     "autocall_observation_dates": {
       "status": "EXTRACTED",
       "value": [
-        "March 3, 2027",
-        "September 3, 2027",
-        "March 3, 2028",
-        "September 5, 2028"
+        "2027-03-03",
+        "2027-09-03",
+        "2028-03-03",
+        "2028-09-05"
       ],
       "citation": {
-        "text_span": "Autocall Observation Dates: March 3, 2027, September 3, 2027, March 3, 2028, September 5, 2028.",
+        "text_span": "Autocall Observation Dates: 3 March 2027, 3 September 2027, 3 March 2028, 5 September 2028.",
         "char_range": [
-          1563,
-          1658
+          3962,
+          4053
         ]
       },
       "note": null
     },
     "autocall_level_pct": {
       "status": "EXTRACTED",
-      "value": "100 per cent.",
+      "value": "100%",
       "citation": {
-        "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100 per cent. of the Initial Level, the Notes redeem early at 100% of the Notional Amount plus the Coupon then due.",
+        "text_span": "at or above 100% of the Initial Level",
         "char_range": [
-          1360,
-          1562
+          3843,
+          3880
         ]
       },
       "note": null
     },
     "day_count": {
       "status": "EXTRACTED",
-      "value": "Actual/360",
+      "value": "ACT/360",
       "citation": {
-        "text_span": "calculated on the basis of Actual/360.",
+        "text_span": "Actual/360 day count basis.",
         "char_range": [
-          972,
-          1010
+          3387,
+          3414
         ]
       },
       "note": null
     },
     "settlement": {
       "status": "EXTRACTED",
-      "value": "Cash settlement",
+      "value": "cash",
       "citation": {
-        "text_span": "10. Settlement. Cash settlement.",
+        "text_span": "Settlement at maturity or upon automatic early redemption is in cash, in CAD.",
         "char_range": [
-          2315,
-          2347
+          4417,
+          4494
         ]
       },
       "note": null
     },
     "business_day_convention": {
       "status": "EXTRACTED",
-      "value": "Modified Following",
+      "value": "mod_following",
       "citation": {
-        "text_span": "Where any payment date would otherwise fall on a day that is not a Business Day, it shall be adjusted in accordance with the Modified Following Business Day Convention.",
+        "text_span": "Modified Following Business Day Convention.",
         "char_range": [
-          2054,
-          2222
+          4545,
+          4588
+        ]
+      },
+      "note": null
+    },
+    "index_administrator": {
+      "status": "EXTRACTED",
+      "value": "Bloomberg Index Services Limited",
+      "citation": {
+        "text_span": "Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator",
+        "char_range": [
+          1678,
+          1800
+        ]
+      },
+      "note": null
+    },
+    "index_return_type": {
+      "status": "EXTRACTED",
+      "value": "type_i",
+      "citation": {
+        "text_span": "Excess Return (Type I under the Index Methodology)",
+        "char_range": [
+          1859,
+          1909
+        ]
+      },
+      "note": null
+    },
+    "index_return_treatment": {
+      "status": "EXTRACTED",
+      "value": "excess_return",
+      "citation": {
+        "text_span": "Excess Return (Type I under the Index Methodology)",
+        "char_range": [
+          1859,
+          1909
+        ]
+      },
+      "note": null
+    },
+    "index_vol_target_pct": {
+      "status": "EXTRACTED",
+      "value": "10%",
+      "citation": {
+        "text_span": "10% per annum",
+        "char_range": [
+          2045,
+          2058
+        ]
+      },
+      "note": null
+    },
+    "index_rebalance_frequency": {
+      "status": "EXTRACTED",
+      "value": "daily",
+      "citation": {
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
+        "char_range": [
+          2531,
+          2596
+        ]
+      },
+      "note": null
+    },
+    "index_deduction_factor_pct": {
+      "status": "EXTRACTED",
+      "value": "0.50%",
+      "citation": {
+        "text_span": "0.50% per annum, deducted daily from the Index Value",
+        "char_range": [
+          2655,
+          2707
+        ]
+      },
+      "note": null
+    },
+    "index_transaction_cost_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "0.02%",
+      "citation": {
+        "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+        "char_range": [
+          2771,
+          2851
         ]
       },
       "note": null
     }
   },
-  "raw_text": "{\n  \"status\": {\n    \"trade_id\": \"EXTRACTED\",\n    \"issuer\": \"EXTRACTED\",\n    \"notional\": \"EXTRACTED\",\n    \"currency\": \"EXTRACTED\",\n    \"trade_date\": \"EXTRACTED\",\n    \"issue_date\": \"EXTRACTED\",\n    \"maturity_date\": \"EXTRACTED\",\n    \"underlyings\": \"EXTRACTED\",\n    \"initial_level_pct\": \"EXTRACTED\",\n    \"barrier_type\": \"EXTRACTED\",\n    \"barrier_level_pct\": \"EXTRACTED\",\n    \"coupon_rate_pct\": \"EXTRACTED\",\n    \"coupon_rate_basis\": \"EXTRACTED\",\n    \"coupon_frequency\": \"EXTRACTED\",\n    \"coupon_memory\": \"EXTRACTED\",\n    \"autocall_observation_dates\": \"EXTRACTED\",\n    \"autocall_level_pct\": \"EXTRACTED\",\n    \"day_count\": \"EXTRACTED\",\n    \"settlement\": \"EXTRACTED\",\n    \"business_day_convention\": \"EXTRACTED\"\n  },\n  \"value\": {\n    \"trade_id\": \"SN-2026-0103\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"8,000,000 CAD\",\n    \"currency\": \"CAD\",\n    \"trade_date\": \"March 3, 2026\",\n    \"issue_date\": \"March 10, 2026\",\n    \"maturity_date\": \"March 12, 2029\",\n    \"underlyings\": [\n      \"SPTSX60 Index\",\n      \"BVERSA10 Index\"\n    ],\n    \"initial_level_pct\": \"100 per cent.\",\n    \"barrier_type\": \"european\",\n    \"barrier_level_pct\": \"70 per cent.\",\n    \"coupon_rate_pct\": \"6.8 per cent.\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"quarterly\",\n    \"coupon_memory\": \"true\",\n    \"autocall_observation_dates\": [\n      \"March 3, 2027\",\n      \"September 3, 2027\",\n      \"March 3, 2028\",\n      \"September 5, 2028\"\n    ],\n    \"autocall_level_pct\": \"100 per cent.\",\n    \"day_count\": \"Actual/360\",\n    \"settlement\": \"Cash settlement\",\n    \"business_day_convention\": \"Modified Following\"\n  },\n  \"citation\": {\n    \"trade_id\": \"Tranche reference SN-2026-0103\",\n    \"issuer\": \"The Notes are issued by Northbridge Capital Markets (Canada) Inc..\",\n    \"notional\": \"The aggregate Notional Amount is 8,000,000 CAD.\",\n    \"currency\": \"The Specified Currency is CAD and all payments under the Notes are made in CAD.\",\n    \"trade_date\": \"Trade Date: March 3, 2026.\",\n    \"issue_date\": \"Issue Date: March 10, 2026.\",\n    \"maturity_date\": \"Maturity Date: March 12, 2029, subject to adjustment in accordance with Condition 9.\",\n    \"underlyings\": \"The Notes are linked to the worst performing of the S&P/TSX 60 Index (Bloomberg: SPTSX60 Index) and the BVERSA10 Index (Bloomberg: BVERSA10 Index).\",\n    \"initial_level_pct\": \"The Initial Level is 100 per cent. of the official closing level of each Underlying on the Trade Date.\",\n    \"barrier_type\": \"the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 70 per cent. of the Initial Level.\",\n    \"barrier_level_pct\": \"at a Knock-in Level of 70 per cent. of the Initial Level.\",\n    \"coupon_rate_pct\": \"the Notes bear a Coupon of 6.8 per cent. per annum, payable quarterly.\",\n    \"coupon_rate_basis\": \"the Notes bear a Coupon of 6.8 per cent. per annum, payable quarterly.\",\n    \"coupon_frequency\": \"the Notes bear a Coupon of 6.8 per cent. per annum, payable quarterly.\",\n    \"coupon_memory\": \"Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.\",\n    \"autocall_observation_dates\": \"Autocall Observation Dates: March 3, 2027, September 3, 2027, March 3, 2028, September 5, 2028.\",\n    \"autocall_level_pct\": \"if on any Autocall Observation Date the closing level of the Underlying is at or above 100 per cent. of the Initial Level, the Notes redeem early at 100% of the Notional Amount plus the Coupon then due.\",\n    \"day_count\": \"calculated on the basis of Actual/360.\",\n    \"settlement\": \"10. Settlement. Cash settlement.\",\n    \"business_day_convention\": \"Where any payment date would otherwise fall on a day that is not a Business Day, it shall be adjusted in accordance with the Modified Following Business Day Convention.\"\n  }\n}"
+  "raw_text": "{\"value\": {\"trade_id\": \"SN-2026-0103\", \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\", \"notional\": \"8000000\", \"currency\": \"CAD\", \"trade_date\": \"2026-03-03\", \"issue_date\": \"2026-03-10\", \"maturity_date\": \"2029-03-12\", \"underlyings\": [\"SPTSX60\", \"BVERSA10\"], \"initial_level_pct\": \"100%\", \"barrier_type\": \"european\", \"barrier_level_pct\": \"70%\", \"coupon_rate_pct\": \"6.8%\", \"coupon_rate_basis\": \"per_annum\", \"coupon_frequency\": \"quarterly\", \"coupon_memory\": \"true\", \"autocall_observation_dates\": [\"2027-03-03\", \"2027-09-03\", \"2028-03-03\", \"2028-09-05\"], \"autocall_level_pct\": \"100%\", \"day_count\": \"ACT/360\", \"settlement\": \"cash\", \"business_day_convention\": \"mod_following\", \"index_administrator\": \"Bloomberg Index Services Limited\", \"index_return_type\": \"type_i\", \"index_return_treatment\": \"excess_return\", \"index_vol_target_pct\": \"10%\", \"index_rebalance_frequency\": \"daily\", \"index_deduction_factor_pct\": \"0.50%\", \"index_transaction_cost_rate_pct\": \"0.02%\"}, \"citation\": {\"trade_id\": \"with reference SN-2026-0103 in an aggregate Notional Amount of CAD 8,000,000.\", \"issuer\": \"Northbridge Capital Markets (Canada) Inc. (the \\\"Issuer\\\") will issue notes\", \"notional\": \"in an aggregate Notional Amount of CAD 8,000,000.\", \"currency\": \"in an aggregate Notional Amount of CAD 8,000,000.\", \"trade_date\": \"The Trade Date is 3 March 2026\", \"issue_date\": \"the Issue Date is 10 March 2026\", \"maturity_date\": \"the Scheduled Maturity Date is 12 March 2029\", \"underlyings\": \"S&P/TSX 60 Index (Bloomberg: SPTSX60 Index) and the Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index).\", \"initial_level_pct\": \"The Initial Level of the Underlying is 100% of its official closing level on the Trade Date\", \"barrier_type\": \"observed on the Final Valuation Date only (European observation)\", \"barrier_level_pct\": \"Knock-in Level of 70% of the Initial Level.\", \"coupon_rate_pct\": \"conditional Coupon of 6.8% per annum\", \"coupon_rate_basis\": \"conditional Coupon of 6.8% per annum\", \"coupon_frequency\": \"payable quarterly, payable quarterly in arrears\", \"coupon_memory\": \"Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.\", \"autocall_observation_dates\": \"Autocall Observation Dates: 3 March 2027, 3 September 2027, 3 March 2028, 5 September 2028.\", \"autocall_level_pct\": \"at or above 100% of the Initial Level\", \"day_count\": \"Actual/360 day count basis.\", \"settlement\": \"Settlement at maturity or upon automatic early redemption is in cash, in CAD.\", \"business_day_convention\": \"Modified Following Business Day Convention.\", \"index_administrator\": \"Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator\", \"index_return_type\": \"Excess Return (Type I under the Index Methodology)\", \"index_return_treatment\": \"Excess Return (Type I under the Index Methodology)\", \"index_vol_target_pct\": \"10% per annum\", \"index_rebalance_frequency\": \"Each Index Business Day, in accordance with the Index Methodology\", \"index_deduction_factor_pct\": \"0.50% per annum, deducted daily from the Index Value\", \"index_transaction_cost_rate_pct\": \"0.02% on changes in Underlying Index units, as provided in the Index Methodology\"}, \"absent\": []}"
 }

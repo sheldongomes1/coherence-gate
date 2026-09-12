@@ -39,14 +39,30 @@ def render_parse_tax(txt_run: Path, pdf_run: Path) -> Path:
                 degraded.append(f"{fam} {k}")
             elif pa.get(k) and not ta.get(k):
                 improved.append(f"{fam} {k}")
+    # A whole document moving for one family is a wholesale extractor event (deadline, API error,
+    # truncated JSON) in one of the runs, not a parsing effect: say so rather than count it as tax.
+    def wholesale(items):
+        from collections import Counter
+        per = Counter((x.split(" ")[0], x.split(" ")[1].split(":")[0]) for x in items)
+        fields_per_doc = {}
+        for fam, m in (("gemini", t.get("field_accuracy", {}).get("gemini", {})), ("claude", t.get("field_accuracy", {}).get("claude", {}))):
+            for k in m:
+                fields_per_doc[(fam, k.split(":")[0])] = fields_per_doc.get((fam, k.split(":")[0]), 0) + 1
+        return [f"{fam} {doc}" for (fam, doc), n in per.items() if n == fields_per_doc.get((fam, doc))]
+    ws_deg, ws_imp = wholesale(degraded), wholesale(improved)
     lines += [f"**Fields degraded by parsing ({len(degraded)}):** " + (", ".join(degraded) if degraded else "none"),
               f"**Fields improved by parsing ({len(improved)}):** " + (", ".join(improved) if improved else "none"), ""]
+    if ws_deg or ws_imp:
+        lines += ["**Wholesale events, not parse tax:** " + "; ".join(
+            [f"{w} lost every field in the pdf run (extractor failure in that run)" for w in ws_deg] +
+            [f"{w} lost every field in the txt run (extractor failure in that run: deadline/API/truncation), so its 'improvement' under pdf is not a parsing effect" for w in ws_imp]), ""]
     n_deg, n_imp = len(degraded), len(improved)
+    genuine = (n_deg + n_imp) - sum(1 for x in degraded + improved if any(x.startswith(w + ":") or x.startswith(w) for w in ws_deg + ws_imp))
     lines += ["**Interpretation.** " + (
         "The parsed PDF reproduced the canonical text closely enough that extraction accuracy did not move; on this "
         "synthetic set (clean, machine-rendered PDFs) the parse tax is nil. Real desk paper (scans, multi-column, "
         "annexes) would be where a tax appears, and this ablation is the instrument that would show it."
-        if n_deg == 0 and n_imp == 0 else
+        if genuine == 0 else
         f"Parsing changed {n_deg + n_imp} field readings ({n_deg} degraded, {n_imp} improved) out of "
         f"{t['extraction_accuracy']['gemini']['n'] * 2}. The listed fields are the parse tax on this set; the deltas above "
         "show whether it reached the catch or false-flag rates."),

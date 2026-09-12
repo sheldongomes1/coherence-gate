@@ -1,0 +1,43 @@
+[
+  {
+    "id": "G15:premium_amount",
+    "doc_id": "G15",
+    "field": "premium_amount",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": "1037500",
+    "booking_value": "830000",
+    "citations": [
+      {
+        "text_span": "USD 1,037,500",
+        "char_range": [
+          4191,
+          4204
+        ]
+      },
+      {
+        "text_span": "<td>Premium</td>\n    <td>4.15% of the Notional Amount (USD 1,037,500)</td>",
+        "char_range": [
+          4136,
+          4210
+        ]
+      }
+    ],
+    "detail": "TS 1037500 \u2260 booking 830000",
+    "lane": "TRIAGE",
+    "triage": null
+  },
+  {
+    "id": "G15:rel:premium_arithmetic",
+    "doc_id": "G15",
+    "field": "rel:premium_arithmetic",
+    "type": "RELATION_VIOLATION",
+    "severity": "critical",
+    "ts_value": "1037500",
+    "booking_value": "830000",
+    "citations": [],
+    "detail": "violated on booking \u2014 premium_arithmetic: term sheet [4.15\u00d70.01 \u00d7 25000000 = 1.0375E+6 vs premium_amount 1.0375E+6]; booking [4.15\u00d70.01 \u00d7 25000000 = 1.0375E+6 vs premium_amount 8.3E+5]",
+    "lane": "TRIAGE",
+    "triage": null
+  }
+]

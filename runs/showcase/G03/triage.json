@@ -9,21 +9,49 @@
     "booking_value": "30/360",
     "citations": [
       {
-        "text_span": "calculated on the basis of Actual/360.",
+        "text_span": "Actual/360 day count basis.",
         "char_range": [
-          972,
-          1010
+          3387,
+          3414
         ]
       },
       {
-        "text_span": "calculated on the basis of Actual/360",
+        "text_span": "Coupon amounts accrue on a Actual/360 day count basis.",
         "char_range": [
-          972,
-          1009
+          3360,
+          3414
         ]
       }
     ],
     "detail": "TS ACT/360 \u2260 booking 30/360",
+    "lane": "TRIAGE",
+    "triage": null
+  },
+  {
+    "id": "G03:index_vol_target_pct",
+    "doc_id": "G03",
+    "field": "index_vol_target_pct",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": "10",
+    "booking_value": "12",
+    "citations": [
+      {
+        "text_span": "10% per annum",
+        "char_range": [
+          2045,
+          2058
+        ]
+      },
+      {
+        "text_span": "Volatility Target</td>\n    <td>10% per annum",
+        "char_range": [
+          2014,
+          2058
+        ]
+      }
+    ],
+    "detail": "TS 10 \u2260 booking 12",
     "lane": "TRIAGE",
     "triage": null
   }

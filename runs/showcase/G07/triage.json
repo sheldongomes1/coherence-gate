@@ -17,17 +17,17 @@
     ],
     "citations": [
       {
-        "text_span": "Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..",
+        "text_span": "Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): 20 January 2027 at 100%, 20 January 2028 at 95%, 20 July 2028 at 90%.",
         "char_range": [
-          1481,
-          1667
+          1999,
+          2155
         ]
       },
       {
-        "text_span": "January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..",
+        "text_span": "Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): 20 January 2027 at 100%, 20 January 2028 at 95%, 20 July 2028 at 90%.",
         "char_range": [
-          1568,
-          1667
+          1999,
+          2155
         ]
       }
     ],

@@ -9,17 +9,17 @@
     "booking_value": "70",
     "citations": [
       {
-        "text_span": "at a Knock-in Level of 65% of the Initial Level.",
+        "text_span": "Knock-in Level of 65 per cent. of the Initial Level.",
         "char_range": [
-          1603,
-          1651
+          1821,
+          1873
         ]
       },
       {
-        "text_span": "at a Knock-in Level of 65% of the Initial Level",
+        "text_span": "European (Final Valuation Date only); 65 per cent. of the Initial Level",
         "char_range": [
-          1603,
-          1650
+          2864,
+          2935
         ]
       }
     ],

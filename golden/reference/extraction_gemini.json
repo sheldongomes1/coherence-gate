@@ -1,5 +1,5 @@
 {
- "key": "gemini:gemini-3.8-flash:04d9fc7d72c8:3d701ec1494e",
+ "key": "gemini:gemini-3.8-flash:ad32c479a7aa:3d701ec1494e",
  "extraction": {
   "family": "gemini",
   "model": "gemini-3.8-flash",
@@ -9,10 +9,10 @@
     "status": "EXTRACTED",
     "value": "Bloomberg Index Services Limited",
     "citation": {
-     "text_span": "This methodology (the \u201cMethodology\u201d) has been made available by Bloomberg Index Services Limited (\u201cBISL\u201d) and sets out the rules, criteria, risk factors and other information applicable to the Bloomberg Versa Indices (the \u201cIndices\u201d and each, an \u201cIndex\u201d).",
+     "text_span": "This methodology (the \u201cMethodology\u201d) has been made available by Bloomberg Index Services Limited (\u201cBISL\u201d)",
      "char_range": [
-      3946,
-      4200
+      3868,
+      3973
      ]
     },
     "note": null
@@ -23,8 +23,8 @@
     "citation": {
      "text_span": "March 21, 2025",
      "char_range": [
-      134,
-      148
+      93,
+      107
      ]
     },
     "note": null
@@ -35,8 +35,8 @@
     "citation": {
      "text_span": "The Index Value is Excess Return:",
      "char_range": [
-      6559,
-      6592
+      6471,
+      6504
      ]
     },
     "note": null
@@ -47,8 +47,8 @@
     "citation": {
      "text_span": "The Index Value is Total Return:",
      "char_range": [
-      6763,
-      6795
+      6675,
+      6707
      ]
     },
     "note": null
@@ -59,8 +59,8 @@
     "citation": {
      "text_span": "The Index Value is Excess Return:",
      "char_range": [
-      6559,
-      6592
+      6471,
+      6504
      ]
     },
     "note": null
@@ -71,8 +71,8 @@
     "citation": {
      "text_span": "The Index Value is Total Return:",
      "char_range": [
-      6763,
-      6795
+      6675,
+      6707
      ]
     },
     "note": null
@@ -81,10 +81,10 @@
     "status": "EXTRACTED",
     "value": "daily",
     "citation": {
-     "text_span": "Every Index Business Day.",
+     "text_span": "Rebalance Date Every Index Business Day.",
      "char_range": [
-      24215,
-      24240
+      23899,
+      23952
      ]
     },
     "note": null
@@ -95,8 +95,8 @@
     "citation": {
      "text_span": "The Index Value shall be floored at zero on any Index Business Day.",
      "char_range": [
-      4894,
-      4961
+      4816,
+      4883
      ]
     },
     "note": null
@@ -113,8 +113,8 @@
     "citation": {
      "text_span": "Unless specified, the Deduction Factor is zero.",
      "char_range": [
-      20763,
-      20810
+      20516,
+      20563
      ]
     },
     "note": null
@@ -125,8 +125,8 @@
     "citation": {
      "text_span": "Unless explicitly stated otherwise in the index specific document, the Transaction Cost Rate is zero.",
      "char_range": [
-      26545,
-      26646
+      26216,
+      26317
      ]
     },
     "note": null
@@ -137,8 +137,8 @@
     "citation": {
      "text_span": "Unless explicitly stated otherwise in the index specific document, the Determination Lag is one.",
      "char_range": [
-      21154,
-      21250
+      20907,
+      21003
      ]
     },
     "note": null
@@ -149,8 +149,8 @@
     "citation": {
      "text_span": "Unless explicitly stated otherwise in the index specific document, the Exposure Direction Type is \u201cLong-only\u201d.",
      "char_range": [
-      21865,
-      21975
+      21577,
+      21687
      ]
     },
     "note": null
@@ -161,13 +161,13 @@
     "citation": {
      "text_span": "Unless explicitly stated otherwise in the index specific document, the default is \u201cHighest\u201d.",
      "char_range": [
-      27635,
-      27727
+      27306,
+      27398
      ]
     },
     "note": null
    }
   },
-  "raw_text": "{\n  \"value\": {\n    \"administrator\": \"Bloomberg Index Services Limited\",\n    \"methodology_date\": \"2025-03-21\",\n    \"type_i_return_treatment\": \"excess_return\",\n    \"type_ii_return_treatment\": \"total_return\",\n    \"type_iii_return_treatment\": \"excess_return\",\n    \"type_iv_return_treatment\": \"total_return\",\n    \"rebalance_frequency\": \"daily\",\n    \"index_value_floor\": \"0\",\n    \"volatility_target_pct\": \"\",\n    \"default_deduction_factor_pct\": \"0\",\n    \"default_transaction_cost_rate_pct\": \"0\",\n    \"default_determination_lag_days\": \"1\",\n    \"default_exposure_direction_type\": \"long_only\",\n    \"default_volatility_value_selection\": \"highest\"\n  },\n  \"citation\": {\n    \"administrator\": \"This methodology (the \u201cMethodology\u201d) has been made available by Bloomberg Index Services Limited (\u201cBISL\u201d) and sets out the rules, criteria, risk factors and other information applicable to the Bloomberg Versa Indices (the \u201cIndices\u201d and each, an \u201cIndex\u201d).\",\n    \"methodology_date\": \"March 21, 2025\",\n    \"type_i_return_treatment\": \"The Index Value is Excess Return:\",\n    \"type_ii_return_treatment\": \"The Index Value is Total Return:\",\n    \"type_iii_return_treatment\": \"The Index Value is Excess Return:\",\n    \"type_iv_return_treatment\": \"The Index Value is Total Return:\",\n    \"rebalance_frequency\": \"Every Index Business Day.\",\n    \"index_value_floor\": \"The Index Value shall be floored at zero on any Index Business Day.\",\n    \"volatility_target_pct\": \"\",\n    \"default_deduction_factor_pct\": \"Unless specified, the Deduction Factor is zero.\",\n    \"default_transaction_cost_rate_pct\": \"Unless explicitly stated otherwise in the index specific document, the Transaction Cost Rate is zero.\",\n    \"default_determination_lag_days\": \"Unless explicitly stated otherwise in the index specific document, the Determination Lag is one.\",\n    \"default_exposure_direction_type\": \"Unless explicitly stated otherwise in the index specific document, the Exposure Direction Type is \u201cLong-only\u201d.\",\n    \"default_volatility_value_selection\": \"Unless explicitly stated otherwise in the index specific document, the default is \u201cHighest\u201d.\"\n  },\n  \"absent\": [\n    \"volatility_target_pct\"\n  ]\n}"
+  "raw_text": "{\n  \"value\": {\n    \"administrator\": \"Bloomberg Index Services Limited\",\n    \"methodology_date\": \"2025-03-21\",\n    \"type_i_return_treatment\": \"excess_return\",\n    \"type_ii_return_treatment\": \"total_return\",\n    \"type_iii_return_treatment\": \"excess_return\",\n    \"type_iv_return_treatment\": \"total_return\",\n    \"rebalance_frequency\": \"daily\",\n    \"index_value_floor\": \"0\",\n    \"volatility_target_pct\": \"\",\n    \"default_deduction_factor_pct\": \"0\",\n    \"default_transaction_cost_rate_pct\": \"0\",\n    \"default_determination_lag_days\": \"1\",\n    \"default_exposure_direction_type\": \"long_only\",\n    \"default_volatility_value_selection\": \"highest\"\n  },\n  \"citation\": {\n    \"administrator\": \"This methodology (the \u201cMethodology\u201d) has been made available by Bloomberg Index Services Limited (\u201cBISL\u201d)\",\n    \"methodology_date\": \"March 21, 2025\",\n    \"type_i_return_treatment\": \"The Index Value is Excess Return:\",\n    \"type_ii_return_treatment\": \"The Index Value is Total Return:\",\n    \"type_iii_return_treatment\": \"The Index Value is Excess Return:\",\n    \"type_iv_return_treatment\": \"The Index Value is Total Return:\",\n    \"rebalance_frequency\": \"Rebalance Date Every Index Business Day.\",\n    \"index_value_floor\": \"The Index Value shall be floored at zero on any Index Business Day.\",\n    \"volatility_target_pct\": \"\",\n    \"default_deduction_factor_pct\": \"Unless specified, the Deduction Factor is zero.\",\n    \"default_transaction_cost_rate_pct\": \"Unless explicitly stated otherwise in the index specific document, the Transaction Cost Rate is zero.\",\n    \"default_determination_lag_days\": \"Unless explicitly stated otherwise in the index specific document, the Determination Lag is one.\",\n    \"default_exposure_direction_type\": \"Unless explicitly stated otherwise in the index specific document, the Exposure Direction Type is \u201cLong-only\u201d.\",\n    \"default_volatility_value_selection\": \"Unless explicitly stated otherwise in the index specific document, the default is \u201cHighest\u201d.\"\n  },\n  \"absent\": [\n    \"volatility_target_pct\"\n  ]\n}"
  }
 }

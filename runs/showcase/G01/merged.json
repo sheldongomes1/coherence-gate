@@ -13,10 +13,10 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0101",
         "citation": {
-          "text_span": "Reference: SN-2026-0101",
+          "text_span": "Reference SN-2026-0101",
           "char_range": [
-            156,
-            179
+            220,
+            242
           ]
         },
         "note": null
@@ -31,10 +31,10 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0101",
         "citation": {
-          "text_span": "Reference: SN-2026-0101",
+          "text_span": "Reference SN-2026-0101",
           "char_range": [
-            156,
-            179
+            220,
+            242
           ]
         },
         "note": null
@@ -58,8 +58,8 @@
         "citation": {
           "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
           "char_range": [
-            232,
-            288
+            290,
+            346
           ]
         },
         "note": null
@@ -74,10 +74,10 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
+          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes (the \"Notes\")",
           "char_range": [
-            232,
-            305
+            290,
+            377
           ]
         },
         "note": null
@@ -97,12 +97,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "USD 5,000,000",
+        "value": "5,000,000 USD",
         "citation": {
-          "text_span": "in an aggregate Notional Amount of USD 5,000,000.",
+          "text_span": "aggregate Notional Amount of 5,000,000 USD",
           "char_range": [
-            348,
-            397
+            412,
+            454
           ]
         },
         "note": null
@@ -115,12 +115,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "USD 5,000,000",
+        "value": "5,000,000",
         "citation": {
-          "text_span": "in an aggregate Notional Amount of USD 5,000,000",
+          "text_span": "in an aggregate Notional Amount of 5,000,000 USD",
           "char_range": [
-            348,
-            396
+            406,
+            454
           ]
         },
         "note": null
@@ -142,10 +142,10 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "in an aggregate Notional Amount of USD 5,000,000.",
+          "text_span": "Cash settlement in USD.",
           "char_range": [
-            348,
-            397
+            2062,
+            2085
           ]
         },
         "note": null
@@ -160,10 +160,10 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "an aggregate Notional Amount of USD 5,000,000",
+          "text_span": "in an aggregate Notional Amount of 5,000,000 USD",
           "char_range": [
-            351,
-            396
+            406,
+            454
           ]
         },
         "note": null
@@ -183,12 +183,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "14 April 2026",
+        "value": "April 14, 2026",
         "citation": {
-          "text_span": "The Trade Date is 14 April 2026",
+          "text_span": "The Trade Date is April 14, 2026;",
           "char_range": [
-            483,
-            514
+            527,
+            560
           ]
         },
         "note": null
@@ -201,12 +201,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "14 April 2026",
+        "value": "April 14, 2026",
         "citation": {
-          "text_span": "The Trade Date is 14 April 2026",
+          "text_span": "The Trade Date is April 14, 2026",
           "char_range": [
-            483,
-            514
+            527,
+            559
           ]
         },
         "note": null
@@ -226,12 +226,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "21 April 2026",
+        "value": "April 21, 2026",
         "citation": {
-          "text_span": "the Issue Date is 21 April 2026",
+          "text_span": "the Issue Date is April 21, 2026;",
           "char_range": [
-            516,
-            547
+            561,
+            594
           ]
         },
         "note": null
@@ -244,12 +244,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "21 April 2026",
+        "value": "April 21, 2026",
         "citation": {
-          "text_span": "the Issue Date is 21 April 2026",
+          "text_span": "the Issue Date is April 21, 2026",
           "char_range": [
-            516,
-            547
+            561,
+            593
           ]
         },
         "note": null
@@ -269,12 +269,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "23 April 2029",
+        "value": "April 23, 2029",
         "citation": {
-          "text_span": "the Scheduled Maturity Date is 23 April 2029",
+          "text_span": "the Scheduled Maturity Date is April 23, 2029",
           "char_range": [
-            552,
-            596
+            595,
+            640
           ]
         },
         "note": null
@@ -287,12 +287,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "23 April 2029",
+        "value": "April 23, 2029",
         "citation": {
-          "text_span": "the Scheduled Maturity Date is 23 April 2029",
+          "text_span": "the Scheduled Maturity Date is April 23, 2029",
           "char_range": [
-            552,
-            596
+            595,
+            640
           ]
         },
         "note": null
@@ -320,10 +320,10 @@
           "SPX Index"
         ],
         "citation": {
-          "text_span": "The Notes are linked to the performance of the S&P 500 Index (Bloomberg: SPX Index).",
+          "text_span": "Bloomberg: SPX Index",
           "char_range": [
-            398,
-            482
+            504,
+            524
           ]
         },
         "note": null
@@ -344,8 +344,8 @@
         "citation": {
           "text_span": "linked to the performance of the S&P 500 Index (Bloomberg: SPX Index)",
           "char_range": [
-            412,
-            481
+            456,
+            525
           ]
         },
         "note": null
@@ -365,12 +365,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "100%",
+        "value": "100 per cent.",
         "citation": {
-          "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+          "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.",
           "char_range": [
-            645,
-            738
+            777,
+            879
           ]
         },
         "note": null
@@ -383,12 +383,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "100%",
+        "value": "100 per cent.",
         "citation": {
-          "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+          "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.",
           "char_range": [
-            645,
-            738
+            777,
+            879
           ]
         },
         "note": null
@@ -408,12 +408,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "european",
+        "value": "European",
         "citation": {
-          "text_span": "Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 65% of the Initial Level.",
+          "text_span": "observed on the Final Valuation Date only (European observation)",
           "char_range": [
-            1478,
-            1651
+            1751,
+            1815
           ]
         },
         "note": null
@@ -428,10 +428,10 @@
         "status": "EXTRACTED",
         "value": "european",
         "citation": {
-          "text_span": "a knock-in barrier observed on the Final Valuation Date only (European observation)",
+          "text_span": "European (Final Valuation Date only); 65 per cent. of the Initial Level",
           "char_range": [
-            1519,
-            1602
+            2864,
+            2935
           ]
         },
         "note": null
@@ -451,12 +451,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "65%",
+        "value": "65 per cent.",
         "citation": {
-          "text_span": "at a Knock-in Level of 65% of the Initial Level.",
+          "text_span": "Knock-in Level of 65 per cent. of the Initial Level.",
           "char_range": [
-            1603,
-            1651
+            1821,
+            1873
           ]
         },
         "note": null
@@ -469,12 +469,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "65%",
+        "value": "65 per cent.",
         "citation": {
-          "text_span": "at a Knock-in Level of 65% of the Initial Level",
+          "text_span": "European (Final Valuation Date only); 65 per cent. of the Initial Level",
           "char_range": [
-            1603,
-            1650
+            2864,
+            2935
           ]
         },
         "note": null
@@ -494,12 +494,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "7.5%",
+        "value": "7.5 per cent.",
         "citation": {
-          "text_span": "The Notes pay a conditional Coupon of 7.5% per annum, payable quarterly",
+          "text_span": "conditional Coupon of 7.5 per cent. per annum",
           "char_range": [
-            751,
-            822
+            911,
+            956
           ]
         },
         "note": null
@@ -512,12 +512,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "7.5%",
+        "value": "7.5 per cent.",
         "citation": {
-          "text_span": "a conditional Coupon of 7.5% per annum, payable quarterly",
+          "text_span": "The Notes pay a conditional Coupon of 7.5 per cent. per annum, payable quarterly",
           "char_range": [
-            765,
-            822
+            895,
+            975
           ]
         },
         "note": null
@@ -539,10 +539,10 @@
         "status": "EXTRACTED",
         "value": "quarterly",
         "citation": {
-          "text_span": "payable quarterly",
+          "text_span": "payable quarterly, payable quarterly in arrears",
           "char_range": [
-            805,
-            822
+            958,
+            1005
           ]
         },
         "note": null
@@ -557,10 +557,10 @@
         "status": "EXTRACTED",
         "value": "quarterly",
         "citation": {
-          "text_span": "7.5% per annum, payable quarterly",
+          "text_span": "payable quarterly in arrears",
           "char_range": [
-            789,
-            822
+            977,
+            1005
           ]
         },
         "note": null
@@ -580,12 +580,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "false",
+        "value": "No memory feature",
         "citation": {
           "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
           "char_range": [
-            947,
-            1128
+            1130,
+            1311
           ]
         },
         "note": null
@@ -602,8 +602,8 @@
         "citation": {
           "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
           "char_range": [
-            947,
-            1128
+            1130,
+            1311
           ]
         },
         "note": null
@@ -634,16 +634,16 @@
       "source": {
         "status": "EXTRACTED",
         "value": [
-          "14 April 2027",
-          "14 October 2027",
-          "14 April 2028",
-          "16 October 2028"
+          "April 14, 2027",
+          "October 14, 2027",
+          "April 14, 2028",
+          "October 16, 2028"
         ],
         "citation": {
-          "text_span": "Autocall Observation Dates: 14 April 2027, 14 October 2027, 14 April 2028, 16 October 2028.",
+          "text_span": "Autocall Observation Dates: April 14, 2027, October 14, 2027, April 14, 2028, October 16, 2028.",
           "char_range": [
-            1385,
-            1476
+            1578,
+            1673
           ]
         },
         "note": null
@@ -662,16 +662,16 @@
       "source": {
         "status": "EXTRACTED",
         "value": [
-          "2027-04-14",
-          "2027-10-14",
-          "2028-04-14",
-          "2028-10-16"
+          "April 14, 2027",
+          "October 14, 2027",
+          "April 14, 2028",
+          "October 16, 2028"
         ],
         "citation": {
-          "text_span": "Autocall Observation Dates: 14 April 2027, 14 October 2027, 14 April 2028, 16 October 2028.",
+          "text_span": "Autocall Observation Dates: April 14, 2027, October 14, 2027, April 14, 2028, October 16, 2028.",
           "char_range": [
-            1385,
-            1476
+            1578,
+            1673
           ]
         },
         "note": null
@@ -691,12 +691,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "100%",
+        "value": "100 per cent.",
         "citation": {
-          "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+          "text_span": "100 per cent. of the Initial Level",
           "char_range": [
-            1191,
-            1303
+            1462,
+            1496
           ]
         },
         "note": null
@@ -709,12 +709,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "100%",
+        "value": "100 per cent.",
         "citation": {
-          "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+          "text_span": "100 per cent. of the Initial Level",
           "char_range": [
-            1191,
-            1303
+            1462,
+            1496
           ]
         },
         "note": null
@@ -738,8 +738,8 @@
         "citation": {
           "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
           "char_range": [
-            896,
-            946
+            1079,
+            1129
           ]
         },
         "note": null
@@ -754,10 +754,10 @@
         "status": "EXTRACTED",
         "value": "30/360",
         "citation": {
-          "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+          "text_span": "Day Count 30/360",
           "char_range": [
-            896,
-            946
+            2964,
+            2993
           ]
         },
         "note": null
@@ -777,12 +777,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "cash",
+        "value": "Cash",
         "citation": {
-          "text_span": "Settlement at maturity or upon early redemption is in cash, in USD.",
+          "text_span": "Cash settlement in USD.",
           "char_range": [
-            1837,
-            1904
+            2062,
+            2085
           ]
         },
         "note": null
@@ -797,10 +797,10 @@
         "status": "EXTRACTED",
         "value": "cash",
         "citation": {
-          "text_span": "Settlement at maturity or upon early redemption is in cash, in USD.",
+          "text_span": "Cash settlement in USD.",
           "char_range": [
-            1837,
-            1904
+            2062,
+            2085
           ]
         },
         "note": null
@@ -822,10 +822,10 @@
         "status": "EXTRACTED",
         "value": "Modified Following",
         "citation": {
-          "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+          "text_span": "Modified Following Business Day Convention",
           "char_range": [
-            1905,
-            1998
+            687,
+            729
           ]
         },
         "note": null
@@ -840,12 +840,229 @@
         "status": "EXTRACTED",
         "value": "mod_following",
         "citation": {
-          "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+          "text_span": "subject to adjustment in accordance with the Modified Following Business Day Convention",
           "char_range": [
-            1905,
-            1998
+            642,
+            729
           ]
         },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_administrator": {
+    "key": "index_administrator",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_administrator",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_administrator",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_return_type": {
+    "key": "index_return_type",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_return_type",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_return_type",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_return_treatment": {
+    "key": "index_return_treatment",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_return_treatment",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_return_treatment",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_vol_target_pct": {
+    "key": "index_vol_target_pct",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_vol_target_pct",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_vol_target_pct",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_rebalance_frequency": {
+    "key": "index_rebalance_frequency",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_rebalance_frequency",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_rebalance_frequency",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_deduction_factor_pct": {
+    "key": "index_deduction_factor_pct",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_deduction_factor_pct",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_deduction_factor_pct",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_transaction_cost_rate_pct": {
+    "key": "index_transaction_cost_rate_pct",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_transaction_cost_rate_pct",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_transaction_cost_rate_pct",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
         "note": null
       }
     },

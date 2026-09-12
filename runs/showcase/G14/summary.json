@@ -1,0 +1,36 @@
+{
+  "doc_id": "G14",
+  "sha256": "c3db1bd64844be8a0fa7940d9e383fbaf350349e1f4862af1997258da7c1f3ef",
+  "trade_id": "OP-2026-0117",
+  "document_lane": "TRIAGE",
+  "cost_usd": 0.118401,
+  "n_auto_clear": 32,
+  "n_triage": 3,
+  "source": "pdf",
+  "parse": {
+    "vendor": "mixedbread",
+    "job_id": "d3dfa915-f5fd-4f12-9410-16c24a392215",
+    "file_id": "12be7bd4-1126-48fa-b218-1448929fa2bd",
+    "mode": "high_quality",
+    "return_format": "markdown",
+    "chunking": "page",
+    "pages": 2,
+    "latency_ms": 6285,
+    "composition": "elements-v2-no-header-footer",
+    "dropped_elements": 4,
+    "cost_usd": null,
+    "sdk_version": "0.54.0",
+    "parsed_at": "2026-09-12T18:15:31",
+    "doc_id": "G14",
+    "pdf": "golden/pdf/G14.pdf",
+    "pdf_sha256": "412f144cb509d86ca46fb4f2502efba9af1dcde58c0cdcb8dbc85c34956779d7",
+    "markdown_sha256": "c3db1bd64844be8a0fa7940d9e383fbaf350349e1f4862af1997258da7c1f3ef"
+  },
+  "product_type": "otc_option",
+  "attested_hashes": {
+    "document_path": "golden/parsed/G14.md",
+    "document_sha256": "c3db1bd64844be8a0fa7940d9e383fbaf350349e1f4862af1997258da7c1f3ef",
+    "booking_trade_id": "OP-2026-0117",
+    "booking_sha256": "49759a5218d99b8d69b737c637f86a167c86edd83d0743e4825aa16b3e3e68d9"
+  }
+}

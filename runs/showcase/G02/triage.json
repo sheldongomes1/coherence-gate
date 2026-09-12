@@ -17,17 +17,17 @@
     ],
     "citations": [
       {
-        "text_span": "Autocall Observation Dates   | 2027-05-12, 2027-11-12, 2028-05-12",
+        "text_span": "2027-05-12, 2027-11-12, 2028-05-12",
         "char_range": [
-          831,
-          896
+          1317,
+          1351
         ]
       },
       {
-        "text_span": "Autocall Observation Dates   | 2027-05-12, 2027-11-12, 2028-05-12",
+        "text_span": "Autocall Observation Dates 2027-05-12, 2027-11-12, 2028-05-12",
         "char_range": [
-          831,
-          896
+          1277,
+          1351
         ]
       }
     ],

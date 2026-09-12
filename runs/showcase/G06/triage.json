@@ -9,17 +9,17 @@
     "booking_value": "CAD",
     "citations": [
       {
-        "text_span": "Currency                     | USD",
+        "text_span": "USD",
         "char_range": [
-          345,
-          379
+          477,
+          480
         ]
       },
       {
-        "text_span": "Currency                     | USD",
+        "text_span": "Currency</td>\n    <td>USD",
         "char_range": [
-          345,
-          379
+          522,
+          547
         ]
       }
     ],

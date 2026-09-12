@@ -13,17 +13,17 @@
     ],
     "citations": [
       {
-        "text_span": "Bloomberg ticker SX5E",
+        "text_span": "EURO STOXX 50 Index (SX5E)",
         "char_range": [
-          1945,
-          1966
+          2694,
+          2720
         ]
       },
       {
-        "text_span": "- EURO STOXX 50 Index (Bloomberg ticker SX5E)",
+        "text_span": "Underlying(s) | EURO STOXX 50 Index (SX5E)",
         "char_range": [
-          1922,
-          1967
+          2667,
+          2720
         ]
       }
     ],

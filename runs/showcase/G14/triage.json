@@ -1,0 +1,86 @@
+[
+  {
+    "id": "G14:participation_rate_pct",
+    "doc_id": "G14",
+    "field": "participation_rate_pct",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": "100",
+    "booking_value": "95",
+    "citations": [
+      {
+        "text_span": "100%",
+        "char_range": [
+          3758,
+          3762
+        ]
+      },
+      {
+        "text_span": "<td>Participation Rate</td>\n    <td>100%</td>",
+        "char_range": [
+          3814,
+          3859
+        ]
+      }
+    ],
+    "detail": "TS 100 \u2260 booking 95",
+    "lane": "TRIAGE",
+    "triage": null
+  },
+  {
+    "id": "G14:index_rebalance_frequency",
+    "doc_id": "G14",
+    "field": "index_rebalance_frequency",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": "monthly",
+    "booking_value": "daily",
+    "citations": [
+      {
+        "text_span": "Each calendar month, in accordance with the Index Methodology",
+        "char_range": [
+          2773,
+          2834
+        ]
+      },
+      {
+        "text_span": "<td>Rebalancing</td>\n    <td>Each calendar month, in accordance with the Index Methodology</td>",
+        "char_range": [
+          2744,
+          2839
+        ]
+      }
+    ],
+    "detail": "TS monthly \u2260 booking daily",
+    "lane": "TRIAGE",
+    "triage": null
+  },
+  {
+    "id": "G14:ref:index_rebalance_frequency",
+    "doc_id": "G14",
+    "field": "ref:index_rebalance_frequency",
+    "type": "REFERENCE_INCONSISTENT",
+    "severity": "critical",
+    "ts_value": "monthly",
+    "booking_value": "daily",
+    "citations": [
+      {
+        "text_span": "Each calendar month, in accordance with the Index Methodology",
+        "char_range": [
+          2773,
+          2834
+        ]
+      },
+      {
+        "text_span": "<td>Rebalancing</td>\n    <td>Each calendar month, in accordance with the Index Methodology</td>",
+        "char_range": [
+          2744,
+          2839
+        ]
+      }
+    ],
+    "detail": "term sheet claims index_rebalance_frequency = monthly; methodology rule rebalance_frequency = daily",
+    "lane": "TRIAGE",
+    "triage": null
+  }
+]

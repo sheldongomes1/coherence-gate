@@ -9,17 +9,17 @@
     "booking_value": "1000000",
     "citations": [
       {
-        "text_span": "in an aggregate Notional Amount of USD 10,000,000",
+        "text_span": "in an aggregate Notional Amount of 10,000,000 USD",
         "char_range": [
-          351,
-          400
+          396,
+          445
         ]
       },
       {
-        "text_span": "in an aggregate Notional Amount of USD 10,000,000",
+        "text_span": "in an aggregate Notional Amount of 10,000,000 USD",
         "char_range": [
-          351,
-          400
+          396,
+          445
         ]
       }
     ],

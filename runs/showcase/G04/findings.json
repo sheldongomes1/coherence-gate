@@ -9,17 +9,17 @@
     "booking_value": "SN-2026-0104",
     "citations": [
       {
-        "text_span": "Reference: SN-2026-0104",
+        "text_span": "SN-2026-0104",
         "char_range": [
-          1881,
-          1904
+          216,
+          228
         ]
       },
       {
-        "text_span": "Reference: SN-2026-0104",
+        "text_span": "Trade Reference | SN-2026-0104",
         "char_range": [
-          1881,
-          1904
+          2306,
+          2347
         ]
       }
     ],
@@ -37,17 +37,17 @@
     "booking_value": "Northbridge Capital Markets (Canada) Inc.",
     "citations": [
       {
-        "text_span": "Issuer: Northbridge Capital Markets (Canada) Inc.",
+        "text_span": "Northbridge Capital Markets (Canada) Inc.",
         "char_range": [
-          1907,
-          1956
+          440,
+          481
         ]
       },
       {
-        "text_span": "Issuer: Northbridge Capital Markets (Canada) Inc.",
+        "text_span": "Issuer | Northbridge Capital Markets (Canada) Inc.",
         "char_range": [
-          1907,
-          1956
+          2376,
+          2437
         ]
       }
     ],
@@ -65,17 +65,17 @@
     "booking_value": "2500000",
     "citations": [
       {
-        "text_span": "Notional: USD 2.5 million (USD 2,500,000)",
+        "text_span": "USD 2.5 million (USD 2,500,000)",
         "char_range": [
-          2123,
-          2164
+          529,
+          560
         ]
       },
       {
-        "text_span": "Notional: USD 2.5 million (USD 2,500,000)",
+        "text_span": "Notional Amount | USD 2.5 million (USD 2,500,000)",
         "char_range": [
-          2123,
-          2164
+          2466,
+          2526
         ]
       }
     ],
@@ -93,17 +93,17 @@
     "booking_value": "USD",
     "citations": [
       {
-        "text_span": "All payments are made in USD by cash settlement",
+        "text_span": "USD",
         "char_range": [
-          1592,
-          1639
+          529,
+          532
         ]
       },
       {
-        "text_span": "All payments are made in USD by cash settlement",
+        "text_span": "Currency | USD",
         "char_range": [
-          1592,
-          1639
+          2555,
+          2580
         ]
       }
     ],
@@ -121,17 +121,17 @@
     "booking_value": "2026-06-09",
     "citations": [
       {
-        "text_span": "The Notes were traded on 09-Jun-2026",
+        "text_span": "09-Jun-2026",
         "char_range": [
-          482,
-          518
+          182,
+          193
         ]
       },
       {
-        "text_span": "The Notes were traded on 09-Jun-2026",
+        "text_span": "Trade Date | 09-Jun-2026",
         "char_range": [
-          482,
-          518
+          2609,
+          2644
         ]
       }
     ],
@@ -149,17 +149,17 @@
     "booking_value": "2026-06-16",
     "citations": [
       {
-        "text_span": "will be issued on 16-Jun-2026",
+        "text_span": "16-Jun-2026",
         "char_range": [
-          520,
-          549
+          668,
+          679
         ]
       },
       {
-        "text_span": "will be issued on 16-Jun-2026",
+        "text_span": "Issue Date | 16-Jun-2026",
         "char_range": [
-          520,
-          549
+          2673,
+          2708
         ]
       }
     ],
@@ -177,17 +177,17 @@
     "booking_value": "2028-06-16",
     "citations": [
       {
-        "text_span": "mature on 16-Jun-2028.",
+        "text_span": "16-Jun-2028",
         "char_range": [
-          554,
-          576
+          694,
+          705
         ]
       },
       {
-        "text_span": "mature on 16-Jun-2028",
+        "text_span": "Maturity Date | 16-Jun-2028",
         "char_range": [
-          554,
-          575
+          2737,
+          2775
         ]
       }
     ],
@@ -211,17 +211,17 @@
     ],
     "citations": [
       {
-        "text_span": "- S&P 500 Index (Bloomberg ticker SPX) - EURO STOXX 50 Index (Bloomberg ticker SX5E)",
+        "text_span": "S&P 500 Index (SPX); EURO STOXX 50 Index (SX5E)",
         "char_range": [
-          1978,
-          2066
+          2831,
+          2882
         ]
       },
       {
-        "text_span": "- S&P 500 Index (Bloomberg ticker SPX)\n    - EURO STOXX 50 Index (Bloomberg ticker SX5E)",
+        "text_span": "Underlying(s) | S&P 500 Index (SPX); EURO STOXX 50 Index (SX5E)",
         "char_range": [
-          1978,
-          2066
+          2804,
+          2882
         ]
       }
     ],
@@ -239,17 +239,17 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "Initial Level: 100% of closing level on 09-Jun-2026",
+        "text_span": "100% of the official closing level on the Trade Date",
         "char_range": [
-          2069,
-          2120
+          2938,
+          2990
         ]
       },
       {
-        "text_span": "Initial Level: 100% of closing level on 09-Jun-2026",
+        "text_span": "Initial Level | 100% of the official closing level on the Trade Date",
         "char_range": [
-          2069,
-          2120
+          2911,
+          2990
         ]
       }
     ],
@@ -267,17 +267,17 @@
     "booking_value": "european",
     "citations": [
       {
-        "text_span": "Knock-in: European at 60%",
+        "text_span": "European (Final Valuation Date only)",
         "char_range": [
-          2338,
-          2363
+          3536,
+          3572
         ]
       },
       {
-        "text_span": "the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)",
+        "text_span": "Knock-in Type | European (Final Valuation Date only)",
         "char_range": [
-          1264,
-          1372
+          3509,
+          3572
         ]
       }
     ],
@@ -295,17 +295,17 @@
     "booking_value": "60",
     "citations": [
       {
-        "text_span": "Knock-in: European at 60%",
+        "text_span": "60% of the Initial Level",
         "char_range": [
-          2338,
-          2363
+          1793,
+          1817
         ]
       },
       {
-        "text_span": "Knock-in: European at 60%",
+        "text_span": "Knock-in Level | 60% of the Initial Level",
         "char_range": [
-          2338,
-          2363
+          3601,
+          3653
         ]
       }
     ],
@@ -323,17 +323,17 @@
     "booking_value": "10.2",
     "citations": [
       {
-        "text_span": "Coupon: 10.2% per annum, payable quarterly; memory: yes",
+        "text_span": "10.2% per annum",
         "char_range": [
-          2167,
-          2222
+          888,
+          903
         ]
       },
       {
-        "text_span": "Coupon: 10.2% per annum, payable quarterly; memory: yes",
+        "text_span": "Coupon | 10.2% per annum, payable quarterly",
         "char_range": [
-          2167,
-          2222
+          3019,
+          3073
         ]
       }
     ],
@@ -351,17 +351,17 @@
     "booking_value": "quarterly",
     "citations": [
       {
-        "text_span": "payable quarterly",
+        "text_span": "Quarterly",
         "char_range": [
-          633,
-          650
+          3150,
+          3159
         ]
       },
       {
-        "text_span": "Coupon: 10.2% per annum, payable quarterly; memory: yes",
+        "text_span": "Coupon Frequency | Quarterly",
         "char_range": [
-          2167,
-          2222
+          3120,
+          3159
         ]
       }
     ],
@@ -379,17 +379,17 @@
     "booking_value": false,
     "citations": [
       {
-        "text_span": "memory: yes",
+        "text_span": "Applicable",
         "char_range": [
-          2211,
-          2222
+          3215,
+          3225
         ]
       },
       {
-        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
+        "text_span": "Coupon Memory | Applicable",
         "char_range": [
-          680,
-          816
+          3188,
+          3225
         ]
       }
     ],
@@ -415,17 +415,17 @@
     ],
     "citations": [
       {
-        "text_span": "Autocall Observation Dates: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.",
+        "text_span": "09-Jun-2027, 09-Dec-2027, 09-Jun-2028",
         "char_range": [
-          1180,
-          1246
+          1605,
+          1642
         ]
       },
       {
-        "text_span": "Autocall trigger: 100% of Initial Level on each of: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.",
+        "text_span": "Autocall Observation Dates | 09-Jun-2027, 09-Dec-2027, 09-Jun-2028",
         "char_range": [
-          2245,
-          2335
+          3321,
+          3398
         ]
       }
     ],
@@ -443,17 +443,17 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "Autocall trigger: 100% of Initial Level on each of: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.",
+        "text_span": "100% of the Initial Level",
         "char_range": [
-          2245,
-          2335
+          1470,
+          1495
         ]
       },
       {
-        "text_span": "Autocall trigger: 100% of Initial Level on each of: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.",
+        "text_span": "Autocall Level | 100% of the Initial Level",
         "char_range": [
-          2245,
-          2335
+          3427,
+          3480
         ]
       }
     ],
@@ -471,17 +471,17 @@
     "booking_value": "30/360",
     "citations": [
       {
-        "text_span": "Day count: 30/360",
+        "text_span": "30/360",
         "char_range": [
-          2225,
-          2242
+          1053,
+          1059
         ]
       },
       {
-        "text_span": "Day count: 30/360",
+        "text_span": "Day Count Fraction | 30/360",
         "char_range": [
-          2225,
-          2242
+          3254,
+          3292
         ]
       }
     ],
@@ -499,17 +499,17 @@
     "booking_value": "cash",
     "citations": [
       {
-        "text_span": "All payments are made in USD by cash settlement",
+        "text_span": "Cash",
         "char_range": [
-          1592,
-          1639
+          3706,
+          3710
         ]
       },
       {
-        "text_span": "All payments are made in USD by cash settlement",
+        "text_span": "Settlement | Cash",
         "char_range": [
-          1592,
-          1639
+          3682,
+          3710
         ]
       }
     ],
@@ -527,21 +527,112 @@
     "booking_value": "following",
     "citations": [
       {
-        "text_span": "payment dates follow the Following convention",
+        "text_span": "Following",
         "char_range": [
-          1644,
-          1689
+          2066,
+          2075
         ]
       },
       {
-        "text_span": "payment dates follow the Following convention (Toronto, New York and London business days)",
+        "text_span": "Business Day Convention | Following",
         "char_range": [
-          1644,
-          1734
+          3739,
+          3785
         ]
       }
     ],
     "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G04:index_administrator",
+    "doc_id": "G04",
+    "field": "index_administrator",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G04:index_return_type",
+    "doc_id": "G04",
+    "field": "index_return_type",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G04:index_return_treatment",
+    "doc_id": "G04",
+    "field": "index_return_treatment",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G04:index_vol_target_pct",
+    "doc_id": "G04",
+    "field": "index_vol_target_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G04:index_rebalance_frequency",
+    "doc_id": "G04",
+    "field": "index_rebalance_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G04:index_deduction_factor_pct",
+    "doc_id": "G04",
+    "field": "index_deduction_factor_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G04:index_transaction_cost_rate_pct",
+    "doc_id": "G04",
+    "field": "index_transaction_cost_rate_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
     "lane": "AUTO_CLEAR",
     "triage": null
   }

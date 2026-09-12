@@ -13,10 +13,10 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0110",
         "citation": {
-          "text_span": "Trade Reference              | SN-2026-0110",
+          "text_span": "<td>SN-2026-0110</td>",
           "char_range": [
-            253,
-            296
+            322,
+            343
           ]
         },
         "note": null
@@ -31,10 +31,10 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0110",
         "citation": {
-          "text_span": "Trade Reference              | SN-2026-0110",
+          "text_span": "Trade Reference SN-2026-0110",
           "char_range": [
-            253,
-            296
+            297,
+            338
           ]
         },
         "note": null
@@ -56,10 +56,10 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Issuer                       | Northbridge Capital Markets (Canada) Inc.",
+          "text_span": "<td>Northbridge Capital Markets (Canada) Inc.</td>",
           "char_range": [
-            180,
-            252
+            383,
+            433
           ]
         },
         "note": null
@@ -74,10 +74,10 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Issuer                       | Northbridge Capital Markets (Canada) Inc.",
+          "text_span": "Issuer Northbridge Capital Markets (Canada) Inc.",
           "char_range": [
-            180,
-            252
+            367,
+            428
           ]
         },
         "note": null
@@ -99,10 +99,10 @@
         "status": "EXTRACTED",
         "value": "USD 3,500,000.00",
         "citation": {
-          "text_span": "Notional Amount              | USD 3,500,000.00",
+          "text_span": "<td>USD 3,500,000.00</td>",
           "char_range": [
-            297,
-            344
+            482,
+            507
           ]
         },
         "note": null
@@ -117,10 +117,10 @@
         "status": "EXTRACTED",
         "value": "USD 3,500,000.00",
         "citation": {
-          "text_span": "Notional Amount              | USD 3,500,000.00",
+          "text_span": "Notional Amount USD 3,500,000.00",
           "char_range": [
-            297,
-            344
+            457,
+            502
           ]
         },
         "note": null
@@ -142,10 +142,10 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "Currency                     | USD",
+          "text_span": "<td>USD</td>",
           "char_range": [
-            345,
-            379
+            549,
+            561
           ]
         },
         "note": null
@@ -160,10 +160,10 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "Currency                     | USD",
+          "text_span": "Currency USD",
           "char_range": [
-            345,
-            379
+            531,
+            556
           ]
         },
         "note": null
@@ -185,10 +185,10 @@
         "status": "EXTRACTED",
         "value": "2026-09-01",
         "citation": {
-          "text_span": "Trade Date                   | 2026-09-01",
+          "text_span": "<td>2026-09-01</td>",
           "char_range": [
-            380,
-            421
+            605,
+            624
           ]
         },
         "note": null
@@ -203,10 +203,10 @@
         "status": "EXTRACTED",
         "value": "2026-09-01",
         "citation": {
-          "text_span": "Trade Date                   | 2026-09-01",
+          "text_span": "Trade Date 2026-09-01",
           "char_range": [
-            380,
-            421
+            585,
+            619
           ]
         },
         "note": null
@@ -228,10 +228,10 @@
         "status": "EXTRACTED",
         "value": "2026-09-08",
         "citation": {
-          "text_span": "Issue Date                   | 2026-09-08",
+          "text_span": "<td>2026-09-08</td>",
           "char_range": [
-            422,
-            463
+            668,
+            687
           ]
         },
         "note": null
@@ -246,10 +246,10 @@
         "status": "EXTRACTED",
         "value": "2026-09-08",
         "citation": {
-          "text_span": "Issue Date                   | 2026-09-08",
+          "text_span": "Issue Date 2026-09-08",
           "char_range": [
-            422,
-            463
+            648,
+            682
           ]
         },
         "note": null
@@ -271,10 +271,10 @@
         "status": "EXTRACTED",
         "value": "2029-09-10",
         "citation": {
-          "text_span": "Maturity Date                | 2029-09-10",
+          "text_span": "<td>2029-09-10</td>",
           "char_range": [
-            464,
-            505
+            734,
+            753
           ]
         },
         "note": null
@@ -289,10 +289,10 @@
         "status": "EXTRACTED",
         "value": "2029-09-10",
         "citation": {
-          "text_span": "Maturity Date                | 2029-09-10",
+          "text_span": "Maturity Date 2029-09-10",
           "char_range": [
-            464,
-            505
+            711,
+            748
           ]
         },
         "note": null
@@ -320,10 +320,10 @@
           "SPX"
         ],
         "citation": {
-          "text_span": "Underlying(s)                | S&P 500 Index (SPX)",
+          "text_span": "<td>S&amp;P 500 Index (SPX)</td>",
           "char_range": [
-            506,
-            556
+            800,
+            832
           ]
         },
         "note": null
@@ -342,10 +342,10 @@
           "SPX"
         ],
         "citation": {
-          "text_span": "Underlying(s)                | S&P 500 Index (SPX)",
+          "text_span": "Underlying(s) S&amp;P 500 Index (SPX)",
           "char_range": [
-            506,
-            556
+            777,
+            827
           ]
         },
         "note": null
@@ -367,10 +367,10 @@
         "status": "EXTRACTED",
         "value": "100.00%",
         "citation": {
-          "text_span": "Initial Level                | 100.00% of closing level on Trade Date",
+          "text_span": "<td>100.00% of the official closing level on the Trade Date</td>",
           "char_range": [
-            557,
-            626
+            879,
+            943
           ]
         },
         "note": null
@@ -385,10 +385,10 @@
         "status": "EXTRACTED",
         "value": "100.00%",
         "citation": {
-          "text_span": "Initial Level                | 100.00% of closing level on Trade Date",
+          "text_span": "Initial Level 100.00% of the official closing level on the Trade Date",
           "char_range": [
-            557,
-            626
+            856,
+            938
           ]
         },
         "note": null
@@ -410,10 +410,10 @@
         "status": "EXTRACTED",
         "value": "european",
         "citation": {
-          "text_span": "Knock-in Type                | European (Final Valuation Date only)",
+          "text_span": "<td>European (Final Valuation Date only)</td>",
           "char_range": [
-            929,
-            996
+            1462,
+            1507
           ]
         },
         "note": null
@@ -428,10 +428,10 @@
         "status": "EXTRACTED",
         "value": "european",
         "citation": {
-          "text_span": "Knock-in Type                | European (Final Valuation Date only)",
+          "text_span": "Knock-in Type European (Final Valuation Date only)",
           "char_range": [
-            929,
-            996
+            1439,
+            1502
           ]
         },
         "note": null
@@ -484,10 +484,10 @@
         "status": "EXTRACTED",
         "value": "7.25%",
         "citation": {
-          "text_span": "Coupon                       | 7.25% per annum, payable quarterly",
+          "text_span": "<td>7.25% per annum, payable quarterly</td>",
           "char_range": [
-            627,
-            692
+            983,
+            1026
           ]
         },
         "note": null
@@ -502,10 +502,10 @@
         "status": "EXTRACTED",
         "value": "7.25%",
         "citation": {
-          "text_span": "Coupon                       | 7.25% per annum, payable quarterly",
+          "text_span": "Coupon 7.25% per annum, payable quarterly",
           "char_range": [
-            627,
-            692
+            967,
+            1021
           ]
         },
         "note": null
@@ -525,12 +525,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Quarterly",
+        "value": "quarterly",
         "citation": {
-          "text_span": "Coupon Frequency             | Quarterly",
+          "text_span": "<td>Quarterly</td>",
           "char_range": [
-            693,
-            733
+            1076,
+            1094
           ]
         },
         "note": null
@@ -543,12 +543,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Quarterly",
+        "value": "quarterly",
         "citation": {
-          "text_span": "Coupon Frequency             | Quarterly",
+          "text_span": "Coupon Frequency Quarterly",
           "char_range": [
-            693,
-            733
+            1050,
+            1089
           ]
         },
         "note": null
@@ -568,12 +568,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Yes",
+        "value": "true",
         "citation": {
-          "text_span": "Coupon Memory                | Yes",
+          "text_span": "<td>Applicable</td>",
           "char_range": [
-            734,
-            768
+            1141,
+            1160
           ]
         },
         "note": null
@@ -586,12 +586,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Yes",
+        "value": "true",
         "citation": {
-          "text_span": "Coupon Memory                | Yes",
+          "text_span": "Coupon Memory Applicable",
           "char_range": [
-            734,
-            768
+            1118,
+            1155
           ]
         },
         "note": null
@@ -625,10 +625,10 @@
           "2028-09-01"
         ],
         "citation": {
-          "text_span": "Autocall Observation Dates   | 2027-09-01, 2028-03-01, 2028-09-01",
+          "text_span": "<td>2027-09-01, 2028-03-01, 2028-09-01</td>",
           "char_range": [
-            807,
-            872
+            1287,
+            1330
           ]
         },
         "note": null
@@ -651,10 +651,10 @@
           "2028-09-01"
         ],
         "citation": {
-          "text_span": "Autocall Observation Dates   | 2027-09-01, 2028-03-01, 2028-09-01",
+          "text_span": "Autocall Observation Dates 2027-09-01, 2028-03-01, 2028-09-01",
           "char_range": [
-            807,
-            872
+            1251,
+            1325
           ]
         },
         "note": null
@@ -676,10 +676,10 @@
         "status": "EXTRACTED",
         "value": "100.00%",
         "citation": {
-          "text_span": "Autocall Level               | 100.00% of Initial Level",
+          "text_span": "<td>100.00% of the Initial Level</td>",
           "char_range": [
-            873,
-            928
+            1378,
+            1415
           ]
         },
         "note": null
@@ -694,10 +694,10 @@
         "status": "EXTRACTED",
         "value": "100.00%",
         "citation": {
-          "text_span": "Autocall Level               | 100.00% of Initial Level",
+          "text_span": "Autocall Level 100.00% of the Initial Level",
           "char_range": [
-            873,
-            928
+            1354,
+            1410
           ]
         },
         "note": null
@@ -719,10 +719,10 @@
         "status": "EXTRACTED",
         "value": "30/360",
         "citation": {
-          "text_span": "Day Count Fraction           | 30/360",
+          "text_span": "<td>30/360</td>",
           "char_range": [
-            769,
-            806
+            1212,
+            1227
           ]
         },
         "note": null
@@ -737,10 +737,10 @@
         "status": "EXTRACTED",
         "value": "30/360",
         "citation": {
-          "text_span": "Day Count Fraction           | 30/360",
+          "text_span": "Day Count Fraction 30/360",
           "char_range": [
-            769,
-            806
+            1184,
+            1222
           ]
         },
         "note": null
@@ -760,12 +760,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Cash",
+        "value": "cash",
         "citation": {
-          "text_span": "Settlement                   | Cash",
+          "text_span": "<td>Cash</td>",
           "char_range": [
-            997,
-            1032
+            1551,
+            1564
           ]
         },
         "note": null
@@ -778,12 +778,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Cash",
+        "value": "cash",
         "citation": {
-          "text_span": "Settlement                   | Cash",
+          "text_span": "Settlement Cash",
           "char_range": [
-            997,
-            1032
+            1531,
+            1559
           ]
         },
         "note": null
@@ -803,12 +803,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Following",
+        "value": "following",
         "citation": {
-          "text_span": "Business Day Convention      | Following",
+          "text_span": "<td>Following</td>",
           "char_range": [
-            1033,
-            1073
+            1621,
+            1639
           ]
         },
         "note": null
@@ -821,14 +821,231 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Following",
+        "value": "following",
         "citation": {
-          "text_span": "Business Day Convention      | Following",
+          "text_span": "Business Day Convention Following",
           "char_range": [
-            1033,
-            1073
+            1588,
+            1634
           ]
         },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_administrator": {
+    "key": "index_administrator",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_administrator",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_administrator",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_return_type": {
+    "key": "index_return_type",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_return_type",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_return_type",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_return_treatment": {
+    "key": "index_return_treatment",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_return_treatment",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_return_treatment",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_vol_target_pct": {
+    "key": "index_vol_target_pct",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_vol_target_pct",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_vol_target_pct",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_rebalance_frequency": {
+    "key": "index_rebalance_frequency",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_rebalance_frequency",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_rebalance_frequency",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_deduction_factor_pct": {
+    "key": "index_deduction_factor_pct",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_deduction_factor_pct",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_deduction_factor_pct",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "index_transaction_cost_rate_pct": {
+    "key": "index_transaction_cost_rate_pct",
+    "agree": true,
+    "value": null,
+    "absent": true,
+    "a": {
+      "key": "index_transaction_cost_rate_pct",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
+        "note": null
+      }
+    },
+    "b": {
+      "key": "index_transaction_cost_rate_pct",
+      "value": null,
+      "absent": true,
+      "malformed": null,
+      "source": {
+        "status": "DECLARED_ABSENT",
+        "value": null,
+        "citation": null,
         "note": null
       }
     },

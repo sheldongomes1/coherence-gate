@@ -9,17 +9,17 @@
     "booking_value": "SN-2026-0110",
     "citations": [
       {
-        "text_span": "Trade Reference              | SN-2026-0110",
+        "text_span": "<td>SN-2026-0110</td>",
         "char_range": [
-          253,
-          296
+          322,
+          343
         ]
       },
       {
-        "text_span": "Trade Reference              | SN-2026-0110",
+        "text_span": "Trade Reference SN-2026-0110",
         "char_range": [
-          253,
-          296
+          297,
+          338
         ]
       }
     ],
@@ -37,17 +37,17 @@
     "booking_value": "Northbridge Capital Markets (Canada) Inc.",
     "citations": [
       {
-        "text_span": "Issuer                       | Northbridge Capital Markets (Canada) Inc.",
+        "text_span": "<td>Northbridge Capital Markets (Canada) Inc.</td>",
         "char_range": [
-          180,
-          252
+          383,
+          433
         ]
       },
       {
-        "text_span": "Issuer                       | Northbridge Capital Markets (Canada) Inc.",
+        "text_span": "Issuer Northbridge Capital Markets (Canada) Inc.",
         "char_range": [
-          180,
-          252
+          367,
+          428
         ]
       }
     ],
@@ -65,17 +65,17 @@
     "booking_value": "3500000",
     "citations": [
       {
-        "text_span": "Notional Amount              | USD 3,500,000.00",
+        "text_span": "<td>USD 3,500,000.00</td>",
         "char_range": [
-          297,
-          344
+          482,
+          507
         ]
       },
       {
-        "text_span": "Notional Amount              | USD 3,500,000.00",
+        "text_span": "Notional Amount USD 3,500,000.00",
         "char_range": [
-          297,
-          344
+          457,
+          502
         ]
       }
     ],
@@ -93,17 +93,17 @@
     "booking_value": "USD",
     "citations": [
       {
-        "text_span": "Currency                     | USD",
+        "text_span": "<td>USD</td>",
         "char_range": [
-          345,
-          379
+          549,
+          561
         ]
       },
       {
-        "text_span": "Currency                     | USD",
+        "text_span": "Currency USD",
         "char_range": [
-          345,
-          379
+          531,
+          556
         ]
       }
     ],
@@ -121,17 +121,17 @@
     "booking_value": "2026-09-01",
     "citations": [
       {
-        "text_span": "Trade Date                   | 2026-09-01",
+        "text_span": "<td>2026-09-01</td>",
         "char_range": [
-          380,
-          421
+          605,
+          624
         ]
       },
       {
-        "text_span": "Trade Date                   | 2026-09-01",
+        "text_span": "Trade Date 2026-09-01",
         "char_range": [
-          380,
-          421
+          585,
+          619
         ]
       }
     ],
@@ -149,17 +149,17 @@
     "booking_value": "2026-09-08",
     "citations": [
       {
-        "text_span": "Issue Date                   | 2026-09-08",
+        "text_span": "<td>2026-09-08</td>",
         "char_range": [
-          422,
-          463
+          668,
+          687
         ]
       },
       {
-        "text_span": "Issue Date                   | 2026-09-08",
+        "text_span": "Issue Date 2026-09-08",
         "char_range": [
-          422,
-          463
+          648,
+          682
         ]
       }
     ],
@@ -177,17 +177,17 @@
     "booking_value": "2029-09-10",
     "citations": [
       {
-        "text_span": "Maturity Date                | 2029-09-10",
+        "text_span": "<td>2029-09-10</td>",
         "char_range": [
-          464,
-          505
+          734,
+          753
         ]
       },
       {
-        "text_span": "Maturity Date                | 2029-09-10",
+        "text_span": "Maturity Date 2029-09-10",
         "char_range": [
-          464,
-          505
+          711,
+          748
         ]
       }
     ],
@@ -209,17 +209,17 @@
     ],
     "citations": [
       {
-        "text_span": "Underlying(s)                | S&P 500 Index (SPX)",
+        "text_span": "<td>S&amp;P 500 Index (SPX)</td>",
         "char_range": [
-          506,
-          556
+          800,
+          832
         ]
       },
       {
-        "text_span": "Underlying(s)                | S&P 500 Index (SPX)",
+        "text_span": "Underlying(s) S&amp;P 500 Index (SPX)",
         "char_range": [
-          506,
-          556
+          777,
+          827
         ]
       }
     ],
@@ -237,17 +237,17 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "Initial Level                | 100.00% of closing level on Trade Date",
+        "text_span": "<td>100.00% of the official closing level on the Trade Date</td>",
         "char_range": [
-          557,
-          626
+          879,
+          943
         ]
       },
       {
-        "text_span": "Initial Level                | 100.00% of closing level on Trade Date",
+        "text_span": "Initial Level 100.00% of the official closing level on the Trade Date",
         "char_range": [
-          557,
-          626
+          856,
+          938
         ]
       }
     ],
@@ -265,17 +265,17 @@
     "booking_value": "european",
     "citations": [
       {
-        "text_span": "Knock-in Type                | European (Final Valuation Date only)",
+        "text_span": "<td>European (Final Valuation Date only)</td>",
         "char_range": [
-          929,
-          996
+          1462,
+          1507
         ]
       },
       {
-        "text_span": "Knock-in Type                | European (Final Valuation Date only)",
+        "text_span": "Knock-in Type European (Final Valuation Date only)",
         "char_range": [
-          929,
-          996
+          1439,
+          1502
         ]
       }
     ],
@@ -306,17 +306,17 @@
     "booking_value": "7.25",
     "citations": [
       {
-        "text_span": "Coupon                       | 7.25% per annum, payable quarterly",
+        "text_span": "<td>7.25% per annum, payable quarterly</td>",
         "char_range": [
-          627,
-          692
+          983,
+          1026
         ]
       },
       {
-        "text_span": "Coupon                       | 7.25% per annum, payable quarterly",
+        "text_span": "Coupon 7.25% per annum, payable quarterly",
         "char_range": [
-          627,
-          692
+          967,
+          1021
         ]
       }
     ],
@@ -334,17 +334,17 @@
     "booking_value": "quarterly",
     "citations": [
       {
-        "text_span": "Coupon Frequency             | Quarterly",
+        "text_span": "<td>Quarterly</td>",
         "char_range": [
-          693,
-          733
+          1076,
+          1094
         ]
       },
       {
-        "text_span": "Coupon Frequency             | Quarterly",
+        "text_span": "Coupon Frequency Quarterly",
         "char_range": [
-          693,
-          733
+          1050,
+          1089
         ]
       }
     ],
@@ -362,17 +362,17 @@
     "booking_value": true,
     "citations": [
       {
-        "text_span": "Coupon Memory                | Yes",
+        "text_span": "<td>Applicable</td>",
         "char_range": [
-          734,
-          768
+          1141,
+          1160
         ]
       },
       {
-        "text_span": "Coupon Memory                | Yes",
+        "text_span": "Coupon Memory Applicable",
         "char_range": [
-          734,
-          768
+          1118,
+          1155
         ]
       }
     ],
@@ -398,17 +398,17 @@
     ],
     "citations": [
       {
-        "text_span": "Autocall Observation Dates   | 2027-09-01, 2028-03-01, 2028-09-01",
+        "text_span": "<td>2027-09-01, 2028-03-01, 2028-09-01</td>",
         "char_range": [
-          807,
-          872
+          1287,
+          1330
         ]
       },
       {
-        "text_span": "Autocall Observation Dates   | 2027-09-01, 2028-03-01, 2028-09-01",
+        "text_span": "Autocall Observation Dates 2027-09-01, 2028-03-01, 2028-09-01",
         "char_range": [
-          807,
-          872
+          1251,
+          1325
         ]
       }
     ],
@@ -426,17 +426,17 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "Autocall Level               | 100.00% of Initial Level",
+        "text_span": "<td>100.00% of the Initial Level</td>",
         "char_range": [
-          873,
-          928
+          1378,
+          1415
         ]
       },
       {
-        "text_span": "Autocall Level               | 100.00% of Initial Level",
+        "text_span": "Autocall Level 100.00% of the Initial Level",
         "char_range": [
-          873,
-          928
+          1354,
+          1410
         ]
       }
     ],
@@ -454,17 +454,17 @@
     "booking_value": "30/360",
     "citations": [
       {
-        "text_span": "Day Count Fraction           | 30/360",
+        "text_span": "<td>30/360</td>",
         "char_range": [
-          769,
-          806
+          1212,
+          1227
         ]
       },
       {
-        "text_span": "Day Count Fraction           | 30/360",
+        "text_span": "Day Count Fraction 30/360",
         "char_range": [
-          769,
-          806
+          1184,
+          1222
         ]
       }
     ],
@@ -482,17 +482,17 @@
     "booking_value": "cash",
     "citations": [
       {
-        "text_span": "Settlement                   | Cash",
+        "text_span": "<td>Cash</td>",
         "char_range": [
-          997,
-          1032
+          1551,
+          1564
         ]
       },
       {
-        "text_span": "Settlement                   | Cash",
+        "text_span": "Settlement Cash",
         "char_range": [
-          997,
-          1032
+          1531,
+          1559
         ]
       }
     ],
@@ -510,21 +510,112 @@
     "booking_value": "following",
     "citations": [
       {
-        "text_span": "Business Day Convention      | Following",
+        "text_span": "<td>Following</td>",
         "char_range": [
-          1033,
-          1073
+          1621,
+          1639
         ]
       },
       {
-        "text_span": "Business Day Convention      | Following",
+        "text_span": "Business Day Convention Following",
         "char_range": [
-          1033,
-          1073
+          1588,
+          1634
         ]
       }
     ],
     "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G10:index_administrator",
+    "doc_id": "G10",
+    "field": "index_administrator",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G10:index_return_type",
+    "doc_id": "G10",
+    "field": "index_return_type",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G10:index_return_treatment",
+    "doc_id": "G10",
+    "field": "index_return_treatment",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G10:index_vol_target_pct",
+    "doc_id": "G10",
+    "field": "index_vol_target_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G10:index_rebalance_frequency",
+    "doc_id": "G10",
+    "field": "index_rebalance_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G10:index_deduction_factor_pct",
+    "doc_id": "G10",
+    "field": "index_deduction_factor_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G10:index_transaction_cost_rate_pct",
+    "doc_id": "G10",
+    "field": "index_transaction_cost_rate_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
     "lane": "AUTO_CLEAR",
     "triage": null
   }

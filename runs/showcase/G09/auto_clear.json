@@ -9,17 +9,17 @@
     "booking_value": "SN-2026-0109",
     "citations": [
       {
-        "text_span": "Reference: SN-2026-0109",
+        "text_span": "Reference SN-2026-0109",
         "char_range": [
-          157,
-          180
+          231,
+          253
         ]
       },
       {
-        "text_span": "Reference: SN-2026-0109",
+        "text_span": "will issue notes (the \"Notes\") with reference SN-2026-0109",
         "char_range": [
-          157,
-          180
+          358,
+          416
         ]
       }
     ],
@@ -37,17 +37,17 @@
     "booking_value": "Northbridge Capital Markets (Canada) Inc.",
     "citations": [
       {
-        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
+        "text_span": "Northbridge Capital Markets (Canada) Inc.",
         "char_range": [
-          233,
-          289
+          301,
+          342
         ]
       },
       {
         "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
         "char_range": [
-          233,
-          306
+          301,
+          374
         ]
       }
     ],
@@ -65,17 +65,17 @@
     "booking_value": "5000000",
     "citations": [
       {
-        "text_span": "in an aggregate Notional Amount of CAD 5,000,000",
+        "text_span": "Notional Amount of 5,000,000 CAD",
         "char_range": [
-          349,
-          397
+          433,
+          465
         ]
       },
       {
-        "text_span": "in an aggregate Notional Amount of CAD 5,000,000",
+        "text_span": "in an aggregate Notional Amount of 5,000,000 CAD",
         "char_range": [
-          349,
-          397
+          417,
+          465
         ]
       }
     ],
@@ -93,17 +93,17 @@
     "booking_value": "CAD",
     "citations": [
       {
-        "text_span": "in an aggregate Notional Amount of CAD 5,000,000",
+        "text_span": "Notional Amount of 5,000,000 CAD",
         "char_range": [
-          349,
-          397
+          433,
+          465
         ]
       },
       {
-        "text_span": "in an aggregate Notional Amount of CAD 5,000,000",
+        "text_span": "in an aggregate Notional Amount of 5,000,000 CAD",
         "char_range": [
-          349,
-          397
+          417,
+          465
         ]
       }
     ],
@@ -121,17 +121,17 @@
     "booking_value": "2026-04-28",
     "citations": [
       {
-        "text_span": "The Trade Date is 28 April 2026",
+        "text_span": "The Trade Date is April 28, 2026",
         "char_range": [
-          490,
-          521
+          573,
+          605
         ]
       },
       {
-        "text_span": "The Trade Date is 28 April 2026",
+        "text_span": "The Trade Date is April 28, 2026;",
         "char_range": [
-          490,
-          521
+          573,
+          606
         ]
       }
     ],
@@ -149,17 +149,17 @@
     "booking_value": "2026-05-05",
     "citations": [
       {
-        "text_span": "the Issue Date is 5 May 2026",
+        "text_span": "the Issue Date is May 5, 2026",
         "char_range": [
-          523,
-          551
+          607,
+          636
         ]
       },
       {
-        "text_span": "the Issue Date is 5 May 2026",
+        "text_span": "the Issue Date is May 5, 2026;",
         "char_range": [
-          523,
-          551
+          607,
+          637
         ]
       }
     ],
@@ -177,17 +177,17 @@
     "booking_value": "2029-05-07",
     "citations": [
       {
-        "text_span": "the Scheduled Maturity Date is 7 May 2029",
+        "text_span": "the Scheduled Maturity Date is May 7, 2029",
         "char_range": [
-          556,
-          597
+          638,
+          680
         ]
       },
       {
-        "text_span": "the Scheduled Maturity Date is 7 May 2029",
+        "text_span": "the Scheduled Maturity Date is May 7, 2029",
         "char_range": [
-          556,
-          597
+          638,
+          680
         ]
       }
     ],
@@ -209,17 +209,17 @@
     ],
     "citations": [
       {
-        "text_span": "The Notes are linked to the performance of the BVERSA10 Index (Bloomberg: BVERSA10 Index).",
+        "text_span": "Bloomberg: BVERSA10 Index",
         "char_range": [
-          399,
-          489
+          526,
+          551
         ]
       },
       {
-        "text_span": "The Notes are linked to the performance of the BVERSA10 Index (Bloomberg: BVERSA10 Index).",
+        "text_span": "the Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index) (the \"Underlying\")",
         "char_range": [
-          399,
-          489
+          496,
+          571
         ]
       }
     ],
@@ -237,17 +237,17 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+        "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.",
         "char_range": [
-          646,
-          739
+          817,
+          919
         ]
       },
       {
-        "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+        "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.",
         "char_range": [
-          646,
-          739
+          817,
+          919
         ]
       }
     ],
@@ -267,15 +267,15 @@
       {
         "text_span": "observed on the Final Valuation Date only (European observation)",
         "char_range": [
-          1557,
-          1621
+          1800,
+          1864
         ]
       },
       {
-        "text_span": "the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)",
+        "text_span": "European (Final Valuation Date only); 70 per cent. of the Initial Level",
         "char_range": [
-          1513,
-          1621
+          4954,
+          5025
         ]
       }
     ],
@@ -293,17 +293,17 @@
     "booking_value": "70",
     "citations": [
       {
-        "text_span": "at a Knock-in Level of 70% of the Initial Level",
+        "text_span": "Knock-in Level of 70 per cent. of the Initial Level.",
         "char_range": [
-          1622,
-          1669
+          1870,
+          1922
         ]
       },
       {
-        "text_span": "at a Knock-in Level of 70% of the Initial Level",
+        "text_span": "European (Final Valuation Date only); 70 per cent. of the Initial Level",
         "char_range": [
-          1622,
-          1669
+          4954,
+          5025
         ]
       }
     ],
@@ -321,17 +321,17 @@
     "booking_value": "8.25",
     "citations": [
       {
-        "text_span": "The Notes pay a conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum)",
+        "text_span": "equivalent to 8.25% per annum",
         "char_range": [
-          752,
-          841
+          994,
+          1023
         ]
       },
       {
         "text_span": "a conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum)",
         "char_range": [
-          766,
-          841
+          949,
+          1024
         ]
       }
     ],
@@ -349,17 +349,17 @@
     "booking_value": "quarterly",
     "citations": [
       {
-        "text_span": "The Notes pay a conditional Coupon of 2.0625% per quarter",
+        "text_span": "payable quarterly in arrears",
         "char_range": [
-          752,
-          809
+          1026,
+          1054
         ]
       },
       {
-        "text_span": "a conditional Coupon of 2.0625% per quarter",
+        "text_span": "payable quarterly in arrears",
         "char_range": [
-          766,
-          809
+          1026,
+          1054
         ]
       }
     ],
@@ -379,15 +379,15 @@
       {
         "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
         "char_range": [
-          966,
-          1147
+          1179,
+          1360
         ]
       },
       {
         "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
         "char_range": [
-          966,
-          1147
+          1179,
+          1360
         ]
       }
     ],
@@ -415,17 +415,17 @@
     ],
     "citations": [
       {
-        "text_span": "Autocall Observation Dates: 28 April 2027, 28 October 2027, 28 April 2028, 30 October 2028.",
+        "text_span": "Autocall Observation Dates: April 28, 2027, October 28, 2027, April 28, 2028, October 30, 2028.",
         "char_range": [
-          1404,
-          1495
+          1627,
+          1722
         ]
       },
       {
-        "text_span": "Autocall Observation Dates: 28 April 2027, 28 October 2027, 28 April 2028, 30 October 2028.",
+        "text_span": "Autocall Observation Dates: April 28, 2027, October 28, 2027, April 28, 2028, October 30, 2028.",
         "char_range": [
-          1404,
-          1495
+          1627,
+          1722
         ]
       }
     ],
@@ -443,17 +443,17 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+        "text_span": "closing level of the Underlying is at or above 100 per cent. of the Initial Level",
         "char_range": [
-          1210,
-          1322
+          1464,
+          1545
         ]
       },
       {
-        "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+        "text_span": "Autocall Level\n    100 per cent. of the Initial Level",
         "char_range": [
-          1210,
-          1322
+          4841,
+          4903
         ]
       }
     ],
@@ -473,15 +473,15 @@
       {
         "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
         "char_range": [
-          915,
-          965
+          1128,
+          1178
         ]
       },
       {
-        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "text_span": "Day Count\n    30/360",
         "char_range": [
-          915,
-          965
+          5054,
+          5083
         ]
       }
     ],
@@ -499,17 +499,17 @@
     "booking_value": "cash",
     "citations": [
       {
-        "text_span": "Settlement at maturity or upon early redemption is in cash, in CAD.",
+        "text_span": "Cash settlement in CAD.",
         "char_range": [
-          1856,
-          1923
+          2111,
+          2134
         ]
       },
       {
-        "text_span": "Settlement at maturity or upon early redemption is in cash, in CAD.",
+        "text_span": "Cash settlement in CAD.",
         "char_range": [
-          1856,
-          1923
+          2111,
+          2134
         ]
       }
     ],
@@ -527,21 +527,329 @@
     "booking_value": "mod_following",
     "citations": [
       {
-        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+        "text_span": "Modified Following Business Day Convention",
         "char_range": [
-          1924,
-          2017
+          727,
+          769
         ]
       },
       {
-        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+        "text_span": "subject to adjustment in accordance with the Modified Following Business Day Convention",
         "char_range": [
-          1924,
-          2017
+          682,
+          769
         ]
       }
     ],
     "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:index_administrator",
+    "doc_id": "G09",
+    "field": "index_administrator",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "Bloomberg Index Services Limited",
+    "booking_value": "Bloomberg Index Services Limited",
+    "citations": [
+      {
+        "text_span": "Bloomberg Index Services Limited",
+        "char_range": [
+          2240,
+          2272
+        ]
+      },
+      {
+        "text_span": "Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator",
+        "char_range": [
+          2836,
+          2958
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:index_return_type",
+    "doc_id": "G09",
+    "field": "index_return_type",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "type_i",
+    "booking_value": "type_i",
+    "citations": [
+      {
+        "text_span": "Type I under the Index Methodology",
+        "char_range": [
+          3048,
+          3082
+        ]
+      },
+      {
+        "text_span": "Total Return (Type I under the Index Methodology)",
+        "char_range": [
+          3034,
+          3083
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:index_vol_target_pct",
+    "doc_id": "G09",
+    "field": "index_vol_target_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "10",
+    "booking_value": "10",
+    "citations": [
+      {
+        "text_span": "10% per annum",
+        "char_range": [
+          3236,
+          3249
+        ]
+      },
+      {
+        "text_span": "Volatility Target\n    10% per annum",
+        "char_range": [
+          3196,
+          3249
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:index_rebalance_frequency",
+    "doc_id": "G09",
+    "field": "index_rebalance_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "daily",
+    "booking_value": "daily",
+    "citations": [
+      {
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
+        "char_range": [
+          3851,
+          3916
+        ]
+      },
+      {
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
+        "char_range": [
+          3851,
+          3916
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:index_deduction_factor_pct",
+    "doc_id": "G09",
+    "field": "index_deduction_factor_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "0.5",
+    "booking_value": "0.5",
+    "citations": [
+      {
+        "text_span": "0.50% per annum, deducted daily from the Index Value",
+        "char_range": [
+          3992,
+          4044
+        ]
+      },
+      {
+        "text_span": "0.50% per annum, deducted daily from the Index Value",
+        "char_range": [
+          3992,
+          4044
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:index_transaction_cost_rate_pct",
+    "doc_id": "G09",
+    "field": "index_transaction_cost_rate_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "0.02",
+    "booking_value": "0.02",
+    "citations": [
+      {
+        "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+        "char_range": [
+          4125,
+          4205
+        ]
+      },
+      {
+        "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+        "char_range": [
+          4125,
+          4205
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:ref:index_administrator",
+    "doc_id": "G09",
+    "field": "ref:index_administrator",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "Bloomberg Index Services Limited",
+    "booking_value": "Bloomberg Index Services Limited",
+    "citations": [
+      {
+        "text_span": "Bloomberg Index Services Limited",
+        "char_range": [
+          2240,
+          2272
+        ]
+      },
+      {
+        "text_span": "Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator",
+        "char_range": [
+          2836,
+          2958
+        ]
+      }
+    ],
+    "detail": "claim Bloomberg Index Services Limited agrees with the methodology rule administrator = Bloomberg Index Services Limited",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:ref:index_rebalance_frequency",
+    "doc_id": "G09",
+    "field": "ref:index_rebalance_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "daily",
+    "booking_value": "daily",
+    "citations": [
+      {
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
+        "char_range": [
+          3851,
+          3916
+        ]
+      },
+      {
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
+        "char_range": [
+          3851,
+          3916
+        ]
+      }
+    ],
+    "detail": "claim daily agrees with the methodology rule rebalance_frequency = daily",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:ref:index_vol_target_pct",
+    "doc_id": "G09",
+    "field": "ref:index_vol_target_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "10",
+    "booking_value": null,
+    "citations": [
+      {
+        "text_span": "10% per annum",
+        "char_range": [
+          3236,
+          3249
+        ]
+      },
+      {
+        "text_span": "Volatility Target\n    10% per annum",
+        "char_range": [
+          3196,
+          3249
+        ]
+      }
+    ],
+    "detail": "deferred: the methodology defines volatility_target_pct but fixes no value (index-specific document); not checkable here",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:ref:index_deduction_factor_pct",
+    "doc_id": "G09",
+    "field": "ref:index_deduction_factor_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "0.5",
+    "booking_value": "0",
+    "citations": [
+      {
+        "text_span": "0.50% per annum, deducted daily from the Index Value",
+        "char_range": [
+          3992,
+          4044
+        ]
+      },
+      {
+        "text_span": "0.50% per annum, deducted daily from the Index Value",
+        "char_range": [
+          3992,
+          4044
+        ]
+      }
+    ],
+    "detail": "methodology default 0; the index-specific document may override \u2014 informational, not checked",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:ref:index_transaction_cost_rate_pct",
+    "doc_id": "G09",
+    "field": "ref:index_transaction_cost_rate_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "0.02",
+    "booking_value": "0",
+    "citations": [
+      {
+        "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+        "char_range": [
+          4125,
+          4205
+        ]
+      },
+      {
+        "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+        "char_range": [
+          4125,
+          4205
+        ]
+      }
+    ],
+    "detail": "methodology default 0; the index-specific document may override \u2014 informational, not checked",
     "lane": "AUTO_CLEAR",
     "triage": null
   }

@@ -1,17 +1,19 @@
 {
   "vendor": "mixedbread",
-  "job_id": "c29cb8d4-5caa-40b9-a769-47294c07814d",
-  "file_id": "9800a4b9-95b2-48d3-8881-bf5c9d625f11",
+  "job_id": "af4100d4-792b-4a57-bb43-aa8fa33849f1",
+  "file_id": "1eb90529-20a0-416e-a778-59ee73208a72",
   "mode": "high_quality",
   "return_format": "markdown",
   "chunking": "page",
   "pages": 34,
-  "latency_ms": 45320,
+  "latency_ms": 58733,
+  "composition": "elements-v2-no-header-footer",
+  "dropped_elements": 59,
   "cost_usd": null,
   "sdk_version": "0.54.0",
-  "parsed_at": "2026-09-12T11:58:09",
+  "parsed_at": "2026-09-12T19:16:33",
   "doc_id": "methodology",
   "pdf": "/home/sheldongomes/AIProjects/concord/golden/reference/Bloomberg-Versa-Indices-Methodology.pdf",
   "pdf_sha256": "301804971d93679333f77adbcdefd452df374ff8433dc9ba82897069301cffcd",
-  "markdown_sha256": "04d9fc7d72c81ca88fcaf74e6925bac851a842520eca34e788369d57ad1b6a64"
+  "markdown_sha256": "ad32c479a7aa7c866b4e656c702ba93e517561ca9b5c1627cd60185cfc6d81aa"
 }

@@ -9,17 +9,17 @@
     "booking_value": "SN-2026-0101",
     "citations": [
       {
-        "text_span": "Reference: SN-2026-0101",
+        "text_span": "Reference SN-2026-0101",
         "char_range": [
-          156,
-          179
+          220,
+          242
         ]
       },
       {
-        "text_span": "Reference: SN-2026-0101",
+        "text_span": "Reference SN-2026-0101",
         "char_range": [
-          156,
-          179
+          220,
+          242
         ]
       }
     ],
@@ -39,15 +39,15 @@
       {
         "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
         "char_range": [
-          232,
-          288
+          290,
+          346
         ]
       },
       {
-        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes (the \"Notes\")",
         "char_range": [
-          232,
-          305
+          290,
+          377
         ]
       }
     ],
@@ -65,17 +65,17 @@
     "booking_value": "5000000",
     "citations": [
       {
-        "text_span": "in an aggregate Notional Amount of USD 5,000,000.",
+        "text_span": "aggregate Notional Amount of 5,000,000 USD",
         "char_range": [
-          348,
-          397
+          412,
+          454
         ]
       },
       {
-        "text_span": "in an aggregate Notional Amount of USD 5,000,000",
+        "text_span": "in an aggregate Notional Amount of 5,000,000 USD",
         "char_range": [
-          348,
-          396
+          406,
+          454
         ]
       }
     ],
@@ -93,17 +93,17 @@
     "booking_value": "USD",
     "citations": [
       {
-        "text_span": "in an aggregate Notional Amount of USD 5,000,000.",
+        "text_span": "Cash settlement in USD.",
         "char_range": [
-          348,
-          397
+          2062,
+          2085
         ]
       },
       {
-        "text_span": "an aggregate Notional Amount of USD 5,000,000",
+        "text_span": "in an aggregate Notional Amount of 5,000,000 USD",
         "char_range": [
-          351,
-          396
+          406,
+          454
         ]
       }
     ],
@@ -121,17 +121,17 @@
     "booking_value": "2026-04-14",
     "citations": [
       {
-        "text_span": "The Trade Date is 14 April 2026",
+        "text_span": "The Trade Date is April 14, 2026;",
         "char_range": [
-          483,
-          514
+          527,
+          560
         ]
       },
       {
-        "text_span": "The Trade Date is 14 April 2026",
+        "text_span": "The Trade Date is April 14, 2026",
         "char_range": [
-          483,
-          514
+          527,
+          559
         ]
       }
     ],
@@ -149,17 +149,17 @@
     "booking_value": "2026-04-21",
     "citations": [
       {
-        "text_span": "the Issue Date is 21 April 2026",
+        "text_span": "the Issue Date is April 21, 2026;",
         "char_range": [
-          516,
-          547
+          561,
+          594
         ]
       },
       {
-        "text_span": "the Issue Date is 21 April 2026",
+        "text_span": "the Issue Date is April 21, 2026",
         "char_range": [
-          516,
-          547
+          561,
+          593
         ]
       }
     ],
@@ -177,17 +177,17 @@
     "booking_value": "2029-04-23",
     "citations": [
       {
-        "text_span": "the Scheduled Maturity Date is 23 April 2029",
+        "text_span": "the Scheduled Maturity Date is April 23, 2029",
         "char_range": [
-          552,
-          596
+          595,
+          640
         ]
       },
       {
-        "text_span": "the Scheduled Maturity Date is 23 April 2029",
+        "text_span": "the Scheduled Maturity Date is April 23, 2029",
         "char_range": [
-          552,
-          596
+          595,
+          640
         ]
       }
     ],
@@ -209,17 +209,17 @@
     ],
     "citations": [
       {
-        "text_span": "The Notes are linked to the performance of the S&P 500 Index (Bloomberg: SPX Index).",
+        "text_span": "Bloomberg: SPX Index",
         "char_range": [
-          398,
-          482
+          504,
+          524
         ]
       },
       {
         "text_span": "linked to the performance of the S&P 500 Index (Bloomberg: SPX Index)",
         "char_range": [
-          412,
-          481
+          456,
+          525
         ]
       }
     ],
@@ -237,17 +237,17 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+        "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.",
         "char_range": [
-          645,
-          738
+          777,
+          879
         ]
       },
       {
-        "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+        "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.",
         "char_range": [
-          645,
-          738
+          777,
+          879
         ]
       }
     ],
@@ -265,17 +265,17 @@
     "booking_value": "european",
     "citations": [
       {
-        "text_span": "Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 65% of the Initial Level.",
+        "text_span": "observed on the Final Valuation Date only (European observation)",
         "char_range": [
-          1478,
-          1651
+          1751,
+          1815
         ]
       },
       {
-        "text_span": "a knock-in barrier observed on the Final Valuation Date only (European observation)",
+        "text_span": "European (Final Valuation Date only); 65 per cent. of the Initial Level",
         "char_range": [
-          1519,
-          1602
+          2864,
+          2935
         ]
       }
     ],
@@ -293,17 +293,17 @@
     "booking_value": "70",
     "citations": [
       {
-        "text_span": "at a Knock-in Level of 65% of the Initial Level.",
+        "text_span": "Knock-in Level of 65 per cent. of the Initial Level.",
         "char_range": [
-          1603,
-          1651
+          1821,
+          1873
         ]
       },
       {
-        "text_span": "at a Knock-in Level of 65% of the Initial Level",
+        "text_span": "European (Final Valuation Date only); 65 per cent. of the Initial Level",
         "char_range": [
-          1603,
-          1650
+          2864,
+          2935
         ]
       }
     ],
@@ -321,17 +321,17 @@
     "booking_value": "7.5",
     "citations": [
       {
-        "text_span": "The Notes pay a conditional Coupon of 7.5% per annum, payable quarterly",
+        "text_span": "conditional Coupon of 7.5 per cent. per annum",
         "char_range": [
-          751,
-          822
+          911,
+          956
         ]
       },
       {
-        "text_span": "a conditional Coupon of 7.5% per annum, payable quarterly",
+        "text_span": "The Notes pay a conditional Coupon of 7.5 per cent. per annum, payable quarterly",
         "char_range": [
-          765,
-          822
+          895,
+          975
         ]
       }
     ],
@@ -349,17 +349,17 @@
     "booking_value": "quarterly",
     "citations": [
       {
-        "text_span": "payable quarterly",
+        "text_span": "payable quarterly, payable quarterly in arrears",
         "char_range": [
-          805,
-          822
+          958,
+          1005
         ]
       },
       {
-        "text_span": "7.5% per annum, payable quarterly",
+        "text_span": "payable quarterly in arrears",
         "char_range": [
-          789,
-          822
+          977,
+          1005
         ]
       }
     ],
@@ -379,15 +379,15 @@
       {
         "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
         "char_range": [
-          947,
-          1128
+          1130,
+          1311
         ]
       },
       {
         "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
         "char_range": [
-          947,
-          1128
+          1130,
+          1311
         ]
       }
     ],
@@ -415,17 +415,17 @@
     ],
     "citations": [
       {
-        "text_span": "Autocall Observation Dates: 14 April 2027, 14 October 2027, 14 April 2028, 16 October 2028.",
+        "text_span": "Autocall Observation Dates: April 14, 2027, October 14, 2027, April 14, 2028, October 16, 2028.",
         "char_range": [
-          1385,
-          1476
+          1578,
+          1673
         ]
       },
       {
-        "text_span": "Autocall Observation Dates: 14 April 2027, 14 October 2027, 14 April 2028, 16 October 2028.",
+        "text_span": "Autocall Observation Dates: April 14, 2027, October 14, 2027, April 14, 2028, October 16, 2028.",
         "char_range": [
-          1385,
-          1476
+          1578,
+          1673
         ]
       }
     ],
@@ -443,17 +443,17 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+        "text_span": "100 per cent. of the Initial Level",
         "char_range": [
-          1191,
-          1303
+          1462,
+          1496
         ]
       },
       {
-        "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+        "text_span": "100 per cent. of the Initial Level",
         "char_range": [
-          1191,
-          1303
+          1462,
+          1496
         ]
       }
     ],
@@ -473,15 +473,15 @@
       {
         "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
         "char_range": [
-          896,
-          946
+          1079,
+          1129
         ]
       },
       {
-        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "text_span": "Day Count 30/360",
         "char_range": [
-          896,
-          946
+          2964,
+          2993
         ]
       }
     ],
@@ -499,17 +499,17 @@
     "booking_value": "cash",
     "citations": [
       {
-        "text_span": "Settlement at maturity or upon early redemption is in cash, in USD.",
+        "text_span": "Cash settlement in USD.",
         "char_range": [
-          1837,
-          1904
+          2062,
+          2085
         ]
       },
       {
-        "text_span": "Settlement at maturity or upon early redemption is in cash, in USD.",
+        "text_span": "Cash settlement in USD.",
         "char_range": [
-          1837,
-          1904
+          2062,
+          2085
         ]
       }
     ],
@@ -527,21 +527,112 @@
     "booking_value": "mod_following",
     "citations": [
       {
-        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+        "text_span": "Modified Following Business Day Convention",
         "char_range": [
-          1905,
-          1998
+          687,
+          729
         ]
       },
       {
-        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+        "text_span": "subject to adjustment in accordance with the Modified Following Business Day Convention",
         "char_range": [
-          1905,
-          1998
+          642,
+          729
         ]
       }
     ],
     "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G01:index_administrator",
+    "doc_id": "G01",
+    "field": "index_administrator",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G01:index_return_type",
+    "doc_id": "G01",
+    "field": "index_return_type",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G01:index_return_treatment",
+    "doc_id": "G01",
+    "field": "index_return_treatment",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G01:index_vol_target_pct",
+    "doc_id": "G01",
+    "field": "index_vol_target_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G01:index_rebalance_frequency",
+    "doc_id": "G01",
+    "field": "index_rebalance_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G01:index_deduction_factor_pct",
+    "doc_id": "G01",
+    "field": "index_deduction_factor_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G01:index_transaction_cost_rate_pct",
+    "doc_id": "G01",
+    "field": "index_transaction_cost_rate_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
     "lane": "AUTO_CLEAR",
     "triage": null
   }

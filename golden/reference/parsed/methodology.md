@@ -1,11 +1,10 @@
-<table>
-  <tr>
-    <td colspan="2">Bloomberg Versa Indices</td>
-  </tr>
-  <tr>
-    <td colspan="2">Methodology</td>
-  </tr>
-</table>
+## Bloomberg Versa Indices
+
+Bloomberg Versa Indices
+
+The New York Times
+
+The New York Times
 
 March 21, 2025
 
@@ -13,7 +12,7 @@ March 21, 2025
 
 ## March 21, 2025
 
-# Table of Contents
+## # Table of Contents
 
 <table>
   <tr>
@@ -182,10 +181,6 @@ Appendix III: Synthetic High/Lows Levels
 
 Appendix IV: ESG Disclosures
 
-Bloomberg Versa Indices Methodology
-
-3
-
 ## Bloomberg Versa Indices Methodology
 
 ## March 21, 2025
@@ -205,7 +200,7 @@ The Bloomberg Versa Indices aim to reflect the performance of individual volatil
 With respect to the Index, the Index Value on the Index Base Date shall be the Index Base Value. Thereafter, the Index Value with respect to each Index Business Day, t, shall be calculated in accordance with the following formula. The Index Value shall be floored at zero on any Index Business Day. If the Index Value hits zero, it will stay at zero:
 
 $$
-I_t = \begin{cases} \max(I_{t-1} + R_t^U + R_t^C + R_{t-1}^{TC} + R_t^D, 0), & \text{if t is Index Base Date or } I_{t-1} \neq 0 \\ 0, & \text{if } I_{t-1} = 0 \end{cases} \tag{1}
+I_t = \begin{cases} \max(I_{t-1} + R_t^U + R_t^C + R_{t-1}^{TC} + R_t^D, 0), & \text{if } t \text{ is Index Base Date or } I_{t-1} \neq 0 \\ 0, & \text{if } I_{t-1} = 0 \end{cases} \tag{1}
 $$
 
 The Index returns are calculated in accordance with the following formula:
@@ -223,7 +218,7 @@ R_t^{TC} = -abs(Unit_t^U - Unit_{t-1}^U) \times I_t^U \times TCR \quad (4)
 $$
 
 $$
-R_t^D = -I_{t-1} \times DeductionFactor \times \frac{ACT_{t,t-1}}{DC} \qquad (5)
+R_t^D = -I_{t-1} \times \text{DeductionFactor} \times \frac{\text{ACT}_{t,t-1}}{\text{DC}} \qquad (5)
 $$
 
 The units of the Underlying Index and the Cash Index are calculated in accordance with the following formula:
@@ -237,10 +232,6 @@ Unit_t^C = \begin{cases} \frac{CE_d \times I_t}{I_t^C}, & \text{if t is Index Ba
 $$
 
 For each type of Volatility Target Index, the exposure to cash shall be determined in accordance with the following formula:
-
-Bloomberg Versa Indices Methodology
-
-4
 
 ## Bloomberg Versa Indices Methodology
 
@@ -316,8 +307,6 @@ $I_{t-1}$ means the Index Value on Index Business Day $t-1$;
 
 Bloomberg Versa Indices Methodology
 
-5
-
 ## Bloomberg Versa Indices Methodology
 
 ## March 21, 2025
@@ -338,13 +327,13 @@ $R_t^U$ means the return of the Underlying Index on Index Business Day $t$;
 
 *TCR* means the Transaction Cost Rate;
 
-$Unit_t^U$ means the units of the Underlying Index on Index Business Day $t$;
+*Unit*$_t^U$ means the units of the Underlying Index on Index Business Day $t$;
 
-$Unit_t^C$ means the units of the Cash Index on Index Business Day $t$;
+*Unit*$_t^C$ means the units of the Cash Index on Index Business Day $t$;
 
-$Unit_{t-1}^U$ means the units of the Underlying Index on Index Business Day $t-1$;
+*Unit*$_{t-1}^U$ means the units of the Underlying Index on Index Business Day $t-1$;
 
-$Unit_{t-1}^C$ means the units of the Cash Index on Index Business Day $t-1$;
+*Unit*$_{t-1}^C$ means the units of the Cash Index on Index Business Day $t-1$;
 
 ## Exposure Calculation
 
@@ -383,10 +372,6 @@ $AE_{d-1}$ means Actual Exposure of the Underlying Index on Determination Date $
 $TE_d$ means Target Exposure of the Underlying Index on Determination Date $d$ calculated as below:
 
 If Target Exposure Type is Standard Target Exposure, which is the default option:
-
-Bloomberg Versa Indices Methodology
-
-6
 
 ## Bloomberg Versa Indices Methodology
 
@@ -454,10 +439,6 @@ $Signal^k_t$ means the kth signal in the Signal Set on Index Business Day $t$;
 
 SignalSet means the reference number of the signals in the Signal Set.
 
-Bloomberg Versa Indices Methodology
-
-7
-
 ## Bloomberg Versa Indices Methodology
 
 ## March 21, 2025
@@ -519,8 +500,6 @@ $$
 $$
 Var_t^{LT} = \lambda_{LT} \times Var_{t-1}^{LT} + (1 - \lambda_{LT}) \times \left[ \ln \left( \frac{I_t^U}{I_{t-1}^U} \right) \right]^2 \quad (24)
 $$
-
-8
 
 ## Bloomberg Versa Indices Methodology
 
@@ -590,10 +569,6 @@ $$
 HLV_t = \sqrt{\ln\left(\frac{HighSnap_t}{LowClose_{t-1}}\right)^2 \times 252} \qquad (29)
 $$
 
-Bloomberg Versa Indices Methodology
-
-9
-
 ## Bloomberg Versa Indices Methodology
 
 ## March 21, 2025
@@ -657,10 +632,6 @@ Where:
 $t - k, t - k + 1, t - i$, means the k-th, (k-1)-th, i-th Index Business Day immediately preceding $t$ respectively;
 
 $I_t^U$ means the level of the Underlying Index on Underlying Index Business Day $t$;
-
-Bloomberg Versa Indices Methodology
-
-10
 
 ## Bloomberg Versa Indices Methodology
 
@@ -736,10 +707,6 @@ v means the RV Sigma Window.
     <td>The direction of the exposure.</td>
   </tr>
 </table>
-
-Bloomberg Versa Indices Methodology
-
-11
 
 ## Bloomberg Versa Indices Methodology
 
@@ -864,10 +831,6 @@ Bloomberg Versa Indices Methodology
   </tr>
 </table>
 
-Bloomberg Versa Indices Methodology
-
-12
-
 ## Bloomberg Versa Indices Methodology
 
 ## March 21, 2025
@@ -914,10 +877,6 @@ Bloomberg Versa Indices Methodology
     <td>The percentage target of volatility of an Index.</td>
   </tr>
 </table>
-
-Bloomberg Versa Indices Methodology
-
-13
 
 ## Bloomberg Versa Indices Methodology
 
@@ -989,8 +948,6 @@ $P_{t-1}^i$ means the Price of Constituent $i$ on Index Business Day $t-1$;
 
 Bloomberg Versa Indices Methodology
 
-14
-
 ## Bloomberg Versa Indices Methodology
 
 $U_t^i$ means the Units for Constituent $i$ on Index Business Days $t$;
@@ -1057,12 +1014,6 @@ $HighClose_{t-1}^i$ means the High Close price for the Constituent $i$, on Index
 
 $HighSnap_t^i$ means the High Snap for the Constituent $i$, on Index Business Day $t$;
 
-Bloomberg Versa Indices Methodology
-
-15
-
-Bloomberg Versa Indices Methodology
-
 $\ln(x)$ means the natural logarithm of a value x;
 
 $LowClose_{t-1}^i$ means the Low Close price for the Constituent $i$, on Index Business Day $t-1$;
@@ -1071,9 +1022,9 @@ $LowSnap_t^i$ means the Low Snap for the Constituent $i$, on Index Business Day 
 
 $Vol_t^i$ means the Constituent Volatility for the Constituent $i$, on Index Business Day $t$;
 
-$Vol_{HL}^t_i$ means the volatility of high/low for the Constituent $i$, on Index Business Day $t$;
+$Vol_{HL_t}^i$ means the volatility of high/low for the Constituent $i$, on Index Business Day $t$;
 
-$Vol_{LH}^t_i$ means the volatility of low/high for the Constituent $i$, on Index Business Day $t$.
+$Vol_{LH_t}^i$ means the volatility of low/high for the Constituent $i$, on Index Business Day $t$.
 
 ## March 21, 2025
 
@@ -1130,10 +1081,6 @@ $\Delta YMA_t$ means the change of the moving average of the values of the Yield
 $LongYield_{t-k}$ means the value of the Yield Component with constituent tag of "Long" on Index Business Day $t-k$;
 
 $m$ means the Momentum Time Difference;
-
-Bloomberg Versa Indices Methodology
-
-16
 
 ## Bloomberg Versa Indices Methodology
 
@@ -1204,10 +1151,6 @@ Where:
 $$
 FC_t = \frac{FCR_{t-1}}{100} \times DCFC_{t-1,t} \times \sum_{i \in IndexConstituents} (U_{t-1}^i \times P_{t-1}^i) \quad (21)
 $$
-
-Bloomberg Versa Indices Methodology
-
-17
 
 ## Bloomberg Versa Indices Methodology
 
@@ -1299,8 +1242,6 @@ $U_t^i$ and $U_{t-1}^i$ mean the Units for Constituent $i$ on Index Business Day
 </table>
 
 Bloomberg Versa Indices Methodology
-
-18
 
 ## Bloomberg Versa Indices Methodology
 
@@ -1445,10 +1386,6 @@ Bloomberg Versa Indices Methodology
 </tr>
 </table>
 
-Bloomberg Versa Indices Methodology
-
-19
-
 ## Bloomberg Versa Indices Methodology
 
 ## March 21, 2025
@@ -1503,15 +1440,11 @@ $FX_{t,f}^i$ means the Spot Exchange Rate to convert one unit of the Constituent
 
 $FX_{t-1,close}^i$ means the Spot Exchange Rate to convert one unit of the Constituent Currency of Constituent $i$ to the Index Currency at the Closing Fixing on Index Business Day $t-1$.
 
-Bloomberg Versa Indices Methodology
-
-20
-
 ## Bloomberg Versa Indices Methodology
 
 ## March 21, 2025
 
-IndexAdjustment$_{<t,f>}$ means the Index Adjustment at Fixing $f$ on Index Business Day $t$ calculated in accordance with the following formula:
+IndexAdjustment$_{<t,f>}$ means the Index Adjustment at Fixing f on Index Business Day t calculated in accordance with the following formula:
 
 $$
 IndexAdjustment_{(t,f)} = \sum_{a \in Adjustments_{(t,f)}} a \qquad (5)
@@ -1566,10 +1499,6 @@ RL$^i$ means the Rebalance Length for Constituent i;
 IU$_{t}$$^{i}$ means the Incremental Units for Constituent i on Index Business Day t ;
 
 $U_d^i$ means the Units for Constituent $i$ on Units Determination Date $d$;
-
-Bloomberg Versa Indices Methodology
-
-21
 
 ## Bloomberg Versa Indices Methodology
 
@@ -1626,10 +1555,6 @@ TCR$^i$ means the Transaction Cost Rate for Constituent $i$;
 ## Weights
 
 With respect to each Constituent i, the Weights shall be determined on the Units Determination Date in accordance with the Weighting Scheme:
-
-Bloomberg Versa Indices Methodology
-
-22
 
 ## Bloomberg Versa Indices Methodology
 
@@ -1694,10 +1619,6 @@ Where:
 $t - 251$ means 251 Index Business Days immediately preceding $t$; and
 
 $P_t^i$ and $P_{t-251}^i$ mean the Price of Constituent $i$ on Index Business Day $t$ and $t - 251$ respectively.
-
-Bloomberg Versa Indices Methodology
-
-23
 
 ## Bloomberg Versa Indices Methodology
 
@@ -1840,10 +1761,6 @@ Bloomberg Versa Indices Methodology
 </tr>
 </table>
 
-Bloomberg Versa Indices Methodology
-
-24
-
 ## Bloomberg Versa Indices Methodology
 
 ## March 21, 2025
@@ -1923,10 +1840,6 @@ Bloomberg Versa Indices Methodology
   </tr>
 </table>
 
-Bloomberg Versa Indices Methodology
-
-25
-
 ## Bloomberg Versa Indices Methodology
 
 ## March 21, 2025
@@ -1952,10 +1865,6 @@ Markets can be volatile, including those market interests that the Index measure
 In addition, changes to the availability and/or accuracy of trade, liquidity or price data, may render the objective of the Index unachievable or to become impractical to replicate by investors. They are for the indicative purpose.
 
 In particular, the Index measures the performance of a weighted portfolio of instruments. The Indices are therefore subject to the effectiveness of such investment strategy.
-
-Bloomberg Versa Indices Methodology
-
-26
 
 ## Bloomberg Versa Indices Methodology
 
@@ -1985,11 +1894,7 @@ Please refer to the BISL Benchmark Procedures Handbook available here.
 
 Please refer to the BISL Benchmark Procedures Handbook available here.
 
-Bloomberg Versa Indices Methodology
-
 ## March 21, 2025
-
-27
 
 ## Bloomberg Versa Indices Methodology
 
@@ -2001,21 +1906,13 @@ Market Disruption Event
 
 A situation wherein markets cease to function in a regular manner. See Appendix II: Market Disruptions.
 
-Bloomberg Versa Indices Methodology
-
-28
-
 ## Bloomberg Versa Indices Methodology
 
 ## Appendix II: Market Disruptions
 
 Please refer to the BISL Benchmark Procedures Handbook available here.
 
-Bloomberg Versa Indices Methodology
-
 ## March 21, 2025
-
-29
 
 ## Bloomberg Versa Indices Methodology
 
@@ -2066,9 +1963,8 @@ $$
 $$
 \begin{gather*}
 Cov(CloseTargetRet_{t-l+1,t}, CloseBaseRet_{t-l+1,t}) = \\
-\frac{1}{l-1} \sum_{i=0}^{l-1} (CloseTargetRet_{t-i} - \overline{CloseTargetRet_{t-l+1,t}})(CloseBaseRet_{t-i} - \overline{CloseBaseRet_{t-l+1,t}})
+\frac{1}{l-1} \sum_{i=0}^{l-1} (CloseTargetRet_{t-i} - \overline{CloseTargetRet_{t-l+1,t}})(CloseBaseRet_{t-i} - \overline{CloseBaseRet_{t-l+1,t}}) \tag{8}
 \end{gather*}
-\tag{8}
 $$
 
 $$
@@ -2082,10 +1978,6 @@ $$
 $$
 \overline{\text{CloseBaseRet}_{t-l+1,t}} = \frac{1}{l} \sum_{k=0}^{l-1} \text{CloseBaseRet}_{t-k} \qquad (11)
 $$
-
-Bloomberg Versa Indices Methodology
-
-30
 
 ## Bloomberg Versa Indices Methodology
 
@@ -2108,10 +2000,6 @@ $HighBase_t$ means the high values that are corporate actions adjusted for the B
 LowBase$_{t}$ means the low values that are corporate actions adjusted for the Base Index on Index Business Day t;
 
 l means beta lookback windows, which is set as 252.
-
-Bloomberg Versa Indices Methodology
-
-31
 
 ## Bloomberg Versa Indices Methodology
 
@@ -2164,10 +2052,6 @@ Alternatively, all of this information may be provided in the form of a hyperlin
   </tr>
 </table>
 
-Bloomberg Versa Indices Methodology
-
-32
-
 ## Bloomberg Versa Indices Methodology
 
 ## March 21, 2025
@@ -2198,10 +2082,6 @@ Bloomberg Versa Indices Methodology
     <td>March 21, 2025<br><br>First Publication</td>
   </tr>
 </table>
-
-Bloomberg Versa Indices Methodology
-
-33
 
 ## Bloomberg Versa Indices Methodology
 
