@@ -20,8 +20,9 @@ def test_date_tolerance_is_off_by_default_and_declared_per_schema():
     ts = {"autocall_observation_dates": ["2027-05-12", "2027-11-12"]}
     bk = {"autocall_observation_dates": ["2027-05-12", "2027-11-15"]}
     lk = BookingLookup(trade_id="X", found=True, record=bk, transport="direct")
-    f = {x.field: x for x in comparator.compare("D", _m(ts), lk, S)}
-    assert f["autocall_observation_dates"].type is FindingType.MISMATCH          # v2 schema: exact
+    S0 = replace(S, tolerances={})   # no declared tolerance -> exact (independent of what the schema file currently declares)
+    f = {x.field: x for x in comparator.compare("D", _m(ts), lk, S0)}
+    assert f["autocall_observation_dates"].type is FindingType.MISMATCH
     S3 = replace(S, tolerances={"autocall_observation_dates": {"type": "date_days", "days": 3}})
     f3 = {x.field: x for x in comparator.compare("D", _m(ts), lk, S3)}
     assert f3["autocall_observation_dates"].type is FindingType.CLEAN and "tolerance" in f3["autocall_observation_dates"].detail
