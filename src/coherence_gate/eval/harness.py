@@ -18,7 +18,8 @@ from . import scoring
 
 def build_context(golden: Path, out_dir: Path, *, stub: bool, config: Config | None = None,
                   booking_transport: str = "direct", with_triage: bool = False,
-                  source: str = "txt", parser_name: str = "mixedbread", reference: bool = False) -> RunContext:
+                  source: str = "txt", parser_name: str = "mixedbread", reference: bool = False,
+                  bookings_dir: Path | None = None) -> RunContext:
     config = config or load_config()
     run_id = datetime.now().strftime("%Y%m%d-%H%M%S")
     run_dir = out_dir / run_id
@@ -28,7 +29,8 @@ def build_context(golden: Path, out_dir: Path, *, stub: bool, config: Config | N
     tracer.step(doc_id="-", step="config", outcome="OK", detail={
         "models": {p.family: p.model for p in config.pins}, "extraction": asdict(config.extraction),
         "prompt_sha": prompt_sha(config.extraction.prompt_version), "stub": stub, "booking_transport": booking_transport,
-        "source": source, "parser": parser_name if source == "pdf" else None, "reference_lane": reference})
+        "source": source, "parser": parser_name if source == "pdf" else None, "reference_lane": reference,
+        "bookings_dir": str(bookings_dir) if bookings_dir else None})
     for pin in config.pins:
         if not pin.pinned:
             tracer.step(doc_id="-", step="config", outcome="UNPINNED_MODEL", model=pin.model)

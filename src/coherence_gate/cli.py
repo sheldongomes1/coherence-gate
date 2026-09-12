@@ -97,7 +97,8 @@ def cmd_check(a: argparse.Namespace) -> int:
     doc = Path(a.document)
     src = "pdf" if doc.suffix.lower() == ".pdf" else "txt"
     ctx = build_context(Path(a.golden), Path(a.out), stub=a.stub, booking_transport=a.booking, with_triage=not a.no_triage,
-                        source=src, parser_name=a.parser, reference=not a.no_reference and not a.stub)
+                        source=src, parser_name=a.parser, reference=not a.no_reference and not a.stub,
+                        bookings_dir=Path(a.bookings) if a.bookings else None)
     if a.parsed_dir:
         ctx.parsed_dir = Path(a.parsed_dir)
     try:
@@ -195,6 +196,7 @@ def main(argv: list[str] | None = None) -> int:
         sp.add_argument("--source", choices=["pdf", "txt"], default="pdf", help="pdf: parse stage + citations into parsed text; txt: canonical text (ablation/fallback)")
         sp.add_argument("--parser", choices=["mixedbread", "local"], default="mixedbread")
         sp.add_argument("--no-reference", action="store_true", help="skip the Versa reference lane")
+        sp.add_argument("--bookings", help="booking store directory (default golden/bookings); use a copy to rehearse edits")
 
     e = sub.add_parser("eval"); common(e); e.add_argument("--only", nargs="*"); e.set_defaults(fn=cmd_eval)
     r = sub.add_parser("run"); common(r); r.add_argument("termsheet"); r.add_argument("--trade-id"); r.set_defaults(fn=cmd_run)

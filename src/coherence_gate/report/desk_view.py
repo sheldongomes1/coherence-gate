@@ -83,6 +83,10 @@ def _fixture(doc_id: str, trade_id: str, fixtures: dict) -> dict:
 
 def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None) -> Path:
     data = load_run(run_dir)
+    if store_dir is None:  # a run made against a rehearsal store records it in the config line
+        for l in data["trace"]:
+            if l["step"] == "config" and isinstance(l.get("detail"), dict) and l["detail"].get("bookings_dir"):
+                store_dir = Path(l["detail"]["bookings_dir"]); break
     cfg = yaml.safe_load((ROOT / "config" / "report.yaml").read_text()) if (ROOT / "config" / "report.yaml").exists() else {}
     book = (cfg.get("book") or {}).get("name", "Demo book")
     fx_path = ROOT / "golden" / "desk_fixtures.json"

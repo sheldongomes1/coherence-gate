@@ -1,0 +1,173 @@
+{
+ "key": "gemini:gemini-3.8-flash:04d9fc7d72c8:8fb6d3572922",
+ "extraction": {
+  "family": "gemini",
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "fields": {
+   "administrator": {
+    "status": "EXTRACTED",
+    "value": "Bloomberg Index Services Limited",
+    "citation": {
+     "text_span": "This methodology (the \u201cMethodology\u201d) has been made available by Bloomberg Index Services Limited (\u201cBISL\u201d) and sets out the rules, criteria, risk factors and other information applicable to the Bloomberg Versa Indices (the \u201cIndices\u201d and each, an \u201cIndex\u201d).",
+     "char_range": [
+      3946,
+      4200
+     ]
+    },
+    "note": null
+   },
+   "methodology_date": {
+    "status": "EXTRACTED",
+    "value": "March 21, 2025",
+    "citation": {
+     "text_span": "March 21, 2025",
+     "char_range": [
+      134,
+      148
+     ]
+    },
+    "note": null
+   },
+   "type_i_return_treatment": {
+    "status": "EXTRACTED",
+    "value": "excess_return",
+    "citation": {
+     "text_span": "It is assumed that no cash return or financing cost occurs in the volatility control process. The Index Value is Excess Return:",
+     "char_range": [
+      6465,
+      6592
+     ]
+    },
+    "note": null
+   },
+   "type_ii_return_treatment": {
+    "status": "EXTRACTED",
+    "value": "total_return",
+    "citation": {
+     "text_span": "It is assumed that cash returns are earned by 100% of the Index Value despite the change in the exposure of the Underlying Index. The Index Value is Total Return:",
+     "char_range": [
+      6633,
+      6795
+     ]
+    },
+    "note": null
+   },
+   "type_iii_return_treatment": {
+    "status": "EXTRACTED",
+    "value": "excess_return",
+    "citation": {
+     "text_span": "It is assumed that financing costs occur on the exposure of the Underlying Index. The Index Value is Excess Return:",
+     "char_range": [
+      6837,
+      6952
+     ]
+    },
+    "note": null
+   },
+   "type_iv_return_treatment": {
+    "status": "EXTRACTED",
+    "value": "total_return",
+    "citation": {
+     "text_span": "The Index Value is Total Return:",
+     "char_range": [
+      6763,
+      6795
+     ]
+    },
+    "note": null
+   },
+   "rebalance_frequency": {
+    "status": "EXTRACTED",
+    "value": "daily",
+    "citation": {
+     "text_span": "Every Index Business Day.",
+     "char_range": [
+      24215,
+      24240
+     ]
+    },
+    "note": null
+   },
+   "index_value_floor": {
+    "status": "EXTRACTED",
+    "value": "0",
+    "citation": {
+     "text_span": "The Index Value shall be floored at zero on any Index Business Day.",
+     "char_range": [
+      4894,
+      4961
+     ]
+    },
+    "note": null
+   },
+   "volatility_target_pct": {
+    "status": "DECLARED_ABSENT",
+    "value": null,
+    "citation": null,
+    "note": null
+   },
+   "default_deduction_factor_pct": {
+    "status": "EXTRACTED",
+    "value": "0",
+    "citation": {
+     "text_span": "Unless specified, the Deduction Factor is zero.",
+     "char_range": [
+      20763,
+      20810
+     ]
+    },
+    "note": null
+   },
+   "default_transaction_cost_rate_pct": {
+    "status": "EXTRACTED",
+    "value": "0",
+    "citation": {
+     "text_span": "Unless explicitly stated otherwise in the index specific document, the Transaction Cost Rate is zero.",
+     "char_range": [
+      26545,
+      26646
+     ]
+    },
+    "note": null
+   },
+   "default_determination_lag_days": {
+    "status": "EXTRACTED",
+    "value": "1",
+    "citation": {
+     "text_span": "Unless explicitly stated otherwise in the index specific document, the Determination Lag is one.",
+     "char_range": [
+      21154,
+      21250
+     ]
+    },
+    "note": null
+   },
+   "default_exposure_direction_type": {
+    "status": "EXTRACTED",
+    "value": "long_only",
+    "citation": {
+     "text_span": "Unless explicitly stated otherwise in the index specific document, the Exposure Direction Type is \u201cLong-only\u201d.",
+     "char_range": [
+      21865,
+      21975
+     ]
+    },
+    "note": null
+   },
+   "default_volatility_value_selection": {
+    "status": "EXTRACTED",
+    "value": "highest",
+    "citation": {
+     "text_span": "Unless explicitly stated otherwise in the index specific document, the default is \u201cHighest\u201d.",
+     "char_range": [
+      27635,
+      27727
+     ]
+    },
+    "note": null
+   }
+  },
+  "raw_text": "{\n  \"status\": {\n    \"administrator\": \"EXTRACTED\",\n    \"methodology_date\": \"EXTRACTED\",\n    \"type_i_return_treatment\": \"EXTRACTED\",\n    \"type_ii_return_treatment\": \"EXTRACTED\",\n    \"type_iii_return_treatment\": \"EXTRACTED\",\n    \"type_iv_return_treatment\": \"EXTRACTED\",\n    \"rebalance_frequency\": \"EXTRACTED\",\n    \"index_value_floor\": \"EXTRACTED\",\n    \"volatility_target_pct\": \"DECLARED_ABSENT\",\n    \"default_deduction_factor_pct\": \"EXTRACTED\",\n    \"default_transaction_cost_rate_pct\": \"EXTRACTED\",\n    \"default_determination_lag_days\": \"EXTRACTED\",\n    \"default_exposure_direction_type\": \"EXTRACTED\",\n    \"default_volatility_value_selection\": \"EXTRACTED\"\n  },\n  \"value\": {\n    \"administrator\": \"Bloomberg Index Services Limited\",\n    \"methodology_date\": \"March 21, 2025\",\n    \"type_i_return_treatment\": \"excess_return\",\n    \"type_ii_return_treatment\": \"total_return\",\n    \"type_iii_return_treatment\": \"excess_return\",\n    \"type_iv_return_treatment\": \"total_return\",\n    \"rebalance_frequency\": \"daily\",\n    \"index_value_floor\": \"0\",\n    \"volatility_target_pct\": \"\",\n    \"default_deduction_factor_pct\": \"0\",\n    \"default_transaction_cost_rate_pct\": \"0\",\n    \"default_determination_lag_days\": \"1\",\n    \"default_exposure_direction_type\": \"long_only\",\n    \"default_volatility_value_selection\": \"highest\"\n  },\n  \"citation\": {\n    \"administrator\": \"This methodology (the \u201cMethodology\u201d) has been made available by Bloomberg Index Services Limited (\u201cBISL\u201d) and sets out the rules, criteria, risk factors and other information applicable to the Bloomberg Versa Indices (the \u201cIndices\u201d and each, an \u201cIndex\u201d).\",\n    \"methodology_date\": \"March 21, 2025\",\n    \"type_i_return_treatment\": \"It is assumed that no cash return or financing cost occurs in the volatility control process. The Index Value is Excess Return:\",\n    \"type_ii_return_treatment\": \"It is assumed that cash returns are earned by 100% of the Index Value despite the change in the exposure of the Underlying Index. The Index Value is Total Return:\",\n    \"type_iii_return_treatment\": \"It is assumed that financing costs occur on the exposure of the Underlying Index. The Index Value is Excess Return:\",\n    \"type_iv_return_treatment\": \"The Index Value is Total Return:\",\n    \"rebalance_frequency\": \"Every Index Business Day.\",\n    \"index_value_floor\": \"The Index Value shall be floored at zero on any Index Business Day.\",\n    \"volatility_target_pct\": \"\",\n    \"default_deduction_factor_pct\": \"Unless specified, the Deduction Factor is zero.\",\n    \"default_transaction_cost_rate_pct\": \"Unless explicitly stated otherwise in the index specific document, the Transaction Cost Rate is zero.\",\n    \"default_determination_lag_days\": \"Unless explicitly stated otherwise in the index specific document, the Determination Lag is one.\",\n    \"default_exposure_direction_type\": \"Unless explicitly stated otherwise in the index specific document, the Exposure Direction Type is \u201cLong-only\u201d.\",\n    \"default_volatility_value_selection\": \"Unless explicitly stated otherwise in the index specific document, the default is \u201cHighest\u201d.\"\n  }\n}"
+ }
+}
