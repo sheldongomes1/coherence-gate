@@ -78,26 +78,29 @@ class EvalResult:
                 "planted_detail": self.planted_detail, "false_flag_detail": self.false_flag_detail}
 
 
-def _truth_equal(truth_val: Any, nf) -> bool:
+def _truth_equal(truth_val: Any, nf, schema=None) -> bool:
     if truth_val == "ABSENT":
         return bool(nf.absent) and not nf.malformed
     if nf.absent or nf.malformed:
         return False
-    return normalize.values_equal(nf.value, _canon_truth(nf.key, truth_val))
+    return normalize.values_equal(nf.value, _canon_truth(nf.key, truth_val, schema))
 
 
-def _canon_truth(key: str, v: Any) -> Any:
+def _canon_truth(key: str, v: Any, schema=None) -> Any:
     """Truth files are canonical already; pass through the normalizer so Decimal/str forms agree."""
     from ..schema_loader import load_schema
+    schema = schema or load_schema()
     try:
-        return normalize.normalize_value(load_schema().spec(key), v)
+        return normalize.normalize_value(schema.spec(key), v)
     except normalize.NormalizeError:
         return v
 
 
 def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext", golden: Path) -> EvalResult:
-    keys = ctx.schema.comparison_keys
     docs = [d for d in manifest["documents"] if d["id"] in results]
+    schema_of = {d["id"]: ctx.schemas[d.get("product_type", "note")] for d in docs}
+    keys_of = {d["id"]: schema_of[d["id"]].comparison_keys for d in docs}          # extraction keys
+    check_keys_of = {d["id"]: keys_of[d["id"]] + schema_of[d["id"]].relation_keys for d in docs}  # incl. rel:*
     planted = [(d["id"], p["field"], p["type"]) for d in docs for p in d["planted"]]
     traps = [(d["id"], t["field"]) for d in docs for t in d.get("traps", [])]
     clean_docs = [d["id"] for d in docs if d.get("clean_control")]
@@ -129,7 +132,7 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
     # false flags on clean fields
     ff_detail, n_clean = [], 0
     for doc in results:
-        for k in keys:
+        for k in check_keys_of[doc]:
             if (doc, k) in excluded:
                 continue
             n_clean += 1
@@ -150,11 +153,11 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
         truth = json.loads((golden / d["truth"]).read_text())
         r = results[d["id"]]
         for fam in acc:
-            for k in keys:
-                ok = _truth_equal(truth.get(k, "ABSENT"), r.normalized[fam][k])
+            for k in keys_of[d["id"]]:
+                ok = _truth_equal(truth.get(k, "ABSENT"), r.normalized[fam][k], schema_of[d["id"]])
                 acc[fam] += ok
                 field_acc[fam][f"{d['id']}:{k}"] = bool(ok)
-    n_fields = len(results) * len(keys)
+    n_fields = sum(len(keys_of[d]) for d in results)
 
     costs = [r.cost_usd for r in results.values()]
     total = round(sum(costs), 4)

@@ -21,6 +21,7 @@ MEANING = {
     "TS_ABSENT": "the term sheet does not state this field but the booking has a value",
     "BOOKING_ABSENT": "the term sheet states this field but the booking record has no value",
     "MALFORMED_EXTRACTION": "an extractor returned an invalid or uncitable value for this field",
+    "RELATION_VIOLATION": "a deterministic cross-field arithmetic rule fails on the term sheet, the booking, or both (the detail shows the arithmetic)",
 }
 TRIAGE_SCHEMA = {
     "type": "object", "additionalProperties": False,
@@ -43,12 +44,16 @@ class TriageAgent:
     def __init__(self, pin: ModelPin, effort: str = "medium") -> None:
         self.pin, self.effort = pin, effort
         self.client = anthropic.Anthropic()
-        self.schema = load_schema()
+        from ..schema_loader import all_schemas
+        self.schemas = all_schemas()
 
     def render(self, f: Finding) -> str:
-        spec = self.schema.spec(f.field)
+        if f.field.startswith("rel:"):
+            desc = "cross-field arithmetic relation (deterministic)"
+        else:
+            desc = next((sp.description for sc in self.schemas.values() for sp in sc.fields if sp.name == f.field), "")
         return _env().get_template(f"{PROMPT_VERSION}.md").render(
-            doc_id=f.doc_id, field=f.field, field_description=spec.description, finding_type=f.type,
+            doc_id=f.doc_id, field=f.field, field_description=desc, finding_type=f.type,
             finding_type_meaning=MEANING.get(f.type, ""), severity=f.severity,
             ts_value="ABSENT" if f.ts_value is None else str(f.ts_value),
             booking_value="ABSENT" if f.booking_value is None else str(f.booking_value),

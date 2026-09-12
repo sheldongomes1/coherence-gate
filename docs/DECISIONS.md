@@ -289,3 +289,27 @@ WeasyPrint or system Chrome on this machine; a Playwright Chromium is present. P
 Mixedbread behind `parse(pdf) -> markdown + meta`, pdftotext as `local-fallback`.
 **Approved templates override the parameter table** where they differ (G12's economics
 change to the approved document's).
+
+## ADR-21: Pluggable product schemas, code-side product detection, relations as schema data
+
+**Date:** 2026-09-12
+**Status:** Accepted (v0.2 CS3)
+
+**Context:** The OTC option (approved OP-2026-0114) needs its own fields, and CS3 asks for a
+cross-field premium arithmetic check. The gate must stay product-agnostic.
+
+**Decision:** `schema/products.json` registers product types → schema files
+(`termsheet_v1.json`, `option_v1.json`). Product detection is deterministic title-keyword
+matching in code (`detect_product`), recorded in the trace; the manifest may also state it.
+Cross-field rules live in the schema as data (`relations: product_equals`) and are evaluated
+by `comparator.check_relations` on the term sheet AND the booking; each relation always yields
+one finding: CLEAN (holds, or "not evaluable: <missing>" stated), or `RELATION_VIOLATION`
+naming the failing side and the arithmetic. Relation checks count as clean fields in the
+false-flag denominator (`rel:<name>` keys).
+
+**Alternatives considered:** A model classifying the product (a decision in a prompt);
+folding option fields into one union schema (breaks the strict output contract);
+evaluating relations only on the booking (misses a self-inconsistent term sheet).
+
+**Consequences:** The Underlying Index sub-schema is deferred to CS4 (reference lane) to keep
+CS3 focused. Golden set grows to 15 documents, 12 planted findings, 1 trap, 3 clean controls.

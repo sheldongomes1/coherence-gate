@@ -7,7 +7,7 @@ from datetime import date
 from pathlib import Path
 
 from coherence_gate import comparator, lanes, merger, normalize
-from coherence_gate.schema_loader import load_schema
+from coherence_gate.schema_loader import load_schema, schema_for
 from coherence_gate.types import (BookingLookup, Citation, Extraction, Family, FieldExtraction, FindingType,
                                   Lane, Status)
 
@@ -22,10 +22,11 @@ def _prose_date(iso):
     return date(y, m, d).strftime("%-d %B %Y")
 
 
-def as_written(truth: dict, family: Family) -> Extraction:
+def as_written(truth: dict, family: Family, schema=None) -> Extraction:
     """Gemini fixture: prose-ish strings. Claude fixture: ISO/numeric. Same facts."""
+    schema = schema or S
     fields = {}
-    for spec in S.fields:
+    for spec in schema.fields:
         v = truth.get(spec.name, "ABSENT")
         if v == "ABSENT":
             fields[spec.name] = FieldExtraction(status=Status.DECLARED_ABSENT)
@@ -35,8 +36,14 @@ def as_written(truth: dict, family: Family) -> Extraction:
                 v = _prose_date(v)
             elif spec.base_type == "list[date]":
                 v = [_prose_date(x) for x in v]
-            elif spec.name == "notional":
+            elif spec.name in ("notional", "premium_amount"):
                 v = f"{truth['currency']} {v:,}"
+            elif spec.name == "cash_settlement_days":
+                v = {3: "Three"}.get(v, str(v)) + " Currency Business Days following the Valuation Date"
+            elif spec.name == "buyer":
+                v = f"{v} (Party B)"
+            elif spec.name in ("option_style", "option_type"):
+                v = v.capitalize()
             elif spec.name == "coupon_rate_pct":
                 if truth["coupon_rate_basis"] == "per_period":
                     v = f"{v / PERIODS[truth['coupon_frequency']]:g}% per {truth['coupon_frequency'][:-2]}"
@@ -53,33 +60,41 @@ def as_written(truth: dict, family: Family) -> Extraction:
             elif spec.base_type == "decimal" and not isinstance(v, list):
                 v = f"{v}%"
             elif spec.base_type == "bool":
-                v = "Yes" if v else "No"
-        else:  # claude fixture: canonical-looking values; G09 still quoted per period? No: Claude "reads" the p.a. figure
+                v = ("Applicable" if v else "Not applicable") if spec.name == "automatic_exercise" else ("Yes" if v else "No")
+        else:  # claude fixture: canonical-looking values; Claude "reads" the p.a. figure
             if spec.name == "coupon_rate_pct":
                 v = truth["coupon_rate_pct"]  # canonical p.a.
             elif spec.name == "coupon_rate_basis":
                 v = "per_annum"
+            elif spec.name == "cash_settlement_days":
+                v = "Three"
         fields[spec.name] = FieldExtraction(status=Status.EXTRACTED, value=v, citation=Citation(text_span=str(v)))
     return Extraction(family=family, model="fixture", fields=fields)
 
 
-def run_doc(entry):
-    truth = json.loads((GOLDEN / entry["truth"]).read_text())
-    booking = json.loads((GOLDEN / entry["booking"]).read_text())
-    a = normalize.normalize_extraction(as_written(truth, Family.gemini), S)
-    b = normalize.normalize_extraction(as_written(truth, Family.claude), S)
-    m = merger.merge(a, b, S)
+def run_doc(entry, golden=GOLDEN):
+    sc = schema_for(entry.get("product_type", "note"))
+    truth = json.loads((golden / entry["truth"]).read_text())
+    booking = json.loads((golden / entry["booking"]).read_text())
+    a = normalize.normalize_extraction(as_written(truth, Family.gemini, sc), sc)
+    b = normalize.normalize_extraction(as_written(truth, Family.claude, sc), sc)
+    m = merger.merge(a, b, sc)
     lk = BookingLookup(trade_id=entry["trade_id"], found=True, record=booking, transport="direct")
-    f = comparator.compare(entry["id"], m, lk, S)
+    f = comparator.compare(entry["id"], m, lk, sc) + comparator.check_relations(entry["id"], m, lk, sc)
     f, lane = lanes.assign(f)
     return {x.field: x for x in f}, lane, m
 
 
-def test_fixtures_reproduce_manifest_exactly():
-    manifest = json.loads((GOLDEN / "manifest.json").read_text())
+import os
+import pytest
+
+
+@pytest.mark.parametrize("golden", [GOLDEN, Path(os.environ["CG_GOLDEN_OUT"])] if os.environ.get("CG_GOLDEN_OUT") else [GOLDEN])
+def test_fixtures_reproduce_manifest_exactly(golden):
+    manifest = json.loads((golden / "manifest.json").read_text())
     misses, extras = [], []
     for entry in manifest["documents"]:
-        findings, lane, merged = run_doc(entry)
+        findings, lane, merged = run_doc(entry, golden)
         assert all(mf.agree for mf in merged.values()), f"{entry['id']}: fixtures should agree after normalization"
         planted = {p["field"]: p["type"] for p in entry["planted"]}
         for fld, typ in planted.items():

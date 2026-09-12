@@ -15,9 +15,12 @@ from pydantic import BaseModel, Field, create_model
 
 from .types import FieldExtraction
 
-SCHEMA_PATH = Path(__file__).resolve().parents[2] / "schema" / "termsheet_v1.json"
+SCHEMA_DIR = Path(__file__).resolve().parents[2] / "schema"
+SCHEMA_PATH = SCHEMA_DIR / "termsheet_v1.json"
+PRODUCTS_PATH = SCHEMA_DIR / "products.json"
 
 # Fields that have no booking counterpart and are consumed by normalize.py only (ADR-1).
+# (termsheet_v1 predates the per-schema `non_compared` list; kept as its default.)
 NON_COMPARED = frozenset({"coupon_rate_basis"})
 
 
@@ -43,6 +46,9 @@ class FieldSpec:
 class Schema:
     version: str
     fields: tuple[FieldSpec, ...]
+    product_type: str = "note"
+    non_compared: frozenset[str] = NON_COMPARED
+    relations: tuple[dict, ...] = ()   # deterministic cross-field rules (comparator.check_relations)
 
     @property
     def names(self) -> list[str]:
@@ -50,7 +56,11 @@ class Schema:
 
     @property
     def comparison_keys(self) -> list[str]:
-        return [f.name for f in self.fields if f.name not in NON_COMPARED]
+        return [f.name for f in self.fields if f.name not in self.non_compared]
+
+    @property
+    def relation_keys(self) -> list[str]:
+        return [f"rel:{r['name']}" for r in self.relations]
 
     def spec(self, name: str) -> FieldSpec:
         for f in self.fields:
@@ -79,7 +89,37 @@ def load_schema(path: Path = SCHEMA_PATH) -> Schema:
         )
         for f in raw["fields"]
     )
-    return Schema(version=str(raw["version"]), fields=fields)
+    nc = frozenset(raw["non_compared"]) if "non_compared" in raw else NON_COMPARED
+    return Schema(version=str(raw["version"]), fields=fields, product_type=raw.get("product_type", "note"),
+                  non_compared=nc, relations=tuple(raw.get("relations", [])))
+
+
+@lru_cache(maxsize=1)
+def load_products(path: Path = PRODUCTS_PATH) -> dict:
+    return json.loads(Path(path).read_text())
+
+
+def schema_for(product_type: str) -> Schema:
+    prods = load_products()["products"]
+    if product_type not in prods:
+        raise KeyError(f"unknown product_type {product_type!r}; known: {list(prods)}")
+    return load_schema(SCHEMA_DIR / prods[product_type]["schema"])
+
+
+def all_schemas() -> dict[str, Schema]:
+    return {pt: schema_for(pt) for pt in load_products()["products"]}
+
+
+def detect_product(text: str) -> tuple[str, str]:
+    """Deterministic product detection by title keywords (code, not model). Returns
+    (product_type, matched keyword or 'default')."""
+    prods = load_products()
+    head = text[:4000]
+    for pt, spec in prods["products"].items():
+        for kw in spec.get("detect", []):
+            if kw in head:
+                return pt, kw
+    return prods.get("default", "note"), "default"
 
 
 class _RawCitation(BaseModel):
@@ -115,6 +155,10 @@ __all__ = [
     "FieldSpec",
     "Schema",
     "load_schema",
+    "load_products",
+    "schema_for",
+    "all_schemas",
+    "detect_product",
     "build_extraction_model",
     "extraction_json_schema",
     "FieldExtraction",

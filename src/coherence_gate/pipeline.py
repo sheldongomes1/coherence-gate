@@ -13,7 +13,7 @@ from . import comparator, lanes, merger, normalize
 from .booking.client import BookingClient
 from .config import Config
 from .extract.base import Extractor
-from .schema_loader import Schema
+from .schema_loader import Schema, all_schemas, detect_product
 from .trace import Tracer
 from .types import Extraction, Family, FieldExtraction, Finding, FindingType, Lane, Malformed, NormalizedField, Status, TriageNote
 
@@ -28,6 +28,7 @@ class RunContext:
     booking: BookingClient
     extractors: dict[Family, Extractor]
     triage: Any | None = None  # TriageAgent (S3)
+    schemas: dict[str, Schema] = field(default_factory=all_schemas)  # product_type -> schema (CS3)
     source: str = "txt"         # "pdf" -> parse stage; "txt" -> read the canonical .txt (ablation / fallback)
     parser: Any | None = None   # ingest.Parser when source == "pdf"
     parsed_dir: Path | None = None
@@ -48,6 +49,7 @@ class DocumentResult:
     out_dir: Path | None = None
     source: str = "txt"
     parse_meta: dict | None = None
+    product_type: str = "note"
     extras: dict = field(default_factory=dict)
 
 
@@ -67,7 +69,7 @@ def _agreed_trade_id(norm: dict[Family, dict[str, NormalizedField]]) -> str | No
 
 
 def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
-                 pdf_path: Path | None = None) -> DocumentResult:
+                 pdf_path: Path | None = None, product_type: str | None = None) -> DocumentResult:
     """`doc_path` is the canonical .txt; when ctx.source == "pdf", `pdf_path` is parsed and the
     parsed markdown becomes the source text every citation anchors into (CS2 citation chain)."""
     doc_id = doc_path.stem
@@ -97,15 +99,23 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
     ctx.tracer.step(doc_id=doc_id, step="load", outcome="OK",
                     detail={"source": ctx.source, "sha256": sha, "chars": len(text)})
 
+    # 0. product detection (deterministic keywords) unless given; selects the pluggable schema
+    if product_type is None:
+        product_type, how = detect_product(text)
+    else:
+        how = "given"
+    schema = ctx.schemas[product_type]
+    ctx.tracer.step(doc_id=doc_id, step="detect_product", outcome=product_type, detail={"by": how, "schema": schema.version})
+
     # 1. dual-family extraction, concurrently (independent by design — neither sees the other)
     with ThreadPoolExecutor(max_workers=2) as pool:
-        futs = {fam: pool.submit(ex.extract, text, doc_id=doc_id, tracer=ctx.tracer, schema=ctx.schema)
+        futs = {fam: pool.submit(ex.extract, text, doc_id=doc_id, tracer=ctx.tracer, schema=schema)
                 for fam, ex in ctx.extractors.items()}
         extractions = {fam: f.result() for fam, f in futs.items()}
 
     # 2. normalize (code), 3. merge (code)
-    norm = {fam: normalize.normalize_extraction(ext, ctx.schema) for fam, ext in extractions.items()}
-    merged = merger.merge(norm[Family.gemini], norm[Family.claude], ctx.schema)
+    norm = {fam: normalize.normalize_extraction(ext, schema) for fam, ext in extractions.items()}
+    merged = merger.merge(norm[Family.gemini], norm[Family.claude], schema)
     ctx.tracer.step(doc_id=doc_id, step="merge", outcome="OK",
                     detail={"agree": sum(m.agree for m in merged.values()), "keys": len(merged)})
 
@@ -117,7 +127,8 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
         u.detail = {"trade_id": tid, "transport": lookup.transport}
 
     # 5. compare (code), 6. lanes (code)
-    findings = comparator.compare(doc_id, merged, lookup, ctx.schema)
+    findings = comparator.compare(doc_id, merged, lookup, schema)
+    findings += comparator.check_relations(doc_id, merged, lookup, schema)
     findings, doc_lane = lanes.assign(findings)
     ctx.tracer.step(doc_id=doc_id, step="compare", outcome=doc_lane,
                     detail={t: sum(f.type == t for f in findings) for t in {f.type for f in findings}})
@@ -148,7 +159,8 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
                             normalized={str(k): v for k, v in norm.items()},
                             merged={k: m.model_dump() for k, m in merged.items()},
                             booking=lookup.model_dump(), findings=findings, document_lane=doc_lane,
-                            cost_usd=ctx.tracer.total_cost(doc_id), source=ctx.source, parse_meta=parse_meta)
+                            cost_usd=ctx.tracer.total_cost(doc_id), source=ctx.source, parse_meta=parse_meta,
+                            product_type=product_type)
     persist(result, ctx)
     return result
 
@@ -168,5 +180,5 @@ def persist(r: DocumentResult, ctx: RunContext) -> None:
     (d / "summary.json").write_text(json.dumps({
         "doc_id": r.doc_id, "sha256": r.sha256, "trade_id": r.trade_id, "document_lane": r.document_lane,
         "cost_usd": r.cost_usd, "n_auto_clear": len(auto), "n_triage": len(r.findings) - len(auto),
-        "source": r.source, "parse": r.parse_meta}, indent=2, default=str))
+        "source": r.source, "parse": r.parse_meta, "product_type": r.product_type}, indent=2, default=str))
     r.out_dir = d

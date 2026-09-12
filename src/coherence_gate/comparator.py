@@ -65,3 +65,63 @@ def compare(doc_id: str, merged: dict[str, MergedField], booking: BookingLookup,
             findings.append(Finding(**base, type=FindingType.MISMATCH, ts_value=m.value, booking_value=bk,
                                     detail=f"TS {_fmt(m.value)} ≠ booking {_fmt(bk)}"))
     return findings
+
+
+# ----------------------------------------------------------------------------- relations (v0.2 CS3)
+def _side_values(keys: list[str], merged: dict[str, MergedField], record: dict | None, schema: Schema):
+    """Return (ts_values, booking_values) dicts for the keys, or None entries where not evaluable."""
+    ts, bk = {}, {}
+    for k in keys:
+        m = merged.get(k)
+        ts[k] = m.value if (m and m.agree and not m.absent and not m.malformed_families) else None
+        raw = record.get(k) if record else None
+        try:
+            bk[k] = normalize_value(schema.spec(k), raw) if raw is not None else None
+        except NormalizeError:
+            bk[k] = None
+    return ts, bk
+
+
+def check_relations(doc_id: str, merged: dict[str, MergedField], booking: BookingLookup, schema: Schema) -> list[Finding]:
+    """Deterministic cross-field rules from the schema's `relations` list. Each relation yields
+    exactly one finding: CLEAN (holds on both sides, or not evaluable — stated in detail) or
+    RELATION_VIOLATION (fails on the term sheet, the booking, or both)."""
+    from decimal import Decimal
+    out: list[Finding] = []
+    record = booking.record if booking.found else None
+    for rel in schema.relations:
+        if rel.get("type") != "product_equals":
+            continue
+        keys = [f["field"] for f in rel["factors"]] + [rel["equals"]]
+        ts, bk = _side_values(keys, merged, record, schema)
+        sev = Severity.critical if rel.get("critical", True) else Severity.minor
+        tol = Decimal(str(rel.get("tolerance_abs", "0")))
+        fid = f"rel:{rel['name']}"
+        base = dict(id=f"{doc_id}:{fid}", doc_id=doc_id, field=fid, severity=sev)
+
+        def evaluate(vals: dict) -> tuple[str, bool | None]:
+            if any(vals[k] is None for k in keys):
+                missing = [k for k in keys if vals[k] is None]
+                return f"not evaluable ({', '.join(missing)} unavailable)", None
+            prod = Decimal(1)
+            terms = []
+            for f in rel["factors"]:
+                v = Decimal(str(vals[f["field"]])) * Decimal(str(f.get("scale", "1")))
+                prod *= v
+                terms.append(f"{vals[f['field']]}{'×' + str(f['scale']) if f.get('scale') else ''}")
+            target = Decimal(str(vals[rel["equals"]]))
+            ok = abs(prod - target) <= tol
+            return f"{' × '.join(terms)} = {prod.normalize()} vs {rel['equals']} {target.normalize()}", ok
+
+        ts_detail, ts_ok = evaluate(ts)
+        bk_detail, bk_ok = evaluate(bk)
+        failed = [side for side, ok in (("term sheet", ts_ok), ("booking", bk_ok)) if ok is False]
+        detail = f"{rel['name']}: term sheet [{ts_detail}]; booking [{bk_detail}]"
+        if failed:
+            out.append(Finding(**base, type=FindingType.RELATION_VIOLATION,
+                               ts_value=ts.get(rel["equals"]), booking_value=bk.get(rel["equals"]),
+                               detail=f"violated on {', '.join(failed)} — " + detail))
+        else:
+            out.append(Finding(**base, type=FindingType.CLEAN, ts_value=ts.get(rel["equals"]), booking_value=bk.get(rel["equals"]),
+                               detail=detail))
+    return out

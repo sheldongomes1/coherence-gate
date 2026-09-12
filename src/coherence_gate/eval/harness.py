@@ -70,7 +70,8 @@ def run_eval(golden: Path, out_dir: Path, *, stub: bool, booking_transport: str 
             if only and entry["id"] not in only:
                 continue
             results[entry["id"]] = run_document(golden / entry["termsheet"], ctx, trade_id=None,
-                                                pdf_path=(golden / entry["pdf"]) if entry.get("pdf") else None)
+                                                pdf_path=(golden / entry["pdf"]) if entry.get("pdf") else None,
+                                                product_type=entry.get("product_type"))
     finally:
         ctx.booking.close()
     ev = scoring.score(manifest, results, ctx, golden)

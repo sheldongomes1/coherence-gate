@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "coherence-gate/otc_option/v1",
+  "title": "OTC index option term sheet extraction schema, v1 (v0.2 CS3)",
+  "description": "Same contract as termsheet_v1: every field EXTRACTED with a verbatim citation or DECLARED_ABSENT. product_type otc_option. Cross-field relations are deterministic comparator rules listed under `relations`.",
+  "version": "1",
+  "product_type": "otc_option",
+  "non_compared": [],
+  "fields": [
+    {"name": "trade_id",               "type": "str",      "critical": true,  "description": "Transaction reference as printed (e.g. 'OP-2026-0114')."},
+    {"name": "buyer",                  "type": "str",      "critical": true,  "description": "Legal name of the option buyer (Party B)."},
+    {"name": "seller",                 "type": "str",      "critical": true,  "description": "Legal name of the option seller (Party A)."},
+    {"name": "option_style",           "type": "enum",     "critical": true,  "enum": ["european", "american"], "description": "Exercise style."},
+    {"name": "option_type",            "type": "enum",     "critical": true,  "enum": ["call", "put"], "description": "Call or put."},
+    {"name": "underlyings",            "type": "list[ticker]", "critical": true, "description": "Bloomberg ticker(s) of the underlying index, e.g. ['BVERSA10']."},
+    {"name": "notional",               "type": "decimal",  "critical": true,  "description": "Notional Amount, numeric."},
+    {"name": "currency",               "type": "iso4217",  "critical": true,  "description": "Currency of the Notional Amount."},
+    {"name": "trade_date",             "type": "date",     "critical": true,  "description": "Trade Date, ISO-8601."},
+    {"name": "effective_date",         "type": "date",     "critical": false, "description": "Effective Date, ISO-8601."},
+    {"name": "strike_level_pct",       "type": "decimal",  "critical": true,  "description": "Strike Level as percent of the Initial Index Level."},
+    {"name": "participation_rate_pct", "type": "decimal",  "critical": true,  "description": "Participation Rate in percent."},
+    {"name": "valuation_date",         "type": "date",     "critical": true,  "description": "Valuation Date (final observation), ISO-8601."},
+    {"name": "expiration_date",        "type": "date",     "critical": true,  "description": "Expiration Date, ISO-8601."},
+    {"name": "automatic_exercise",     "type": "bool",     "critical": false, "description": "True if Automatic Exercise is applicable."},
+    {"name": "premium_pct",            "type": "decimal",  "critical": true,  "description": "Premium as percent of the Notional Amount."},
+    {"name": "premium_amount",         "type": "decimal",  "critical": true,  "description": "Premium amount in currency, numeric, as printed."},
+    {"name": "premium_payment_date",   "type": "date",     "critical": false, "description": "Premium Payment Date, ISO-8601."},
+    {"name": "cash_settlement_days",   "type": "decimal",  "critical": false, "description": "Number of Currency Business Days after the Valuation Date on which cash settlement is paid ('Three' -> 3)."},
+    {"name": "settlement_currency",    "type": "iso4217",  "critical": false, "description": "Settlement Currency."},
+    {"name": "calculation_agent",      "type": "str",      "critical": false, "description": "Calculation Agent as named ('Party A' or a legal name)."}
+  ],
+  "relations": [
+    {"name": "premium_arithmetic", "type": "product_equals",
+     "factors": [{"field": "premium_pct", "scale": "0.01"}, {"field": "notional"}], "equals": "premium_amount",
+     "tolerance_abs": "0.01", "critical": true,
+     "description": "premium_pct × notional must equal premium_amount within one cent, on the term sheet AND on the booking. A booked premium computed off the wrong notional violates it."}
+  ],
+  "history": [{"version": "1", "date": "2026-09-12", "note": "Initial; fields from V2-CHANGES CS3 and the approved OP-2026-0114 template."}]
+}

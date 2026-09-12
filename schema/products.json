@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "description": "Pluggable product schemas: the gate is product-agnostic; product_type selects the schema. Detection (code, not model): title keywords in `detect`.",
+  "products": {
+    "note":       {"schema": "termsheet_v1.json", "detect": ["STRUCTURED NOTES PROGRAMME", "INDICATIVE TERM SHEET\nAutocallable", "linked to"]},
+    "otc_option": {"schema": "option_v1.json",    "detect": ["OTC INDEX OPTION", "Option Style / Type", "ISDA Master Agreement"]}
+  },
+  "default": "note"
+}

@@ -19,8 +19,9 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
+import os
 ROOT = Path(__file__).resolve().parents[1]
-GOLDEN = ROOT / "golden"
+GOLDEN = Path(os.environ.get("CG_GOLDEN_OUT", ROOT / "golden"))
 TEMPLATES = ROOT / "templates" / "golden"
 ISSUER = "Northbridge Capital Markets (Canada) Inc."  # fictional (ADR-12)
 PROGRAMME = "Structured Notes Programme, Series 2026"
@@ -157,6 +158,42 @@ DOCS: list[dict] = [
          coupon_barrier_pct=70, final_valuation_date="2030-05-10", dist_fee_pct=1.25, hedge_cost_pct=0.30,
          booking_overrides={}, planted=[], clean_control=True),
 ]
+
+BUYER = "Lakeshore Life Insurance Company"  # fictional (approved template)
+
+OPTIONS: list[dict] = [
+    # G13 = the approved OP-2026-0114 document, verbatim economics (clean control).
+    dict(id="G13", product="otc_option", trade_id="OP-2026-0114", buyer=BUYER, seller=ISSUER, option_style="european",
+         option_type="call", underlyings=["BVERSA10"], notional=25_000_000, currency="USD",
+         trade_date="2026-05-08", effective_date="2026-05-12", strike_level_pct=100, participation_rate_pct=100,
+         valuation_date="2028-05-08", expiration_date="2028-05-08", automatic_exercise=True,
+         premium_pct=4.15, premium_amount=1_037_500, premium_payment_date="2026-05-12", cash_settlement_days=3,
+         settlement_currency="USD", calculation_agent="Party A",
+         booking_overrides={}, planted=[], clean_control=True),
+    # G14: participation documented 100%, booked 95% (the classic FIA under-hedge).
+    dict(id="G14", product="otc_option", trade_id="OP-2026-0117", buyer=BUYER, seller=ISSUER, option_style="european",
+         option_type="call", underlyings=["BVERSA10"], notional=40_000_000, currency="USD",
+         trade_date="2026-06-15", effective_date="2026-06-17", strike_level_pct=100, participation_rate_pct=100,
+         valuation_date="2027-06-15", expiration_date="2027-06-15", automatic_exercise=True,
+         premium_pct=3.60, premium_amount=1_440_000, premium_payment_date="2026-06-17", cash_settlement_days=3,
+         settlement_currency="USD", calculation_agent="Party A",
+         booking_overrides={"participation_rate_pct": 95},
+         planted=[dict(field="participation_rate_pct", type="MISMATCH", note="documented 100%, booked 95%")]),
+    # G15: premium documented 4.15% = USD 1,037,500 on 25mm; booking premium computed off the wrong notional (20mm).
+    dict(id="G15", product="otc_option", trade_id="OP-2026-0121", buyer=BUYER, seller=ISSUER, option_style="european",
+         option_type="call", underlyings=["BVERSA10"], notional=25_000_000, currency="USD",
+         trade_date="2026-07-20", effective_date="2026-07-22", strike_level_pct=100, participation_rate_pct=100,
+         valuation_date="2028-07-20", expiration_date="2028-07-20", automatic_exercise=True,
+         premium_pct=4.15, premium_amount=1_037_500, premium_payment_date="2026-07-22", cash_settlement_days=3,
+         settlement_currency="USD", calculation_agent="Party A",
+         booking_overrides={"premium_amount": 830_000},
+         planted=[dict(field="premium_amount", type="MISMATCH", note="TS 1,037,500; booking 830,000 (= 4.15% × 20mm, wrong notional)"),
+                  dict(field="rel:premium_arithmetic", type="RELATION_VIOLATION", note="booking: 4.15% × 25,000,000 ≠ 830,000")]),
+]
+OPTION_FIELDS = ["trade_id", "buyer", "seller", "option_style", "option_type", "underlyings", "notional", "currency",
+                 "trade_date", "effective_date", "strike_level_pct", "participation_rate_pct", "valuation_date",
+                 "expiration_date", "automatic_exercise", "premium_pct", "premium_amount", "premium_payment_date",
+                 "cash_settlement_days", "settlement_currency", "calculation_agent"]
 
 FIELDS = ["trade_id", "issuer", "notional", "currency", "trade_date", "issue_date", "maturity_date",
           "underlyings", "initial_level_pct", "barrier_type", "barrier_level_pct", "coupon_rate_pct",
@@ -343,7 +380,26 @@ _env = Environment(loader=FileSystemLoader(str(TEMPLATES)), undefined=StrictUnde
 
 
 def render_html(p: dict) -> str:
+    if p.get("product") == "otc_option":
+        return _env.get_template("option.html.j2").render(**option_context(p))
     return _env.get_template("note.html.j2").render(**render_context(p))
+
+
+DAYS_WORD = {1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five"}
+
+
+def option_context(p: dict) -> dict:
+    s = "prose"  # the approved option layout uses "8 May 2026" / "100%"
+    return dict(
+        trade_id=p["trade_id"], buyer=p["buyer"], trade_date=d(p["trade_date"], s), effective_date=d(p["effective_date"], s),
+        notional=money(p["notional"], p["currency"], s), valuation_date=d(p["valuation_date"], s),
+        expiration_date=d(p["expiration_date"], s), premium_payment_date=d(p["premium_payment_date"], s),
+        premium_pct=pct(p["premium_pct"], s), premium_amount=money(p["premium_amount"], p["currency"], s),
+        strike=pct(p["strike_level_pct"], s), participation=pct(p["participation_rate_pct"], s),
+        settlement_days_word=DAYS_WORD[p["cash_settlement_days"]], settlement_currency=p["settlement_currency"],
+        option_style_word=p["option_style"].capitalize(), option_type_word=p["option_type"].capitalize(),
+        index=VERSA10,
+    )
 
 
 def html_to_text(html: str) -> str:
@@ -365,6 +421,8 @@ def html_to_pdf(html: str, out: Path) -> int:
 # ----------------------------------------------------------------------------- outputs
 def truth_of(p: dict) -> dict:
     """The document's own truth in canonical (comparison-key) space: coupon per annum."""
+    if p.get("product") == "otc_option":
+        return {k: p[k] for k in OPTION_FIELDS}
     t = {k: (ISSUER if k == "issuer" else p[k]) for k in FIELDS}
     if p["coupon_rate_basis"] == "per_period":
         t["coupon_rate_pct"] = round(p["coupon_rate_pct"] * PERIODS[p["coupon_frequency"]], 6)
@@ -374,7 +432,7 @@ def truth_of(p: dict) -> dict:
 def booking_of(p: dict) -> dict:
     """Booking = canonical truth (no basis field: bookings are per annum) + planted overrides."""
     b = truth_of(p)
-    b.pop("coupon_rate_basis")
+    b.pop("coupon_rate_basis", None)
     b.update(deepcopy(p["booking_overrides"]))
     return {k: v for k, v in b.items() if v != "ABSENT"}  # bookings simply omit absent fields
 
@@ -385,10 +443,11 @@ def main() -> None:
     manifest = {"version": 2,
                 "generator": "scripts/gen_golden.py",
                 "history": [{"date": "2026-09-11", "note": "initial labels, generated from parameters (ADR-13)"},
-                            {"date": "2026-09-12", "note": "v0.2 CS1: PDF+HTML+TXT per document from approved templates; G12 economics replaced by the approved template's (ADR-20); Versa docs carry the Underlying Index section"}],
+                            {"date": "2026-09-12", "note": "v0.2 CS1: PDF+HTML+TXT per document from approved templates; G12 economics replaced by the approved template's (ADR-20); Versa docs carry the Underlying Index section"},
+                            {"date": "2026-09-12", "note": "v0.2 CS3: OTC option product (schema option_v1): G13 = approved OP-2026-0114 (clean control), G14 participation 100->95, G15 premium off the wrong notional (MISMATCH + RELATION_VIOLATION)"}],
                 "documents": []}
     pages = {}
-    for p in DOCS:
+    for p in DOCS + OPTIONS:
         html = render_html(p)
         (GOLDEN / "html" / f"{p['id']}.html").write_text(html)
         pages[p["id"]] = html_to_pdf(html, GOLDEN / "pdf" / f"{p['id']}.pdf")
@@ -396,12 +455,14 @@ def main() -> None:
         (GOLDEN / "termsheets" / f"{p['id']}.txt").write_text(text)
         (GOLDEN / "truth" / f"{p['id']}.json").write_text(json.dumps(truth_of(p), indent=2) + "\n")
         (GOLDEN / "bookings" / f"{p['trade_id']}.json").write_text(json.dumps(booking_of(p), indent=2) + "\n")
-        entry = {"id": p["id"], "layout": p["layout"], "product_type": "note", "trade_id": p["trade_id"],
+        entry = {"id": p["id"], "layout": p.get("layout", "approved-option"), "product_type": p.get("product", "note"), "trade_id": p["trade_id"],
                  "termsheet": f"termsheets/{p['id']}.txt", "pdf": f"pdf/{p['id']}.pdf", "html": f"html/{p['id']}.html",
                  "booking": f"bookings/{p['trade_id']}.json",
                  "truth": f"truth/{p['id']}.json",
                  "planted": [dict(pl, severity="critical" if pl["field"] not in
-                                  ("issue_date", "autocall_observation_dates", "autocall_level_pct", "settlement", "business_day_convention")
+                                  ("issue_date", "autocall_observation_dates", "autocall_level_pct", "settlement", "business_day_convention",
+                                   "effective_date", "automatic_exercise", "premium_payment_date", "cash_settlement_days",
+                                   "settlement_currency", "calculation_agent")
                                   else "minor") for pl in p["planted"]]}
         if p.get("traps"):
             entry["traps"] = p["traps"]
@@ -409,8 +470,10 @@ def main() -> None:
             entry["clean_control"] = True
         manifest["documents"].append(entry)
     (GOLDEN / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-    words = [len((GOLDEN / "termsheets" / f"{p['id']}.txt").read_text().split()) for p in DOCS]
-    print(f"wrote {len(DOCS)} docs (html+pdf+txt); words min/max {min(words)}/{max(words)}; pages {pages}; planted {sum(len(p['planted']) for p in DOCS)}")
+    alldocs = DOCS + OPTIONS
+    words = [len((GOLDEN / "termsheets" / f"{p['id']}.txt").read_text().split()) for p in alldocs]
+    print(f"wrote {len(alldocs)} docs (html+pdf+txt) -> {GOLDEN}; words min/max {min(words)}/{max(words)}; pages {pages}; "
+          f"planted {sum(len(p['planted']) for p in alldocs)}; products {sorted({p.get('product', 'note') for p in alldocs})}")
 
 
 if __name__ == "__main__":

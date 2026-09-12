@@ -26,6 +26,7 @@ class FindingType(StrEnum):
     TS_ABSENT = "TS_ABSENT"
     BOOKING_ABSENT = "BOOKING_ABSENT"
     MALFORMED_EXTRACTION = "MALFORMED_EXTRACTION"  # ADR-7
+    RELATION_VIOLATION = "RELATION_VIOLATION"      # v0.2 CS3: a deterministic cross-field rule failed
 
 
 class Severity(StrEnum):

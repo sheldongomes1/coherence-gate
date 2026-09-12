@@ -43,6 +43,8 @@ ENUM_SYNONYMS: dict[str, dict[str, str]] = {
     "day_count": {"30/360": "30/360", "30e/360": "30/360", "30/360 (bond basis)": "30/360", "bond basis": "30/360",
                   "act/360": "ACT/360", "actual/360": "ACT/360", "act/365": "ACT/365", "actual/365": "ACT/365",
                   "act/365 (fixed)": "ACT/365", "actual/365 (fixed)": "ACT/365", "act/365f": "ACT/365", "act/365 fixed": "ACT/365"},
+    "option_style": {"european": "european", "european-style": "european", "american": "american", "american-style": "american"},
+    "option_type": {"call": "call", "call option": "call", "put": "put", "put option": "put"},
     "settlement": {"cash": "cash", "cash settlement": "cash", "physical": "physical", "physical delivery": "physical",
                    "physical settlement": "physical"},
     "business_day_convention": {"following": "following", "following business day": "following",
@@ -51,6 +53,8 @@ ENUM_SYNONYMS: dict[str, dict[str, str]] = {
                                 "preceding": "preceding", "preceding business day": "preceding"},
 }
 
+_NUMBER_WORDS = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8,
+                 "nine": 9, "ten": 10}
 _MULT = {"k": 1_000, "m": 1_000_000, "mm": 1_000_000, "mn": 1_000_000, "million": 1_000_000,
          "bn": 1_000_000_000, "b": 1_000_000_000, "billion": 1_000_000_000}
 _CCY_WORDS = r"(usd|cad|eur|gbp|jpy|chf|aud|us\$|c\$|\$|€|£|dollars?|euros?)"
@@ -93,6 +97,9 @@ def norm_decimal(v: Any) -> Decimal:
         return _dec(str(v))
     s = str(v).strip().lower()
     s = re.sub(r"\(.*?\)", "", s)                    # drop parentheticals like "(USD 2,500,000)"
+    m_words = re.match(r"^(zero|one|two|three|four|five|six|seven|eight|nine|ten)\b", s)
+    if m_words:                                       # "Three Currency Business Days" -> 3
+        return Decimal(_NUMBER_WORDS[m_words.group(1)])
     s = re.sub(_CCY_WORDS, "", s)
     s = re.sub(r"\b(per\s+(annum|year|quarter|month|half[- ]year|period)|p\.a\.?|pa|annually|quarterly|monthly|semi-?annually|of\s+(the\s+)?initial\s+level)\b", "", s)
     s = s.replace(",", "").replace("%", "").replace("per cent", "").replace("percent", "").strip().rstrip(".")
@@ -239,7 +246,8 @@ def normalize_value(spec: FieldSpec, value: Any, *, context: dict[str, Any] | No
     if t == "bool":
         return norm_bool(value)
     if t == "str":
-        return str(value).strip()
+        # "Lakeshore Life Insurance Company (Party B)" -> "Lakeshore Life Insurance Company"
+        return re.sub(r"\s*\((party [ab]|the (buyer|seller|issuer))\)\s*$", "", str(value).strip(), flags=re.I).strip()
     raise NormalizeError(f"{spec.name}: no normalizer for type {spec.type}")
 
 
