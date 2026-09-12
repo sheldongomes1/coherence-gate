@@ -1,0 +1,1036 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Coherence Gate — run 20260911-223332</title>
+<style>
+ :root{--bg:#fbfaf7;--fg:#1c1b19;--muted:#6b6862;--line:#e4e1da;--ok:#1f7a4d;--okbg:#e6f4ec;--bad:#b3261e;--badbg:#fbe9e7;--warn:#8a5a00;--warnbg:#fff3d6;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+ body{margin:0;padding:24px 20px 60px;background:var(--bg);color:var(--fg);font:14px/1.45 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:1180px;margin-inline:auto}
+ h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:34px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}h3{font-size:15px;margin:22px 0 8px}
+ .sub{color:var(--muted)}.kpis{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
+ .kpi{border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:150px;background:#fff}.kpi b{display:block;font-size:20px}.kpi span{color:var(--muted);font-size:12px}
+ table{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--line);font-size:13px}th,td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}th{background:#f3f1ec;font-weight:600}
+ .lane-AUTO_CLEAR{background:var(--okbg);color:var(--ok);border-radius:4px;padding:1px 6px;font-weight:600}.lane-TRIAGE{background:var(--badbg);color:var(--bad);border-radius:4px;padding:1px 6px;font-weight:600}
+ .t-CLEAN{color:var(--ok)}.t-MISMATCH,.t-TS_ABSENT,.t-BOOKING_ABSENT{color:var(--bad);font-weight:600}.t-EXTRACTOR_DISAGREEMENT,.t-MALFORMED_EXTRACTION{color:var(--warn);font-weight:600}
+ .sev-critical{font-weight:600}.cite{font-family:var(--mono);font-size:12px;color:#333;background:#f6f4ef;border-left:3px solid #cfc9bd;padding:3px 8px;margin:3px 0;white-space:pre-wrap}
+ .query{border:1px solid var(--line);border-left:4px solid var(--bad);background:#fff;padding:10px 12px;margin:8px 0;border-radius:4px}.query .cls{font-family:var(--mono);font-size:12px;color:var(--muted)}
+ .mono{font-family:var(--mono);font-size:12px}.wrap{overflow-x:auto}details summary{cursor:pointer;color:var(--muted)}
+</style></head><body>
+<h1>Coherence Gate — run 20260911-223332</h1>
+<div class="sub">term sheet vs booking · 12 document(s) · models claude-opus-5, gemini-3.8-flash · total cost $1.3576</div>
+<div class="kpis">
+ <div class="kpi"><b>3/12</b><span>documents auto-cleared (zero human touch)</span></div>
+ <div class="kpi"><b>219/228</b><span>fields auto-cleared</span></div>
+ <div class="kpi"><b>9</b><span>findings in triage</span></div>
+ <div class="kpi"><b>24</b><span>model calls traced</span></div>
+</div>
+<p class="sub">Models extract and explain; code decides. Every field is cited to its source span or explicitly declared absent. A field auto-clears only when both families agree <em>and</em> the comparator passes.</p>
+
+<h2 id="G01">G01 <span class="lane-TRIAGE">TRIAGE</span> <span class="sub mono">trade_id SN-2026-0101 · sha 3d193783d6eb · $0.1417 · booking via mcp-stdio</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+
+<tr><td class="mono">trade_id</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">SN-2026-0101</td><td class="mono">SN-2026-0101</td>
+<td><div class="cite">“Reference: SN-2026-0101” <span class="sub">[156–179]</span></div><div class="cite">“Reference: SN-2026-0101” <span class="sub">[156–179]</span></div></td></tr>
+
+<tr><td class="mono">issuer</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">Northbridge Capital Markets (Canada) Inc.</td><td class="mono">Northbridge Capital Markets (Canada) Inc.</td>
+<td><div class="cite">“Northbridge Capital Markets (Canada) Inc. (the &#34;Issuer&#34;)” <span class="sub">[232–288]</span></div><div class="cite">“Northbridge Capital Markets (Canada) Inc. (the &#34;Issuer&#34;) will issue notes” <span class="sub">[232–305]</span></div></td></tr>
+
+<tr><td class="mono">notional</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">5000000</td><td class="mono">5000000</td>
+<td><div class="cite">“in an aggregate Notional Amount of USD 5,000,000.” <span class="sub">[348–397]</span></div><div class="cite">“in an aggregate Notional Amount of USD 5,000,000” <span class="sub">[348–396]</span></div></td></tr>
+
+<tr><td class="mono">currency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">USD</td><td class="mono">USD</td>
+<td><div class="cite">“in an aggregate Notional Amount of USD 5,000,000.” <span class="sub">[348–397]</span></div><div class="cite">“an aggregate Notional Amount of USD 5,000,000” <span class="sub">[351–396]</span></div></td></tr>
+
+<tr><td class="mono">trade_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-04-14</td><td class="mono">2026-04-14</td>
+<td><div class="cite">“The Trade Date is 14 April 2026” <span class="sub">[483–514]</span></div><div class="cite">“The Trade Date is 14 April 2026” <span class="sub">[483–514]</span></div></td></tr>
+
+<tr><td class="mono">issue_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-04-21</td><td class="mono">2026-04-21</td>
+<td><div class="cite">“the Issue Date is 21 April 2026” <span class="sub">[516–547]</span></div><div class="cite">“the Issue Date is 21 April 2026” <span class="sub">[516–547]</span></div></td></tr>
+
+<tr><td class="mono">maturity_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2029-04-23</td><td class="mono">2029-04-23</td>
+<td><div class="cite">“the Scheduled Maturity Date is 23 April 2029” <span class="sub">[552–596]</span></div><div class="cite">“the Scheduled Maturity Date is 23 April 2029” <span class="sub">[552–596]</span></div></td></tr>
+
+<tr><td class="mono">underlyings</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;SPX&#39;]</td><td class="mono">[&#39;SPX&#39;]</td>
+<td><div class="cite">“The Notes are linked to the performance of the S&amp;P 500 Index (Bloomberg: SPX Index).” <span class="sub">[398–482]</span></div><div class="cite">“linked to the performance of the S&amp;P 500 Index (Bloomberg: SPX Index)” <span class="sub">[412–481]</span></div></td></tr>
+
+<tr><td class="mono">initial_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.” <span class="sub">[645–738]</span></div><div class="cite">“The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.” <span class="sub">[645–738]</span></div></td></tr>
+
+<tr><td class="mono">barrier_type</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">european</td><td class="mono">european</td>
+<td><div class="cite">“Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 65% of the Initial Level.” <span class="sub">[1478–1651]</span></div><div class="cite">“a knock-in barrier observed on the Final Valuation Date only (European observation)” <span class="sub">[1519–1602]</span></div></td></tr>
+
+<tr><td class="mono">barrier_level_pct</td><td class="t-MISMATCH">MISMATCH</td><td class="sev-critical">critical</td><td><span class="lane-TRIAGE">TRIAGE</span></td>
+<td class="mono">65</td><td class="mono">70</td>
+<td><div class="cite">“at a Knock-in Level of 65% of the Initial Level.” <span class="sub">[1603–1651]</span></div><div class="cite">“at a Knock-in Level of 65% of the Initial Level” <span class="sub">[1603–1650]</span></div><div class="sub">TS 65 ≠ booking 70</div></td></tr>
+
+<tr><td class="mono">coupon_rate_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">7.5</td><td class="mono">7.5</td>
+<td><div class="cite">“The Notes pay a conditional Coupon of 7.5% per annum, payable quarterly” <span class="sub">[751–822]</span></div><div class="cite">“a conditional Coupon of 7.5% per annum, payable quarterly” <span class="sub">[765–822]</span></div></td></tr>
+
+<tr><td class="mono">coupon_frequency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">quarterly</td><td class="mono">quarterly</td>
+<td><div class="cite">“payable quarterly” <span class="sub">[805–822]</span></div><div class="cite">“7.5% per annum, payable quarterly” <span class="sub">[789–822]</span></div></td></tr>
+
+<tr><td class="mono">coupon_memory</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">False</td><td class="mono">False</td>
+<td><div class="cite">“No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.” <span class="sub">[947–1128]</span></div><div class="cite">“No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.” <span class="sub">[947–1128]</span></div></td></tr>
+
+<tr><td class="mono">autocall_observation_dates</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;2027-04-14&#39;, &#39;2027-10-14&#39;, &#39;2028-04-14&#39;, &#39;2028-10-16&#39;]</td><td class="mono">[&#39;2027-04-14&#39;, &#39;2027-10-14&#39;, &#39;2028-04-14&#39;, &#39;2028-10-16&#39;]</td>
+<td><div class="cite">“Autocall Observation Dates: 14 April 2027, 14 October 2027, 14 April 2028, 16 October 2028.” <span class="sub">[1385–1476]</span></div><div class="cite">“Autocall Observation Dates: 14 April 2027, 14 October 2027, 14 April 2028, 16 October 2028.” <span class="sub">[1385–1476]</span></div></td></tr>
+
+<tr><td class="mono">autocall_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level” <span class="sub">[1191–1303]</span></div><div class="cite">“if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level” <span class="sub">[1191–1303]</span></div></td></tr>
+
+<tr><td class="mono">day_count</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">30/360</td><td class="mono">30/360</td>
+<td><div class="cite">“Coupon amounts accrue on a 30/360 day count basis.” <span class="sub">[896–946]</span></div><div class="cite">“Coupon amounts accrue on a 30/360 day count basis.” <span class="sub">[896–946]</span></div></td></tr>
+
+<tr><td class="mono">settlement</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">cash</td><td class="mono">cash</td>
+<td><div class="cite">“Settlement at maturity or upon early redemption is in cash, in USD.” <span class="sub">[1837–1904]</span></div><div class="cite">“Settlement at maturity or upon early redemption is in cash, in USD.” <span class="sub">[1837–1904]</span></div></td></tr>
+
+<tr><td class="mono">business_day_convention</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">mod_following</td><td class="mono">mod_following</td>
+<td><div class="cite">“Payment dates are adjusted in accordance with the Modified Following Business Day Convention.” <span class="sub">[1905–1998]</span></div><div class="cite">“Payment dates are adjusted in accordance with the Modified Following Business Day Convention.” <span class="sub">[1905–1998]</span></div></td></tr>
+</tbody></table></div>
+
+<details><summary>trace for G01 (6 steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+<tr><td class="mono">load</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">extract:claude</td><td class="mono">claude-opus-5</td><td class="mono">claude-opus-5</td><td>6895</td><td>1297</td><td>11585</td><td>0.0669</td><td>OK</td></tr><tr><td class="mono">extract:gemini</td><td class="mono">gemini-3.8-flash</td><td class="mono">gemini-3.8-flash</td><td>2162</td><td>19511</td><td>51783</td><td>0.0748</td><td>OK</td></tr><tr><td class="mono">merge</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">booking_lookup</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>49</td><td>0.0000</td><td>FOUND</td></tr><tr><td class="mono">compare</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>TRIAGE</td></tr>
+</tbody></table></div></details>
+
+<h2 id="G02">G02 <span class="lane-TRIAGE">TRIAGE</span> <span class="sub mono">trade_id SN-2026-0102 · sha d18bb55ab883 · $0.1599 · booking via mcp-stdio</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+
+<tr><td class="mono">trade_id</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">SN-2026-0102</td><td class="mono">SN-2026-0102</td>
+<td><div class="cite">“Trade Reference              | SN-2026-0102” <span class="sub">[253–296]</span></div><div class="cite">“Trade Reference              | SN-2026-0102” <span class="sub">[253–296]</span></div></td></tr>
+
+<tr><td class="mono">issuer</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">Northbridge Capital Markets (Canada) Inc.</td><td class="mono">Northbridge Capital Markets (Canada) Inc.</td>
+<td><div class="cite">“Issuer                       | Northbridge Capital Markets (Canada) Inc.” <span class="sub">[180–252]</span></div><div class="cite">“Issuer                       | Northbridge Capital Markets (Canada) Inc.” <span class="sub">[180–252]</span></div></td></tr>
+
+<tr><td class="mono">notional</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">3000000</td><td class="mono">3000000</td>
+<td><div class="cite">“Notional Amount              | EUR 3,000,000.00” <span class="sub">[297–344]</span></div><div class="cite">“Notional Amount              | EUR 3,000,000.00” <span class="sub">[297–344]</span></div></td></tr>
+
+<tr><td class="mono">currency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">EUR</td><td class="mono">EUR</td>
+<td><div class="cite">“Currency                     | EUR” <span class="sub">[345–379]</span></div><div class="cite">“Currency                     | EUR” <span class="sub">[345–379]</span></div></td></tr>
+
+<tr><td class="mono">trade_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-05-12</td><td class="mono">2026-05-12</td>
+<td><div class="cite">“Trade Date                   | 2026-05-12” <span class="sub">[380–421]</span></div><div class="cite">“Trade Date                   | 2026-05-12” <span class="sub">[380–421]</span></div></td></tr>
+
+<tr><td class="mono">issue_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-05-19</td><td class="mono">2026-05-19</td>
+<td><div class="cite">“Issue Date                   | 2026-05-19” <span class="sub">[422–463]</span></div><div class="cite">“Issue Date                   | 2026-05-19” <span class="sub">[422–463]</span></div></td></tr>
+
+<tr><td class="mono">maturity_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2028-05-19</td><td class="mono">2028-05-19</td>
+<td><div class="cite">“Maturity Date                | 2028-05-19” <span class="sub">[464–505]</span></div><div class="cite">“Maturity Date                | 2028-05-19” <span class="sub">[464–505]</span></div></td></tr>
+
+<tr><td class="mono">underlyings</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;SX5E&#39;]</td><td class="mono">[&#39;SX5E&#39;]</td>
+<td><div class="cite">“Underlying(s)                | EURO STOXX 50 Index (SX5E)” <span class="sub">[506–563]</span></div><div class="cite">“Underlying(s)                | EURO STOXX 50 Index (SX5E)” <span class="sub">[506–563]</span></div></td></tr>
+
+<tr><td class="mono">initial_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“Initial Level                | 100.00% of closing level on Trade Date” <span class="sub">[564–633]</span></div><div class="cite">“Initial Level                | 100.00% of closing level on Trade Date” <span class="sub">[564–633]</span></div></td></tr>
+
+<tr><td class="mono">barrier_type</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">american</td><td class="mono">american</td>
+<td><div class="cite">“Knock-in Type                | American (continuous observation)” <span class="sub">[953–1017]</span></div><div class="cite">“Knock-in Type                | American (continuous observation)” <span class="sub">[953–1017]</span></div></td></tr>
+
+<tr><td class="mono">barrier_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">60</td><td class="mono">60</td>
+<td><div class="cite">“Knock-in Level               | 60.00% of Initial Level” <span class="sub">[1018–1072]</span></div><div class="cite">“Knock-in Level               | 60.00% of Initial Level” <span class="sub">[1018–1072]</span></div></td></tr>
+
+<tr><td class="mono">coupon_rate_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">9</td><td class="mono">9</td>
+<td><div class="cite">“Coupon                       | 9.00% per annum, payable semi-annually” <span class="sub">[634–703]</span></div><div class="cite">“Coupon                       | 9.00% per annum, payable semi-annually” <span class="sub">[634–703]</span></div></td></tr>
+
+<tr><td class="mono">coupon_frequency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">semiannual</td><td class="mono">semiannual</td>
+<td><div class="cite">“Coupon Frequency             | Semiannual” <span class="sub">[704–745]</span></div><div class="cite">“Coupon Frequency             | Semiannual” <span class="sub">[704–745]</span></div></td></tr>
+
+<tr><td class="mono">coupon_memory</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">True</td><td class="mono">True</td>
+<td><div class="cite">“Coupon Memory                | Yes” <span class="sub">[746–780]</span></div><div class="cite">“Coupon Memory                | Yes” <span class="sub">[746–780]</span></div></td></tr>
+
+<tr><td class="mono">autocall_observation_dates</td><td class="t-MISMATCH">MISMATCH</td><td class="sev-minor">minor</td><td><span class="lane-TRIAGE">TRIAGE</span></td>
+<td class="mono">[&#39;2027-05-12&#39;, &#39;2027-11-12&#39;, &#39;2028-05-12&#39;]</td><td class="mono">[&#39;2027-05-12&#39;, &#39;2027-11-15&#39;, &#39;2028-05-12&#39;]</td>
+<td><div class="cite">“Autocall Observation Dates   | 2027-05-12, 2027-11-12, 2028-05-12” <span class="sub">[831–896]</span></div><div class="cite">“Autocall Observation Dates   | 2027-05-12, 2027-11-12, 2028-05-12” <span class="sub">[831–896]</span></div><div class="sub">TS [&#39;2027-05-12&#39;, &#39;2027-11-12&#39;, &#39;2028-05-12&#39;] ≠ booking [&#39;2027-05-12&#39;, &#39;2027-11-15&#39;, &#39;2028-05-12&#39;]</div></td></tr>
+
+<tr><td class="mono">autocall_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“Autocall Level               | 100.00% of Initial Level” <span class="sub">[897–952]</span></div><div class="cite">“Autocall Level               | 100.00% of Initial Level” <span class="sub">[897–952]</span></div></td></tr>
+
+<tr><td class="mono">day_count</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">ACT/365</td><td class="mono">ACT/365</td>
+<td><div class="cite">“Day Count Fraction           | Actual/365 (Fixed)” <span class="sub">[781–830]</span></div><div class="cite">“Day Count Fraction           | Actual/365 (Fixed)” <span class="sub">[781–830]</span></div></td></tr>
+
+<tr><td class="mono">settlement</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">cash</td><td class="mono">cash</td>
+<td><div class="cite">“Settlement                   | Cash” <span class="sub">[1073–1108]</span></div><div class="cite">“Settlement                   | Cash” <span class="sub">[1073–1108]</span></div></td></tr>
+
+<tr><td class="mono">business_day_convention</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">following</td><td class="mono">following</td>
+<td><div class="cite">“Business Day Convention      | Following” <span class="sub">[1109–1149]</span></div><div class="cite">“Business Day Convention      | Following” <span class="sub">[1109–1149]</span></div></td></tr>
+</tbody></table></div>
+
+<details><summary>trace for G02 (6 steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+<tr><td class="mono">load</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">extract:claude</td><td class="mono">claude-opus-5</td><td class="mono">claude-opus-5</td><td>6960</td><td>1180</td><td>10840</td><td>0.0643</td><td>OK</td></tr><tr><td class="mono">extract:gemini</td><td class="mono">gemini-3.8-flash</td><td class="mono">gemini-3.8-flash</td><td>2232</td><td>25058</td><td>64330</td><td>0.0956</td><td>OK</td></tr><tr><td class="mono">merge</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">booking_lookup</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>8</td><td>0.0000</td><td>FOUND</td></tr><tr><td class="mono">compare</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>TRIAGE</td></tr>
+</tbody></table></div></details>
+
+<h2 id="G03">G03 <span class="lane-TRIAGE">TRIAGE</span> <span class="sub mono">trade_id SN-2026-0103 · sha a67126765f12 · $0.1856 · booking via mcp-stdio</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+
+<tr><td class="mono">trade_id</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">SN-2026-0103</td><td class="mono">SN-2026-0103</td>
+<td><div class="cite">“Tranche reference SN-2026-0103” <span class="sub">[118–148]</span></div><div class="cite">“Tranche reference SN-2026-0103” <span class="sub">[118–148]</span></div></td></tr>
+
+<tr><td class="mono">issuer</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">Northbridge Capital Markets (Canada) Inc.</td><td class="mono">Northbridge Capital Markets (Canada) Inc.</td>
+<td><div class="cite">“The Notes are issued by Northbridge Capital Markets (Canada) Inc..” <span class="sub">[161–227]</span></div><div class="cite">“The Notes are issued by Northbridge Capital Markets (Canada) Inc..” <span class="sub">[161–227]</span></div></td></tr>
+
+<tr><td class="mono">notional</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">8000000</td><td class="mono">8000000</td>
+<td><div class="cite">“The aggregate Notional Amount is 8,000,000 CAD.” <span class="sub">[262–309]</span></div><div class="cite">“The aggregate Notional Amount is 8,000,000 CAD.” <span class="sub">[262–309]</span></div></td></tr>
+
+<tr><td class="mono">currency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">CAD</td><td class="mono">CAD</td>
+<td><div class="cite">“The Specified Currency is CAD and all payments under the Notes are made in CAD.” <span class="sub">[310–389]</span></div><div class="cite">“The Specified Currency is CAD and all payments under the Notes are made in CAD.” <span class="sub">[310–389]</span></div></td></tr>
+
+<tr><td class="mono">trade_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-03-03</td><td class="mono">2026-03-03</td>
+<td><div class="cite">“Trade Date: March 3, 2026.” <span class="sub">[401–427]</span></div><div class="cite">“Trade Date: March 3, 2026.” <span class="sub">[401–427]</span></div></td></tr>
+
+<tr><td class="mono">issue_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-03-10</td><td class="mono">2026-03-10</td>
+<td><div class="cite">“Issue Date: March 10, 2026.” <span class="sub">[428–455]</span></div><div class="cite">“Issue Date: March 10, 2026.” <span class="sub">[428–455]</span></div></td></tr>
+
+<tr><td class="mono">maturity_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2029-03-12</td><td class="mono">2029-03-12</td>
+<td><div class="cite">“Maturity Date: March 12, 2029, subject to adjustment in accordance with Condition 9.” <span class="sub">[456–540]</span></div><div class="cite">“Maturity Date: March 12, 2029, subject to adjustment in accordance with Condition 9.” <span class="sub">[456–540]</span></div></td></tr>
+
+<tr><td class="mono">underlyings</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;SPTSX60&#39;, &#39;BVERSA10&#39;]</td><td class="mono">[&#39;SPTSX60&#39;, &#39;BVERSA10&#39;]</td>
+<td><div class="cite">“The Notes are linked to the worst performing of the S&amp;P/TSX 60 Index (Bloomberg: SPTSX60 Index) and the BVERSA10 Index (Bloomberg: BVERSA10 Index).” <span class="sub">[557–704]</span></div><div class="cite">“linked to the worst performing of the S&amp;P/TSX 60 Index (Bloomberg: SPTSX60 Index) and the BVERSA10 Index (Bloomberg: BVERSA10 Index)” <span class="sub">[571–703]</span></div></td></tr>
+
+<tr><td class="mono">initial_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“The Initial Level is 100 per cent. of the official closing level of each Underlying on the Trade Date.” <span class="sub">[705–807]</span></div><div class="cite">“The Initial Level is 100 per cent. of the official closing level of each Underlying on the Trade Date.” <span class="sub">[705–807]</span></div></td></tr>
+
+<tr><td class="mono">barrier_type</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">european</td><td class="mono">european</td>
+<td><div class="cite">“the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 70 per cent. of the Initial Level.” <span class="sub">[1689–1855]</span></div><div class="cite">“the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)” <span class="sub">[1689–1797]</span></div></td></tr>
+
+<tr><td class="mono">barrier_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">70</td><td class="mono">70</td>
+<td><div class="cite">“at a Knock-in Level of 70 per cent. of the Initial Level.” <span class="sub">[1798–1855]</span></div><div class="cite">“at a Knock-in Level of 70 per cent. of the Initial Level” <span class="sub">[1798–1854]</span></div></td></tr>
+
+<tr><td class="mono">coupon_rate_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">6.8</td><td class="mono">6.8</td>
+<td><div class="cite">“the Notes bear a Coupon of 6.8 per cent. per annum, payable quarterly.” <span class="sub">[853–923]</span></div><div class="cite">“the Notes bear a Coupon of 6.8 per cent. per annum, payable quarterly” <span class="sub">[853–922]</span></div></td></tr>
+
+<tr><td class="mono">coupon_frequency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">quarterly</td><td class="mono">quarterly</td>
+<td><div class="cite">“the Notes bear a Coupon of 6.8 per cent. per annum, payable quarterly.” <span class="sub">[853–923]</span></div><div class="cite">“Coupons are payable quarterly in arrear” <span class="sub">[924–963]</span></div></td></tr>
+
+<tr><td class="mono">coupon_memory</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">True</td><td class="mono">True</td>
+<td><div class="cite">“Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.” <span class="sub">[1023–1299]</span></div><div class="cite">“Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.” <span class="sub">[1023–1159]</span></div></td></tr>
+
+<tr><td class="mono">autocall_observation_dates</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;2027-03-03&#39;, &#39;2027-09-03&#39;, &#39;2028-03-03&#39;, &#39;2028-09-05&#39;]</td><td class="mono">[&#39;2027-03-03&#39;, &#39;2027-09-03&#39;, &#39;2028-03-03&#39;, &#39;2028-09-05&#39;]</td>
+<td><div class="cite">“Autocall Observation Dates: March 3, 2027, September 3, 2027, March 3, 2028, September 5, 2028.” <span class="sub">[1563–1658]</span></div><div class="cite">“Autocall Observation Dates: March 3, 2027, September 3, 2027, March 3, 2028, September 5, 2028.” <span class="sub">[1563–1658]</span></div></td></tr>
+
+<tr><td class="mono">autocall_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“if on any Autocall Observation Date the closing level of the Underlying is at or above 100 per cent. of the Initial Level, the Notes redeem early at 100% of the Notional Amount plus the Coupon then due.” <span class="sub">[1360–1562]</span></div><div class="cite">“if on any Autocall Observation Date the closing level of the Underlying is at or above 100 per cent. of the Initial Level” <span class="sub">[1360–1481]</span></div></td></tr>
+
+<tr><td class="mono">day_count</td><td class="t-MISMATCH">MISMATCH</td><td class="sev-critical">critical</td><td><span class="lane-TRIAGE">TRIAGE</span></td>
+<td class="mono">ACT/360</td><td class="mono">30/360</td>
+<td><div class="cite">“calculated on the basis of Actual/360.” <span class="sub">[972–1010]</span></div><div class="cite">“calculated on the basis of Actual/360” <span class="sub">[972–1009]</span></div><div class="sub">TS ACT/360 ≠ booking 30/360</div></td></tr>
+
+<tr><td class="mono">settlement</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">cash</td><td class="mono">cash</td>
+<td><div class="cite">“10. Settlement. Cash settlement.” <span class="sub">[2315–2347]</span></div><div class="cite">“Cash settlement.” <span class="sub">[2331–2347]</span></div></td></tr>
+
+<tr><td class="mono">business_day_convention</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">mod_following</td><td class="mono">mod_following</td>
+<td><div class="cite">“Where any payment date would otherwise fall on a day that is not a Business Day, it shall be adjusted in accordance with the Modified Following Business Day Convention.” <span class="sub">[2054–2222]</span></div><div class="cite">“it shall be adjusted in accordance with the Modified Following Business Day Convention” <span class="sub">[2135–2221]</span></div></td></tr>
+</tbody></table></div>
+
+<details><summary>trace for G03 (6 steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+<tr><td class="mono">load</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">extract:claude</td><td class="mono">claude-opus-5</td><td class="mono">claude-opus-5</td><td>7036</td><td>1375</td><td>12979</td><td>0.0696</td><td>OK</td></tr><tr><td class="mono">extract:gemini</td><td class="mono">gemini-3.8-flash</td><td class="mono">gemini-3.8-flash</td><td>2235</td><td>30497</td><td>82770</td><td>0.1160</td><td>OK</td></tr><tr><td class="mono">merge</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">booking_lookup</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>7</td><td>0.0000</td><td>FOUND</td></tr><tr><td class="mono">compare</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>TRIAGE</td></tr>
+</tbody></table></div></details>
+
+<h2 id="G04">G04 <span class="lane-TRIAGE">TRIAGE</span> <span class="sub mono">trade_id SN-2026-0104 · sha 306dfa0b8a08 · $0.0782 · booking via mcp-stdio</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+
+<tr><td class="mono">trade_id</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">SN-2026-0104</td><td class="mono">SN-2026-0104</td>
+<td><div class="cite">“Reference: SN-2026-0104” <span class="sub">[1881–1904]</span></div><div class="cite">“Reference: SN-2026-0104” <span class="sub">[1881–1904]</span></div></td></tr>
+
+<tr><td class="mono">issuer</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">Northbridge Capital Markets (Canada) Inc.</td><td class="mono">Northbridge Capital Markets (Canada) Inc.</td>
+<td><div class="cite">“Issuer: Northbridge Capital Markets (Canada) Inc.” <span class="sub">[1907–1956]</span></div><div class="cite">“Issuer: Northbridge Capital Markets (Canada) Inc.” <span class="sub">[1907–1956]</span></div></td></tr>
+
+<tr><td class="mono">notional</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2500000</td><td class="mono">2500000</td>
+<td><div class="cite">“Notional: USD 2.5 million (USD 2,500,000)” <span class="sub">[2123–2164]</span></div><div class="cite">“Notional: USD 2.5 million (USD 2,500,000)” <span class="sub">[2123–2164]</span></div></td></tr>
+
+<tr><td class="mono">currency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">USD</td><td class="mono">USD</td>
+<td><div class="cite">“All payments are made in USD by cash settlement” <span class="sub">[1592–1639]</span></div><div class="cite">“All payments are made in USD by cash settlement” <span class="sub">[1592–1639]</span></div></td></tr>
+
+<tr><td class="mono">trade_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-06-09</td><td class="mono">2026-06-09</td>
+<td><div class="cite">“The Notes were traded on 09-Jun-2026” <span class="sub">[482–518]</span></div><div class="cite">“The Notes were traded on 09-Jun-2026” <span class="sub">[482–518]</span></div></td></tr>
+
+<tr><td class="mono">issue_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-06-16</td><td class="mono">2026-06-16</td>
+<td><div class="cite">“will be issued on 16-Jun-2026” <span class="sub">[520–549]</span></div><div class="cite">“will be issued on 16-Jun-2026” <span class="sub">[520–549]</span></div></td></tr>
+
+<tr><td class="mono">maturity_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2028-06-16</td><td class="mono">2028-06-16</td>
+<td><div class="cite">“mature on 16-Jun-2028.” <span class="sub">[554–576]</span></div><div class="cite">“mature on 16-Jun-2028” <span class="sub">[554–575]</span></div></td></tr>
+
+<tr><td class="mono">underlyings</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;SPX&#39;, &#39;SX5E&#39;]</td><td class="mono">[&#39;SPX&#39;, &#39;SX5E&#39;]</td>
+<td><div class="cite">“- S&amp;P 500 Index (Bloomberg ticker SPX) - EURO STOXX 50 Index (Bloomberg ticker SX5E)” <span class="sub">[1978–2066]</span></div><div class="cite">“- S&amp;P 500 Index (Bloomberg ticker SPX)
+    - EURO STOXX 50 Index (Bloomberg ticker SX5E)” <span class="sub">[1978–2066]</span></div></td></tr>
+
+<tr><td class="mono">initial_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“Initial Level: 100% of closing level on 09-Jun-2026” <span class="sub">[2069–2120]</span></div><div class="cite">“Initial Level: 100% of closing level on 09-Jun-2026” <span class="sub">[2069–2120]</span></div></td></tr>
+
+<tr><td class="mono">barrier_type</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">european</td><td class="mono">european</td>
+<td><div class="cite">“Knock-in: European at 60%” <span class="sub">[2338–2363]</span></div><div class="cite">“the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)” <span class="sub">[1264–1372]</span></div></td></tr>
+
+<tr><td class="mono">barrier_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">60</td><td class="mono">60</td>
+<td><div class="cite">“Knock-in: European at 60%” <span class="sub">[2338–2363]</span></div><div class="cite">“Knock-in: European at 60%” <span class="sub">[2338–2363]</span></div></td></tr>
+
+<tr><td class="mono">coupon_rate_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">10.2</td><td class="mono">10.2</td>
+<td><div class="cite">“Coupon: 10.2% per annum, payable quarterly; memory: yes” <span class="sub">[2167–2222]</span></div><div class="cite">“Coupon: 10.2% per annum, payable quarterly; memory: yes” <span class="sub">[2167–2222]</span></div></td></tr>
+
+<tr><td class="mono">coupon_frequency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">quarterly</td><td class="mono">quarterly</td>
+<td><div class="cite">“payable quarterly” <span class="sub">[633–650]</span></div><div class="cite">“Coupon: 10.2% per annum, payable quarterly; memory: yes” <span class="sub">[2167–2222]</span></div></td></tr>
+
+<tr><td class="mono">coupon_memory</td><td class="t-MISMATCH">MISMATCH</td><td class="sev-critical">critical</td><td><span class="lane-TRIAGE">TRIAGE</span></td>
+<td class="mono">True</td><td class="mono">False</td>
+<td><div class="cite">“memory: yes” <span class="sub">[2211–2222]</span></div><div class="cite">“Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.” <span class="sub">[680–816]</span></div><div class="sub">TS True ≠ booking False</div></td></tr>
+
+<tr><td class="mono">autocall_observation_dates</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;2027-06-09&#39;, &#39;2027-12-09&#39;, &#39;2028-06-09&#39;]</td><td class="mono">[&#39;2027-06-09&#39;, &#39;2027-12-09&#39;, &#39;2028-06-09&#39;]</td>
+<td><div class="cite">“Autocall Observation Dates: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.” <span class="sub">[1180–1246]</span></div><div class="cite">“Autocall trigger: 100% of Initial Level on each of: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.” <span class="sub">[2245–2335]</span></div></td></tr>
+
+<tr><td class="mono">autocall_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“Autocall trigger: 100% of Initial Level on each of: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.” <span class="sub">[2245–2335]</span></div><div class="cite">“Autocall trigger: 100% of Initial Level on each of: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.” <span class="sub">[2245–2335]</span></div></td></tr>
+
+<tr><td class="mono">day_count</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">30/360</td><td class="mono">30/360</td>
+<td><div class="cite">“Day count: 30/360” <span class="sub">[2225–2242]</span></div><div class="cite">“Day count: 30/360” <span class="sub">[2225–2242]</span></div></td></tr>
+
+<tr><td class="mono">settlement</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">cash</td><td class="mono">cash</td>
+<td><div class="cite">“All payments are made in USD by cash settlement” <span class="sub">[1592–1639]</span></div><div class="cite">“All payments are made in USD by cash settlement” <span class="sub">[1592–1639]</span></div></td></tr>
+
+<tr><td class="mono">business_day_convention</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">following</td><td class="mono">following</td>
+<td><div class="cite">“payment dates follow the Following convention” <span class="sub">[1644–1689]</span></div><div class="cite">“payment dates follow the Following convention (Toronto, New York and London business days)” <span class="sub">[1644–1734]</span></div></td></tr>
+</tbody></table></div>
+
+<details><summary>trace for G04 (6 steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+<tr><td class="mono">load</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">extract:gemini</td><td class="mono">gemini-3.8-flash</td><td class="mono">gemini-3.8-flash</td><td>2331</td><td>2201</td><td>5695</td><td>0.0100</td><td>OK</td></tr><tr><td class="mono">extract:claude</td><td class="mono">claude-opus-5</td><td class="mono">claude-opus-5</td><td>7087</td><td>1310</td><td>11802</td><td>0.0682</td><td>OK</td></tr><tr><td class="mono">merge</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">booking_lookup</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>4</td><td>0.0000</td><td>FOUND</td></tr><tr><td class="mono">compare</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>TRIAGE</td></tr>
+</tbody></table></div></details>
+
+<h2 id="G05">G05 <span class="lane-TRIAGE">TRIAGE</span> <span class="sub mono">trade_id SN-2026-0105 · sha b9fb9f601dde · $0.0841 · booking via mcp-stdio</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+
+<tr><td class="mono">trade_id</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">SN-2026-0105</td><td class="mono">SN-2026-0105</td>
+<td><div class="cite">“Reference: SN-2026-0105” <span class="sub">[156–179]</span></div><div class="cite">“Reference: SN-2026-0105” <span class="sub">[156–179]</span></div></td></tr>
+
+<tr><td class="mono">issuer</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">Northbridge Capital Markets (Canada) Inc.</td><td class="mono">Northbridge Capital Markets (Canada) Inc.</td>
+<td><div class="cite">“Northbridge Capital Markets (Canada) Inc. (the &#34;Issuer&#34;)” <span class="sub">[235–291]</span></div><div class="cite">“Northbridge Capital Markets (Canada) Inc. (the &#34;Issuer&#34;)” <span class="sub">[235–291]</span></div></td></tr>
+
+<tr><td class="mono">notional</td><td class="t-MISMATCH">MISMATCH</td><td class="sev-critical">critical</td><td><span class="lane-TRIAGE">TRIAGE</span></td>
+<td class="mono">10000000</td><td class="mono">1000000</td>
+<td><div class="cite">“in an aggregate Notional Amount of USD 10,000,000” <span class="sub">[351–400]</span></div><div class="cite">“in an aggregate Notional Amount of USD 10,000,000” <span class="sub">[351–400]</span></div><div class="sub">TS 10000000 ≠ booking 1000000</div></td></tr>
+
+<tr><td class="mono">currency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">USD</td><td class="mono">USD</td>
+<td><div class="cite">“in an aggregate Notional Amount of USD 10,000,000” <span class="sub">[351–400]</span></div><div class="cite">“in an aggregate Notional Amount of USD 10,000,000” <span class="sub">[351–400]</span></div></td></tr>
+
+<tr><td class="mono">trade_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-02-17</td><td class="mono">2026-02-17</td>
+<td><div class="cite">“The Trade Date is 17 February 2026” <span class="sub">[487–521]</span></div><div class="cite">“The Trade Date is 17 February 2026” <span class="sub">[487–521]</span></div></td></tr>
+
+<tr><td class="mono">issue_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-02-24</td><td class="mono">2026-02-24</td>
+<td><div class="cite">“the Issue Date is 24 February 2026” <span class="sub">[523–557]</span></div><div class="cite">“the Issue Date is 24 February 2026” <span class="sub">[523–557]</span></div></td></tr>
+
+<tr><td class="mono">maturity_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2028-02-24</td><td class="mono">2028-02-24</td>
+<td><div class="cite">“the Scheduled Maturity Date is 24 February 2028” <span class="sub">[562–609]</span></div><div class="cite">“the Scheduled Maturity Date is 24 February 2028” <span class="sub">[562–609]</span></div></td></tr>
+
+<tr><td class="mono">underlyings</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;SPX&#39;]</td><td class="mono">[&#39;SPX&#39;]</td>
+<td><div class="cite">“S&amp;P 500 Index (Bloomberg: SPX Index)” <span class="sub">[449–485]</span></div><div class="cite">“the S&amp;P 500 Index (Bloomberg: SPX Index)” <span class="sub">[445–485]</span></div></td></tr>
+
+<tr><td class="mono">initial_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.” <span class="sub">[658–751]</span></div><div class="cite">“The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.” <span class="sub">[658–751]</span></div></td></tr>
+
+<tr><td class="mono">barrier_type</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">none</td><td class="mono">none</td>
+<td><div class="cite">“the Notes are not subject to a knock-in barrier.” <span class="sub">[1272–1320]</span></div><div class="cite">“Capital protection: the Notes are not subject to a knock-in barrier.” <span class="sub">[1252–1320]</span></div></td></tr>
+
+<tr><td class="mono">barrier_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">ABSENT</td><td class="mono">ABSENT</td>
+<td></td></tr>
+
+<tr><td class="mono">coupon_rate_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">5.25</td><td class="mono">5.25</td>
+<td><div class="cite">“The Notes pay a conditional Coupon of 5.25% per annum” <span class="sub">[764–817]</span></div><div class="cite">“The Notes pay a conditional Coupon of 5.25% per annum, payable annually” <span class="sub">[764–835]</span></div></td></tr>
+
+<tr><td class="mono">coupon_frequency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">annual</td><td class="mono">annual</td>
+<td><div class="cite">“payable annually” <span class="sub">[819–835]</span></div><div class="cite">“5.25% per annum, payable annually” <span class="sub">[802–835]</span></div></td></tr>
+
+<tr><td class="mono">coupon_memory</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">False</td><td class="mono">False</td>
+<td><div class="cite">“No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.” <span class="sub">[960–1141]</span></div><div class="cite">“No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.” <span class="sub">[960–1141]</span></div></td></tr>
+
+<tr><td class="mono">autocall_observation_dates</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">ABSENT</td><td class="mono">ABSENT</td>
+<td></td></tr>
+
+<tr><td class="mono">autocall_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">ABSENT</td><td class="mono">ABSENT</td>
+<td></td></tr>
+
+<tr><td class="mono">day_count</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">30/360</td><td class="mono">30/360</td>
+<td><div class="cite">“Coupon amounts accrue on a 30/360 day count basis.” <span class="sub">[909–959]</span></div><div class="cite">“Coupon amounts accrue on a 30/360 day count basis.” <span class="sub">[909–959]</span></div></td></tr>
+
+<tr><td class="mono">settlement</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">cash</td><td class="mono">cash</td>
+<td><div class="cite">“Settlement at maturity or upon early redemption is in cash, in USD.” <span class="sub">[1427–1494]</span></div><div class="cite">“Settlement at maturity or upon early redemption is in cash, in USD.” <span class="sub">[1427–1494]</span></div></td></tr>
+
+<tr><td class="mono">business_day_convention</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">mod_following</td><td class="mono">mod_following</td>
+<td><div class="cite">“Payment dates are adjusted in accordance with the Modified Following Business Day Convention.” <span class="sub">[1495–1588]</span></div><div class="cite">“Payment dates are adjusted in accordance with the Modified Following Business Day Convention.” <span class="sub">[1495–1588]</span></div></td></tr>
+</tbody></table></div>
+
+<details><summary>trace for G05 (6 steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+<tr><td class="mono">load</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">extract:claude</td><td class="mono">claude-opus-5</td><td class="mono">claude-opus-5</td><td>6733</td><td>1165</td><td>10655</td><td>0.0628</td><td>OK</td></tr><tr><td class="mono">extract:gemini</td><td class="mono">gemini-3.8-flash</td><td class="mono">gemini-3.8-flash</td><td>2038</td><td>5276</td><td>14460</td><td>0.0213</td><td>OK</td></tr><tr><td class="mono">merge</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">booking_lookup</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>8</td><td>0.0000</td><td>FOUND</td></tr><tr><td class="mono">compare</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>TRIAGE</td></tr>
+</tbody></table></div></details>
+
+<h2 id="G06">G06 <span class="lane-TRIAGE">TRIAGE</span> <span class="sub mono">trade_id SN-2026-0106 · sha 50b873d0a3dd · $0.0690 · booking via mcp-stdio</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+
+<tr><td class="mono">trade_id</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">SN-2026-0106</td><td class="mono">SN-2026-0106</td>
+<td><div class="cite">“Trade Reference              | SN-2026-0106” <span class="sub">[253–296]</span></div><div class="cite">“Trade Reference              | SN-2026-0106” <span class="sub">[253–296]</span></div></td></tr>
+
+<tr><td class="mono">issuer</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">Northbridge Capital Markets (Canada) Inc.</td><td class="mono">Northbridge Capital Markets (Canada) Inc.</td>
+<td><div class="cite">“Issuer                       | Northbridge Capital Markets (Canada) Inc.” <span class="sub">[180–252]</span></div><div class="cite">“Issuer                       | Northbridge Capital Markets (Canada) Inc.” <span class="sub">[180–252]</span></div></td></tr>
+
+<tr><td class="mono">notional</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">4000000</td><td class="mono">4000000</td>
+<td><div class="cite">“Notional Amount              | USD 4,000,000.00” <span class="sub">[297–344]</span></div><div class="cite">“Notional Amount              | USD 4,000,000.00” <span class="sub">[297–344]</span></div></td></tr>
+
+<tr><td class="mono">currency</td><td class="t-MISMATCH">MISMATCH</td><td class="sev-critical">critical</td><td><span class="lane-TRIAGE">TRIAGE</span></td>
+<td class="mono">USD</td><td class="mono">CAD</td>
+<td><div class="cite">“Currency                     | USD” <span class="sub">[345–379]</span></div><div class="cite">“Currency                     | USD” <span class="sub">[345–379]</span></div><div class="sub">TS USD ≠ booking CAD</div></td></tr>
+
+<tr><td class="mono">trade_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-07-07</td><td class="mono">2026-07-07</td>
+<td><div class="cite">“Trade Date                   | 2026-07-07” <span class="sub">[380–421]</span></div><div class="cite">“Trade Date                   | 2026-07-07” <span class="sub">[380–421]</span></div></td></tr>
+
+<tr><td class="mono">issue_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-07-14</td><td class="mono">2026-07-14</td>
+<td><div class="cite">“Issue Date                   | 2026-07-14” <span class="sub">[422–463]</span></div><div class="cite">“Issue Date                   | 2026-07-14” <span class="sub">[422–463]</span></div></td></tr>
+
+<tr><td class="mono">maturity_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2029-07-16</td><td class="mono">2029-07-16</td>
+<td><div class="cite">“Maturity Date                | 2029-07-16” <span class="sub">[464–505]</span></div><div class="cite">“Maturity Date                | 2029-07-16” <span class="sub">[464–505]</span></div></td></tr>
+
+<tr><td class="mono">underlyings</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;SPTSX60&#39;]</td><td class="mono">[&#39;SPTSX60&#39;]</td>
+<td><div class="cite">“Underlying(s)                | S&amp;P/TSX 60 Index (SPTSX60)” <span class="sub">[506–563]</span></div><div class="cite">“Underlying(s)                | S&amp;P/TSX 60 Index (SPTSX60)” <span class="sub">[506–563]</span></div></td></tr>
+
+<tr><td class="mono">initial_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“Initial Level                | 100.00% of closing level on Trade Date” <span class="sub">[564–633]</span></div><div class="cite">“Initial Level                | 100.00% of closing level on Trade Date” <span class="sub">[564–633]</span></div></td></tr>
+
+<tr><td class="mono">barrier_type</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">european</td><td class="mono">european</td>
+<td><div class="cite">“Knock-in Type                | European (Final Valuation Date only)” <span class="sub">[927–994]</span></div><div class="cite">“Knock-in Type                | European (Final Valuation Date only)” <span class="sub">[927–994]</span></div></td></tr>
+
+<tr><td class="mono">barrier_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">65</td><td class="mono">65</td>
+<td><div class="cite">“Knock-in Level               | 65.00% of Initial Level” <span class="sub">[995–1049]</span></div><div class="cite">“Knock-in Level               | 65.00% of Initial Level” <span class="sub">[995–1049]</span></div></td></tr>
+
+<tr><td class="mono">coupon_rate_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">6.5</td><td class="mono">6.5</td>
+<td><div class="cite">“Coupon                       | 6.50% per annum, payable quarterly” <span class="sub">[634–699]</span></div><div class="cite">“Coupon                       | 6.50% per annum, payable quarterly” <span class="sub">[634–699]</span></div></td></tr>
+
+<tr><td class="mono">coupon_frequency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">quarterly</td><td class="mono">quarterly</td>
+<td><div class="cite">“Coupon Frequency             | Quarterly” <span class="sub">[700–740]</span></div><div class="cite">“Coupon Frequency             | Quarterly” <span class="sub">[700–740]</span></div></td></tr>
+
+<tr><td class="mono">coupon_memory</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">False</td><td class="mono">False</td>
+<td><div class="cite">“Coupon Memory                | No” <span class="sub">[741–774]</span></div><div class="cite">“Coupon Memory                | No” <span class="sub">[741–774]</span></div></td></tr>
+
+<tr><td class="mono">autocall_observation_dates</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;2027-07-07&#39;, &#39;2028-07-07&#39;]</td><td class="mono">[&#39;2027-07-07&#39;, &#39;2028-07-07&#39;]</td>
+<td><div class="cite">“Autocall Observation Dates   | 2027-07-07, 2028-07-07” <span class="sub">[817–870]</span></div><div class="cite">“Autocall Observation Dates   | 2027-07-07, 2028-07-07” <span class="sub">[817–870]</span></div></td></tr>
+
+<tr><td class="mono">autocall_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“Autocall Level               | 100.00% of Initial Level” <span class="sub">[871–926]</span></div><div class="cite">“Autocall Level               | 100.00% of Initial Level” <span class="sub">[871–926]</span></div></td></tr>
+
+<tr><td class="mono">day_count</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">ACT/360</td><td class="mono">ACT/360</td>
+<td><div class="cite">“Day Count Fraction           | Actual/360” <span class="sub">[775–816]</span></div><div class="cite">“Day Count Fraction           | Actual/360” <span class="sub">[775–816]</span></div></td></tr>
+
+<tr><td class="mono">settlement</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">cash</td><td class="mono">cash</td>
+<td><div class="cite">“Settlement                   | Cash” <span class="sub">[1050–1085]</span></div><div class="cite">“Settlement                   | Cash” <span class="sub">[1050–1085]</span></div></td></tr>
+
+<tr><td class="mono">business_day_convention</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">mod_following</td><td class="mono">mod_following</td>
+<td><div class="cite">“Business Day Convention      | Modified Following” <span class="sub">[1086–1135]</span></div><div class="cite">“Business Day Convention      | Modified Following” <span class="sub">[1086–1135]</span></div></td></tr>
+</tbody></table></div>
+
+<details><summary>trace for G06 (6 steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+<tr><td class="mono">load</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">extract:gemini</td><td class="mono">gemini-3.8-flash</td><td class="mono">gemini-3.8-flash</td><td>2178</td><td>1170</td><td>4107</td><td>0.0060</td><td>OK</td></tr><tr><td class="mono">extract:claude</td><td class="mono">claude-opus-5</td><td class="mono">claude-opus-5</td><td>6880</td><td>1145</td><td>10392</td><td>0.0630</td><td>OK</td></tr><tr><td class="mono">merge</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">booking_lookup</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>7</td><td>0.0000</td><td>FOUND</td></tr><tr><td class="mono">compare</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>TRIAGE</td></tr>
+</tbody></table></div></details>
+
+<h2 id="G07">G07 <span class="lane-TRIAGE">TRIAGE</span> <span class="sub mono">trade_id SN-2026-0107 · sha 540ea9651ce2 · $0.1488 · booking via mcp-stdio</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+
+<tr><td class="mono">trade_id</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">SN-2026-0107</td><td class="mono">SN-2026-0107</td>
+<td><div class="cite">“Tranche reference SN-2026-0107” <span class="sub">[118–148]</span></div><div class="cite">“Tranche reference SN-2026-0107” <span class="sub">[118–148]</span></div></td></tr>
+
+<tr><td class="mono">issuer</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">Northbridge Capital Markets (Canada) Inc.</td><td class="mono">Northbridge Capital Markets (Canada) Inc.</td>
+<td><div class="cite">“The Notes are issued by Northbridge Capital Markets (Canada) Inc..” <span class="sub">[161–227]</span></div><div class="cite">“The Notes are issued by Northbridge Capital Markets (Canada) Inc..” <span class="sub">[161–227]</span></div></td></tr>
+
+<tr><td class="mono">notional</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">6000000</td><td class="mono">6000000</td>
+<td><div class="cite">“The aggregate Notional Amount is 6,000,000 EUR.” <span class="sub">[262–309]</span></div><div class="cite">“The aggregate Notional Amount is 6,000,000 EUR.” <span class="sub">[262–309]</span></div></td></tr>
+
+<tr><td class="mono">currency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">EUR</td><td class="mono">EUR</td>
+<td><div class="cite">“The Specified Currency is EUR” <span class="sub">[310–339]</span></div><div class="cite">“The Specified Currency is EUR and all payments under the Notes are made in EUR.” <span class="sub">[310–389]</span></div></td></tr>
+
+<tr><td class="mono">trade_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-01-20</td><td class="mono">2026-01-20</td>
+<td><div class="cite">“Trade Date: January 20, 2026.” <span class="sub">[401–430]</span></div><div class="cite">“Trade Date: January 20, 2026.” <span class="sub">[401–430]</span></div></td></tr>
+
+<tr><td class="mono">issue_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-01-27</td><td class="mono">2026-01-27</td>
+<td><div class="cite">“Issue Date: January 27, 2026.” <span class="sub">[431–460]</span></div><div class="cite">“Issue Date: January 27, 2026.” <span class="sub">[431–460]</span></div></td></tr>
+
+<tr><td class="mono">maturity_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2029-01-29</td><td class="mono">2029-01-29</td>
+<td><div class="cite">“Maturity Date: January 29, 2029, subject to adjustment in accordance with Condition 9.” <span class="sub">[461–547]</span></div><div class="cite">“Maturity Date: January 29, 2029, subject to adjustment in accordance with Condition 9.” <span class="sub">[461–547]</span></div></td></tr>
+
+<tr><td class="mono">underlyings</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;SX5E&#39;]</td><td class="mono">[&#39;SX5E&#39;]</td>
+<td><div class="cite">“The Notes are linked to the EURO STOXX 50 Index (Bloomberg: SX5E Index).” <span class="sub">[564–636]</span></div><div class="cite">“The Notes are linked to the EURO STOXX 50 Index (Bloomberg: SX5E Index).” <span class="sub">[564–636]</span></div></td></tr>
+
+<tr><td class="mono">initial_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“The Initial Level is 100 per cent. of the official closing level of each Underlying on the Trade Date.” <span class="sub">[637–739]</span></div><div class="cite">“The Initial Level is 100 per cent. of the official closing level of each Underlying on the Trade Date.” <span class="sub">[637–739]</span></div></td></tr>
+
+<tr><td class="mono">barrier_type</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">european</td><td class="mono">european</td>
+<td><div class="cite">“Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 55 per cent. of the Initial Level.” <span class="sub">[1682–1864]</span></div><div class="cite">“the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)” <span class="sub">[1698–1806]</span></div></td></tr>
+
+<tr><td class="mono">barrier_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">55</td><td class="mono">55</td>
+<td><div class="cite">“at a Knock-in Level of 55 per cent. of the Initial Level.” <span class="sub">[1807–1864]</span></div><div class="cite">“at a Knock-in Level of 55 per cent. of the Initial Level” <span class="sub">[1807–1863]</span></div></td></tr>
+
+<tr><td class="mono">coupon_rate_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">8</td><td class="mono">8</td>
+<td><div class="cite">“the Notes bear a Coupon of 8 per cent. per annum, payable annually.” <span class="sub">[785–852]</span></div><div class="cite">“the Notes bear a Coupon of 8 per cent. per annum, payable annually” <span class="sub">[785–851]</span></div></td></tr>
+
+<tr><td class="mono">coupon_frequency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">annual</td><td class="mono">annual</td>
+<td><div class="cite">“Coupons are payable annually in arrear and are calculated on the basis of 30/360.” <span class="sub">[853–934]</span></div><div class="cite">“Coupons are payable annually in arrear” <span class="sub">[853–891]</span></div></td></tr>
+
+<tr><td class="mono">coupon_memory</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">True</td><td class="mono">True</td>
+<td><div class="cite">“Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.” <span class="sub">[947–1223]</span></div><div class="cite">“Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.” <span class="sub">[947–1083]</span></div></td></tr>
+
+<tr><td class="mono">autocall_observation_dates</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;2027-01-20&#39;, &#39;2028-01-20&#39;, &#39;2028-07-20&#39;]</td><td class="mono">[&#39;2027-01-20&#39;, &#39;2028-01-20&#39;, &#39;2028-07-20&#39;]</td>
+<td><div class="cite">“Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..” <span class="sub">[1481–1667]</span></div><div class="cite">“Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..” <span class="sub">[1481–1667]</span></div></td></tr>
+
+<tr><td class="mono">autocall_level_pct</td><td class="t-MISMATCH">MISMATCH</td><td class="sev-minor">minor</td><td><span class="lane-TRIAGE">TRIAGE</span></td>
+<td class="mono">[&#39;100&#39;, &#39;95&#39;, &#39;90&#39;]</td><td class="mono">[&#39;100&#39;, &#39;100&#39;, &#39;100&#39;]</td>
+<td><div class="cite">“Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..” <span class="sub">[1481–1667]</span></div><div class="cite">“January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..” <span class="sub">[1568–1667]</span></div><div class="sub">TS [Decimal(&#39;100&#39;), Decimal(&#39;95&#39;), Decimal(&#39;90&#39;)] ≠ booking [Decimal(&#39;100&#39;), Decimal(&#39;100&#39;), Decimal(&#39;100&#39;)]</div></td></tr>
+
+<tr><td class="mono">day_count</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">30/360</td><td class="mono">30/360</td>
+<td><div class="cite">“calculated on the basis of 30/360.” <span class="sub">[900–934]</span></div><div class="cite">“are calculated on the basis of 30/360” <span class="sub">[896–933]</span></div></td></tr>
+
+<tr><td class="mono">settlement</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">cash</td><td class="mono">cash</td>
+<td><div class="cite">“10. Settlement. Cash settlement.” <span class="sub">[2315–2347]</span></div><div class="cite">“Cash settlement.” <span class="sub">[2331–2347]</span></div></td></tr>
+
+<tr><td class="mono">business_day_convention</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">following</td><td class="mono">following</td>
+<td><div class="cite">“Where any payment date would otherwise fall on a day that is not a Business Day, it shall be adjusted in accordance with the Following Business Day Convention.” <span class="sub">[2063–2222]</span></div><div class="cite">“it shall be adjusted in accordance with the Following Business Day Convention” <span class="sub">[2144–2221]</span></div></td></tr>
+</tbody></table></div>
+
+<details><summary>trace for G07 (6 steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+<tr><td class="mono">load</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">extract:gemini</td><td class="mono">gemini-3.8-flash</td><td class="mono">gemini-3.8-flash</td><td>2229</td><td>20607</td><td>53341</td><td>0.0789</td><td>OK</td></tr><tr><td class="mono">extract:claude</td><td class="mono">claude-opus-5</td><td class="mono">claude-opus-5</td><td>7021</td><td>1391</td><td>53934</td><td>0.0699</td><td>OK</td></tr><tr><td class="mono">merge</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">booking_lookup</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>8</td><td>0.0000</td><td>FOUND</td></tr><tr><td class="mono">compare</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>TRIAGE</td></tr>
+</tbody></table></div></details>
+
+<h2 id="G08">G08 <span class="lane-TRIAGE">TRIAGE</span> <span class="sub mono">trade_id SN-2026-0108 · sha 80965e09f1e2 · $0.0826 · booking via mcp-stdio</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+
+<tr><td class="mono">trade_id</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">SN-2026-0108</td><td class="mono">SN-2026-0108</td>
+<td><div class="cite">“Reference: SN-2026-0108” <span class="sub">[1825–1848]</span></div><div class="cite">“Reference: SN-2026-0108” <span class="sub">[1825–1848]</span></div></td></tr>
+
+<tr><td class="mono">issuer</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">Northbridge Capital Markets (Canada) Inc.</td><td class="mono">Northbridge Capital Markets (Canada) Inc.</td>
+<td><div class="cite">“Issuer: Northbridge Capital Markets (Canada) Inc.” <span class="sub">[1851–1900]</span></div><div class="cite">“Issuer: Northbridge Capital Markets (Canada) Inc.” <span class="sub">[1851–1900]</span></div></td></tr>
+
+<tr><td class="mono">notional</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">7500000</td><td class="mono">7500000</td>
+<td><div class="cite">“Notional: USD 7.5 million (USD 7,500,000)” <span class="sub">[2024–2065]</span></div><div class="cite">“Notional: USD 7.5 million (USD 7,500,000)” <span class="sub">[2024–2065]</span></div></td></tr>
+
+<tr><td class="mono">currency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">USD</td><td class="mono">USD</td>
+<td><div class="cite">“All payments are made in USD” <span class="sub">[1527–1555]</span></div><div class="cite">“All payments are made in USD by cash settlement” <span class="sub">[1527–1574]</span></div></td></tr>
+
+<tr><td class="mono">trade_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-08-11</td><td class="mono">2026-08-11</td>
+<td><div class="cite">“The Notes were traded on 11-Aug-2026” <span class="sub">[455–491]</span></div><div class="cite">“The Notes were traded on 11-Aug-2026, will be issued on 18-Aug-2026 and mature on 18-Aug-2028.” <span class="sub">[455–549]</span></div></td></tr>
+
+<tr><td class="mono">issue_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-08-18</td><td class="mono">2026-08-18</td>
+<td><div class="cite">“will be issued on 18-Aug-2026” <span class="sub">[493–522]</span></div><div class="cite">“The Notes were traded on 11-Aug-2026, will be issued on 18-Aug-2026 and mature on 18-Aug-2028.” <span class="sub">[455–549]</span></div></td></tr>
+
+<tr><td class="mono">maturity_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2028-08-18</td><td class="mono">2028-08-18</td>
+<td><div class="cite">“mature on 18-Aug-2028” <span class="sub">[527–548]</span></div><div class="cite">“The Notes were traded on 11-Aug-2026, will be issued on 18-Aug-2026 and mature on 18-Aug-2028.” <span class="sub">[455–549]</span></div></td></tr>
+
+<tr><td class="mono">underlyings</td><td class="t-MISMATCH">MISMATCH</td><td class="sev-critical">critical</td><td><span class="lane-TRIAGE">TRIAGE</span></td>
+<td class="mono">[&#39;SX5E&#39;]</td><td class="mono">[&#39;SPX&#39;]</td>
+<td><div class="cite">“Bloomberg ticker SX5E” <span class="sub">[1945–1966]</span></div><div class="cite">“- EURO STOXX 50 Index (Bloomberg ticker SX5E)” <span class="sub">[1922–1967]</span></div><div class="sub">TS [&#39;SX5E&#39;] ≠ booking [&#39;SPX&#39;]</div></td></tr>
+
+<tr><td class="mono">initial_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“Initial Level: 100% of closing level on 11-Aug-2026” <span class="sub">[1970–2021]</span></div><div class="cite">“Initial Level: 100% of closing level on 11-Aug-2026” <span class="sub">[1970–2021]</span></div></td></tr>
+
+<tr><td class="mono">barrier_type</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">american</td><td class="mono">american</td>
+<td><div class="cite">“Knock-in: American at 60%” <span class="sub">[2237–2262]</span></div><div class="cite">“observed continuously on each Scheduled Trading Day from the Trade Date to the Final Valuation Date (American observation)” <span class="sub">[1185–1307]</span></div></td></tr>
+
+<tr><td class="mono">barrier_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">60</td><td class="mono">60</td>
+<td><div class="cite">“Knock-in Level of 60% of the Initial Level” <span class="sub">[1313–1355]</span></div><div class="cite">“Knock-in: American at 60%” <span class="sub">[2237–2262]</span></div></td></tr>
+
+<tr><td class="mono">coupon_rate_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">9.75</td><td class="mono">9.75</td>
+<td><div class="cite">“Coupon: 9.75% per annum” <span class="sub">[2068–2091]</span></div><div class="cite">“Coupon: 9.75% per annum, payable quarterly; memory: no” <span class="sub">[2068–2122]</span></div></td></tr>
+
+<tr><td class="mono">coupon_frequency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">quarterly</td><td class="mono">quarterly</td>
+<td><div class="cite">“payable quarterly” <span class="sub">[606–623]</span></div><div class="cite">“Coupon: 9.75% per annum, payable quarterly; memory: no” <span class="sub">[2068–2122]</span></div></td></tr>
+
+<tr><td class="mono">coupon_memory</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">False</td><td class="mono">False</td>
+<td><div class="cite">“memory: no” <span class="sub">[2112–2122]</span></div><div class="cite">“No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.” <span class="sub">[665–846]</span></div></td></tr>
+
+<tr><td class="mono">autocall_observation_dates</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;2027-08-11&#39;, &#39;2028-02-11&#39;]</td><td class="mono">[&#39;2027-08-11&#39;, &#39;2028-02-11&#39;]</td>
+<td><div class="cite">“Autocall Observation Dates: 11-Aug-2027, 11-Feb-2028.” <span class="sub">[1070–1123]</span></div><div class="cite">“Autocall trigger: 100% of Initial Level on each of: 11-Aug-2027, 11-Feb-2028.” <span class="sub">[2157–2234]</span></div></td></tr>
+
+<tr><td class="mono">autocall_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“Autocall trigger: 100% of Initial Level” <span class="sub">[2157–2196]</span></div><div class="cite">“Autocall trigger: 100% of Initial Level on each of: 11-Aug-2027, 11-Feb-2028.” <span class="sub">[2157–2234]</span></div></td></tr>
+
+<tr><td class="mono">day_count</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">ACT/365</td><td class="mono">ACT/365</td>
+<td><div class="cite">“Day count: Actual/365 (Fixed)” <span class="sub">[2125–2154]</span></div><div class="cite">“Day count: Actual/365 (Fixed)” <span class="sub">[2125–2154]</span></div></td></tr>
+
+<tr><td class="mono">settlement</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">cash</td><td class="mono">cash</td>
+<td><div class="cite">“All payments are made in USD by cash settlement” <span class="sub">[1527–1574]</span></div><div class="cite">“All payments are made in USD by cash settlement” <span class="sub">[1527–1574]</span></div></td></tr>
+
+<tr><td class="mono">business_day_convention</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">mod_following</td><td class="mono">mod_following</td>
+<td><div class="cite">“payment dates follow the Modified Following convention” <span class="sub">[1579–1633]</span></div><div class="cite">“payment dates follow the Modified Following convention (Toronto, New York and London business days)” <span class="sub">[1579–1678]</span></div></td></tr>
+</tbody></table></div>
+
+<details><summary>trace for G08 (6 steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+<tr><td class="mono">load</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">extract:gemini</td><td class="mono">gemini-3.8-flash</td><td class="mono">gemini-3.8-flash</td><td>2272</td><td>2994</td><td>10520</td><td>0.0129</td><td>OK</td></tr><tr><td class="mono">extract:claude</td><td class="mono">claude-opus-5</td><td class="mono">claude-opus-5</td><td>7026</td><td>1383</td><td>12257</td><td>0.0697</td><td>OK</td></tr><tr><td class="mono">merge</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">booking_lookup</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>7</td><td>0.0000</td><td>FOUND</td></tr><tr><td class="mono">compare</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>TRIAGE</td></tr>
+</tbody></table></div></details>
+
+<h2 id="G09">G09 <span class="lane-AUTO_CLEAR">AUTO_CLEAR</span> <span class="sub mono">trade_id SN-2026-0109 · sha fca06ea52e0d · $0.0798 · booking via mcp-stdio</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+
+<tr><td class="mono">trade_id</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">SN-2026-0109</td><td class="mono">SN-2026-0109</td>
+<td><div class="cite">“Reference: SN-2026-0109” <span class="sub">[157–180]</span></div><div class="cite">“Reference: SN-2026-0109” <span class="sub">[157–180]</span></div></td></tr>
+
+<tr><td class="mono">issuer</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">Northbridge Capital Markets (Canada) Inc.</td><td class="mono">Northbridge Capital Markets (Canada) Inc.</td>
+<td><div class="cite">“Northbridge Capital Markets (Canada) Inc. (the &#34;Issuer&#34;)” <span class="sub">[233–289]</span></div><div class="cite">“Northbridge Capital Markets (Canada) Inc. (the &#34;Issuer&#34;) will issue notes” <span class="sub">[233–306]</span></div></td></tr>
+
+<tr><td class="mono">notional</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">5000000</td><td class="mono">5000000</td>
+<td><div class="cite">“in an aggregate Notional Amount of CAD 5,000,000” <span class="sub">[349–397]</span></div><div class="cite">“in an aggregate Notional Amount of CAD 5,000,000” <span class="sub">[349–397]</span></div></td></tr>
+
+<tr><td class="mono">currency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">CAD</td><td class="mono">CAD</td>
+<td><div class="cite">“in an aggregate Notional Amount of CAD 5,000,000” <span class="sub">[349–397]</span></div><div class="cite">“in an aggregate Notional Amount of CAD 5,000,000” <span class="sub">[349–397]</span></div></td></tr>
+
+<tr><td class="mono">trade_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-04-28</td><td class="mono">2026-04-28</td>
+<td><div class="cite">“The Trade Date is 28 April 2026” <span class="sub">[490–521]</span></div><div class="cite">“The Trade Date is 28 April 2026” <span class="sub">[490–521]</span></div></td></tr>
+
+<tr><td class="mono">issue_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-05-05</td><td class="mono">2026-05-05</td>
+<td><div class="cite">“the Issue Date is 5 May 2026” <span class="sub">[523–551]</span></div><div class="cite">“the Issue Date is 5 May 2026” <span class="sub">[523–551]</span></div></td></tr>
+
+<tr><td class="mono">maturity_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2029-05-07</td><td class="mono">2029-05-07</td>
+<td><div class="cite">“the Scheduled Maturity Date is 7 May 2029” <span class="sub">[556–597]</span></div><div class="cite">“the Scheduled Maturity Date is 7 May 2029” <span class="sub">[556–597]</span></div></td></tr>
+
+<tr><td class="mono">underlyings</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;BVERSA10&#39;]</td><td class="mono">[&#39;BVERSA10&#39;]</td>
+<td><div class="cite">“The Notes are linked to the performance of the BVERSA10 Index (Bloomberg: BVERSA10 Index).” <span class="sub">[399–489]</span></div><div class="cite">“The Notes are linked to the performance of the BVERSA10 Index (Bloomberg: BVERSA10 Index).” <span class="sub">[399–489]</span></div></td></tr>
+
+<tr><td class="mono">initial_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.” <span class="sub">[646–739]</span></div><div class="cite">“The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.” <span class="sub">[646–739]</span></div></td></tr>
+
+<tr><td class="mono">barrier_type</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">european</td><td class="mono">european</td>
+<td><div class="cite">“observed on the Final Valuation Date only (European observation)” <span class="sub">[1557–1621]</span></div><div class="cite">“the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)” <span class="sub">[1513–1621]</span></div></td></tr>
+
+<tr><td class="mono">barrier_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">70</td><td class="mono">70</td>
+<td><div class="cite">“at a Knock-in Level of 70% of the Initial Level” <span class="sub">[1622–1669]</span></div><div class="cite">“at a Knock-in Level of 70% of the Initial Level” <span class="sub">[1622–1669]</span></div></td></tr>
+
+<tr><td class="mono">coupon_rate_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">8.25</td><td class="mono">8.25</td>
+<td><div class="cite">“The Notes pay a conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum)” <span class="sub">[752–841]</span></div><div class="cite">“a conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum)” <span class="sub">[766–841]</span></div></td></tr>
+
+<tr><td class="mono">coupon_frequency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">quarterly</td><td class="mono">quarterly</td>
+<td><div class="cite">“The Notes pay a conditional Coupon of 2.0625% per quarter” <span class="sub">[752–809]</span></div><div class="cite">“a conditional Coupon of 2.0625% per quarter” <span class="sub">[766–809]</span></div></td></tr>
+
+<tr><td class="mono">coupon_memory</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">False</td><td class="mono">False</td>
+<td><div class="cite">“No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.” <span class="sub">[966–1147]</span></div><div class="cite">“No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.” <span class="sub">[966–1147]</span></div></td></tr>
+
+<tr><td class="mono">autocall_observation_dates</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;2027-04-28&#39;, &#39;2027-10-28&#39;, &#39;2028-04-28&#39;, &#39;2028-10-30&#39;]</td><td class="mono">[&#39;2027-04-28&#39;, &#39;2027-10-28&#39;, &#39;2028-04-28&#39;, &#39;2028-10-30&#39;]</td>
+<td><div class="cite">“Autocall Observation Dates: 28 April 2027, 28 October 2027, 28 April 2028, 30 October 2028.” <span class="sub">[1404–1495]</span></div><div class="cite">“Autocall Observation Dates: 28 April 2027, 28 October 2027, 28 April 2028, 30 October 2028.” <span class="sub">[1404–1495]</span></div></td></tr>
+
+<tr><td class="mono">autocall_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level” <span class="sub">[1210–1322]</span></div><div class="cite">“if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level” <span class="sub">[1210–1322]</span></div></td></tr>
+
+<tr><td class="mono">day_count</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">30/360</td><td class="mono">30/360</td>
+<td><div class="cite">“Coupon amounts accrue on a 30/360 day count basis.” <span class="sub">[915–965]</span></div><div class="cite">“Coupon amounts accrue on a 30/360 day count basis.” <span class="sub">[915–965]</span></div></td></tr>
+
+<tr><td class="mono">settlement</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">cash</td><td class="mono">cash</td>
+<td><div class="cite">“Settlement at maturity or upon early redemption is in cash, in CAD.” <span class="sub">[1856–1923]</span></div><div class="cite">“Settlement at maturity or upon early redemption is in cash, in CAD.” <span class="sub">[1856–1923]</span></div></td></tr>
+
+<tr><td class="mono">business_day_convention</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">mod_following</td><td class="mono">mod_following</td>
+<td><div class="cite">“Payment dates are adjusted in accordance with the Modified Following Business Day Convention.” <span class="sub">[1924–2017]</span></div><div class="cite">“Payment dates are adjusted in accordance with the Modified Following Business Day Convention.” <span class="sub">[1924–2017]</span></div></td></tr>
+</tbody></table></div>
+
+<details><summary>trace for G09 (6 steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+<tr><td class="mono">load</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">extract:claude</td><td class="mono">claude-opus-5</td><td class="mono">claude-opus-5</td><td>6912</td><td>1337</td><td>12058</td><td>0.0680</td><td>OK</td></tr><tr><td class="mono">extract:gemini</td><td class="mono">gemini-3.8-flash</td><td class="mono">gemini-3.8-flash</td><td>2170</td><td>2708</td><td>1488796</td><td>0.0118</td><td>OK</td></tr><tr><td class="mono">merge</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">booking_lookup</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>7</td><td>0.0000</td><td>FOUND</td></tr><tr><td class="mono">compare</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>AUTO_CLEAR</td></tr>
+</tbody></table></div></details>
+
+<h2 id="G10">G10 <span class="lane-TRIAGE">TRIAGE</span> <span class="sub mono">trade_id SN-2026-0110 · sha 2e5570ccaded · $0.1594 · booking via mcp-stdio</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+
+<tr><td class="mono">trade_id</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">SN-2026-0110</td><td class="mono">SN-2026-0110</td>
+<td><div class="cite">“Trade Reference              | SN-2026-0110” <span class="sub">[253–296]</span></div><div class="cite">“Trade Reference              | SN-2026-0110” <span class="sub">[253–296]</span></div></td></tr>
+
+<tr><td class="mono">issuer</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">Northbridge Capital Markets (Canada) Inc.</td><td class="mono">Northbridge Capital Markets (Canada) Inc.</td>
+<td><div class="cite">“Issuer                       | Northbridge Capital Markets (Canada) Inc.” <span class="sub">[180–252]</span></div><div class="cite">“Issuer                       | Northbridge Capital Markets (Canada) Inc.” <span class="sub">[180–252]</span></div></td></tr>
+
+<tr><td class="mono">notional</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">3500000</td><td class="mono">3500000</td>
+<td><div class="cite">“Notional Amount              | USD 3,500,000.00” <span class="sub">[297–344]</span></div><div class="cite">“Notional Amount              | USD 3,500,000.00” <span class="sub">[297–344]</span></div></td></tr>
+
+<tr><td class="mono">currency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">USD</td><td class="mono">USD</td>
+<td><div class="cite">“Currency                     | USD” <span class="sub">[345–379]</span></div><div class="cite">“Currency                     | USD” <span class="sub">[345–379]</span></div></td></tr>
+
+<tr><td class="mono">trade_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-09-01</td><td class="mono">2026-09-01</td>
+<td><div class="cite">“Trade Date                   | 2026-09-01” <span class="sub">[380–421]</span></div><div class="cite">“Trade Date                   | 2026-09-01” <span class="sub">[380–421]</span></div></td></tr>
+
+<tr><td class="mono">issue_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-09-08</td><td class="mono">2026-09-08</td>
+<td><div class="cite">“Issue Date                   | 2026-09-08” <span class="sub">[422–463]</span></div><div class="cite">“Issue Date                   | 2026-09-08” <span class="sub">[422–463]</span></div></td></tr>
+
+<tr><td class="mono">maturity_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2029-09-10</td><td class="mono">2029-09-10</td>
+<td><div class="cite">“Maturity Date                | 2029-09-10” <span class="sub">[464–505]</span></div><div class="cite">“Maturity Date                | 2029-09-10” <span class="sub">[464–505]</span></div></td></tr>
+
+<tr><td class="mono">underlyings</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;SPX&#39;]</td><td class="mono">[&#39;SPX&#39;]</td>
+<td><div class="cite">“Underlying(s)                | S&amp;P 500 Index (SPX)” <span class="sub">[506–556]</span></div><div class="cite">“Underlying(s)                | S&amp;P 500 Index (SPX)” <span class="sub">[506–556]</span></div></td></tr>
+
+<tr><td class="mono">initial_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“Initial Level                | 100.00% of closing level on Trade Date” <span class="sub">[557–626]</span></div><div class="cite">“Initial Level                | 100.00% of closing level on Trade Date” <span class="sub">[557–626]</span></div></td></tr>
+
+<tr><td class="mono">barrier_type</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">european</td><td class="mono">european</td>
+<td><div class="cite">“Knock-in Type                | European (Final Valuation Date only)” <span class="sub">[929–996]</span></div><div class="cite">“Knock-in Type                | European (Final Valuation Date only)” <span class="sub">[929–996]</span></div></td></tr>
+
+<tr><td class="mono">barrier_level_pct</td><td class="t-TS_ABSENT">TS_ABSENT</td><td class="sev-critical">critical</td><td><span class="lane-TRIAGE">TRIAGE</span></td>
+<td class="mono">ABSENT</td><td class="mono">70</td>
+<td><div class="sub">term sheet declares barrier_level_pct absent; booking has 70</div></td></tr>
+
+<tr><td class="mono">coupon_rate_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">7.25</td><td class="mono">7.25</td>
+<td><div class="cite">“Coupon                       | 7.25% per annum, payable quarterly” <span class="sub">[627–692]</span></div><div class="cite">“Coupon                       | 7.25% per annum, payable quarterly” <span class="sub">[627–692]</span></div></td></tr>
+
+<tr><td class="mono">coupon_frequency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">quarterly</td><td class="mono">quarterly</td>
+<td><div class="cite">“Coupon Frequency             | Quarterly” <span class="sub">[693–733]</span></div><div class="cite">“Coupon Frequency             | Quarterly” <span class="sub">[693–733]</span></div></td></tr>
+
+<tr><td class="mono">coupon_memory</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">True</td><td class="mono">True</td>
+<td><div class="cite">“Coupon Memory                | Yes” <span class="sub">[734–768]</span></div><div class="cite">“Coupon Memory                | Yes” <span class="sub">[734–768]</span></div></td></tr>
+
+<tr><td class="mono">autocall_observation_dates</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;2027-09-01&#39;, &#39;2028-03-01&#39;, &#39;2028-09-01&#39;]</td><td class="mono">[&#39;2027-09-01&#39;, &#39;2028-03-01&#39;, &#39;2028-09-01&#39;]</td>
+<td><div class="cite">“Autocall Observation Dates   | 2027-09-01, 2028-03-01, 2028-09-01” <span class="sub">[807–872]</span></div><div class="cite">“Autocall Observation Dates   | 2027-09-01, 2028-03-01, 2028-09-01” <span class="sub">[807–872]</span></div></td></tr>
+
+<tr><td class="mono">autocall_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“Autocall Level               | 100.00% of Initial Level” <span class="sub">[873–928]</span></div><div class="cite">“Autocall Level               | 100.00% of Initial Level” <span class="sub">[873–928]</span></div></td></tr>
+
+<tr><td class="mono">day_count</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">30/360</td><td class="mono">30/360</td>
+<td><div class="cite">“Day Count Fraction           | 30/360” <span class="sub">[769–806]</span></div><div class="cite">“Day Count Fraction           | 30/360” <span class="sub">[769–806]</span></div></td></tr>
+
+<tr><td class="mono">settlement</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">cash</td><td class="mono">cash</td>
+<td><div class="cite">“Settlement                   | Cash” <span class="sub">[997–1032]</span></div><div class="cite">“Settlement                   | Cash” <span class="sub">[997–1032]</span></div></td></tr>
+
+<tr><td class="mono">business_day_convention</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">following</td><td class="mono">following</td>
+<td><div class="cite">“Business Day Convention      | Following” <span class="sub">[1033–1073]</span></div><div class="cite">“Business Day Convention      | Following” <span class="sub">[1033–1073]</span></div></td></tr>
+</tbody></table></div>
+
+<details><summary>trace for G10 (6 steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+<tr><td class="mono">load</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">extract:claude</td><td class="mono">claude-opus-5</td><td class="mono">claude-opus-5</td><td>6903</td><td>1128</td><td>10527</td><td>0.0627</td><td>OK</td></tr><tr><td class="mono">extract:gemini</td><td class="mono">gemini-3.8-flash</td><td class="mono">gemini-3.8-flash</td><td>2194</td><td>25348</td><td>63078</td><td>0.0967</td><td>OK</td></tr><tr><td class="mono">merge</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">booking_lookup</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>6</td><td>0.0000</td><td>FOUND</td></tr><tr><td class="mono">compare</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>TRIAGE</td></tr>
+</tbody></table></div></details>
+
+<h2 id="G11">G11 <span class="lane-AUTO_CLEAR">AUTO_CLEAR</span> <span class="sub mono">trade_id SN-2026-0111 · sha 9c91fad55a41 · $0.0833 · booking via mcp-stdio</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+
+<tr><td class="mono">trade_id</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">SN-2026-0111</td><td class="mono">SN-2026-0111</td>
+<td><div class="cite">“Tranche reference SN-2026-0111” <span class="sub">[118–148]</span></div><div class="cite">“Tranche reference SN-2026-0111” <span class="sub">[118–148]</span></div></td></tr>
+
+<tr><td class="mono">issuer</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">Northbridge Capital Markets (Canada) Inc.</td><td class="mono">Northbridge Capital Markets (Canada) Inc.</td>
+<td><div class="cite">“The Notes are issued by Northbridge Capital Markets (Canada) Inc..” <span class="sub">[161–227]</span></div><div class="cite">“The Notes are issued by Northbridge Capital Markets (Canada) Inc..” <span class="sub">[161–227]</span></div></td></tr>
+
+<tr><td class="mono">notional</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">4500000</td><td class="mono">4500000</td>
+<td><div class="cite">“The aggregate Notional Amount is 4,500,000 USD.” <span class="sub">[262–309]</span></div><div class="cite">“The aggregate Notional Amount is 4,500,000 USD.” <span class="sub">[262–309]</span></div></td></tr>
+
+<tr><td class="mono">currency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">USD</td><td class="mono">USD</td>
+<td><div class="cite">“The Specified Currency is USD” <span class="sub">[310–339]</span></div><div class="cite">“The Specified Currency is USD and all payments under the Notes are made in USD.” <span class="sub">[310–389]</span></div></td></tr>
+
+<tr><td class="mono">trade_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-05-26</td><td class="mono">2026-05-26</td>
+<td><div class="cite">“Trade Date: May 26, 2026.” <span class="sub">[401–426]</span></div><div class="cite">“Trade Date: May 26, 2026.” <span class="sub">[401–426]</span></div></td></tr>
+
+<tr><td class="mono">issue_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-06-02</td><td class="mono">2026-06-02</td>
+<td><div class="cite">“Issue Date: June 2, 2026.” <span class="sub">[427–452]</span></div><div class="cite">“Issue Date: June 2, 2026.” <span class="sub">[427–452]</span></div></td></tr>
+
+<tr><td class="mono">maturity_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2028-06-02</td><td class="mono">2028-06-02</td>
+<td><div class="cite">“Maturity Date: June 2, 2028, subject to adjustment in accordance with Condition 9.” <span class="sub">[453–535]</span></div><div class="cite">“Maturity Date: June 2, 2028, subject to adjustment in accordance with Condition 9.” <span class="sub">[453–535]</span></div></td></tr>
+
+<tr><td class="mono">underlyings</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;SPX&#39;, &#39;SPTSX60&#39;]</td><td class="mono">[&#39;SPX&#39;, &#39;SPTSX60&#39;]</td>
+<td><div class="cite">“The Notes are linked to the worst performing of the S&amp;P 500 Index (Bloomberg: SPX Index) and the S&amp;P/TSX 60 Index (Bloomberg: SPTSX60 Index).” <span class="sub">[552–693]</span></div><div class="cite">“linked to the worst performing of the S&amp;P 500 Index (Bloomberg: SPX Index) and the S&amp;P/TSX 60 Index (Bloomberg: SPTSX60 Index)” <span class="sub">[566–692]</span></div></td></tr>
+
+<tr><td class="mono">initial_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“The Initial Level is 100 per cent. of the official closing level of each Underlying on the Trade Date.” <span class="sub">[694–796]</span></div><div class="cite">“The Initial Level is 100 per cent. of the official closing level of each Underlying on the Trade Date.” <span class="sub">[694–796]</span></div></td></tr>
+
+<tr><td class="mono">barrier_type</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">european</td><td class="mono">european</td>
+<td><div class="cite">“knock-in barrier observed on the Final Valuation Date only (European observation)” <span class="sub">[1666–1747]</span></div><div class="cite">“the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)” <span class="sub">[1639–1747]</span></div></td></tr>
+
+<tr><td class="mono">barrier_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">60</td><td class="mono">60</td>
+<td><div class="cite">“Knock-in Level of 60 per cent. of the Initial Level.” <span class="sub">[1753–1805]</span></div><div class="cite">“at a Knock-in Level of 60 per cent. of the Initial Level” <span class="sub">[1748–1804]</span></div></td></tr>
+
+<tr><td class="mono">coupon_rate_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">8.4</td><td class="mono">8.4</td>
+<td><div class="cite">“the Notes bear a Coupon of 8.4 per cent. per annum, payable quarterly.” <span class="sub">[842–912]</span></div><div class="cite">“the Notes bear a Coupon of 8.4 per cent. per annum, payable quarterly” <span class="sub">[842–911]</span></div></td></tr>
+
+<tr><td class="mono">coupon_frequency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">quarterly</td><td class="mono">quarterly</td>
+<td><div class="cite">“the Notes bear a Coupon of 8.4 per cent. per annum, payable quarterly.” <span class="sub">[842–912]</span></div><div class="cite">“Coupons are payable quarterly in arrear” <span class="sub">[913–952]</span></div></td></tr>
+
+<tr><td class="mono">coupon_memory</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">True</td><td class="mono">True</td>
+<td><div class="cite">“Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.” <span class="sub">[1008–1284]</span></div><div class="cite">“Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.” <span class="sub">[1008–1144]</span></div></td></tr>
+
+<tr><td class="mono">autocall_observation_dates</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;2027-05-26&#39;, &#39;2027-11-26&#39;]</td><td class="mono">[&#39;2027-05-26&#39;, &#39;2027-11-26&#39;]</td>
+<td><div class="cite">“Autocall Observation Dates: May 26, 2027, November 26, 2027.” <span class="sub">[1548–1608]</span></div><div class="cite">“Autocall Observation Dates: May 26, 2027, November 26, 2027.” <span class="sub">[1548–1608]</span></div></td></tr>
+
+<tr><td class="mono">autocall_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“closing level of the Underlying is at or above 100 per cent. of the Initial Level” <span class="sub">[1385–1466]</span></div><div class="cite">“if on any Autocall Observation Date the closing level of the Underlying is at or above 100 per cent. of the Initial Level” <span class="sub">[1345–1466]</span></div></td></tr>
+
+<tr><td class="mono">day_count</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">30/360</td><td class="mono">30/360</td>
+<td><div class="cite">“calculated on the basis of 30/360.” <span class="sub">[961–995]</span></div><div class="cite">“are calculated on the basis of 30/360” <span class="sub">[957–994]</span></div></td></tr>
+
+<tr><td class="mono">settlement</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">cash</td><td class="mono">cash</td>
+<td><div class="cite">“10. Settlement. Cash settlement.” <span class="sub">[2265–2297]</span></div><div class="cite">“Cash settlement.” <span class="sub">[2281–2297]</span></div></td></tr>
+
+<tr><td class="mono">business_day_convention</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">mod_following</td><td class="mono">mod_following</td>
+<td><div class="cite">“Modified Following Business Day Convention.” <span class="sub">[2129–2172]</span></div><div class="cite">“it shall be adjusted in accordance with the Modified Following Business Day Convention” <span class="sub">[2085–2171]</span></div></td></tr>
+</tbody></table></div>
+
+<details><summary>trace for G11 (6 steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+<tr><td class="mono">load</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">extract:claude</td><td class="mono">claude-opus-5</td><td class="mono">claude-opus-5</td><td>7011</td><td>1331</td><td>12352</td><td>0.0683</td><td>OK</td></tr><tr><td class="mono">extract:gemini</td><td class="mono">gemini-3.8-flash</td><td class="mono">gemini-3.8-flash</td><td>2217</td><td>3543</td><td>35172</td><td>0.0149</td><td>OK</td></tr><tr><td class="mono">merge</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">booking_lookup</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>7</td><td>0.0000</td><td>FOUND</td></tr><tr><td class="mono">compare</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>AUTO_CLEAR</td></tr>
+</tbody></table></div></details>
+
+<h2 id="G12">G12 <span class="lane-AUTO_CLEAR">AUTO_CLEAR</span> <span class="sub mono">trade_id SN-2026-0112 · sha 80e23df31bc6 · $0.0851 · booking via mcp-stdio</span></h2>
+<div class="wrap"><table><thead><tr><th>field</th><th>type</th><th>sev</th><th>lane</th><th>term sheet</th><th>booking</th><th>citations (both families)</th></tr></thead><tbody>
+
+<tr><td class="mono">trade_id</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">SN-2026-0112</td><td class="mono">SN-2026-0112</td>
+<td><div class="cite">“Reference: SN-2026-0112” <span class="sub">[1553–1576]</span></div><div class="cite">“Reference: SN-2026-0112” <span class="sub">[1553–1576]</span></div></td></tr>
+
+<tr><td class="mono">issuer</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">Northbridge Capital Markets (Canada) Inc.</td><td class="mono">Northbridge Capital Markets (Canada) Inc.</td>
+<td><div class="cite">“Issuer: Northbridge Capital Markets (Canada) Inc.” <span class="sub">[1579–1628]</span></div><div class="cite">“Issuer: Northbridge Capital Markets (Canada) Inc.” <span class="sub">[1579–1628]</span></div></td></tr>
+
+<tr><td class="mono">notional</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">6000000</td><td class="mono">6000000</td>
+<td><div class="cite">“Notional: CAD 6 million (CAD 6,000,000)” <span class="sub">[1751–1790]</span></div><div class="cite">“Notional: CAD 6 million (CAD 6,000,000)” <span class="sub">[1751–1790]</span></div></td></tr>
+
+<tr><td class="mono">currency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">CAD</td><td class="mono">CAD</td>
+<td><div class="cite">“All payments are made in CAD by cash settlement” <span class="sub">[1264–1311]</span></div><div class="cite">“All payments are made in CAD by cash settlement” <span class="sub">[1264–1311]</span></div></td></tr>
+
+<tr><td class="mono">trade_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-03-24</td><td class="mono">2026-03-24</td>
+<td><div class="cite">“The Notes were traded on 24-Mar-2026” <span class="sub">[448–484]</span></div><div class="cite">“The Notes were traded on 24-Mar-2026, will be issued on 31-Mar-2026 and mature on 02-Apr-2029.” <span class="sub">[448–542]</span></div></td></tr>
+
+<tr><td class="mono">issue_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2026-03-31</td><td class="mono">2026-03-31</td>
+<td><div class="cite">“will be issued on 31-Mar-2026” <span class="sub">[486–515]</span></div><div class="cite">“The Notes were traded on 24-Mar-2026, will be issued on 31-Mar-2026 and mature on 02-Apr-2029.” <span class="sub">[448–542]</span></div></td></tr>
+
+<tr><td class="mono">maturity_date</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">2029-04-02</td><td class="mono">2029-04-02</td>
+<td><div class="cite">“mature on 02-Apr-2029” <span class="sub">[520–541]</span></div><div class="cite">“The Notes were traded on 24-Mar-2026, will be issued on 31-Mar-2026 and mature on 02-Apr-2029.” <span class="sub">[448–542]</span></div></td></tr>
+
+<tr><td class="mono">underlyings</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">[&#39;BVERSA10&#39;]</td><td class="mono">[&#39;BVERSA10&#39;]</td>
+<td><div class="cite">“BVERSA10 Index (Bloomberg ticker BVERSA10)” <span class="sub">[1652–1694]</span></div><div class="cite">“- BVERSA10 Index (Bloomberg ticker BVERSA10)” <span class="sub">[1650–1694]</span></div></td></tr>
+
+<tr><td class="mono">initial_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">100</td><td class="mono">100</td>
+<td><div class="cite">“Initial Level: 100% of closing level on 24-Mar-2026” <span class="sub">[1697–1748]</span></div><div class="cite">“Initial Level: 100% of closing level on 24-Mar-2026” <span class="sub">[1697–1748]</span></div></td></tr>
+
+<tr><td class="mono">barrier_type</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">european</td><td class="mono">european</td>
+<td><div class="cite">“Knock-in: European at 65%” <span class="sub">[1931–1956]</span></div><div class="cite">“Knock-in: European at 65%” <span class="sub">[1931–1956]</span></div></td></tr>
+
+<tr><td class="mono">barrier_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">65</td><td class="mono">65</td>
+<td><div class="cite">“Knock-in Level of 65% of the Initial Level” <span class="sub">[1050–1092]</span></div><div class="cite">“Knock-in: European at 65%” <span class="sub">[1931–1956]</span></div></td></tr>
+
+<tr><td class="mono">coupon_rate_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">6.1</td><td class="mono">6.1</td>
+<td><div class="cite">“The Notes pay a conditional coupon of 6.1% per annum” <span class="sub">[544–596]</span></div><div class="cite">“Coupon: 6.1% per annum, payable semi-annually; memory: no” <span class="sub">[1793–1850]</span></div></td></tr>
+
+<tr><td class="mono">coupon_frequency</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">semiannual</td><td class="mono">semiannual</td>
+<td><div class="cite">“payable semi-annually” <span class="sub">[598–619]</span></div><div class="cite">“Coupon: 6.1% per annum, payable semi-annually; memory: no” <span class="sub">[1793–1850]</span></div></td></tr>
+
+<tr><td class="mono">coupon_memory</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">False</td><td class="mono">False</td>
+<td><div class="cite">“memory: no” <span class="sub">[1840–1850]</span></div><div class="cite">“No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.” <span class="sub">[661–842]</span></div></td></tr>
+
+<tr><td class="mono">autocall_observation_dates</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">ABSENT</td><td class="mono">ABSENT</td>
+<td></td></tr>
+
+<tr><td class="mono">autocall_level_pct</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">ABSENT</td><td class="mono">ABSENT</td>
+<td></td></tr>
+
+<tr><td class="mono">day_count</td><td class="t-CLEAN">CLEAN</td><td class="sev-critical">critical</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">ACT/365</td><td class="mono">ACT/365</td>
+<td><div class="cite">“Day count: Actual/365 (Fixed)” <span class="sub">[1853–1882]</span></div><div class="cite">“Day count: Actual/365 (Fixed)” <span class="sub">[1853–1882]</span></div></td></tr>
+
+<tr><td class="mono">settlement</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">cash</td><td class="mono">cash</td>
+<td><div class="cite">“All payments are made in CAD by cash settlement” <span class="sub">[1264–1311]</span></div><div class="cite">“All payments are made in CAD by cash settlement” <span class="sub">[1264–1311]</span></div></td></tr>
+
+<tr><td class="mono">business_day_convention</td><td class="t-CLEAN">CLEAN</td><td class="sev-minor">minor</td><td><span class="lane-AUTO_CLEAR">AUTO_CLEAR</span></td>
+<td class="mono">following</td><td class="mono">following</td>
+<td><div class="cite">“payment dates follow the Following convention” <span class="sub">[1316–1361]</span></div><div class="cite">“payment dates follow the Following convention (Toronto, New York and London business days)” <span class="sub">[1316–1406]</span></div></td></tr>
+</tbody></table></div>
+
+<details><summary>trace for G12 (6 steps)</summary><div class="wrap"><table><thead><tr><th>step</th><th>model</th><th>version</th><th>in</th><th>out</th><th>ms</th><th>cost $</th><th>outcome</th></tr></thead><tbody>
+<tr><td class="mono">load</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">extract:gemini</td><td class="mono">gemini-3.8-flash</td><td class="mono">gemini-3.8-flash</td><td>2160</td><td>4660</td><td>11614</td><td>0.0191</td><td>OK</td></tr><tr><td class="mono">extract:claude</td><td class="mono">claude-opus-5</td><td class="mono">claude-opus-5</td><td>6888</td><td>1262</td><td>11875</td><td>0.0660</td><td>OK</td></tr><tr><td class="mono">merge</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>OK</td></tr><tr><td class="mono">booking_lookup</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>7</td><td>0.0000</td><td>FOUND</td></tr><tr><td class="mono">compare</td><td class="mono"></td><td class="mono"></td><td>0</td><td>0</td><td>0</td><td>0.0000</td><td>AUTO_CLEAR</td></tr>
+</tbody></table></div></details>
+
+<p class="sub" style="margin-top:40px">Generated by Coherence Gate. Static HTML, no scripts. Trace: trace.jsonl in this run directory.</p>
+</body></html>

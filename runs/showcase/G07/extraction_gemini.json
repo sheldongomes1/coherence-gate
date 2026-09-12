@@ -1,0 +1,254 @@
+{
+  "family": "gemini",
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "fields": {
+    "trade_id": {
+      "status": "EXTRACTED",
+      "value": "SN-2026-0107",
+      "citation": {
+        "text_span": "Tranche reference SN-2026-0107",
+        "char_range": [
+          118,
+          148
+        ]
+      },
+      "note": null
+    },
+    "issuer": {
+      "status": "EXTRACTED",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "citation": {
+        "text_span": "The Notes are issued by Northbridge Capital Markets (Canada) Inc..",
+        "char_range": [
+          161,
+          227
+        ]
+      },
+      "note": null
+    },
+    "notional": {
+      "status": "EXTRACTED",
+      "value": "6,000,000 EUR",
+      "citation": {
+        "text_span": "The aggregate Notional Amount is 6,000,000 EUR.",
+        "char_range": [
+          262,
+          309
+        ]
+      },
+      "note": null
+    },
+    "currency": {
+      "status": "EXTRACTED",
+      "value": "EUR",
+      "citation": {
+        "text_span": "The Specified Currency is EUR",
+        "char_range": [
+          310,
+          339
+        ]
+      },
+      "note": null
+    },
+    "trade_date": {
+      "status": "EXTRACTED",
+      "value": "January 20, 2026",
+      "citation": {
+        "text_span": "Trade Date: January 20, 2026.",
+        "char_range": [
+          401,
+          430
+        ]
+      },
+      "note": null
+    },
+    "issue_date": {
+      "status": "EXTRACTED",
+      "value": "January 27, 2026",
+      "citation": {
+        "text_span": "Issue Date: January 27, 2026.",
+        "char_range": [
+          431,
+          460
+        ]
+      },
+      "note": null
+    },
+    "maturity_date": {
+      "status": "EXTRACTED",
+      "value": "January 29, 2029",
+      "citation": {
+        "text_span": "Maturity Date: January 29, 2029, subject to adjustment in accordance with Condition 9.",
+        "char_range": [
+          461,
+          547
+        ]
+      },
+      "note": null
+    },
+    "underlyings": {
+      "status": "EXTRACTED",
+      "value": [
+        "SX5E Index"
+      ],
+      "citation": {
+        "text_span": "The Notes are linked to the EURO STOXX 50 Index (Bloomberg: SX5E Index).",
+        "char_range": [
+          564,
+          636
+        ]
+      },
+      "note": null
+    },
+    "initial_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100 per cent.",
+      "citation": {
+        "text_span": "The Initial Level is 100 per cent. of the official closing level of each Underlying on the Trade Date.",
+        "char_range": [
+          637,
+          739
+        ]
+      },
+      "note": null
+    },
+    "barrier_type": {
+      "status": "EXTRACTED",
+      "value": "european",
+      "citation": {
+        "text_span": "Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 55 per cent. of the Initial Level.",
+        "char_range": [
+          1682,
+          1864
+        ]
+      },
+      "note": null
+    },
+    "barrier_level_pct": {
+      "status": "EXTRACTED",
+      "value": "55 per cent.",
+      "citation": {
+        "text_span": "at a Knock-in Level of 55 per cent. of the Initial Level.",
+        "char_range": [
+          1807,
+          1864
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "8 per cent.",
+      "citation": {
+        "text_span": "the Notes bear a Coupon of 8 per cent. per annum, payable annually.",
+        "char_range": [
+          785,
+          852
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_basis": {
+      "status": "EXTRACTED",
+      "value": "per_annum",
+      "citation": {
+        "text_span": "the Notes bear a Coupon of 8 per cent. per annum, payable annually.",
+        "char_range": [
+          785,
+          852
+        ]
+      },
+      "note": null
+    },
+    "coupon_frequency": {
+      "status": "EXTRACTED",
+      "value": "annual",
+      "citation": {
+        "text_span": "Coupons are payable annually in arrear and are calculated on the basis of 30/360.",
+        "char_range": [
+          853,
+          934
+        ]
+      },
+      "note": null
+    },
+    "coupon_memory": {
+      "status": "EXTRACTED",
+      "value": "true",
+      "citation": {
+        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.",
+        "char_range": [
+          947,
+          1223
+        ]
+      },
+      "note": null
+    },
+    "autocall_observation_dates": {
+      "status": "EXTRACTED",
+      "value": [
+        "January 20, 2027",
+        "January 20, 2028",
+        "July 20, 2028"
+      ],
+      "citation": {
+        "text_span": "Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..",
+        "char_range": [
+          1481,
+          1667
+        ]
+      },
+      "note": null
+    },
+    "autocall_level_pct": {
+      "status": "EXTRACTED",
+      "value": "[\"100 per cent.\", \"95 per cent.\", \"90 per cent.\"]",
+      "citation": {
+        "text_span": "Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..",
+        "char_range": [
+          1481,
+          1667
+        ]
+      },
+      "note": null
+    },
+    "day_count": {
+      "status": "EXTRACTED",
+      "value": "30/360",
+      "citation": {
+        "text_span": "calculated on the basis of 30/360.",
+        "char_range": [
+          900,
+          934
+        ]
+      },
+      "note": null
+    },
+    "settlement": {
+      "status": "EXTRACTED",
+      "value": "cash",
+      "citation": {
+        "text_span": "10. Settlement. Cash settlement.",
+        "char_range": [
+          2315,
+          2347
+        ]
+      },
+      "note": null
+    },
+    "business_day_convention": {
+      "status": "EXTRACTED",
+      "value": "following",
+      "citation": {
+        "text_span": "Where any payment date would otherwise fall on a day that is not a Business Day, it shall be adjusted in accordance with the Following Business Day Convention.",
+        "char_range": [
+          2063,
+          2222
+        ]
+      },
+      "note": null
+    }
+  },
+  "raw_text": "{\"status\":{\"trade_id\":\"EXTRACTED\",\"issuer\":\"EXTRACTED\",\"notional\":\"EXTRACTED\",\"currency\":\"EXTRACTED\",\"trade_date\":\"EXTRACTED\",\"issue_date\":\"EXTRACTED\",\"maturity_date\":\"EXTRACTED\",\"underlyings\":\"EXTRACTED\",\"initial_level_pct\":\"EXTRACTED\",\"barrier_type\":\"EXTRACTED\",\"barrier_level_pct\":\"EXTRACTED\",\"coupon_rate_pct\":\"EXTRACTED\",\"coupon_rate_basis\":\"EXTRACTED\",\"coupon_frequency\":\"EXTRACTED\",\"coupon_memory\":\"EXTRACTED\",\"autocall_observation_dates\":\"EXTRACTED\",\"autocall_level_pct\":\"EXTRACTED\",\"day_count\":\"EXTRACTED\",\"settlement\":\"EXTRACTED\",\"business_day_convention\":\"EXTRACTED\"},\"value\":{\"trade_id\":\"SN-2026-0107\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"6,000,000 EUR\",\"currency\":\"EUR\",\"trade_date\":\"January 20, 2026\",\"issue_date\":\"January 27, 2026\",\"maturity_date\":\"January 29, 2029\",\"underlyings\":[\"SX5E Index\"],\"initial_level_pct\":\"100 per cent.\",\"barrier_type\":\"european\",\"barrier_level_pct\":\"55 per cent.\",\"coupon_rate_pct\":\"8 per cent.\",\"coupon_rate_basis\":\"per_annum\",\"coupon_frequency\":\"annual\",\"coupon_memory\":\"true\",\"autocall_observation_dates\":[\"January 20, 2027\",\"January 20, 2028\",\"July 20, 2028\"],\"autocall_level_pct\":\"[\\\"100 per cent.\\\", \\\"95 per cent.\\\", \\\"90 per cent.\\\"]\",\"day_count\":\"30/360\",\"settlement\":\"cash\",\"business_day_convention\":\"following\"},\"citation\":{\"trade_id\":\"Tranche reference SN-2026-0107\",\"issuer\":\"The Notes are issued by Northbridge Capital Markets (Canada) Inc..\",\"notional\":\"The aggregate Notional Amount is 6,000,000 EUR.\",\"currency\":\"The Specified Currency is EUR\",\"trade_date\":\"Trade Date: January 20, 2026.\",\"issue_date\":\"Issue Date: January 27, 2026.\",\"maturity_date\":\"Maturity Date: January 29, 2029, subject to adjustment in accordance with Condition 9.\",\"underlyings\":\"The Notes are linked to the EURO STOXX 50 Index (Bloomberg: SX5E Index).\",\"initial_level_pct\":\"The Initial Level is 100 per cent. of the official closing level of each Underlying on the Trade Date.\",\"barrier_type\":\"Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 55 per cent. of the Initial Level.\",\"barrier_level_pct\":\"at a Knock-in Level of 55 per cent. of the Initial Level.\",\"coupon_rate_pct\":\"the Notes bear a Coupon of 8 per cent. per annum, payable annually.\",\"coupon_rate_basis\":\"the Notes bear a Coupon of 8 per cent. per annum, payable annually.\",\"coupon_frequency\":\"Coupons are payable annually in arrear and are calculated on the basis of 30/360.\",\"coupon_memory\":\"Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.\",\"autocall_observation_dates\":\"Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..\",\"autocall_level_pct\":\"Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..\",\"day_count\":\"calculated on the basis of 30/360.\",\"settlement\":\"10. Settlement. Cash settlement.\",\"business_day_convention\":\"Where any payment date would otherwise fall on a day that is not a Business Day, it shall be adjusted in accordance with the Following Business Day Convention.\"}}"
+}

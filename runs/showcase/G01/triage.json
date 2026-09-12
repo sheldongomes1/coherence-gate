@@ -1,0 +1,30 @@
+[
+  {
+    "id": "G01:barrier_level_pct",
+    "doc_id": "G01",
+    "field": "barrier_level_pct",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": "65",
+    "booking_value": "70",
+    "citations": [
+      {
+        "text_span": "at a Knock-in Level of 65% of the Initial Level.",
+        "char_range": [
+          1603,
+          1651
+        ]
+      },
+      {
+        "text_span": "at a Knock-in Level of 65% of the Initial Level",
+        "char_range": [
+          1603,
+          1650
+        ]
+      }
+    ],
+    "detail": "TS 65 \u2260 booking 70",
+    "lane": "TRIAGE",
+    "triage": null
+  }
+]

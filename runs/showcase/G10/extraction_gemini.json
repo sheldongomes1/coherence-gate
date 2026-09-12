@@ -1,0 +1,248 @@
+{
+  "family": "gemini",
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "fields": {
+    "trade_id": {
+      "status": "EXTRACTED",
+      "value": "SN-2026-0110",
+      "citation": {
+        "text_span": "Trade Reference              | SN-2026-0110",
+        "char_range": [
+          253,
+          296
+        ]
+      },
+      "note": null
+    },
+    "issuer": {
+      "status": "EXTRACTED",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "citation": {
+        "text_span": "Issuer                       | Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          180,
+          252
+        ]
+      },
+      "note": null
+    },
+    "notional": {
+      "status": "EXTRACTED",
+      "value": "USD 3,500,000.00",
+      "citation": {
+        "text_span": "Notional Amount              | USD 3,500,000.00",
+        "char_range": [
+          297,
+          344
+        ]
+      },
+      "note": null
+    },
+    "currency": {
+      "status": "EXTRACTED",
+      "value": "USD",
+      "citation": {
+        "text_span": "Currency                     | USD",
+        "char_range": [
+          345,
+          379
+        ]
+      },
+      "note": null
+    },
+    "trade_date": {
+      "status": "EXTRACTED",
+      "value": "2026-09-01",
+      "citation": {
+        "text_span": "Trade Date                   | 2026-09-01",
+        "char_range": [
+          380,
+          421
+        ]
+      },
+      "note": null
+    },
+    "issue_date": {
+      "status": "EXTRACTED",
+      "value": "2026-09-08",
+      "citation": {
+        "text_span": "Issue Date                   | 2026-09-08",
+        "char_range": [
+          422,
+          463
+        ]
+      },
+      "note": null
+    },
+    "maturity_date": {
+      "status": "EXTRACTED",
+      "value": "2029-09-10",
+      "citation": {
+        "text_span": "Maturity Date                | 2029-09-10",
+        "char_range": [
+          464,
+          505
+        ]
+      },
+      "note": null
+    },
+    "underlyings": {
+      "status": "EXTRACTED",
+      "value": [
+        "SPX"
+      ],
+      "citation": {
+        "text_span": "Underlying(s)                | S&P 500 Index (SPX)",
+        "char_range": [
+          506,
+          556
+        ]
+      },
+      "note": null
+    },
+    "initial_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100.00%",
+      "citation": {
+        "text_span": "Initial Level                | 100.00% of closing level on Trade Date",
+        "char_range": [
+          557,
+          626
+        ]
+      },
+      "note": null
+    },
+    "barrier_type": {
+      "status": "EXTRACTED",
+      "value": "european",
+      "citation": {
+        "text_span": "Knock-in Type                | European (Final Valuation Date only)",
+        "char_range": [
+          929,
+          996
+        ]
+      },
+      "note": null
+    },
+    "barrier_level_pct": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "coupon_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "7.25%",
+      "citation": {
+        "text_span": "Coupon                       | 7.25% per annum, payable quarterly",
+        "char_range": [
+          627,
+          692
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_basis": {
+      "status": "EXTRACTED",
+      "value": "per_annum",
+      "citation": {
+        "text_span": "Coupon                       | 7.25% per annum, payable quarterly",
+        "char_range": [
+          627,
+          692
+        ]
+      },
+      "note": null
+    },
+    "coupon_frequency": {
+      "status": "EXTRACTED",
+      "value": "Quarterly",
+      "citation": {
+        "text_span": "Coupon Frequency             | Quarterly",
+        "char_range": [
+          693,
+          733
+        ]
+      },
+      "note": null
+    },
+    "coupon_memory": {
+      "status": "EXTRACTED",
+      "value": "Yes",
+      "citation": {
+        "text_span": "Coupon Memory                | Yes",
+        "char_range": [
+          734,
+          768
+        ]
+      },
+      "note": null
+    },
+    "autocall_observation_dates": {
+      "status": "EXTRACTED",
+      "value": [
+        "2027-09-01",
+        "2028-03-01",
+        "2028-09-01"
+      ],
+      "citation": {
+        "text_span": "Autocall Observation Dates   | 2027-09-01, 2028-03-01, 2028-09-01",
+        "char_range": [
+          807,
+          872
+        ]
+      },
+      "note": null
+    },
+    "autocall_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100.00%",
+      "citation": {
+        "text_span": "Autocall Level               | 100.00% of Initial Level",
+        "char_range": [
+          873,
+          928
+        ]
+      },
+      "note": null
+    },
+    "day_count": {
+      "status": "EXTRACTED",
+      "value": "30/360",
+      "citation": {
+        "text_span": "Day Count Fraction           | 30/360",
+        "char_range": [
+          769,
+          806
+        ]
+      },
+      "note": null
+    },
+    "settlement": {
+      "status": "EXTRACTED",
+      "value": "Cash",
+      "citation": {
+        "text_span": "Settlement                   | Cash",
+        "char_range": [
+          997,
+          1032
+        ]
+      },
+      "note": null
+    },
+    "business_day_convention": {
+      "status": "EXTRACTED",
+      "value": "Following",
+      "citation": {
+        "text_span": "Business Day Convention      | Following",
+        "char_range": [
+          1033,
+          1073
+        ]
+      },
+      "note": null
+    }
+  },
+  "raw_text": "{\"status\":{\"trade_id\":\"EXTRACTED\",\"issuer\":\"EXTRACTED\",\"notional\":\"EXTRACTED\",\"currency\":\"EXTRACTED\",\"trade_date\":\"EXTRACTED\",\"issue_date\":\"EXTRACTED\",\"maturity_date\":\"EXTRACTED\",\"underlyings\":\"EXTRACTED\",\"initial_level_pct\":\"EXTRACTED\",\"barrier_type\":\"EXTRACTED\",\"barrier_level_pct\":\"DECLARED_ABSENT\",\"coupon_rate_pct\":\"EXTRACTED\",\"coupon_rate_basis\":\"EXTRACTED\",\"coupon_frequency\":\"EXTRACTED\",\"coupon_memory\":\"EXTRACTED\",\"autocall_observation_dates\":\"EXTRACTED\",\"autocall_level_pct\":\"EXTRACTED\",\"day_count\":\"EXTRACTED\",\"settlement\":\"EXTRACTED\",\"business_day_convention\":\"EXTRACTED\"},\"value\":{\"trade_id\":\"SN-2026-0110\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"USD 3,500,000.00\",\"currency\":\"USD\",\"trade_date\":\"2026-09-01\",\"issue_date\":\"2026-09-08\",\"maturity_date\":\"2029-09-10\",\"underlyings\":[\"SPX\"],\"initial_level_pct\":\"100.00%\",\"barrier_type\":\"european\",\"barrier_level_pct\":\"\",\"coupon_rate_pct\":\"7.25%\",\"coupon_rate_basis\":\"per_annum\",\"coupon_frequency\":\"Quarterly\",\"coupon_memory\":\"Yes\",\"autocall_observation_dates\":[\"2027-09-01\",\"2028-03-01\",\"2028-09-01\"],\"autocall_level_pct\":\"100.00%\",\"day_count\":\"30/360\",\"settlement\":\"Cash\",\"business_day_convention\":\"Following\"},\"citation\":{\"trade_id\":\"Trade Reference              | SN-2026-0110\",\"issuer\":\"Issuer                       | Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"Notional Amount              | USD 3,500,000.00\",\"currency\":\"Currency                     | USD\",\"trade_date\":\"Trade Date                   | 2026-09-01\",\"issue_date\":\"Issue Date                   | 2026-09-08\",\"maturity_date\":\"Maturity Date                | 2029-09-10\",\"underlyings\":\"Underlying(s)                | S&P 500 Index (SPX)\",\"initial_level_pct\":\"Initial Level                | 100.00% of closing level on Trade Date\",\"barrier_type\":\"Knock-in Type                | European (Final Valuation Date only)\",\"barrier_level_pct\":\"\",\"coupon_rate_pct\":\"Coupon                       | 7.25% per annum, payable quarterly\",\"coupon_rate_basis\":\"Coupon                       | 7.25% per annum, payable quarterly\",\"coupon_frequency\":\"Coupon Frequency             | Quarterly\",\"coupon_memory\":\"Coupon Memory                | Yes\",\"autocall_observation_dates\":\"Autocall Observation Dates   | 2027-09-01, 2028-03-01, 2028-09-01\",\"autocall_level_pct\":\"Autocall Level               | 100.00% of Initial Level\",\"day_count\":\"Day Count Fraction           | 30/360\",\"settlement\":\"Settlement                   | Cash\",\"business_day_convention\":\"Business Day Convention      | Following\"}}"
+}

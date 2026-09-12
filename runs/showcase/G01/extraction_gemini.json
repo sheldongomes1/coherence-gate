@@ -1,0 +1,255 @@
+{
+  "family": "gemini",
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "fields": {
+    "trade_id": {
+      "status": "EXTRACTED",
+      "value": "SN-2026-0101",
+      "citation": {
+        "text_span": "Reference: SN-2026-0101",
+        "char_range": [
+          156,
+          179
+        ]
+      },
+      "note": null
+    },
+    "issuer": {
+      "status": "EXTRACTED",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "citation": {
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
+        "char_range": [
+          232,
+          288
+        ]
+      },
+      "note": null
+    },
+    "notional": {
+      "status": "EXTRACTED",
+      "value": "USD 5,000,000",
+      "citation": {
+        "text_span": "in an aggregate Notional Amount of USD 5,000,000.",
+        "char_range": [
+          348,
+          397
+        ]
+      },
+      "note": null
+    },
+    "currency": {
+      "status": "EXTRACTED",
+      "value": "USD",
+      "citation": {
+        "text_span": "in an aggregate Notional Amount of USD 5,000,000.",
+        "char_range": [
+          348,
+          397
+        ]
+      },
+      "note": null
+    },
+    "trade_date": {
+      "status": "EXTRACTED",
+      "value": "14 April 2026",
+      "citation": {
+        "text_span": "The Trade Date is 14 April 2026",
+        "char_range": [
+          483,
+          514
+        ]
+      },
+      "note": null
+    },
+    "issue_date": {
+      "status": "EXTRACTED",
+      "value": "21 April 2026",
+      "citation": {
+        "text_span": "the Issue Date is 21 April 2026",
+        "char_range": [
+          516,
+          547
+        ]
+      },
+      "note": null
+    },
+    "maturity_date": {
+      "status": "EXTRACTED",
+      "value": "23 April 2029",
+      "citation": {
+        "text_span": "the Scheduled Maturity Date is 23 April 2029",
+        "char_range": [
+          552,
+          596
+        ]
+      },
+      "note": null
+    },
+    "underlyings": {
+      "status": "EXTRACTED",
+      "value": [
+        "SPX Index"
+      ],
+      "citation": {
+        "text_span": "The Notes are linked to the performance of the S&P 500 Index (Bloomberg: SPX Index).",
+        "char_range": [
+          398,
+          482
+        ]
+      },
+      "note": null
+    },
+    "initial_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+        "char_range": [
+          645,
+          738
+        ]
+      },
+      "note": null
+    },
+    "barrier_type": {
+      "status": "EXTRACTED",
+      "value": "european",
+      "citation": {
+        "text_span": "Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 65% of the Initial Level.",
+        "char_range": [
+          1478,
+          1651
+        ]
+      },
+      "note": null
+    },
+    "barrier_level_pct": {
+      "status": "EXTRACTED",
+      "value": "65%",
+      "citation": {
+        "text_span": "at a Knock-in Level of 65% of the Initial Level.",
+        "char_range": [
+          1603,
+          1651
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "7.5%",
+      "citation": {
+        "text_span": "The Notes pay a conditional Coupon of 7.5% per annum, payable quarterly",
+        "char_range": [
+          751,
+          822
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_basis": {
+      "status": "EXTRACTED",
+      "value": "per_annum",
+      "citation": {
+        "text_span": "The Notes pay a conditional Coupon of 7.5% per annum, payable quarterly",
+        "char_range": [
+          751,
+          822
+        ]
+      },
+      "note": null
+    },
+    "coupon_frequency": {
+      "status": "EXTRACTED",
+      "value": "quarterly",
+      "citation": {
+        "text_span": "payable quarterly",
+        "char_range": [
+          805,
+          822
+        ]
+      },
+      "note": null
+    },
+    "coupon_memory": {
+      "status": "EXTRACTED",
+      "value": "false",
+      "citation": {
+        "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+        "char_range": [
+          947,
+          1128
+        ]
+      },
+      "note": null
+    },
+    "autocall_observation_dates": {
+      "status": "EXTRACTED",
+      "value": [
+        "14 April 2027",
+        "14 October 2027",
+        "14 April 2028",
+        "16 October 2028"
+      ],
+      "citation": {
+        "text_span": "Autocall Observation Dates: 14 April 2027, 14 October 2027, 14 April 2028, 16 October 2028.",
+        "char_range": [
+          1385,
+          1476
+        ]
+      },
+      "note": null
+    },
+    "autocall_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+        "char_range": [
+          1191,
+          1303
+        ]
+      },
+      "note": null
+    },
+    "day_count": {
+      "status": "EXTRACTED",
+      "value": "30/360",
+      "citation": {
+        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "char_range": [
+          896,
+          946
+        ]
+      },
+      "note": null
+    },
+    "settlement": {
+      "status": "EXTRACTED",
+      "value": "cash",
+      "citation": {
+        "text_span": "Settlement at maturity or upon early redemption is in cash, in USD.",
+        "char_range": [
+          1837,
+          1904
+        ]
+      },
+      "note": null
+    },
+    "business_day_convention": {
+      "status": "EXTRACTED",
+      "value": "Modified Following",
+      "citation": {
+        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+        "char_range": [
+          1905,
+          1998
+        ]
+      },
+      "note": null
+    }
+  },
+  "raw_text": "{\"status\":{\"trade_id\":\"EXTRACTED\",\"issuer\":\"EXTRACTED\",\"notional\":\"EXTRACTED\",\"currency\":\"EXTRACTED\",\"trade_date\":\"EXTRACTED\",\"issue_date\":\"EXTRACTED\",\"maturity_date\":\"EXTRACTED\",\"underlyings\":\"EXTRACTED\",\"initial_level_pct\":\"EXTRACTED\",\"barrier_type\":\"EXTRACTED\",\"barrier_level_pct\":\"EXTRACTED\",\"coupon_rate_pct\":\"EXTRACTED\",\"coupon_rate_basis\":\"EXTRACTED\",\"coupon_frequency\":\"EXTRACTED\",\"coupon_memory\":\"EXTRACTED\",\"autocall_observation_dates\":\"EXTRACTED\",\"autocall_level_pct\":\"EXTRACTED\",\"day_count\":\"EXTRACTED\",\"settlement\":\"EXTRACTED\",\"business_day_convention\":\"EXTRACTED\"},\"value\":{\"trade_id\":\"SN-2026-0101\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"USD 5,000,000\",\"currency\":\"USD\",\"trade_date\":\"14 April 2026\",\"issue_date\":\"21 April 2026\",\"maturity_date\":\"23 April 2029\",\"underlyings\":[\"SPX Index\"],\"initial_level_pct\":\"100%\",\"barrier_type\":\"european\",\"barrier_level_pct\":\"65%\",\"coupon_rate_pct\":\"7.5%\",\"coupon_rate_basis\":\"per_annum\",\"coupon_frequency\":\"quarterly\",\"coupon_memory\":\"false\",\"autocall_observation_dates\":[\"14 April 2027\",\"14 October 2027\",\"14 April 2028\",\"16 October 2028\"],\"autocall_level_pct\":\"100%\",\"day_count\":\"30/360\",\"settlement\":\"cash\",\"business_day_convention\":\"Modified Following\"},\"citation\":{\"trade_id\":\"Reference: SN-2026-0101\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc. (the \\\"Issuer\\\")\",\"notional\":\"in an aggregate Notional Amount of USD 5,000,000.\",\"currency\":\"in an aggregate Notional Amount of USD 5,000,000.\",\"trade_date\":\"The Trade Date is 14 April 2026\",\"issue_date\":\"the Issue Date is 21 April 2026\",\"maturity_date\":\"the Scheduled Maturity Date is 23 April 2029\",\"underlyings\":\"The Notes are linked to the performance of the S&P 500 Index (Bloomberg: SPX Index).\",\"initial_level_pct\":\"The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.\",\"barrier_type\":\"Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 65% of the Initial Level.\",\"barrier_level_pct\":\"at a Knock-in Level of 65% of the Initial Level.\",\"coupon_rate_pct\":\"The Notes pay a conditional Coupon of 7.5% per annum, payable quarterly\",\"coupon_rate_basis\":\"The Notes pay a conditional Coupon of 7.5% per annum, payable quarterly\",\"coupon_frequency\":\"payable quarterly\",\"coupon_memory\":\"No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.\",\"autocall_observation_dates\":\"Autocall Observation Dates: 14 April 2027, 14 October 2027, 14 April 2028, 16 October 2028.\",\"autocall_level_pct\":\"if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level\",\"day_count\":\"Coupon amounts accrue on a 30/360 day count basis.\",\"settlement\":\"Settlement at maturity or upon early redemption is in cash, in USD.\",\"business_day_convention\":\"Payment dates are adjusted in accordance with the Modified Following Business Day Convention.\"}}"
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "G07:autocall_level_pct",
+    "doc_id": "G07",
+    "field": "autocall_level_pct",
+    "type": "MISMATCH",
+    "severity": "minor",
+    "ts_value": [
+      "100",
+      "95",
+      "90"
+    ],
+    "booking_value": [
+      "100",
+      "100",
+      "100"
+    ],
+    "citations": [
+      {
+        "text_span": "Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..",
+        "char_range": [
+          1481,
+          1667
+        ]
+      },
+      {
+        "text_span": "January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..",
+        "char_range": [
+          1568,
+          1667
+        ]
+      }
+    ],
+    "detail": "TS [Decimal('100'), Decimal('95'), Decimal('90')] \u2260 booking [Decimal('100'), Decimal('100'), Decimal('100')]",
+    "lane": "TRIAGE",
+    "triage": null
+  }
+]

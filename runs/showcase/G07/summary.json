@@ -1,0 +1,9 @@
+{
+  "doc_id": "G07",
+  "sha256": "540ea9651ce2449bf6d8aee800ad8f648d6aaa77a3deb849c772346370c05b6c",
+  "trade_id": "SN-2026-0107",
+  "document_lane": "TRIAGE",
+  "cost_usd": 0.148828,
+  "n_auto_clear": 18,
+  "n_triage": 1
+}

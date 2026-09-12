@@ -1,0 +1,9 @@
+{
+  "doc_id": "G11",
+  "sha256": "9c91fad55a41843ee1a9c4feef33d5e8d02637ffae67690cf9aa5b7f079c5f93",
+  "trade_id": "SN-2026-0111",
+  "document_lane": "AUTO_CLEAR",
+  "cost_usd": 0.083279,
+  "n_auto_clear": 19,
+  "n_triage": 0
+}

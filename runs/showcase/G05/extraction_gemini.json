@@ -1,0 +1,232 @@
+{
+  "family": "gemini",
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "fields": {
+    "trade_id": {
+      "status": "EXTRACTED",
+      "value": "SN-2026-0105",
+      "citation": {
+        "text_span": "Reference: SN-2026-0105",
+        "char_range": [
+          156,
+          179
+        ]
+      },
+      "note": null
+    },
+    "issuer": {
+      "status": "EXTRACTED",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "citation": {
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
+        "char_range": [
+          235,
+          291
+        ]
+      },
+      "note": null
+    },
+    "notional": {
+      "status": "EXTRACTED",
+      "value": "USD 10,000,000",
+      "citation": {
+        "text_span": "in an aggregate Notional Amount of USD 10,000,000",
+        "char_range": [
+          351,
+          400
+        ]
+      },
+      "note": null
+    },
+    "currency": {
+      "status": "EXTRACTED",
+      "value": "USD",
+      "citation": {
+        "text_span": "in an aggregate Notional Amount of USD 10,000,000",
+        "char_range": [
+          351,
+          400
+        ]
+      },
+      "note": null
+    },
+    "trade_date": {
+      "status": "EXTRACTED",
+      "value": "17 February 2026",
+      "citation": {
+        "text_span": "The Trade Date is 17 February 2026",
+        "char_range": [
+          487,
+          521
+        ]
+      },
+      "note": null
+    },
+    "issue_date": {
+      "status": "EXTRACTED",
+      "value": "24 February 2026",
+      "citation": {
+        "text_span": "the Issue Date is 24 February 2026",
+        "char_range": [
+          523,
+          557
+        ]
+      },
+      "note": null
+    },
+    "maturity_date": {
+      "status": "EXTRACTED",
+      "value": "24 February 2028",
+      "citation": {
+        "text_span": "the Scheduled Maturity Date is 24 February 2028",
+        "char_range": [
+          562,
+          609
+        ]
+      },
+      "note": null
+    },
+    "underlyings": {
+      "status": "EXTRACTED",
+      "value": [
+        "SPX Index"
+      ],
+      "citation": {
+        "text_span": "S&P 500 Index (Bloomberg: SPX Index)",
+        "char_range": [
+          449,
+          485
+        ]
+      },
+      "note": null
+    },
+    "initial_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+        "char_range": [
+          658,
+          751
+        ]
+      },
+      "note": null
+    },
+    "barrier_type": {
+      "status": "EXTRACTED",
+      "value": "none",
+      "citation": {
+        "text_span": "the Notes are not subject to a knock-in barrier.",
+        "char_range": [
+          1272,
+          1320
+        ]
+      },
+      "note": null
+    },
+    "barrier_level_pct": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "coupon_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "5.25%",
+      "citation": {
+        "text_span": "The Notes pay a conditional Coupon of 5.25% per annum",
+        "char_range": [
+          764,
+          817
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_basis": {
+      "status": "EXTRACTED",
+      "value": "per_annum",
+      "citation": {
+        "text_span": "The Notes pay a conditional Coupon of 5.25% per annum",
+        "char_range": [
+          764,
+          817
+        ]
+      },
+      "note": null
+    },
+    "coupon_frequency": {
+      "status": "EXTRACTED",
+      "value": "annual",
+      "citation": {
+        "text_span": "payable annually",
+        "char_range": [
+          819,
+          835
+        ]
+      },
+      "note": null
+    },
+    "coupon_memory": {
+      "status": "EXTRACTED",
+      "value": "false",
+      "citation": {
+        "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+        "char_range": [
+          960,
+          1141
+        ]
+      },
+      "note": null
+    },
+    "autocall_observation_dates": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "autocall_level_pct": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "day_count": {
+      "status": "EXTRACTED",
+      "value": "30/360",
+      "citation": {
+        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "char_range": [
+          909,
+          959
+        ]
+      },
+      "note": null
+    },
+    "settlement": {
+      "status": "EXTRACTED",
+      "value": "cash",
+      "citation": {
+        "text_span": "Settlement at maturity or upon early redemption is in cash, in USD.",
+        "char_range": [
+          1427,
+          1494
+        ]
+      },
+      "note": null
+    },
+    "business_day_convention": {
+      "status": "EXTRACTED",
+      "value": "Modified Following",
+      "citation": {
+        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+        "char_range": [
+          1495,
+          1588
+        ]
+      },
+      "note": null
+    }
+  },
+  "raw_text": "{\n  \"status\": {\n    \"trade_id\": \"EXTRACTED\",\n    \"issuer\": \"EXTRACTED\",\n    \"notional\": \"EXTRACTED\",\n    \"currency\": \"EXTRACTED\",\n    \"trade_date\": \"EXTRACTED\",\n    \"issue_date\": \"EXTRACTED\",\n    \"maturity_date\": \"EXTRACTED\",\n    \"underlyings\": \"EXTRACTED\",\n    \"initial_level_pct\": \"EXTRACTED\",\n    \"barrier_type\": \"EXTRACTED\",\n    \"barrier_level_pct\": \"DECLARED_ABSENT\",\n    \"coupon_rate_pct\": \"EXTRACTED\",\n    \"coupon_rate_basis\": \"EXTRACTED\",\n    \"coupon_frequency\": \"EXTRACTED\",\n    \"coupon_memory\": \"EXTRACTED\",\n    \"autocall_observation_dates\": \"DECLARED_ABSENT\",\n    \"autocall_level_pct\": \"DECLARED_ABSENT\",\n    \"day_count\": \"EXTRACTED\",\n    \"settlement\": \"EXTRACTED\",\n    \"business_day_convention\": \"EXTRACTED\"\n  },\n  \"value\": {\n    \"trade_id\": \"SN-2026-0105\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"USD 10,000,000\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"17 February 2026\",\n    \"issue_date\": \"24 February 2026\",\n    \"maturity_date\": \"24 February 2028\",\n    \"underlyings\": [\"SPX Index\"],\n    \"initial_level_pct\": \"100%\",\n    \"barrier_type\": \"none\",\n    \"barrier_level_pct\": \"\",\n    \"coupon_rate_pct\": \"5.25%\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"annual\",\n    \"coupon_memory\": \"false\",\n    \"autocall_observation_dates\": [],\n    \"autocall_level_pct\": \"\",\n    \"day_count\": \"30/360\",\n    \"settlement\": \"cash\",\n    \"business_day_convention\": \"Modified Following\"\n  },\n  \"citation\": {\n    \"trade_id\": \"Reference: SN-2026-0105\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc. (the \\\"Issuer\\\")\",\n    \"notional\": \"in an aggregate Notional Amount of USD 10,000,000\",\n    \"currency\": \"in an aggregate Notional Amount of USD 10,000,000\",\n    \"trade_date\": \"The Trade Date is 17 February 2026\",\n    \"issue_date\": \"the Issue Date is 24 February 2026\",\n    \"maturity_date\": \"the Scheduled Maturity Date is 24 February 2028\",\n    \"underlyings\": \"S&P 500 Index (Bloomberg: SPX Index)\",\n    \"initial_level_pct\": \"The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.\",\n    \"barrier_type\": \"the Notes are not subject to a knock-in barrier.\",\n    \"barrier_level_pct\": \"\",\n    \"coupon_rate_pct\": \"The Notes pay a conditional Coupon of 5.25% per annum\",\n    \"coupon_rate_basis\": \"The Notes pay a conditional Coupon of 5.25% per annum\",\n    \"coupon_frequency\": \"payable annually\",\n    \"coupon_memory\": \"No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.\",\n    \"autocall_observation_dates\": \"\",\n    \"autocall_level_pct\": \"\",\n    \"day_count\": \"Coupon amounts accrue on a 30/360 day count basis.\",\n    \"settlement\": \"Settlement at maturity or upon early redemption is in cash, in USD.\",\n    \"business_day_convention\": \"Payment dates are adjusted in accordance with the Modified Following Business Day Convention.\"\n  }\n}"
+}

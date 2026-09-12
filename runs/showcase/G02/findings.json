@@ -1,0 +1,546 @@
+[
+  {
+    "id": "G02:trade_id",
+    "doc_id": "G02",
+    "field": "trade_id",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "SN-2026-0102",
+    "booking_value": "SN-2026-0102",
+    "citations": [
+      {
+        "text_span": "Trade Reference              | SN-2026-0102",
+        "char_range": [
+          253,
+          296
+        ]
+      },
+      {
+        "text_span": "Trade Reference              | SN-2026-0102",
+        "char_range": [
+          253,
+          296
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:issuer",
+    "doc_id": "G02",
+    "field": "issuer",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "Northbridge Capital Markets (Canada) Inc.",
+    "booking_value": "Northbridge Capital Markets (Canada) Inc.",
+    "citations": [
+      {
+        "text_span": "Issuer                       | Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          180,
+          252
+        ]
+      },
+      {
+        "text_span": "Issuer                       | Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          180,
+          252
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:notional",
+    "doc_id": "G02",
+    "field": "notional",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "3000000",
+    "booking_value": "3000000",
+    "citations": [
+      {
+        "text_span": "Notional Amount              | EUR 3,000,000.00",
+        "char_range": [
+          297,
+          344
+        ]
+      },
+      {
+        "text_span": "Notional Amount              | EUR 3,000,000.00",
+        "char_range": [
+          297,
+          344
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:currency",
+    "doc_id": "G02",
+    "field": "currency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "EUR",
+    "booking_value": "EUR",
+    "citations": [
+      {
+        "text_span": "Currency                     | EUR",
+        "char_range": [
+          345,
+          379
+        ]
+      },
+      {
+        "text_span": "Currency                     | EUR",
+        "char_range": [
+          345,
+          379
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:trade_date",
+    "doc_id": "G02",
+    "field": "trade_date",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "2026-05-12",
+    "booking_value": "2026-05-12",
+    "citations": [
+      {
+        "text_span": "Trade Date                   | 2026-05-12",
+        "char_range": [
+          380,
+          421
+        ]
+      },
+      {
+        "text_span": "Trade Date                   | 2026-05-12",
+        "char_range": [
+          380,
+          421
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:issue_date",
+    "doc_id": "G02",
+    "field": "issue_date",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "2026-05-19",
+    "booking_value": "2026-05-19",
+    "citations": [
+      {
+        "text_span": "Issue Date                   | 2026-05-19",
+        "char_range": [
+          422,
+          463
+        ]
+      },
+      {
+        "text_span": "Issue Date                   | 2026-05-19",
+        "char_range": [
+          422,
+          463
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:maturity_date",
+    "doc_id": "G02",
+    "field": "maturity_date",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "2028-05-19",
+    "booking_value": "2028-05-19",
+    "citations": [
+      {
+        "text_span": "Maturity Date                | 2028-05-19",
+        "char_range": [
+          464,
+          505
+        ]
+      },
+      {
+        "text_span": "Maturity Date                | 2028-05-19",
+        "char_range": [
+          464,
+          505
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:underlyings",
+    "doc_id": "G02",
+    "field": "underlyings",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": [
+      "SX5E"
+    ],
+    "booking_value": [
+      "SX5E"
+    ],
+    "citations": [
+      {
+        "text_span": "Underlying(s)                | EURO STOXX 50 Index (SX5E)",
+        "char_range": [
+          506,
+          563
+        ]
+      },
+      {
+        "text_span": "Underlying(s)                | EURO STOXX 50 Index (SX5E)",
+        "char_range": [
+          506,
+          563
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:initial_level_pct",
+    "doc_id": "G02",
+    "field": "initial_level_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "100",
+    "booking_value": "100",
+    "citations": [
+      {
+        "text_span": "Initial Level                | 100.00% of closing level on Trade Date",
+        "char_range": [
+          564,
+          633
+        ]
+      },
+      {
+        "text_span": "Initial Level                | 100.00% of closing level on Trade Date",
+        "char_range": [
+          564,
+          633
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:barrier_type",
+    "doc_id": "G02",
+    "field": "barrier_type",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "american",
+    "booking_value": "american",
+    "citations": [
+      {
+        "text_span": "Knock-in Type                | American (continuous observation)",
+        "char_range": [
+          953,
+          1017
+        ]
+      },
+      {
+        "text_span": "Knock-in Type                | American (continuous observation)",
+        "char_range": [
+          953,
+          1017
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:barrier_level_pct",
+    "doc_id": "G02",
+    "field": "barrier_level_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "60",
+    "booking_value": "60",
+    "citations": [
+      {
+        "text_span": "Knock-in Level               | 60.00% of Initial Level",
+        "char_range": [
+          1018,
+          1072
+        ]
+      },
+      {
+        "text_span": "Knock-in Level               | 60.00% of Initial Level",
+        "char_range": [
+          1018,
+          1072
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:coupon_rate_pct",
+    "doc_id": "G02",
+    "field": "coupon_rate_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "9",
+    "booking_value": "9",
+    "citations": [
+      {
+        "text_span": "Coupon                       | 9.00% per annum, payable semi-annually",
+        "char_range": [
+          634,
+          703
+        ]
+      },
+      {
+        "text_span": "Coupon                       | 9.00% per annum, payable semi-annually",
+        "char_range": [
+          634,
+          703
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:coupon_frequency",
+    "doc_id": "G02",
+    "field": "coupon_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "semiannual",
+    "booking_value": "semiannual",
+    "citations": [
+      {
+        "text_span": "Coupon Frequency             | Semiannual",
+        "char_range": [
+          704,
+          745
+        ]
+      },
+      {
+        "text_span": "Coupon Frequency             | Semiannual",
+        "char_range": [
+          704,
+          745
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:coupon_memory",
+    "doc_id": "G02",
+    "field": "coupon_memory",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": true,
+    "booking_value": true,
+    "citations": [
+      {
+        "text_span": "Coupon Memory                | Yes",
+        "char_range": [
+          746,
+          780
+        ]
+      },
+      {
+        "text_span": "Coupon Memory                | Yes",
+        "char_range": [
+          746,
+          780
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:autocall_observation_dates",
+    "doc_id": "G02",
+    "field": "autocall_observation_dates",
+    "type": "MISMATCH",
+    "severity": "minor",
+    "ts_value": [
+      "2027-05-12",
+      "2027-11-12",
+      "2028-05-12"
+    ],
+    "booking_value": [
+      "2027-05-12",
+      "2027-11-15",
+      "2028-05-12"
+    ],
+    "citations": [
+      {
+        "text_span": "Autocall Observation Dates   | 2027-05-12, 2027-11-12, 2028-05-12",
+        "char_range": [
+          831,
+          896
+        ]
+      },
+      {
+        "text_span": "Autocall Observation Dates   | 2027-05-12, 2027-11-12, 2028-05-12",
+        "char_range": [
+          831,
+          896
+        ]
+      }
+    ],
+    "detail": "TS ['2027-05-12', '2027-11-12', '2028-05-12'] \u2260 booking ['2027-05-12', '2027-11-15', '2028-05-12']",
+    "lane": "TRIAGE",
+    "triage": null
+  },
+  {
+    "id": "G02:autocall_level_pct",
+    "doc_id": "G02",
+    "field": "autocall_level_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "100",
+    "booking_value": "100",
+    "citations": [
+      {
+        "text_span": "Autocall Level               | 100.00% of Initial Level",
+        "char_range": [
+          897,
+          952
+        ]
+      },
+      {
+        "text_span": "Autocall Level               | 100.00% of Initial Level",
+        "char_range": [
+          897,
+          952
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:day_count",
+    "doc_id": "G02",
+    "field": "day_count",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "ACT/365",
+    "booking_value": "ACT/365",
+    "citations": [
+      {
+        "text_span": "Day Count Fraction           | Actual/365 (Fixed)",
+        "char_range": [
+          781,
+          830
+        ]
+      },
+      {
+        "text_span": "Day Count Fraction           | Actual/365 (Fixed)",
+        "char_range": [
+          781,
+          830
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:settlement",
+    "doc_id": "G02",
+    "field": "settlement",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "cash",
+    "booking_value": "cash",
+    "citations": [
+      {
+        "text_span": "Settlement                   | Cash",
+        "char_range": [
+          1073,
+          1108
+        ]
+      },
+      {
+        "text_span": "Settlement                   | Cash",
+        "char_range": [
+          1073,
+          1108
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:business_day_convention",
+    "doc_id": "G02",
+    "field": "business_day_convention",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "following",
+    "booking_value": "following",
+    "citations": [
+      {
+        "text_span": "Business Day Convention      | Following",
+        "char_range": [
+          1109,
+          1149
+        ]
+      },
+      {
+        "text_span": "Business Day Convention      | Following",
+        "char_range": [
+          1109,
+          1149
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  }
+]

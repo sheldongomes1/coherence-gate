@@ -1,0 +1,508 @@
+[
+  {
+    "id": "G12:trade_id",
+    "doc_id": "G12",
+    "field": "trade_id",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "SN-2026-0112",
+    "booking_value": "SN-2026-0112",
+    "citations": [
+      {
+        "text_span": "Reference: SN-2026-0112",
+        "char_range": [
+          1553,
+          1576
+        ]
+      },
+      {
+        "text_span": "Reference: SN-2026-0112",
+        "char_range": [
+          1553,
+          1576
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:issuer",
+    "doc_id": "G12",
+    "field": "issuer",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "Northbridge Capital Markets (Canada) Inc.",
+    "booking_value": "Northbridge Capital Markets (Canada) Inc.",
+    "citations": [
+      {
+        "text_span": "Issuer: Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          1579,
+          1628
+        ]
+      },
+      {
+        "text_span": "Issuer: Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          1579,
+          1628
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:notional",
+    "doc_id": "G12",
+    "field": "notional",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "6000000",
+    "booking_value": "6000000",
+    "citations": [
+      {
+        "text_span": "Notional: CAD 6 million (CAD 6,000,000)",
+        "char_range": [
+          1751,
+          1790
+        ]
+      },
+      {
+        "text_span": "Notional: CAD 6 million (CAD 6,000,000)",
+        "char_range": [
+          1751,
+          1790
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:currency",
+    "doc_id": "G12",
+    "field": "currency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "CAD",
+    "booking_value": "CAD",
+    "citations": [
+      {
+        "text_span": "All payments are made in CAD by cash settlement",
+        "char_range": [
+          1264,
+          1311
+        ]
+      },
+      {
+        "text_span": "All payments are made in CAD by cash settlement",
+        "char_range": [
+          1264,
+          1311
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:trade_date",
+    "doc_id": "G12",
+    "field": "trade_date",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "2026-03-24",
+    "booking_value": "2026-03-24",
+    "citations": [
+      {
+        "text_span": "The Notes were traded on 24-Mar-2026",
+        "char_range": [
+          448,
+          484
+        ]
+      },
+      {
+        "text_span": "The Notes were traded on 24-Mar-2026, will be issued on 31-Mar-2026 and mature on 02-Apr-2029.",
+        "char_range": [
+          448,
+          542
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:issue_date",
+    "doc_id": "G12",
+    "field": "issue_date",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "2026-03-31",
+    "booking_value": "2026-03-31",
+    "citations": [
+      {
+        "text_span": "will be issued on 31-Mar-2026",
+        "char_range": [
+          486,
+          515
+        ]
+      },
+      {
+        "text_span": "The Notes were traded on 24-Mar-2026, will be issued on 31-Mar-2026 and mature on 02-Apr-2029.",
+        "char_range": [
+          448,
+          542
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:maturity_date",
+    "doc_id": "G12",
+    "field": "maturity_date",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "2029-04-02",
+    "booking_value": "2029-04-02",
+    "citations": [
+      {
+        "text_span": "mature on 02-Apr-2029",
+        "char_range": [
+          520,
+          541
+        ]
+      },
+      {
+        "text_span": "The Notes were traded on 24-Mar-2026, will be issued on 31-Mar-2026 and mature on 02-Apr-2029.",
+        "char_range": [
+          448,
+          542
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:underlyings",
+    "doc_id": "G12",
+    "field": "underlyings",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": [
+      "BVERSA10"
+    ],
+    "booking_value": [
+      "BVERSA10"
+    ],
+    "citations": [
+      {
+        "text_span": "BVERSA10 Index (Bloomberg ticker BVERSA10)",
+        "char_range": [
+          1652,
+          1694
+        ]
+      },
+      {
+        "text_span": "- BVERSA10 Index (Bloomberg ticker BVERSA10)",
+        "char_range": [
+          1650,
+          1694
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:initial_level_pct",
+    "doc_id": "G12",
+    "field": "initial_level_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "100",
+    "booking_value": "100",
+    "citations": [
+      {
+        "text_span": "Initial Level: 100% of closing level on 24-Mar-2026",
+        "char_range": [
+          1697,
+          1748
+        ]
+      },
+      {
+        "text_span": "Initial Level: 100% of closing level on 24-Mar-2026",
+        "char_range": [
+          1697,
+          1748
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:barrier_type",
+    "doc_id": "G12",
+    "field": "barrier_type",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "european",
+    "booking_value": "european",
+    "citations": [
+      {
+        "text_span": "Knock-in: European at 65%",
+        "char_range": [
+          1931,
+          1956
+        ]
+      },
+      {
+        "text_span": "Knock-in: European at 65%",
+        "char_range": [
+          1931,
+          1956
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:barrier_level_pct",
+    "doc_id": "G12",
+    "field": "barrier_level_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "65",
+    "booking_value": "65",
+    "citations": [
+      {
+        "text_span": "Knock-in Level of 65% of the Initial Level",
+        "char_range": [
+          1050,
+          1092
+        ]
+      },
+      {
+        "text_span": "Knock-in: European at 65%",
+        "char_range": [
+          1931,
+          1956
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:coupon_rate_pct",
+    "doc_id": "G12",
+    "field": "coupon_rate_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "6.1",
+    "booking_value": "6.1",
+    "citations": [
+      {
+        "text_span": "The Notes pay a conditional coupon of 6.1% per annum",
+        "char_range": [
+          544,
+          596
+        ]
+      },
+      {
+        "text_span": "Coupon: 6.1% per annum, payable semi-annually; memory: no",
+        "char_range": [
+          1793,
+          1850
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:coupon_frequency",
+    "doc_id": "G12",
+    "field": "coupon_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "semiannual",
+    "booking_value": "semiannual",
+    "citations": [
+      {
+        "text_span": "payable semi-annually",
+        "char_range": [
+          598,
+          619
+        ]
+      },
+      {
+        "text_span": "Coupon: 6.1% per annum, payable semi-annually; memory: no",
+        "char_range": [
+          1793,
+          1850
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:coupon_memory",
+    "doc_id": "G12",
+    "field": "coupon_memory",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": false,
+    "booking_value": false,
+    "citations": [
+      {
+        "text_span": "memory: no",
+        "char_range": [
+          1840,
+          1850
+        ]
+      },
+      {
+        "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+        "char_range": [
+          661,
+          842
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:autocall_observation_dates",
+    "doc_id": "G12",
+    "field": "autocall_observation_dates",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:autocall_level_pct",
+    "doc_id": "G12",
+    "field": "autocall_level_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:day_count",
+    "doc_id": "G12",
+    "field": "day_count",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "ACT/365",
+    "booking_value": "ACT/365",
+    "citations": [
+      {
+        "text_span": "Day count: Actual/365 (Fixed)",
+        "char_range": [
+          1853,
+          1882
+        ]
+      },
+      {
+        "text_span": "Day count: Actual/365 (Fixed)",
+        "char_range": [
+          1853,
+          1882
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:settlement",
+    "doc_id": "G12",
+    "field": "settlement",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "cash",
+    "booking_value": "cash",
+    "citations": [
+      {
+        "text_span": "All payments are made in CAD by cash settlement",
+        "char_range": [
+          1264,
+          1311
+        ]
+      },
+      {
+        "text_span": "All payments are made in CAD by cash settlement",
+        "char_range": [
+          1264,
+          1311
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G12:business_day_convention",
+    "doc_id": "G12",
+    "field": "business_day_convention",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "following",
+    "booking_value": "following",
+    "citations": [
+      {
+        "text_span": "payment dates follow the Following convention",
+        "char_range": [
+          1316,
+          1361
+        ]
+      },
+      {
+        "text_span": "payment dates follow the Following convention (Toronto, New York and London business days)",
+        "char_range": [
+          1316,
+          1406
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  }
+]

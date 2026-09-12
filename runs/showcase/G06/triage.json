@@ -1,0 +1,30 @@
+[
+  {
+    "id": "G06:currency",
+    "doc_id": "G06",
+    "field": "currency",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": "USD",
+    "booking_value": "CAD",
+    "citations": [
+      {
+        "text_span": "Currency                     | USD",
+        "char_range": [
+          345,
+          379
+        ]
+      },
+      {
+        "text_span": "Currency                     | USD",
+        "char_range": [
+          345,
+          379
+        ]
+      }
+    ],
+    "detail": "TS USD \u2260 booking CAD",
+    "lane": "TRIAGE",
+    "triage": null
+  }
+]

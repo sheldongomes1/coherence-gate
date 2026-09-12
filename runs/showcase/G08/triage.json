@@ -1,0 +1,34 @@
+[
+  {
+    "id": "G08:underlyings",
+    "doc_id": "G08",
+    "field": "underlyings",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": [
+      "SX5E"
+    ],
+    "booking_value": [
+      "SPX"
+    ],
+    "citations": [
+      {
+        "text_span": "Bloomberg ticker SX5E",
+        "char_range": [
+          1945,
+          1966
+        ]
+      },
+      {
+        "text_span": "- EURO STOXX 50 Index (Bloomberg ticker SX5E)",
+        "char_range": [
+          1922,
+          1967
+        ]
+      }
+    ],
+    "detail": "TS ['SX5E'] \u2260 booking ['SPX']",
+    "lane": "TRIAGE",
+    "triage": null
+  }
+]

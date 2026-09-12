@@ -1,0 +1,544 @@
+[
+  {
+    "id": "G08:trade_id",
+    "doc_id": "G08",
+    "field": "trade_id",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "SN-2026-0108",
+    "booking_value": "SN-2026-0108",
+    "citations": [
+      {
+        "text_span": "Reference: SN-2026-0108",
+        "char_range": [
+          1825,
+          1848
+        ]
+      },
+      {
+        "text_span": "Reference: SN-2026-0108",
+        "char_range": [
+          1825,
+          1848
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:issuer",
+    "doc_id": "G08",
+    "field": "issuer",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "Northbridge Capital Markets (Canada) Inc.",
+    "booking_value": "Northbridge Capital Markets (Canada) Inc.",
+    "citations": [
+      {
+        "text_span": "Issuer: Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          1851,
+          1900
+        ]
+      },
+      {
+        "text_span": "Issuer: Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          1851,
+          1900
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:notional",
+    "doc_id": "G08",
+    "field": "notional",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "7500000",
+    "booking_value": "7500000",
+    "citations": [
+      {
+        "text_span": "Notional: USD 7.5 million (USD 7,500,000)",
+        "char_range": [
+          2024,
+          2065
+        ]
+      },
+      {
+        "text_span": "Notional: USD 7.5 million (USD 7,500,000)",
+        "char_range": [
+          2024,
+          2065
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:currency",
+    "doc_id": "G08",
+    "field": "currency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "USD",
+    "booking_value": "USD",
+    "citations": [
+      {
+        "text_span": "All payments are made in USD",
+        "char_range": [
+          1527,
+          1555
+        ]
+      },
+      {
+        "text_span": "All payments are made in USD by cash settlement",
+        "char_range": [
+          1527,
+          1574
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:trade_date",
+    "doc_id": "G08",
+    "field": "trade_date",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "2026-08-11",
+    "booking_value": "2026-08-11",
+    "citations": [
+      {
+        "text_span": "The Notes were traded on 11-Aug-2026",
+        "char_range": [
+          455,
+          491
+        ]
+      },
+      {
+        "text_span": "The Notes were traded on 11-Aug-2026, will be issued on 18-Aug-2026 and mature on 18-Aug-2028.",
+        "char_range": [
+          455,
+          549
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:issue_date",
+    "doc_id": "G08",
+    "field": "issue_date",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "2026-08-18",
+    "booking_value": "2026-08-18",
+    "citations": [
+      {
+        "text_span": "will be issued on 18-Aug-2026",
+        "char_range": [
+          493,
+          522
+        ]
+      },
+      {
+        "text_span": "The Notes were traded on 11-Aug-2026, will be issued on 18-Aug-2026 and mature on 18-Aug-2028.",
+        "char_range": [
+          455,
+          549
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:maturity_date",
+    "doc_id": "G08",
+    "field": "maturity_date",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "2028-08-18",
+    "booking_value": "2028-08-18",
+    "citations": [
+      {
+        "text_span": "mature on 18-Aug-2028",
+        "char_range": [
+          527,
+          548
+        ]
+      },
+      {
+        "text_span": "The Notes were traded on 11-Aug-2026, will be issued on 18-Aug-2026 and mature on 18-Aug-2028.",
+        "char_range": [
+          455,
+          549
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:underlyings",
+    "doc_id": "G08",
+    "field": "underlyings",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": [
+      "SX5E"
+    ],
+    "booking_value": [
+      "SPX"
+    ],
+    "citations": [
+      {
+        "text_span": "Bloomberg ticker SX5E",
+        "char_range": [
+          1945,
+          1966
+        ]
+      },
+      {
+        "text_span": "- EURO STOXX 50 Index (Bloomberg ticker SX5E)",
+        "char_range": [
+          1922,
+          1967
+        ]
+      }
+    ],
+    "detail": "TS ['SX5E'] \u2260 booking ['SPX']",
+    "lane": "TRIAGE",
+    "triage": null
+  },
+  {
+    "id": "G08:initial_level_pct",
+    "doc_id": "G08",
+    "field": "initial_level_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "100",
+    "booking_value": "100",
+    "citations": [
+      {
+        "text_span": "Initial Level: 100% of closing level on 11-Aug-2026",
+        "char_range": [
+          1970,
+          2021
+        ]
+      },
+      {
+        "text_span": "Initial Level: 100% of closing level on 11-Aug-2026",
+        "char_range": [
+          1970,
+          2021
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:barrier_type",
+    "doc_id": "G08",
+    "field": "barrier_type",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "american",
+    "booking_value": "american",
+    "citations": [
+      {
+        "text_span": "Knock-in: American at 60%",
+        "char_range": [
+          2237,
+          2262
+        ]
+      },
+      {
+        "text_span": "observed continuously on each Scheduled Trading Day from the Trade Date to the Final Valuation Date (American observation)",
+        "char_range": [
+          1185,
+          1307
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:barrier_level_pct",
+    "doc_id": "G08",
+    "field": "barrier_level_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "60",
+    "booking_value": "60",
+    "citations": [
+      {
+        "text_span": "Knock-in Level of 60% of the Initial Level",
+        "char_range": [
+          1313,
+          1355
+        ]
+      },
+      {
+        "text_span": "Knock-in: American at 60%",
+        "char_range": [
+          2237,
+          2262
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:coupon_rate_pct",
+    "doc_id": "G08",
+    "field": "coupon_rate_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "9.75",
+    "booking_value": "9.75",
+    "citations": [
+      {
+        "text_span": "Coupon: 9.75% per annum",
+        "char_range": [
+          2068,
+          2091
+        ]
+      },
+      {
+        "text_span": "Coupon: 9.75% per annum, payable quarterly; memory: no",
+        "char_range": [
+          2068,
+          2122
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:coupon_frequency",
+    "doc_id": "G08",
+    "field": "coupon_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "quarterly",
+    "booking_value": "quarterly",
+    "citations": [
+      {
+        "text_span": "payable quarterly",
+        "char_range": [
+          606,
+          623
+        ]
+      },
+      {
+        "text_span": "Coupon: 9.75% per annum, payable quarterly; memory: no",
+        "char_range": [
+          2068,
+          2122
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:coupon_memory",
+    "doc_id": "G08",
+    "field": "coupon_memory",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": false,
+    "booking_value": false,
+    "citations": [
+      {
+        "text_span": "memory: no",
+        "char_range": [
+          2112,
+          2122
+        ]
+      },
+      {
+        "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+        "char_range": [
+          665,
+          846
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:autocall_observation_dates",
+    "doc_id": "G08",
+    "field": "autocall_observation_dates",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": [
+      "2027-08-11",
+      "2028-02-11"
+    ],
+    "booking_value": [
+      "2027-08-11",
+      "2028-02-11"
+    ],
+    "citations": [
+      {
+        "text_span": "Autocall Observation Dates: 11-Aug-2027, 11-Feb-2028.",
+        "char_range": [
+          1070,
+          1123
+        ]
+      },
+      {
+        "text_span": "Autocall trigger: 100% of Initial Level on each of: 11-Aug-2027, 11-Feb-2028.",
+        "char_range": [
+          2157,
+          2234
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:autocall_level_pct",
+    "doc_id": "G08",
+    "field": "autocall_level_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "100",
+    "booking_value": "100",
+    "citations": [
+      {
+        "text_span": "Autocall trigger: 100% of Initial Level",
+        "char_range": [
+          2157,
+          2196
+        ]
+      },
+      {
+        "text_span": "Autocall trigger: 100% of Initial Level on each of: 11-Aug-2027, 11-Feb-2028.",
+        "char_range": [
+          2157,
+          2234
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:day_count",
+    "doc_id": "G08",
+    "field": "day_count",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "ACT/365",
+    "booking_value": "ACT/365",
+    "citations": [
+      {
+        "text_span": "Day count: Actual/365 (Fixed)",
+        "char_range": [
+          2125,
+          2154
+        ]
+      },
+      {
+        "text_span": "Day count: Actual/365 (Fixed)",
+        "char_range": [
+          2125,
+          2154
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:settlement",
+    "doc_id": "G08",
+    "field": "settlement",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "cash",
+    "booking_value": "cash",
+    "citations": [
+      {
+        "text_span": "All payments are made in USD by cash settlement",
+        "char_range": [
+          1527,
+          1574
+        ]
+      },
+      {
+        "text_span": "All payments are made in USD by cash settlement",
+        "char_range": [
+          1527,
+          1574
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G08:business_day_convention",
+    "doc_id": "G08",
+    "field": "business_day_convention",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "mod_following",
+    "booking_value": "mod_following",
+    "citations": [
+      {
+        "text_span": "payment dates follow the Modified Following convention",
+        "char_range": [
+          1579,
+          1633
+        ]
+      },
+      {
+        "text_span": "payment dates follow the Modified Following convention (Toronto, New York and London business days)",
+        "char_range": [
+          1579,
+          1678
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  }
+]

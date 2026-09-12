@@ -1,0 +1,854 @@
+{
+  "trade_id": {
+    "key": "trade_id",
+    "agree": true,
+    "value": "SN-2026-0101",
+    "absent": false,
+    "a": {
+      "key": "trade_id",
+      "value": "SN-2026-0101",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "SN-2026-0101",
+        "citation": {
+          "text_span": "Reference: SN-2026-0101",
+          "char_range": [
+            156,
+            179
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "trade_id",
+      "value": "SN-2026-0101",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "SN-2026-0101",
+        "citation": {
+          "text_span": "Reference: SN-2026-0101",
+          "char_range": [
+            156,
+            179
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "issuer": {
+    "key": "issuer",
+    "agree": true,
+    "value": "Northbridge Capital Markets (Canada) Inc.",
+    "absent": false,
+    "a": {
+      "key": "issuer",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "Northbridge Capital Markets (Canada) Inc.",
+        "citation": {
+          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
+          "char_range": [
+            232,
+            288
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "issuer",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "Northbridge Capital Markets (Canada) Inc.",
+        "citation": {
+          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
+          "char_range": [
+            232,
+            305
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "notional": {
+    "key": "notional",
+    "agree": true,
+    "value": "5000000",
+    "absent": false,
+    "a": {
+      "key": "notional",
+      "value": "5000000",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "USD 5,000,000",
+        "citation": {
+          "text_span": "in an aggregate Notional Amount of USD 5,000,000.",
+          "char_range": [
+            348,
+            397
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "notional",
+      "value": "5000000",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "USD 5,000,000",
+        "citation": {
+          "text_span": "in an aggregate Notional Amount of USD 5,000,000",
+          "char_range": [
+            348,
+            396
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "currency": {
+    "key": "currency",
+    "agree": true,
+    "value": "USD",
+    "absent": false,
+    "a": {
+      "key": "currency",
+      "value": "USD",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "USD",
+        "citation": {
+          "text_span": "in an aggregate Notional Amount of USD 5,000,000.",
+          "char_range": [
+            348,
+            397
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "currency",
+      "value": "USD",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "USD",
+        "citation": {
+          "text_span": "an aggregate Notional Amount of USD 5,000,000",
+          "char_range": [
+            351,
+            396
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "trade_date": {
+    "key": "trade_date",
+    "agree": true,
+    "value": "2026-04-14",
+    "absent": false,
+    "a": {
+      "key": "trade_date",
+      "value": "2026-04-14",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "14 April 2026",
+        "citation": {
+          "text_span": "The Trade Date is 14 April 2026",
+          "char_range": [
+            483,
+            514
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "trade_date",
+      "value": "2026-04-14",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "14 April 2026",
+        "citation": {
+          "text_span": "The Trade Date is 14 April 2026",
+          "char_range": [
+            483,
+            514
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "issue_date": {
+    "key": "issue_date",
+    "agree": true,
+    "value": "2026-04-21",
+    "absent": false,
+    "a": {
+      "key": "issue_date",
+      "value": "2026-04-21",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "21 April 2026",
+        "citation": {
+          "text_span": "the Issue Date is 21 April 2026",
+          "char_range": [
+            516,
+            547
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "issue_date",
+      "value": "2026-04-21",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "21 April 2026",
+        "citation": {
+          "text_span": "the Issue Date is 21 April 2026",
+          "char_range": [
+            516,
+            547
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "maturity_date": {
+    "key": "maturity_date",
+    "agree": true,
+    "value": "2029-04-23",
+    "absent": false,
+    "a": {
+      "key": "maturity_date",
+      "value": "2029-04-23",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "23 April 2029",
+        "citation": {
+          "text_span": "the Scheduled Maturity Date is 23 April 2029",
+          "char_range": [
+            552,
+            596
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "maturity_date",
+      "value": "2029-04-23",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "23 April 2029",
+        "citation": {
+          "text_span": "the Scheduled Maturity Date is 23 April 2029",
+          "char_range": [
+            552,
+            596
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "underlyings": {
+    "key": "underlyings",
+    "agree": true,
+    "value": [
+      "SPX"
+    ],
+    "absent": false,
+    "a": {
+      "key": "underlyings",
+      "value": [
+        "SPX"
+      ],
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": [
+          "SPX Index"
+        ],
+        "citation": {
+          "text_span": "The Notes are linked to the performance of the S&P 500 Index (Bloomberg: SPX Index).",
+          "char_range": [
+            398,
+            482
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "underlyings",
+      "value": [
+        "SPX"
+      ],
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": [
+          "SPX"
+        ],
+        "citation": {
+          "text_span": "linked to the performance of the S&P 500 Index (Bloomberg: SPX Index)",
+          "char_range": [
+            412,
+            481
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "initial_level_pct": {
+    "key": "initial_level_pct",
+    "agree": true,
+    "value": "100",
+    "absent": false,
+    "a": {
+      "key": "initial_level_pct",
+      "value": "100",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "100%",
+        "citation": {
+          "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+          "char_range": [
+            645,
+            738
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "initial_level_pct",
+      "value": "100",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "100%",
+        "citation": {
+          "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+          "char_range": [
+            645,
+            738
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "barrier_type": {
+    "key": "barrier_type",
+    "agree": true,
+    "value": "european",
+    "absent": false,
+    "a": {
+      "key": "barrier_type",
+      "value": "european",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "european",
+        "citation": {
+          "text_span": "Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 65% of the Initial Level.",
+          "char_range": [
+            1478,
+            1651
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "barrier_type",
+      "value": "european",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "european",
+        "citation": {
+          "text_span": "a knock-in barrier observed on the Final Valuation Date only (European observation)",
+          "char_range": [
+            1519,
+            1602
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "barrier_level_pct": {
+    "key": "barrier_level_pct",
+    "agree": true,
+    "value": "65",
+    "absent": false,
+    "a": {
+      "key": "barrier_level_pct",
+      "value": "65",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "65%",
+        "citation": {
+          "text_span": "at a Knock-in Level of 65% of the Initial Level.",
+          "char_range": [
+            1603,
+            1651
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "barrier_level_pct",
+      "value": "65",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "65%",
+        "citation": {
+          "text_span": "at a Knock-in Level of 65% of the Initial Level",
+          "char_range": [
+            1603,
+            1650
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "coupon_rate_pct": {
+    "key": "coupon_rate_pct",
+    "agree": true,
+    "value": "7.5",
+    "absent": false,
+    "a": {
+      "key": "coupon_rate_pct",
+      "value": "7.5",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "7.5%",
+        "citation": {
+          "text_span": "The Notes pay a conditional Coupon of 7.5% per annum, payable quarterly",
+          "char_range": [
+            751,
+            822
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "coupon_rate_pct",
+      "value": "7.5",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "7.5%",
+        "citation": {
+          "text_span": "a conditional Coupon of 7.5% per annum, payable quarterly",
+          "char_range": [
+            765,
+            822
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "coupon_frequency": {
+    "key": "coupon_frequency",
+    "agree": true,
+    "value": "quarterly",
+    "absent": false,
+    "a": {
+      "key": "coupon_frequency",
+      "value": "quarterly",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "quarterly",
+        "citation": {
+          "text_span": "payable quarterly",
+          "char_range": [
+            805,
+            822
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "coupon_frequency",
+      "value": "quarterly",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "quarterly",
+        "citation": {
+          "text_span": "7.5% per annum, payable quarterly",
+          "char_range": [
+            789,
+            822
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "coupon_memory": {
+    "key": "coupon_memory",
+    "agree": true,
+    "value": false,
+    "absent": false,
+    "a": {
+      "key": "coupon_memory",
+      "value": false,
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "false",
+        "citation": {
+          "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+          "char_range": [
+            947,
+            1128
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "coupon_memory",
+      "value": false,
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "false",
+        "citation": {
+          "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+          "char_range": [
+            947,
+            1128
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "autocall_observation_dates": {
+    "key": "autocall_observation_dates",
+    "agree": true,
+    "value": [
+      "2027-04-14",
+      "2027-10-14",
+      "2028-04-14",
+      "2028-10-16"
+    ],
+    "absent": false,
+    "a": {
+      "key": "autocall_observation_dates",
+      "value": [
+        "2027-04-14",
+        "2027-10-14",
+        "2028-04-14",
+        "2028-10-16"
+      ],
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": [
+          "14 April 2027",
+          "14 October 2027",
+          "14 April 2028",
+          "16 October 2028"
+        ],
+        "citation": {
+          "text_span": "Autocall Observation Dates: 14 April 2027, 14 October 2027, 14 April 2028, 16 October 2028.",
+          "char_range": [
+            1385,
+            1476
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "autocall_observation_dates",
+      "value": [
+        "2027-04-14",
+        "2027-10-14",
+        "2028-04-14",
+        "2028-10-16"
+      ],
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": [
+          "2027-04-14",
+          "2027-10-14",
+          "2028-04-14",
+          "2028-10-16"
+        ],
+        "citation": {
+          "text_span": "Autocall Observation Dates: 14 April 2027, 14 October 2027, 14 April 2028, 16 October 2028.",
+          "char_range": [
+            1385,
+            1476
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "autocall_level_pct": {
+    "key": "autocall_level_pct",
+    "agree": true,
+    "value": "100",
+    "absent": false,
+    "a": {
+      "key": "autocall_level_pct",
+      "value": "100",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "100%",
+        "citation": {
+          "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+          "char_range": [
+            1191,
+            1303
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "autocall_level_pct",
+      "value": "100",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "100%",
+        "citation": {
+          "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+          "char_range": [
+            1191,
+            1303
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "day_count": {
+    "key": "day_count",
+    "agree": true,
+    "value": "30/360",
+    "absent": false,
+    "a": {
+      "key": "day_count",
+      "value": "30/360",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "30/360",
+        "citation": {
+          "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+          "char_range": [
+            896,
+            946
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "day_count",
+      "value": "30/360",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "30/360",
+        "citation": {
+          "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+          "char_range": [
+            896,
+            946
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "settlement": {
+    "key": "settlement",
+    "agree": true,
+    "value": "cash",
+    "absent": false,
+    "a": {
+      "key": "settlement",
+      "value": "cash",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "cash",
+        "citation": {
+          "text_span": "Settlement at maturity or upon early redemption is in cash, in USD.",
+          "char_range": [
+            1837,
+            1904
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "settlement",
+      "value": "cash",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "cash",
+        "citation": {
+          "text_span": "Settlement at maturity or upon early redemption is in cash, in USD.",
+          "char_range": [
+            1837,
+            1904
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  },
+  "business_day_convention": {
+    "key": "business_day_convention",
+    "agree": true,
+    "value": "mod_following",
+    "absent": false,
+    "a": {
+      "key": "business_day_convention",
+      "value": "mod_following",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "Modified Following",
+        "citation": {
+          "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+          "char_range": [
+            1905,
+            1998
+          ]
+        },
+        "note": null
+      }
+    },
+    "b": {
+      "key": "business_day_convention",
+      "value": "mod_following",
+      "absent": false,
+      "malformed": null,
+      "source": {
+        "status": "EXTRACTED",
+        "value": "mod_following",
+        "citation": {
+          "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+          "char_range": [
+            1905,
+            1998
+          ]
+        },
+        "note": null
+      }
+    },
+    "malformed_families": []
+  }
+}

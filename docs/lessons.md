@@ -48,3 +48,10 @@
 - Lesson: the gate did exactly what it promised (no crash, no invented values, no auto-clear on missing evidence). The waste was asking a model to explain a technical failure 19 times. Code knows the cause; code should write the note.
 - Fix / rework: ADR-18 short-circuit; never run demo and eval concurrently on one key (README note).
 - Post angle: "When my clean control failed to auto-clear, the system was right and my demo plan was wrong."
+
+## 2026-09-11 — The sweep that decided the default was two runs and a table, not an opinion
+- Situation: choosing Gemini's thinking level for the shipped default (ADR-15 → ADR-19).
+- What broke / what we assumed: I assumed extraction is "just copying" and low thinking would be free. Low was 9× faster and 37% cheaper, and it mis-mapped one field on the only stepping schedule in the set (8/9).
+- Lesson: on n=12 one miss is the difference between 100% and 89%. The honest move is to ship the setting that caught everything, print the cheaper setting's numbers next to it, and say the sample is too small to know whether the miss is stable.
+- Fix / rework: ADR-19; the brief carries the trade-off sentence; the env knob makes the sweep reproducible in one command.
+- Post angle: "My cheapest config was 9× faster. I didn't ship it, and the reason is a table, not a feeling."

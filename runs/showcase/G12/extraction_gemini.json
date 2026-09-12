@@ -1,0 +1,238 @@
+{
+  "family": "gemini",
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "fields": {
+    "trade_id": {
+      "status": "EXTRACTED",
+      "value": "SN-2026-0112",
+      "citation": {
+        "text_span": "Reference: SN-2026-0112",
+        "char_range": [
+          1553,
+          1576
+        ]
+      },
+      "note": null
+    },
+    "issuer": {
+      "status": "EXTRACTED",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "citation": {
+        "text_span": "Issuer: Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          1579,
+          1628
+        ]
+      },
+      "note": null
+    },
+    "notional": {
+      "status": "EXTRACTED",
+      "value": "CAD 6 million (CAD 6,000,000)",
+      "citation": {
+        "text_span": "Notional: CAD 6 million (CAD 6,000,000)",
+        "char_range": [
+          1751,
+          1790
+        ]
+      },
+      "note": null
+    },
+    "currency": {
+      "status": "EXTRACTED",
+      "value": "CAD",
+      "citation": {
+        "text_span": "All payments are made in CAD by cash settlement",
+        "char_range": [
+          1264,
+          1311
+        ]
+      },
+      "note": null
+    },
+    "trade_date": {
+      "status": "EXTRACTED",
+      "value": "24-Mar-2026",
+      "citation": {
+        "text_span": "The Notes were traded on 24-Mar-2026",
+        "char_range": [
+          448,
+          484
+        ]
+      },
+      "note": null
+    },
+    "issue_date": {
+      "status": "EXTRACTED",
+      "value": "31-Mar-2026",
+      "citation": {
+        "text_span": "will be issued on 31-Mar-2026",
+        "char_range": [
+          486,
+          515
+        ]
+      },
+      "note": null
+    },
+    "maturity_date": {
+      "status": "EXTRACTED",
+      "value": "02-Apr-2029",
+      "citation": {
+        "text_span": "mature on 02-Apr-2029",
+        "char_range": [
+          520,
+          541
+        ]
+      },
+      "note": null
+    },
+    "underlyings": {
+      "status": "EXTRACTED",
+      "value": [
+        "BVERSA10"
+      ],
+      "citation": {
+        "text_span": "BVERSA10 Index (Bloomberg ticker BVERSA10)",
+        "char_range": [
+          1652,
+          1694
+        ]
+      },
+      "note": null
+    },
+    "initial_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "Initial Level: 100% of closing level on 24-Mar-2026",
+        "char_range": [
+          1697,
+          1748
+        ]
+      },
+      "note": null
+    },
+    "barrier_type": {
+      "status": "EXTRACTED",
+      "value": "European",
+      "citation": {
+        "text_span": "Knock-in: European at 65%",
+        "char_range": [
+          1931,
+          1956
+        ]
+      },
+      "note": null
+    },
+    "barrier_level_pct": {
+      "status": "EXTRACTED",
+      "value": "65%",
+      "citation": {
+        "text_span": "Knock-in Level of 65% of the Initial Level",
+        "char_range": [
+          1050,
+          1092
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "6.1%",
+      "citation": {
+        "text_span": "The Notes pay a conditional coupon of 6.1% per annum",
+        "char_range": [
+          544,
+          596
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_basis": {
+      "status": "EXTRACTED",
+      "value": "per_annum",
+      "citation": {
+        "text_span": "6.1% per annum",
+        "char_range": [
+          582,
+          596
+        ]
+      },
+      "note": null
+    },
+    "coupon_frequency": {
+      "status": "EXTRACTED",
+      "value": "semi-annually",
+      "citation": {
+        "text_span": "payable semi-annually",
+        "char_range": [
+          598,
+          619
+        ]
+      },
+      "note": null
+    },
+    "coupon_memory": {
+      "status": "EXTRACTED",
+      "value": "false",
+      "citation": {
+        "text_span": "memory: no",
+        "char_range": [
+          1840,
+          1850
+        ]
+      },
+      "note": null
+    },
+    "autocall_observation_dates": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "autocall_level_pct": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "day_count": {
+      "status": "EXTRACTED",
+      "value": "Actual/365 (Fixed)",
+      "citation": {
+        "text_span": "Day count: Actual/365 (Fixed)",
+        "char_range": [
+          1853,
+          1882
+        ]
+      },
+      "note": null
+    },
+    "settlement": {
+      "status": "EXTRACTED",
+      "value": "cash",
+      "citation": {
+        "text_span": "All payments are made in CAD by cash settlement",
+        "char_range": [
+          1264,
+          1311
+        ]
+      },
+      "note": null
+    },
+    "business_day_convention": {
+      "status": "EXTRACTED",
+      "value": "Following",
+      "citation": {
+        "text_span": "payment dates follow the Following convention",
+        "char_range": [
+          1316,
+          1361
+        ]
+      },
+      "note": null
+    }
+  },
+  "raw_text": "{\n  \"status\": {\n    \"trade_id\": \"EXTRACTED\",\n    \"issuer\": \"EXTRACTED\",\n    \"notional\": \"EXTRACTED\",\n    \"currency\": \"EXTRACTED\",\n    \"trade_date\": \"EXTRACTED\",\n    \"issue_date\": \"EXTRACTED\",\n    \"maturity_date\": \"EXTRACTED\",\n    \"underlyings\": \"EXTRACTED\",\n    \"initial_level_pct\": \"EXTRACTED\",\n    \"barrier_type\": \"EXTRACTED\",\n    \"barrier_level_pct\": \"EXTRACTED\",\n    \"coupon_rate_pct\": \"EXTRACTED\",\n    \"coupon_rate_basis\": \"EXTRACTED\",\n    \"coupon_frequency\": \"EXTRACTED\",\n    \"coupon_memory\": \"EXTRACTED\",\n    \"autocall_observation_dates\": \"DECLARED_ABSENT\",\n    \"autocall_level_pct\": \"DECLARED_ABSENT\",\n    \"day_count\": \"EXTRACTED\",\n    \"settlement\": \"EXTRACTED\",\n    \"business_day_convention\": \"EXTRACTED\"\n  },\n  \"value\": {\n    \"trade_id\": \"SN-2026-0112\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"CAD 6 million (CAD 6,000,000)\",\n    \"currency\": \"CAD\",\n    \"trade_date\": \"24-Mar-2026\",\n    \"issue_date\": \"31-Mar-2026\",\n    \"maturity_date\": \"02-Apr-2029\",\n    \"underlyings\": [\n      \"BVERSA10\"\n    ],\n    \"initial_level_pct\": \"100%\",\n    \"barrier_type\": \"European\",\n    \"barrier_level_pct\": \"65%\",\n    \"coupon_rate_pct\": \"6.1%\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"semi-annually\",\n    \"coupon_memory\": \"false\",\n    \"autocall_observation_dates\": [],\n    \"autocall_level_pct\": \"\",\n    \"day_count\": \"Actual/365 (Fixed)\",\n    \"settlement\": \"cash\",\n    \"business_day_convention\": \"Following\"\n  },\n  \"citation\": {\n    \"trade_id\": \"Reference: SN-2026-0112\",\n    \"issuer\": \"Issuer: Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"Notional: CAD 6 million (CAD 6,000,000)\",\n    \"currency\": \"All payments are made in CAD by cash settlement\",\n    \"trade_date\": \"The Notes were traded on 24-Mar-2026\",\n    \"issue_date\": \"will be issued on 31-Mar-2026\",\n    \"maturity_date\": \"mature on 02-Apr-2029\",\n    \"underlyings\": \"BVERSA10 Index (Bloomberg ticker BVERSA10)\",\n    \"initial_level_pct\": \"Initial Level: 100% of closing level on 24-Mar-2026\",\n    \"barrier_type\": \"Knock-in: European at 65%\",\n    \"barrier_level_pct\": \"Knock-in Level of 65% of the Initial Level\",\n    \"coupon_rate_pct\": \"The Notes pay a conditional coupon of 6.1% per annum\",\n    \"coupon_rate_basis\": \"6.1% per annum\",\n    \"coupon_frequency\": \"payable semi-annually\",\n    \"coupon_memory\": \"memory: no\",\n    \"autocall_observation_dates\": \"\",\n    \"autocall_level_pct\": \"\",\n    \"day_count\": \"Day count: Actual/365 (Fixed)\",\n    \"settlement\": \"All payments are made in CAD by cash settlement\",\n    \"business_day_convention\": \"payment dates follow the Following convention\"\n  }\n}"
+}

@@ -1,0 +1,253 @@
+{
+  "family": "gemini",
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "fields": {
+    "trade_id": {
+      "status": "EXTRACTED",
+      "value": "SN-2026-0108",
+      "citation": {
+        "text_span": "Reference: SN-2026-0108",
+        "char_range": [
+          1825,
+          1848
+        ]
+      },
+      "note": null
+    },
+    "issuer": {
+      "status": "EXTRACTED",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "citation": {
+        "text_span": "Issuer: Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          1851,
+          1900
+        ]
+      },
+      "note": null
+    },
+    "notional": {
+      "status": "EXTRACTED",
+      "value": "USD 7.5 million (USD 7,500,000)",
+      "citation": {
+        "text_span": "Notional: USD 7.5 million (USD 7,500,000)",
+        "char_range": [
+          2024,
+          2065
+        ]
+      },
+      "note": null
+    },
+    "currency": {
+      "status": "EXTRACTED",
+      "value": "USD",
+      "citation": {
+        "text_span": "All payments are made in USD",
+        "char_range": [
+          1527,
+          1555
+        ]
+      },
+      "note": null
+    },
+    "trade_date": {
+      "status": "EXTRACTED",
+      "value": "11-Aug-2026",
+      "citation": {
+        "text_span": "The Notes were traded on 11-Aug-2026",
+        "char_range": [
+          455,
+          491
+        ]
+      },
+      "note": null
+    },
+    "issue_date": {
+      "status": "EXTRACTED",
+      "value": "18-Aug-2026",
+      "citation": {
+        "text_span": "will be issued on 18-Aug-2026",
+        "char_range": [
+          493,
+          522
+        ]
+      },
+      "note": null
+    },
+    "maturity_date": {
+      "status": "EXTRACTED",
+      "value": "18-Aug-2028",
+      "citation": {
+        "text_span": "mature on 18-Aug-2028",
+        "char_range": [
+          527,
+          548
+        ]
+      },
+      "note": null
+    },
+    "underlyings": {
+      "status": "EXTRACTED",
+      "value": [
+        "SX5E"
+      ],
+      "citation": {
+        "text_span": "Bloomberg ticker SX5E",
+        "char_range": [
+          1945,
+          1966
+        ]
+      },
+      "note": null
+    },
+    "initial_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "Initial Level: 100% of closing level on 11-Aug-2026",
+        "char_range": [
+          1970,
+          2021
+        ]
+      },
+      "note": null
+    },
+    "barrier_type": {
+      "status": "EXTRACTED",
+      "value": "American",
+      "citation": {
+        "text_span": "Knock-in: American at 60%",
+        "char_range": [
+          2237,
+          2262
+        ]
+      },
+      "note": null
+    },
+    "barrier_level_pct": {
+      "status": "EXTRACTED",
+      "value": "60%",
+      "citation": {
+        "text_span": "Knock-in Level of 60% of the Initial Level",
+        "char_range": [
+          1313,
+          1355
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "9.75%",
+      "citation": {
+        "text_span": "Coupon: 9.75% per annum",
+        "char_range": [
+          2068,
+          2091
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_basis": {
+      "status": "EXTRACTED",
+      "value": "per_annum",
+      "citation": {
+        "text_span": "9.75% per annum",
+        "char_range": [
+          589,
+          604
+        ]
+      },
+      "note": null
+    },
+    "coupon_frequency": {
+      "status": "EXTRACTED",
+      "value": "quarterly",
+      "citation": {
+        "text_span": "payable quarterly",
+        "char_range": [
+          606,
+          623
+        ]
+      },
+      "note": null
+    },
+    "coupon_memory": {
+      "status": "EXTRACTED",
+      "value": "no",
+      "citation": {
+        "text_span": "memory: no",
+        "char_range": [
+          2112,
+          2122
+        ]
+      },
+      "note": null
+    },
+    "autocall_observation_dates": {
+      "status": "EXTRACTED",
+      "value": [
+        "11-Aug-2027",
+        "11-Feb-2028"
+      ],
+      "citation": {
+        "text_span": "Autocall Observation Dates: 11-Aug-2027, 11-Feb-2028.",
+        "char_range": [
+          1070,
+          1123
+        ]
+      },
+      "note": null
+    },
+    "autocall_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "Autocall trigger: 100% of Initial Level",
+        "char_range": [
+          2157,
+          2196
+        ]
+      },
+      "note": null
+    },
+    "day_count": {
+      "status": "EXTRACTED",
+      "value": "Actual/365 (Fixed)",
+      "citation": {
+        "text_span": "Day count: Actual/365 (Fixed)",
+        "char_range": [
+          2125,
+          2154
+        ]
+      },
+      "note": null
+    },
+    "settlement": {
+      "status": "EXTRACTED",
+      "value": "cash settlement",
+      "citation": {
+        "text_span": "All payments are made in USD by cash settlement",
+        "char_range": [
+          1527,
+          1574
+        ]
+      },
+      "note": null
+    },
+    "business_day_convention": {
+      "status": "EXTRACTED",
+      "value": "Modified Following",
+      "citation": {
+        "text_span": "payment dates follow the Modified Following convention",
+        "char_range": [
+          1579,
+          1633
+        ]
+      },
+      "note": null
+    }
+  },
+  "raw_text": "{\n  \"status\": {\n    \"trade_id\": \"EXTRACTED\",\n    \"issuer\": \"EXTRACTED\",\n    \"notional\": \"EXTRACTED\",\n    \"currency\": \"EXTRACTED\",\n    \"trade_date\": \"EXTRACTED\",\n    \"issue_date\": \"EXTRACTED\",\n    \"maturity_date\": \"EXTRACTED\",\n    \"underlyings\": \"EXTRACTED\",\n    \"initial_level_pct\": \"EXTRACTED\",\n    \"barrier_type\": \"EXTRACTED\",\n    \"barrier_level_pct\": \"EXTRACTED\",\n    \"coupon_rate_pct\": \"EXTRACTED\",\n    \"coupon_rate_basis\": \"EXTRACTED\",\n    \"coupon_frequency\": \"EXTRACTED\",\n    \"coupon_memory\": \"EXTRACTED\",\n    \"autocall_observation_dates\": \"EXTRACTED\",\n    \"autocall_level_pct\": \"EXTRACTED\",\n    \"day_count\": \"EXTRACTED\",\n    \"settlement\": \"EXTRACTED\",\n    \"business_day_convention\": \"EXTRACTED\"\n  },\n  \"value\": {\n    \"trade_id\": \"SN-2026-0108\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"USD 7.5 million (USD 7,500,000)\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"11-Aug-2026\",\n    \"issue_date\": \"18-Aug-2026\",\n    \"maturity_date\": \"18-Aug-2028\",\n    \"underlyings\": [\n      \"SX5E\"\n    ],\n    \"initial_level_pct\": \"100%\",\n    \"barrier_type\": \"American\",\n    \"barrier_level_pct\": \"60%\",\n    \"coupon_rate_pct\": \"9.75%\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"quarterly\",\n    \"coupon_memory\": \"no\",\n    \"autocall_observation_dates\": [\n      \"11-Aug-2027\",\n      \"11-Feb-2028\"\n    ],\n    \"autocall_level_pct\": \"100%\",\n    \"day_count\": \"Actual/365 (Fixed)\",\n    \"settlement\": \"cash settlement\",\n    \"business_day_convention\": \"Modified Following\"\n  },\n  \"citation\": {\n    \"trade_id\": \"Reference: SN-2026-0108\",\n    \"issuer\": \"Issuer: Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"Notional: USD 7.5 million (USD 7,500,000)\",\n    \"currency\": \"All payments are made in USD\",\n    \"trade_date\": \"The Notes were traded on 11-Aug-2026\",\n    \"issue_date\": \"will be issued on 18-Aug-2026\",\n    \"maturity_date\": \"mature on 18-Aug-2028\",\n    \"underlyings\": \"Bloomberg ticker SX5E\",\n    \"initial_level_pct\": \"Initial Level: 100% of closing level on 11-Aug-2026\",\n    \"barrier_type\": \"Knock-in: American at 60%\",\n    \"barrier_level_pct\": \"Knock-in Level of 60% of the Initial Level\",\n    \"coupon_rate_pct\": \"Coupon: 9.75% per annum\",\n    \"coupon_rate_basis\": \"9.75% per annum\",\n    \"coupon_frequency\": \"payable quarterly\",\n    \"coupon_memory\": \"memory: no\",\n    \"autocall_observation_dates\": \"Autocall Observation Dates: 11-Aug-2027, 11-Feb-2028.\",\n    \"autocall_level_pct\": \"Autocall trigger: 100% of Initial Level\",\n    \"day_count\": \"Day count: Actual/365 (Fixed)\",\n    \"settlement\": \"All payments are made in USD by cash settlement\",\n    \"business_day_convention\": \"payment dates follow the Modified Following convention\"\n  }\n}"
+}

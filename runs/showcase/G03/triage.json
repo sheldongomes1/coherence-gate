@@ -1,0 +1,30 @@
+[
+  {
+    "id": "G03:day_count",
+    "doc_id": "G03",
+    "field": "day_count",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": "ACT/360",
+    "booking_value": "30/360",
+    "citations": [
+      {
+        "text_span": "calculated on the basis of Actual/360.",
+        "char_range": [
+          972,
+          1010
+        ]
+      },
+      {
+        "text_span": "calculated on the basis of Actual/360",
+        "char_range": [
+          972,
+          1009
+        ]
+      }
+    ],
+    "detail": "TS ACT/360 \u2260 booking 30/360",
+    "lane": "TRIAGE",
+    "triage": null
+  }
+]

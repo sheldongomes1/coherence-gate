@@ -1,0 +1,15 @@
+[
+  {
+    "id": "G10:barrier_level_pct",
+    "doc_id": "G10",
+    "field": "barrier_level_pct",
+    "type": "TS_ABSENT",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": "70",
+    "citations": [],
+    "detail": "term sheet declares barrier_level_pct absent; booking has 70",
+    "lane": "TRIAGE",
+    "triage": null
+  }
+]

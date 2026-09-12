@@ -1,0 +1,238 @@
+{
+  "family": "claude",
+  "model": "claude-opus-5",
+  "model_version": "claude-opus-5",
+  "fields": {
+    "trade_id": {
+      "status": "EXTRACTED",
+      "value": "SN-2026-0112",
+      "citation": {
+        "text_span": "Reference: SN-2026-0112",
+        "char_range": [
+          1553,
+          1576
+        ]
+      },
+      "note": null
+    },
+    "issuer": {
+      "status": "EXTRACTED",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "citation": {
+        "text_span": "Issuer: Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          1579,
+          1628
+        ]
+      },
+      "note": null
+    },
+    "notional": {
+      "status": "EXTRACTED",
+      "value": "CAD 6,000,000",
+      "citation": {
+        "text_span": "Notional: CAD 6 million (CAD 6,000,000)",
+        "char_range": [
+          1751,
+          1790
+        ]
+      },
+      "note": null
+    },
+    "currency": {
+      "status": "EXTRACTED",
+      "value": "CAD",
+      "citation": {
+        "text_span": "All payments are made in CAD by cash settlement",
+        "char_range": [
+          1264,
+          1311
+        ]
+      },
+      "note": null
+    },
+    "trade_date": {
+      "status": "EXTRACTED",
+      "value": "24-Mar-2026",
+      "citation": {
+        "text_span": "The Notes were traded on 24-Mar-2026, will be issued on 31-Mar-2026 and mature on 02-Apr-2029.",
+        "char_range": [
+          448,
+          542
+        ]
+      },
+      "note": null
+    },
+    "issue_date": {
+      "status": "EXTRACTED",
+      "value": "31-Mar-2026",
+      "citation": {
+        "text_span": "The Notes were traded on 24-Mar-2026, will be issued on 31-Mar-2026 and mature on 02-Apr-2029.",
+        "char_range": [
+          448,
+          542
+        ]
+      },
+      "note": null
+    },
+    "maturity_date": {
+      "status": "EXTRACTED",
+      "value": "02-Apr-2029",
+      "citation": {
+        "text_span": "The Notes were traded on 24-Mar-2026, will be issued on 31-Mar-2026 and mature on 02-Apr-2029.",
+        "char_range": [
+          448,
+          542
+        ]
+      },
+      "note": null
+    },
+    "underlyings": {
+      "status": "EXTRACTED",
+      "value": [
+        "BVERSA10"
+      ],
+      "citation": {
+        "text_span": "- BVERSA10 Index (Bloomberg ticker BVERSA10)",
+        "char_range": [
+          1650,
+          1694
+        ]
+      },
+      "note": null
+    },
+    "initial_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "Initial Level: 100% of closing level on 24-Mar-2026",
+        "char_range": [
+          1697,
+          1748
+        ]
+      },
+      "note": null
+    },
+    "barrier_type": {
+      "status": "EXTRACTED",
+      "value": "european",
+      "citation": {
+        "text_span": "Knock-in: European at 65%",
+        "char_range": [
+          1931,
+          1956
+        ]
+      },
+      "note": null
+    },
+    "barrier_level_pct": {
+      "status": "EXTRACTED",
+      "value": "65%",
+      "citation": {
+        "text_span": "Knock-in: European at 65%",
+        "char_range": [
+          1931,
+          1956
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "6.1%",
+      "citation": {
+        "text_span": "Coupon: 6.1% per annum, payable semi-annually; memory: no",
+        "char_range": [
+          1793,
+          1850
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_basis": {
+      "status": "EXTRACTED",
+      "value": "per_annum",
+      "citation": {
+        "text_span": "Coupon: 6.1% per annum, payable semi-annually; memory: no",
+        "char_range": [
+          1793,
+          1850
+        ]
+      },
+      "note": null
+    },
+    "coupon_frequency": {
+      "status": "EXTRACTED",
+      "value": "semiannual",
+      "citation": {
+        "text_span": "Coupon: 6.1% per annum, payable semi-annually; memory: no",
+        "char_range": [
+          1793,
+          1850
+        ]
+      },
+      "note": null
+    },
+    "coupon_memory": {
+      "status": "EXTRACTED",
+      "value": "false",
+      "citation": {
+        "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+        "char_range": [
+          661,
+          842
+        ]
+      },
+      "note": null
+    },
+    "autocall_observation_dates": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "autocall_level_pct": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "day_count": {
+      "status": "EXTRACTED",
+      "value": "Actual/365 (Fixed)",
+      "citation": {
+        "text_span": "Day count: Actual/365 (Fixed)",
+        "char_range": [
+          1853,
+          1882
+        ]
+      },
+      "note": null
+    },
+    "settlement": {
+      "status": "EXTRACTED",
+      "value": "cash",
+      "citation": {
+        "text_span": "All payments are made in CAD by cash settlement",
+        "char_range": [
+          1264,
+          1311
+        ]
+      },
+      "note": null
+    },
+    "business_day_convention": {
+      "status": "EXTRACTED",
+      "value": "following",
+      "citation": {
+        "text_span": "payment dates follow the Following convention (Toronto, New York and London business days)",
+        "char_range": [
+          1316,
+          1406
+        ]
+      },
+      "note": null
+    }
+  },
+  "raw_text": "{\"status\":{\"trade_id\":\"EXTRACTED\",\"issuer\":\"EXTRACTED\",\"notional\":\"EXTRACTED\",\"currency\":\"EXTRACTED\",\"trade_date\":\"EXTRACTED\",\"issue_date\":\"EXTRACTED\",\"maturity_date\":\"EXTRACTED\",\"underlyings\":\"EXTRACTED\",\"initial_level_pct\":\"EXTRACTED\",\"barrier_type\":\"EXTRACTED\",\"barrier_level_pct\":\"EXTRACTED\",\"coupon_rate_pct\":\"EXTRACTED\",\"coupon_rate_basis\":\"EXTRACTED\",\"coupon_frequency\":\"EXTRACTED\",\"coupon_memory\":\"EXTRACTED\",\"autocall_observation_dates\":\"DECLARED_ABSENT\",\"autocall_level_pct\":\"DECLARED_ABSENT\",\"day_count\":\"EXTRACTED\",\"settlement\":\"EXTRACTED\",\"business_day_convention\":\"EXTRACTED\"},\"value\":{\"trade_id\":\"SN-2026-0112\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"CAD 6,000,000\",\"currency\":\"CAD\",\"trade_date\":\"24-Mar-2026\",\"issue_date\":\"31-Mar-2026\",\"maturity_date\":\"02-Apr-2029\",\"underlyings\":[\"BVERSA10\"],\"initial_level_pct\":\"100%\",\"barrier_type\":\"european\",\"barrier_level_pct\":\"65%\",\"coupon_rate_pct\":\"6.1%\",\"coupon_rate_basis\":\"per_annum\",\"coupon_frequency\":\"semiannual\",\"coupon_memory\":\"false\",\"autocall_observation_dates\":[],\"autocall_level_pct\":\"\",\"day_count\":\"Actual/365 (Fixed)\",\"settlement\":\"cash\",\"business_day_convention\":\"following\"},\"citation\":{\"trade_id\":\"Reference: SN-2026-0112\",\"issuer\":\"Issuer: Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"Notional: CAD 6 million (CAD 6,000,000)\",\"currency\":\"All payments are made in CAD by cash settlement\",\"trade_date\":\"The Notes were traded on 24-Mar-2026, will be issued on 31-Mar-2026 and mature on 02-Apr-2029.\",\"issue_date\":\"The Notes were traded on 24-Mar-2026, will be issued on 31-Mar-2026 and mature on 02-Apr-2029.\",\"maturity_date\":\"The Notes were traded on 24-Mar-2026, will be issued on 31-Mar-2026 and mature on 02-Apr-2029.\",\"underlyings\":\"- BVERSA10 Index (Bloomberg ticker BVERSA10)\",\"initial_level_pct\":\"Initial Level: 100% of closing level on 24-Mar-2026\",\"barrier_type\":\"Knock-in: European at 65%\",\"barrier_level_pct\":\"Knock-in: European at 65%\",\"coupon_rate_pct\":\"Coupon: 6.1% per annum, payable semi-annually; memory: no\",\"coupon_rate_basis\":\"Coupon: 6.1% per annum, payable semi-annually; memory: no\",\"coupon_frequency\":\"Coupon: 6.1% per annum, payable semi-annually; memory: no\",\"coupon_memory\":\"No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.\",\"autocall_observation_dates\":\"\",\"autocall_level_pct\":\"\",\"day_count\":\"Day count: Actual/365 (Fixed)\",\"settlement\":\"All payments are made in CAD by cash settlement\",\"business_day_convention\":\"payment dates follow the Following convention (Toronto, New York and London business days)\"}}"
+}

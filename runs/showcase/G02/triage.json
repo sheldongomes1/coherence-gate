@@ -1,0 +1,38 @@
+[
+  {
+    "id": "G02:autocall_observation_dates",
+    "doc_id": "G02",
+    "field": "autocall_observation_dates",
+    "type": "MISMATCH",
+    "severity": "minor",
+    "ts_value": [
+      "2027-05-12",
+      "2027-11-12",
+      "2028-05-12"
+    ],
+    "booking_value": [
+      "2027-05-12",
+      "2027-11-15",
+      "2028-05-12"
+    ],
+    "citations": [
+      {
+        "text_span": "Autocall Observation Dates   | 2027-05-12, 2027-11-12, 2028-05-12",
+        "char_range": [
+          831,
+          896
+        ]
+      },
+      {
+        "text_span": "Autocall Observation Dates   | 2027-05-12, 2027-11-12, 2028-05-12",
+        "char_range": [
+          831,
+          896
+        ]
+      }
+    ],
+    "detail": "TS ['2027-05-12', '2027-11-12', '2028-05-12'] \u2260 booking ['2027-05-12', '2027-11-15', '2028-05-12']",
+    "lane": "TRIAGE",
+    "triage": null
+  }
+]

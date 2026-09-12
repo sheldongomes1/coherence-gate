@@ -1,0 +1,30 @@
+[
+  {
+    "id": "G04:coupon_memory",
+    "doc_id": "G04",
+    "field": "coupon_memory",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": true,
+    "booking_value": false,
+    "citations": [
+      {
+        "text_span": "memory: yes",
+        "char_range": [
+          2211,
+          2222
+        ]
+      },
+      {
+        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
+        "char_range": [
+          680,
+          816
+        ]
+      }
+    ],
+    "detail": "TS True \u2260 booking False",
+    "lane": "TRIAGE",
+    "triage": null
+  }
+]

@@ -1,0 +1,548 @@
+[
+  {
+    "id": "G09:trade_id",
+    "doc_id": "G09",
+    "field": "trade_id",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "SN-2026-0109",
+    "booking_value": "SN-2026-0109",
+    "citations": [
+      {
+        "text_span": "Reference: SN-2026-0109",
+        "char_range": [
+          157,
+          180
+        ]
+      },
+      {
+        "text_span": "Reference: SN-2026-0109",
+        "char_range": [
+          157,
+          180
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:issuer",
+    "doc_id": "G09",
+    "field": "issuer",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "Northbridge Capital Markets (Canada) Inc.",
+    "booking_value": "Northbridge Capital Markets (Canada) Inc.",
+    "citations": [
+      {
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
+        "char_range": [
+          233,
+          289
+        ]
+      },
+      {
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
+        "char_range": [
+          233,
+          306
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:notional",
+    "doc_id": "G09",
+    "field": "notional",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "5000000",
+    "booking_value": "5000000",
+    "citations": [
+      {
+        "text_span": "in an aggregate Notional Amount of CAD 5,000,000",
+        "char_range": [
+          349,
+          397
+        ]
+      },
+      {
+        "text_span": "in an aggregate Notional Amount of CAD 5,000,000",
+        "char_range": [
+          349,
+          397
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:currency",
+    "doc_id": "G09",
+    "field": "currency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "CAD",
+    "booking_value": "CAD",
+    "citations": [
+      {
+        "text_span": "in an aggregate Notional Amount of CAD 5,000,000",
+        "char_range": [
+          349,
+          397
+        ]
+      },
+      {
+        "text_span": "in an aggregate Notional Amount of CAD 5,000,000",
+        "char_range": [
+          349,
+          397
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:trade_date",
+    "doc_id": "G09",
+    "field": "trade_date",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "2026-04-28",
+    "booking_value": "2026-04-28",
+    "citations": [
+      {
+        "text_span": "The Trade Date is 28 April 2026",
+        "char_range": [
+          490,
+          521
+        ]
+      },
+      {
+        "text_span": "The Trade Date is 28 April 2026",
+        "char_range": [
+          490,
+          521
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:issue_date",
+    "doc_id": "G09",
+    "field": "issue_date",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "2026-05-05",
+    "booking_value": "2026-05-05",
+    "citations": [
+      {
+        "text_span": "the Issue Date is 5 May 2026",
+        "char_range": [
+          523,
+          551
+        ]
+      },
+      {
+        "text_span": "the Issue Date is 5 May 2026",
+        "char_range": [
+          523,
+          551
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:maturity_date",
+    "doc_id": "G09",
+    "field": "maturity_date",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "2029-05-07",
+    "booking_value": "2029-05-07",
+    "citations": [
+      {
+        "text_span": "the Scheduled Maturity Date is 7 May 2029",
+        "char_range": [
+          556,
+          597
+        ]
+      },
+      {
+        "text_span": "the Scheduled Maturity Date is 7 May 2029",
+        "char_range": [
+          556,
+          597
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:underlyings",
+    "doc_id": "G09",
+    "field": "underlyings",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": [
+      "BVERSA10"
+    ],
+    "booking_value": [
+      "BVERSA10"
+    ],
+    "citations": [
+      {
+        "text_span": "The Notes are linked to the performance of the BVERSA10 Index (Bloomberg: BVERSA10 Index).",
+        "char_range": [
+          399,
+          489
+        ]
+      },
+      {
+        "text_span": "The Notes are linked to the performance of the BVERSA10 Index (Bloomberg: BVERSA10 Index).",
+        "char_range": [
+          399,
+          489
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:initial_level_pct",
+    "doc_id": "G09",
+    "field": "initial_level_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "100",
+    "booking_value": "100",
+    "citations": [
+      {
+        "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+        "char_range": [
+          646,
+          739
+        ]
+      },
+      {
+        "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+        "char_range": [
+          646,
+          739
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:barrier_type",
+    "doc_id": "G09",
+    "field": "barrier_type",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "european",
+    "booking_value": "european",
+    "citations": [
+      {
+        "text_span": "observed on the Final Valuation Date only (European observation)",
+        "char_range": [
+          1557,
+          1621
+        ]
+      },
+      {
+        "text_span": "the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)",
+        "char_range": [
+          1513,
+          1621
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:barrier_level_pct",
+    "doc_id": "G09",
+    "field": "barrier_level_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "70",
+    "booking_value": "70",
+    "citations": [
+      {
+        "text_span": "at a Knock-in Level of 70% of the Initial Level",
+        "char_range": [
+          1622,
+          1669
+        ]
+      },
+      {
+        "text_span": "at a Knock-in Level of 70% of the Initial Level",
+        "char_range": [
+          1622,
+          1669
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:coupon_rate_pct",
+    "doc_id": "G09",
+    "field": "coupon_rate_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "8.25",
+    "booking_value": "8.25",
+    "citations": [
+      {
+        "text_span": "The Notes pay a conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum)",
+        "char_range": [
+          752,
+          841
+        ]
+      },
+      {
+        "text_span": "a conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum)",
+        "char_range": [
+          766,
+          841
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:coupon_frequency",
+    "doc_id": "G09",
+    "field": "coupon_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "quarterly",
+    "booking_value": "quarterly",
+    "citations": [
+      {
+        "text_span": "The Notes pay a conditional Coupon of 2.0625% per quarter",
+        "char_range": [
+          752,
+          809
+        ]
+      },
+      {
+        "text_span": "a conditional Coupon of 2.0625% per quarter",
+        "char_range": [
+          766,
+          809
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:coupon_memory",
+    "doc_id": "G09",
+    "field": "coupon_memory",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": false,
+    "booking_value": false,
+    "citations": [
+      {
+        "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+        "char_range": [
+          966,
+          1147
+        ]
+      },
+      {
+        "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+        "char_range": [
+          966,
+          1147
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:autocall_observation_dates",
+    "doc_id": "G09",
+    "field": "autocall_observation_dates",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": [
+      "2027-04-28",
+      "2027-10-28",
+      "2028-04-28",
+      "2028-10-30"
+    ],
+    "booking_value": [
+      "2027-04-28",
+      "2027-10-28",
+      "2028-04-28",
+      "2028-10-30"
+    ],
+    "citations": [
+      {
+        "text_span": "Autocall Observation Dates: 28 April 2027, 28 October 2027, 28 April 2028, 30 October 2028.",
+        "char_range": [
+          1404,
+          1495
+        ]
+      },
+      {
+        "text_span": "Autocall Observation Dates: 28 April 2027, 28 October 2027, 28 April 2028, 30 October 2028.",
+        "char_range": [
+          1404,
+          1495
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:autocall_level_pct",
+    "doc_id": "G09",
+    "field": "autocall_level_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "100",
+    "booking_value": "100",
+    "citations": [
+      {
+        "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+        "char_range": [
+          1210,
+          1322
+        ]
+      },
+      {
+        "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+        "char_range": [
+          1210,
+          1322
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:day_count",
+    "doc_id": "G09",
+    "field": "day_count",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "30/360",
+    "booking_value": "30/360",
+    "citations": [
+      {
+        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "char_range": [
+          915,
+          965
+        ]
+      },
+      {
+        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "char_range": [
+          915,
+          965
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:settlement",
+    "doc_id": "G09",
+    "field": "settlement",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "cash",
+    "booking_value": "cash",
+    "citations": [
+      {
+        "text_span": "Settlement at maturity or upon early redemption is in cash, in CAD.",
+        "char_range": [
+          1856,
+          1923
+        ]
+      },
+      {
+        "text_span": "Settlement at maturity or upon early redemption is in cash, in CAD.",
+        "char_range": [
+          1856,
+          1923
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:business_day_convention",
+    "doc_id": "G09",
+    "field": "business_day_convention",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "mod_following",
+    "booking_value": "mod_following",
+    "citations": [
+      {
+        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+        "char_range": [
+          1924,
+          2017
+        ]
+      },
+      {
+        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+        "char_range": [
+          1924,
+          2017
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  }
+]

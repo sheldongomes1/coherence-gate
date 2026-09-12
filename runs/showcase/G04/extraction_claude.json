@@ -1,0 +1,255 @@
+{
+  "family": "claude",
+  "model": "claude-opus-5",
+  "model_version": "claude-opus-5",
+  "fields": {
+    "trade_id": {
+      "status": "EXTRACTED",
+      "value": "SN-2026-0104",
+      "citation": {
+        "text_span": "Reference: SN-2026-0104",
+        "char_range": [
+          1881,
+          1904
+        ]
+      },
+      "note": null
+    },
+    "issuer": {
+      "status": "EXTRACTED",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "citation": {
+        "text_span": "Issuer: Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          1907,
+          1956
+        ]
+      },
+      "note": null
+    },
+    "notional": {
+      "status": "EXTRACTED",
+      "value": "USD 2,500,000",
+      "citation": {
+        "text_span": "Notional: USD 2.5 million (USD 2,500,000)",
+        "char_range": [
+          2123,
+          2164
+        ]
+      },
+      "note": null
+    },
+    "currency": {
+      "status": "EXTRACTED",
+      "value": "USD",
+      "citation": {
+        "text_span": "All payments are made in USD by cash settlement",
+        "char_range": [
+          1592,
+          1639
+        ]
+      },
+      "note": null
+    },
+    "trade_date": {
+      "status": "EXTRACTED",
+      "value": "09-Jun-2026",
+      "citation": {
+        "text_span": "The Notes were traded on 09-Jun-2026",
+        "char_range": [
+          482,
+          518
+        ]
+      },
+      "note": null
+    },
+    "issue_date": {
+      "status": "EXTRACTED",
+      "value": "16-Jun-2026",
+      "citation": {
+        "text_span": "will be issued on 16-Jun-2026",
+        "char_range": [
+          520,
+          549
+        ]
+      },
+      "note": null
+    },
+    "maturity_date": {
+      "status": "EXTRACTED",
+      "value": "16-Jun-2028",
+      "citation": {
+        "text_span": "mature on 16-Jun-2028",
+        "char_range": [
+          554,
+          575
+        ]
+      },
+      "note": null
+    },
+    "underlyings": {
+      "status": "EXTRACTED",
+      "value": [
+        "SPX",
+        "SX5E"
+      ],
+      "citation": {
+        "text_span": "- S&P 500 Index (Bloomberg ticker SPX)\n    - EURO STOXX 50 Index (Bloomberg ticker SX5E)",
+        "char_range": [
+          1978,
+          2066
+        ]
+      },
+      "note": null
+    },
+    "initial_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "Initial Level: 100% of closing level on 09-Jun-2026",
+        "char_range": [
+          2069,
+          2120
+        ]
+      },
+      "note": null
+    },
+    "barrier_type": {
+      "status": "EXTRACTED",
+      "value": "european",
+      "citation": {
+        "text_span": "the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)",
+        "char_range": [
+          1264,
+          1372
+        ]
+      },
+      "note": null
+    },
+    "barrier_level_pct": {
+      "status": "EXTRACTED",
+      "value": "60%",
+      "citation": {
+        "text_span": "Knock-in: European at 60%",
+        "char_range": [
+          2338,
+          2363
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "10.2%",
+      "citation": {
+        "text_span": "Coupon: 10.2% per annum, payable quarterly; memory: yes",
+        "char_range": [
+          2167,
+          2222
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_basis": {
+      "status": "EXTRACTED",
+      "value": "per_annum",
+      "citation": {
+        "text_span": "Coupon: 10.2% per annum, payable quarterly; memory: yes",
+        "char_range": [
+          2167,
+          2222
+        ]
+      },
+      "note": null
+    },
+    "coupon_frequency": {
+      "status": "EXTRACTED",
+      "value": "quarterly",
+      "citation": {
+        "text_span": "Coupon: 10.2% per annum, payable quarterly; memory: yes",
+        "char_range": [
+          2167,
+          2222
+        ]
+      },
+      "note": null
+    },
+    "coupon_memory": {
+      "status": "EXTRACTED",
+      "value": "true",
+      "citation": {
+        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
+        "char_range": [
+          680,
+          816
+        ]
+      },
+      "note": null
+    },
+    "autocall_observation_dates": {
+      "status": "EXTRACTED",
+      "value": [
+        "09-Jun-2027",
+        "09-Dec-2027",
+        "09-Jun-2028"
+      ],
+      "citation": {
+        "text_span": "Autocall trigger: 100% of Initial Level on each of: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.",
+        "char_range": [
+          2245,
+          2335
+        ]
+      },
+      "note": null
+    },
+    "autocall_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "Autocall trigger: 100% of Initial Level on each of: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.",
+        "char_range": [
+          2245,
+          2335
+        ]
+      },
+      "note": null
+    },
+    "day_count": {
+      "status": "EXTRACTED",
+      "value": "30/360",
+      "citation": {
+        "text_span": "Day count: 30/360",
+        "char_range": [
+          2225,
+          2242
+        ]
+      },
+      "note": null
+    },
+    "settlement": {
+      "status": "EXTRACTED",
+      "value": "cash",
+      "citation": {
+        "text_span": "All payments are made in USD by cash settlement",
+        "char_range": [
+          1592,
+          1639
+        ]
+      },
+      "note": null
+    },
+    "business_day_convention": {
+      "status": "EXTRACTED",
+      "value": "following",
+      "citation": {
+        "text_span": "payment dates follow the Following convention (Toronto, New York and London business days)",
+        "char_range": [
+          1644,
+          1734
+        ]
+      },
+      "note": null
+    }
+  },
+  "raw_text": "{\"status\":{\"trade_id\":\"EXTRACTED\",\"issuer\":\"EXTRACTED\",\"notional\":\"EXTRACTED\",\"currency\":\"EXTRACTED\",\"trade_date\":\"EXTRACTED\",\"issue_date\":\"EXTRACTED\",\"maturity_date\":\"EXTRACTED\",\"underlyings\":\"EXTRACTED\",\"initial_level_pct\":\"EXTRACTED\",\"barrier_type\":\"EXTRACTED\",\"barrier_level_pct\":\"EXTRACTED\",\"coupon_rate_pct\":\"EXTRACTED\",\"coupon_rate_basis\":\"EXTRACTED\",\"coupon_frequency\":\"EXTRACTED\",\"coupon_memory\":\"EXTRACTED\",\"autocall_observation_dates\":\"EXTRACTED\",\"autocall_level_pct\":\"EXTRACTED\",\"day_count\":\"EXTRACTED\",\"settlement\":\"EXTRACTED\",\"business_day_convention\":\"EXTRACTED\"},\"value\":{\"trade_id\":\"SN-2026-0104\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"USD 2,500,000\",\"currency\":\"USD\",\"trade_date\":\"09-Jun-2026\",\"issue_date\":\"16-Jun-2026\",\"maturity_date\":\"16-Jun-2028\",\"underlyings\":[\"SPX\",\"SX5E\"],\"initial_level_pct\":\"100%\",\"barrier_type\":\"european\",\"barrier_level_pct\":\"60%\",\"coupon_rate_pct\":\"10.2%\",\"coupon_rate_basis\":\"per_annum\",\"coupon_frequency\":\"quarterly\",\"coupon_memory\":\"true\",\"autocall_observation_dates\":[\"09-Jun-2027\",\"09-Dec-2027\",\"09-Jun-2028\"],\"autocall_level_pct\":\"100%\",\"day_count\":\"30/360\",\"settlement\":\"cash\",\"business_day_convention\":\"following\"},\"citation\":{\"trade_id\":\"Reference: SN-2026-0104\",\"issuer\":\"Issuer: Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"Notional: USD 2.5 million (USD 2,500,000)\",\"currency\":\"All payments are made in USD by cash settlement\",\"trade_date\":\"The Notes were traded on 09-Jun-2026\",\"issue_date\":\"will be issued on 16-Jun-2026\",\"maturity_date\":\"mature on 16-Jun-2028\",\"underlyings\":\"- S&P 500 Index (Bloomberg ticker SPX)\\n    - EURO STOXX 50 Index (Bloomberg ticker SX5E)\",\"initial_level_pct\":\"Initial Level: 100% of closing level on 09-Jun-2026\",\"barrier_type\":\"the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)\",\"barrier_level_pct\":\"Knock-in: European at 60%\",\"coupon_rate_pct\":\"Coupon: 10.2% per annum, payable quarterly; memory: yes\",\"coupon_rate_basis\":\"Coupon: 10.2% per annum, payable quarterly; memory: yes\",\"coupon_frequency\":\"Coupon: 10.2% per annum, payable quarterly; memory: yes\",\"coupon_memory\":\"Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.\",\"autocall_observation_dates\":\"Autocall trigger: 100% of Initial Level on each of: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.\",\"autocall_level_pct\":\"Autocall trigger: 100% of Initial Level on each of: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.\",\"day_count\":\"Day count: 30/360\",\"settlement\":\"All payments are made in USD by cash settlement\",\"business_day_convention\":\"payment dates follow the Following convention (Toronto, New York and London business days)\"}}"
+}
