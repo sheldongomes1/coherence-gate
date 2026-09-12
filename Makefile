@@ -42,3 +42,7 @@ models:
 
 clean:
 	rm -rf $(RUN_DIR)/2* .pytest_cache .ruff_cache
+
+showcase:
+	@test -n "$(RUN)" || (echo "usage: make showcase RUN=runs/<ts>"; exit 1)
+	rm -rf runs/showcase && cp -r $(RUN) runs/showcase && echo "frozen $(RUN) -> runs/showcase"
