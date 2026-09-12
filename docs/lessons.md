@@ -62,3 +62,10 @@
 - Lesson: the bound has to sit at the transport layer (per-request timeout + bounded retries), not at the application loop above it. Vendors differ in everything except this.
 - Fix / rework: `Mixedbread(timeout=60, max_retries=2)`; the parse step is traced with its own latency so a stall is visible in the run, not just in wall-clock.
 - Post angle: "Three vendors, one bug: the missing timeout. It is never the model that hangs; it is the socket."
+
+## 2026-09-12 — The parse tax was a citation-anchoring tax, and one page break
+- Situation: first pdf-source eval (CS2 ablation). Strict catch fell 9/9 → 6/9 and false flags rose 0 → 71/218, yet field-level catch stayed 9/9.
+- What broke / what we assumed: both families read the parsed tables correctly and cited them the way a human would ("Trade Date | 2026-05-12"); the parsed markdown holds `<td>Trade Date</td><td>2026-05-12</td>`. The guard's verbatim matcher refused every table citation, so whole documents became MALFORMED. Gemini sometimes pasted the raw tags with a literal "\n"; the parser writes `&amp;` where the model writes `&`.
+- Lesson: "verbatim" must be defined against a view of the artifact, not its bytes: tags and pipes are layout, entities are encoding, neither is evidence. Offsets still map back to the artifact on disk. Re-guarding the stored outputs recovered 86 of 87 failures with zero model calls; the eval, not a prompt, found the bug.
+- Fix / rework: tag/pipe/entity-tolerant locator with an offset map (tests). The one residual is a sentence split by a page break around the running footer: a real parse tax, fixed in Phase 2 by dropping header/footer elements at parse time.
+- Post angle: "My parse tax was 71 false flags. 70 of them were my own definition of 'verbatim'. The last one was a page footer."

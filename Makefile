@@ -65,3 +65,6 @@ golden:
 
 check:           ## make check DOC=path/to/doc.pdf [TRADE=id]
 	$(PY) -m coherence_gate.cli check $(DOC) $(if $(TRADE),--trade $(TRADE),) --out $(RUN_DIR)/check
+
+eval-diff:       ## make eval-diff A=runs/<baseline> B=runs/<candidate>
+	$(PY) scripts/eval_diff.py $(A)/summary.json $(B)/summary.json > eval_diff.md && echo wrote eval_diff.md

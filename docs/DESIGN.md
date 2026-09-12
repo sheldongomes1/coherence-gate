@@ -55,6 +55,7 @@ trace.
   thinking volume varies 1k–30k tokens per identical call. Phase 2 routes both families
   through Vertex AI (regional endpoint, quota, VPC-SC) and pins a thinking level chosen by the
   effort sweep in `eval_log.md`.
+- Parse stage drops page header/footer elements (Mixedbread element types) so a sentence split by a page break can still be cited verbatim; the v0.2 ablation's one residual failure is exactly this case.
 - Triage gets the guard-located neighbourhood of the field (±N lines around the citation), so
   an explanatory clause elsewhere can be noticed without handing it the whole document.
 
