@@ -42,11 +42,12 @@ def build_context(golden: Path, out_dir: Path, *, stub: bool, config: Config | N
         from ..extract.gemini import GeminiExtractor  # S2
         extractors = {Family.gemini: GeminiExtractor(config.gemini, config.extraction),
                       Family.claude: ClaudeExtractor(config.claude, config.extraction)}
+    store = Path(bookings_dir) if bookings_dir else golden / "bookings"
     if booking_transport == "mcp":
         from ..booking.mcp_client import McpBookingClient  # S1
-        booking = McpBookingClient(golden / "bookings")
+        booking = McpBookingClient(store)
     else:
-        booking = DirectBookingClient(golden / "bookings")
+        booking = DirectBookingClient(store)
     triage = None
     if with_triage:
         from ..triage.agent import TriageAgent  # S3
