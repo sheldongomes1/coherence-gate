@@ -263,3 +263,29 @@ larger golden set; one more run on n=12 would not settle it).
 volume swings 1k–32k tokens per identical call). The 240 s timeout and 2-attempt retry bound
 make that variance visible rather than fatal. Phase 2 routes Gemini through Vertex AI and
 re-runs the sweep on n≈50.
+
+## ADR-20: v0.2 scope and order (from docs/V2-CHANGES.md)
+
+**Date:** 2026-09-12
+**Status:** Accepted
+
+**Context:** Sheldon delivered a v0.2 plan (seven change sets), two approved document
+templates (note G12, OTC option OP-2026-0114), a model-risk summary to fill, and the Versa
+methodology. v0.1.0 is tagged as the floor. About 36 wall-clock hours remain, part-time.
+
+**Decision:** Build order: CS1 PDF golden set → CS2 Mixedbread parsing + citation chain +
+parse-tax ablation → CS6 eval report/brief v2 → **CS3 in full** (option product, participation
+mutant AND premium arithmetic relation; chosen over CS3-minimal because the demo script opens
+on the option) → CS5 desk view → CS7a live check + CS7c STALE → CS4 Versa reference lane →
+CS7b model-swap diff (from the logged medium/low sweep if no second model) → MODEL-RISK
+filled from the final run. Each change set ends at a committed checkpoint; the cut line falls
+wherever the clock stops, and anything cut is named in DESIGN.md and the brief.
+
+**Alternatives considered:** The written priority (CS3 last) contradicts the demo script's
+first and third beats; CS3-minimal was offered and declined in favour of the full set.
+
+**Consequences:** CS4 (reference lane) is now the most likely casualty. Rendering: no
+WeasyPrint or system Chrome on this machine; a Playwright Chromium is present. Parser:
+Mixedbread behind `parse(pdf) -> markdown + meta`, pdftotext as `local-fallback`.
+**Approved templates override the parameter table** where they differ (G12's economics
+change to the approved document's).
