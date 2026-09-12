@@ -1,0 +1,12 @@
+# Inputs the eval report reads beyond the current run (all numbers traceable to a run id).
+sweep:
+  title: "Effort sweep (ADR-15 / ADR-19): one variable changed, everything else identical"
+  runs:
+    - label: "Gemini thinking = medium (SHIPPED)"
+      summary: runs/showcase-sweep/medium/summary.json
+      note: "Gemini median 27 s, worst 720 s"
+    - label: "Gemini thinking = low"
+      summary: runs/showcase-sweep/gemini-low/summary.json
+      note: "Gemini median 3 s, worst 6 s; one field mis-mapped on the step-down schedule (G07)"
+book:
+  name: "Northbridge structured notes desk — demo book"

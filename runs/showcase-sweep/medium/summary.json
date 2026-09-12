@@ -1,0 +1,45 @@
+{
+  "run_id": "20260911-220517",
+  "stub": false,
+  "n_docs": 12,
+  "catch_strict": {
+    "hit": 9,
+    "n": 9
+  },
+  "catch_field_only": {
+    "hit": 9,
+    "n": 9
+  },
+  "false_flag_fields": {
+    "hit": 3,
+    "n": 218
+  },
+  "false_flag_docs": {
+    "hit": 0,
+    "n": 2
+  },
+  "trap_resolved": {
+    "hit": 1,
+    "n": 1
+  },
+  "auto_clear_correctness": {
+    "hit": 9,
+    "n": 9
+  },
+  "agreement": {
+    "hit": 225,
+    "n": 228
+  },
+  "extraction_accuracy": {
+    "gemini": {
+      "hit": 225,
+      "n": 228
+    },
+    "claude": {
+      "hit": 228,
+      "n": 228
+    }
+  },
+  "cost_total_usd": 1.3707,
+  "cost_per_doc_usd": 0.1142
+}

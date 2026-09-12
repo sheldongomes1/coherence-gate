@@ -15,6 +15,7 @@ runs/*
 !runs/.gitkeep
 !runs/showcase/
 !runs/showcase-demo/
+!runs/showcase-sweep/
 # editor / os
 .DS_Store
 .idea/

@@ -62,6 +62,8 @@ class EvalResult:
     stub: bool = False
     source: str = "txt"
     field_accuracy: dict[str, dict[str, bool]] = field(default_factory=dict)  # family -> "doc:field" -> correct
+    by_product: dict[str, dict] = field(default_factory=dict)  # product_type -> {docs, catch, planted, false_flags, clean_fields}
+    reference_lane: dict | None = None  # CS4 results when the lane ran
 
     def summary(self) -> dict[str, Any]:
         r = lambda x: {"hit": x.hit, "n": x.n}  # noqa: E731
@@ -72,7 +74,7 @@ class EvalResult:
                 "agreement": r(self.agreement),
                 "extraction_accuracy": {k: r(v) for k, v in self.extraction_accuracy.items()},
                 "cost_total_usd": self.cost_total, "cost_per_doc_usd": self.cost_per_doc,
-                "source": self.source, "field_accuracy": self.field_accuracy,
+                "source": self.source, "field_accuracy": self.field_accuracy, "by_product": self.by_product,
                 "planted_detail": self.planted_detail, "false_flag_detail": self.false_flag_detail}
 
 
@@ -103,6 +105,11 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
 
     by_doc = {doc_id: {f.field: f for f in r.findings} for doc_id, r in results.items()}
 
+    ptype = {d["id"]: d.get("product_type", "note") for d in docs}
+    by_product: dict[str, dict] = {}
+    for t_ in set(ptype.values()):
+        by_product[t_] = {"docs": sum(1 for v in ptype.values() if v == t_), "planted": 0, "catch": 0, "clean_fields": 0, "false_flags": 0}
+
     # catch (strict + field-only), auto-clear correctness
     planted_detail, strict_hits, lenient_hits, violations = [], 0, 0, []
     for doc, fld, typ in planted:
@@ -112,6 +119,8 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
         lenient = f is not None and f.type is not FindingType.CLEAN
         strict_hits += strict
         lenient_hits += lenient
+        by_product[ptype[doc]]["planted"] += 1
+        by_product[ptype[doc]]["catch"] += int(strict)
         if f is not None and f.lane is Lane.AUTO_CLEAR:
             violations.append({"doc": doc, "field": fld, "expected": typ, "reported": reported})
         planted_detail.append({"doc": doc, "field": fld, "expected": typ, "reported": reported,
@@ -124,9 +133,11 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
             if (doc, k) in excluded:
                 continue
             n_clean += 1
+            by_product[ptype[doc]]["clean_fields"] += 1
             f = by_doc[doc].get(k)
             if f is None or f.type is not FindingType.CLEAN:
                 ff_detail.append({"doc": doc, "field": k, "type": f.type if f else "MISSING", "detail": f.detail if f else ""})
+                by_product[ptype[doc]]["false_flags"] += 1
     ff_docs = [d for d in clean_docs if results[d].document_lane is not Lane.AUTO_CLEAR]
 
     trap_hits = sum(1 for doc, fld in traps if (f := by_doc[doc].get(fld)) and f.type is FindingType.CLEAN)
@@ -162,30 +173,100 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
         cost_total=total, cost_per_doc=round(total / max(len(costs), 1), 4),
         cost_min=round(min(costs, default=0), 4), cost_max=round(max(costs, default=0), 4),
         n_docs=len(results), planted_detail=planted_detail, false_flag_detail=ff_detail,
-        auto_clear_violations=violations, models=models, source=ctx.source, field_accuracy=field_acc,
+        auto_clear_violations=violations, models=models, source=ctx.source, field_accuracy=field_acc, by_product=by_product,
         stub=all(l.get("detail") and "stub" in str(l.get("detail")) for l in ctx.tracer.lines if l["step"].startswith("extract:")),
     )
 
 
+def _sweep_section() -> list[str]:
+    """Effort sweep from frozen run summaries listed in config/report.yaml (CS6)."""
+    import yaml
+    from ..config import ROOT
+    cfg_path = ROOT / "config" / "report.yaml"
+    if not cfg_path.exists():
+        return []
+    cfg = yaml.safe_load(cfg_path.read_text()) or {}
+    sw = cfg.get("sweep") or {}
+    rows = []
+    for r in sw.get("runs", []):
+        p = ROOT / r["summary"]
+        if not p.exists():
+            continue
+        sm = json.loads(p.read_text())
+        rows.append((r["label"], sm, r.get("note", "")))
+    if not rows:
+        return []
+    out = [f"## 6. {sw.get('title', 'Effort sweep')}", "",
+           "| setting | run | strict catch | false flags | agreement | auto-clear ok | cost/doc | note |", "|---|---|---|---|---|---|---|---|"]
+    for label, sm, note in rows:
+        r = lambda k: f"{sm[k]['hit']}/{sm[k]['n']}"  # noqa: E731
+        out.append(f"| {label} | {sm['run_id']} | {r('catch_strict')} | {r('false_flag_fields')} | {r('agreement')} | {r('auto_clear_correctness')} | ${sm['cost_per_doc_usd']:.3f} | {note} |")
+    out.append("")
+    return out
+
+
 def render_markdown(ev: EvalResult) -> str:
+    """eval_report v2 (CS6): headline strict catch with the field-level diagnostic beneath, false-flag
+    rate at equal prominence, auto-clear correctness in red if not 100%, agreement, per-product
+    breakdown, parse-tax section (appended by the ablation command), reference lane, effort sweep,
+    cost per document and per book, honest ceiling v2."""
     n_planted = ev.catch_strict.n
+    n_book = ev.n_docs
     lines = [f"# eval_report.md — run {ev.run_id}" + (" (STUB PIPELINE — no model calls)" if ev.stub else "")
-             + f" — source: {ev.source}", ""]
-    lines += ["## Results", "", "| metric | result | n |", "|---|---|---|"]
-    for r in (ev.catch_strict, ev.catch_field_only, ev.false_flag_fields, ev.false_flag_docs, ev.trap_resolved,
-              ev.auto_clear_correctness, ev.agreement, *ev.extraction_accuracy.values()):
-        lines.append(f"| {r.label} | {r.render()} | {r.n} |")
-    lines.append(f"| cost per document (USD) | ${ev.cost_per_doc:.4f} (min ${ev.cost_min:.4f}, max ${ev.cost_max:.4f}, total ${ev.cost_total:.4f}) | {ev.n_docs} |")
-    lines.append("")
+             + f" — source: {ev.source}", "",
+             "Every number below is a count over a stated n, from this one run, with no retries. Red means the claim it "
+             "supports does not hold on this run.", ""]
+    # 1. headline
+    lines += ["## 1. Headline: did the gate catch what was planted, and did it flag what was clean?", "",
+              "| metric | result | n |", "|---|---|---|",
+              f"| **catch_rate (right field AND right finding type)** | {ev.catch_strict.render()} | {ev.catch_strict.n} |",
+              f"| catch_rate_field_only (diagnostic: any non-clean finding on the planted field) | {ev.catch_field_only.render()} | {ev.catch_field_only.n} |",
+              f"| **false_flag_rate (clean fields that were flagged)** | {ev.false_flag_fields.render()} | {ev.false_flag_fields.n} |",
+              f"| clean control documents NOT auto-cleared | {ev.false_flag_docs.render()} | {ev.false_flag_docs.n} |",
+              f"| **auto_clear_correctness (nothing planted was auto-cleared; must be 100%)** | {ev.auto_clear_correctness.render()} | {ev.auto_clear_correctness.n} |",
+              f"| cross-family agreement (fields where both families read the same value) | {ev.agreement.render()} | {ev.agreement.n} |",
+              f"| G09 normalizer trap resolved as CLEAN (per-quarter vs per-annum) | {ev.trap_resolved.render()} | {ev.trap_resolved.n} |", ""]
     if ev.auto_clear_correctness.hit != ev.auto_clear_correctness.n:
         lines += [f"{RED} **auto_clear_correctness is not 100%: the tiered-autonomy claim does not hold on this run.** "
                   f"Violations: {ev.auto_clear_violations}", ""]
-    lines += ["## Models", "", "| family | model | pinned | $/1M in | $/1M out |", "|---|---|---|---|---|"]
+    # 2. extraction accuracy
+    lines += ["## 2. Extraction accuracy per family (vs the golden truth files)", "", "| family | correct fields | n |", "|---|---|---|"]
+    for fam, r in ev.extraction_accuracy.items():
+        lines.append(f"| {fam} | {r.render()} | {r.n} |")
+    lines.append("")
+    # 3. per product type
+    if ev.by_product:
+        lines += ["## 3. Per product type", "", "| product | documents | planted | strict catch | clean fields | false flags |", "|---|---|---|---|---|---|"]
+        for pt, b in sorted(ev.by_product.items()):
+            lines.append(f"| {pt} | {b['docs']} | {b['planted']} | {b['catch']}/{b['planted']} | {b['clean_fields']} | {b['false_flags']}/{b['clean_fields']} |")
+        lines.append("")
+    # 4. parse tax placeholder (the ablation command appends the real section)
+    lines += ["## 4. Parse tax", "",
+              ("Source for this run: parsed PDF. Run `cg ablation --txt-run <txt run> --pdf-run <this run>` to append the "
+               "text-vs-parsed comparison here." if ev.source == "pdf" else
+               "Source for this run: canonical text (no parsing). This run is the ablation baseline; the parse-tax table lives in the paired pdf run."), ""]
+    # 5. reference lane
+    lines += ["## 5. Reference lane (term sheet claims vs the Bloomberg Versa methodology)", ""]
+    if ev.reference_lane:
+        rl = ev.reference_lane
+        lines += [f"| planted reference incoherences caught | {rl.get('catch')} | deferred-parameter false flags | {rl.get('deferred_false_flags')} |", ""]
+    else:
+        lines += ["Not run in this release: the reference lane is Change Set 4 (docs/V2-CHANGES.md) and is reported here when built.", ""]
+    # 6. sweep
+    lines += _sweep_section()
+    # 7. cost
+    lines += ["## 7. Cost", "", "| scope | USD |", "|---|---|",
+              f"| per document (both extractions + triage where run, traced tokens × pinned prices) | ${ev.cost_per_doc:.4f} (min ${ev.cost_min:.4f}, max ${ev.cost_max:.4f}) |",
+              f"| per book of {n_book} documents (this run) | ${ev.cost_total:.4f} |",
+              "| parsing | not reported by the vendor API; parse latency is in the trace |", ""]
+    # 8. models
+    lines += ["## 8. Models (pinned)", "", "| family | model | pinned | $/1M in | $/1M out |", "|---|---|---|---|---|"]
     lines += [f"| {m['family']} | {m['model']} | {m['pinned']} | {m['price_in']} | {m['price_out']} |" for m in ev.models]
-    lines += ["", "## Planted findings (mutants)", "", "| doc | field | expected | reported | strict | field-only | detail |", "|---|---|---|---|---|---|---|"]
+    # 9. detail
+    lines += ["", "## 9. Planted findings (mutants)", "", "| doc | field | expected | reported | strict | field-only | detail |", "|---|---|---|---|---|---|---|"]
     for p in ev.planted_detail:
-        lines.append(f"| {p['doc']} | {p['field']} | {p['expected']} | {p['reported']} | {GREEN if p['strict'] else RED} | {GREEN if p['field_only'] else RED} | {p['detail']} |")
-    lines += ["", f"## False flags on clean fields ({len(ev.false_flag_detail)})", ""]
+        lines.append(f"| {p['doc']} | {p['field']} | {p['expected']} | {p['reported']} | {GREEN if p['strict'] else RED} | {GREEN if p['field_only'] else RED} | {str(p['detail'])[:140]} |")
+    lines += ["", f"## 10. False flags on clean fields ({len(ev.false_flag_detail)})", ""]
     if ev.false_flag_detail:
         lines += ["| doc | field | type | detail |", "|---|---|---|---|"]
         lines += [f"| {f['doc']} | {f['field']} | {f['type']} | {str(f['detail'])[:120]} |" for f in ev.false_flag_detail[:60]]
@@ -193,13 +274,16 @@ def render_markdown(ev: EvalResult) -> str:
             lines.append(f"| … | {len(ev.false_flag_detail) - 60} more | | |")
     else:
         lines.append("none")
-    lines += ["", "## Honest ceiling", "",
+    # 11. ceiling
+    lines += ["", "## 11. Honest ceiling", "",
               f"- n = {ev.n_docs} synthetic documents, {n_planted} planted findings plus {ev.trap_resolved.n} normalizer trap, "
               f"{ev.false_flag_docs.n} clean controls. **Directional, not statistically significant.**",
-              "- Documents are synthetic and generated from parameters across 4 layout families; real desk paper has more layouts, OCR noise and multi-page annexes.",
+              "- Documents are synthetic, generated from one parameter table through four layout families in one house style; phrasing is machine-uniform. Real desk paper has more layouts, scans, multi-page annexes and hand edits.",
               "- One prompt per extractor family; no prompt ensemble. One run per number: no retries, no reruns, no best-of.",
-              "- The eval can only see error classes it plants. Unplanted classes (e.g. wrong observation-date count, swapped issuer/guarantor) are invisible to it.",
-              "- Field-level false-flag denominator counts every non-planted comparison key on every document, including fields that are absent in both term sheet and booking.",
-              f"- Cost is computed from traced tokens × pinned prices in config/models.yaml ({'no model calls in this run' if ev.stub else 'current list prices'}).",
+              "- The eval can only see error classes it plants. Unplanted classes (wrong observation-date count, swapped issuer/guarantor, a coupon barrier read as a knock-in) are invisible to it unless they happen to hit a planted field.",
+              "- The triage agent sees only the finding, its citations and the booking field; it cannot exculpate a finding using an unflagged clause elsewhere in the document.",
+              "- Parsing is single-sourced (one vendor, one mode) behind one interface; the local fallback exists but its parse tax is not measured here.",
+              "- Field-level false-flag denominator counts every non-planted comparison key on every document, including fields absent in both term sheet and booking.",
+              f"- Cost is computed from traced tokens × pinned list prices ({'no model calls in this run' if ev.stub else 'current list prices'}); parsing cost is not reported by the vendor.",
               ""]
     return "\n".join(lines)

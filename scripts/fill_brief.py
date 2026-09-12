@@ -12,6 +12,19 @@ def r(k: str) -> str:
     return f"{s[k]['hit']}/{s[k]['n']}"
 
 
+def _parse_tax(run: Path) -> str:
+    """Summarise parse_tax.md if the ablation was run for this run; otherwise say so."""
+    p = run / "parse_tax.md"
+    if not p.exists():
+        return "not measured for this run (run the ablation)"
+    import re
+    txt = p.read_text()
+    deg = re.search(r"Fields degraded by parsing \((\d+)\)", txt)
+    rows = re.findall(r"\| extraction_accuracy \((\w+)\) \| (\d+/\d+) \| (\d+/\d+) \| ([+-]\d+) \|", txt)
+    parts = [f"{fam} {a}→{b} ({d})" for fam, a, b, d in rows]
+    return (", ".join(parts) if parts else "see parse_tax.md") + (f"; {deg.group(1)} field(s) degraded" if deg else "")
+
+
 ac_ok = s["auto_clear_correctness"]["hit"] == s["auto_clear_correctness"]["n"]
 vals = {
     "catch_strict": r("catch_strict"),
@@ -21,6 +34,9 @@ vals = {
     "agreement": r("agreement"),
     "trap": r("trap_resolved"),
     "cost": f"${s['cost_per_doc_usd']:.3f}",
+    "cost_book": f"${s['cost_total_usd']:.2f}",
+    "n_docs": str(s["n_docs"]),
+    "parse_tax": _parse_tax(run),
     "run_id": s["run_id"],
 }
 tpl = Path("docs/BRIEF.template.md").read_text()
