@@ -1,23 +1,51 @@
-"""Generate the golden set from parameters (ADR-13).
+"""Generate the golden set from parameters (ADR-13, v0.2 CS1).
 
-One parameter table -> 12 term sheets (4 layout families), 12 truth files, 12 booking
-records, manifest.json. Text, truth, booking and manifest come from the same dict, so labels
-cannot drift from the prose. Planted discrepancies are applied to the BOOKING only; the
-term sheet is always the document's own truth.
+One parameter table -> per document: HTML (house style from the approved templates, one of
+four layout variants), PDF (WeasyPrint), canonical TXT (text of the same HTML), truth JSON,
+booking JSON; plus manifest.json. Everything comes from the same dict, so labels cannot drift
+from the prose. Planted discrepancies are applied to the BOOKING only; the document is always
+its own truth. Approved templates override the parameter table where they differ (ADR-20).
 
-Run: uv run python scripts/gen_golden.py   (idempotent; overwrites golden/)
+Run: make golden   (idempotent; overwrites golden/)
 """
 from __future__ import annotations
 
 import json
+import re
 from copy import deepcopy
 from datetime import date
 from pathlib import Path
 
+from bs4 import BeautifulSoup
+from jinja2 import Environment, FileSystemLoader, StrictUndefined
+
 ROOT = Path(__file__).resolve().parents[1]
 GOLDEN = ROOT / "golden"
+TEMPLATES = ROOT / "templates" / "golden"
 ISSUER = "Northbridge Capital Markets (Canada) Inc."  # fictional (ADR-12)
 PROGRAMME = "Structured Notes Programme, Series 2026"
+DESK = "Global Markets — Equity & Index Solutions"
+ACCENT = {"clauses": "#12314f", "table": "#1f3d2b", "letter": "#3a2b5f", "prose": "#4a3413"}
+
+# The approved Underlying Index section (templates/golden/G12_bversa10.html), verbatim values.
+VERSA10 = dict(
+    name="Bloomberg Versa 10 Index", ticker="BVERSA10",
+    administrator="Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator",
+    return_treatment="Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
+    vol_target="10% per annum",
+    vol_calc="Exponentially weighted moving average (EWMA), short-term and long-term variance; Volatility Value Selection: Highest",
+    exposure="Determined daily; Maximum Target Exposure 150%; Minimum Target Exposure 0%; Exposure Direction: Long-only",
+    determination_lag="One Index Business Day",
+    rebalancing="Each Index Business Day, in accordance with the Index Methodology",
+    deduction="0.50% per annum, deducted daily from the Index Value",
+    tcr="0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+    currency="USD",
+)
+INDEX_PROSE = {
+    "SPX": "the S&P 500 Index (Bloomberg: SPX Index), a price return index administered by S&P Dow Jones Indices LLC",
+    "SX5E": "the EURO STOXX 50 Index (Bloomberg: SX5E Index), a price return index administered by STOXX Ltd.",
+    "SPTSX60": "the S&P/TSX 60 Index (Bloomberg: SPTSX60 Index), a price return index administered by S&P Dow Jones Indices LLC",
+}
 PERIODS = {"monthly": 12, "quarterly": 4, "semiannual": 2, "annual": 1}
 FREQ_WORD = {"monthly": "month", "quarterly": "quarter", "semiannual": "half-year", "annual": "year"}
 DAYCOUNT_WORD = {"ACT/360": "Actual/360", "ACT/365": "Actual/365 (Fixed)", "30/360": "30/360"}
@@ -26,7 +54,7 @@ INDEX_NAME = {
     "SPX": "S&P 500 Index",
     "SX5E": "EURO STOXX 50 Index",
     "SPTSX60": "S&P/TSX 60 Index",
-    "BVERSA10": "BVERSA10 Index",
+    "BVERSA10": "Bloomberg Versa 10 Index",
 }
 
 # ----------------------------------------------------------------------------- parameters
@@ -119,12 +147,14 @@ DOCS: list[dict] = [
          autocall_observation_dates=["2027-05-26", "2027-11-26"],
          autocall_level_pct=100, day_count="30/360", settlement="cash", business_day_convention="mod_following",
          booking_overrides={}, planted=[], clean_control=True),
-    dict(id="G12", layout="letter", trade_id="SN-2026-0112", notional=6_000_000, currency="CAD",
-         trade_date="2026-03-24", issue_date="2026-03-31", maturity_date="2029-04-02",
-         underlyings=["BVERSA10"], initial_level_pct=100, barrier_type="european", barrier_level_pct=65,
-         coupon_rate_pct=6.1, coupon_rate_basis="per_annum", coupon_frequency="semiannual", coupon_memory=False,
-         autocall_observation_dates="ABSENT", autocall_level_pct="ABSENT",
-         day_count="ACT/365", settlement="cash", business_day_convention="following",
+    # G12 = the approved template document (templates/golden/G12_bversa10.html), economics verbatim.
+    dict(id="G12", layout="clauses", trade_id="SN-2026-0112", notional=7_500_000, currency="USD",
+         trade_date="2026-05-08", issue_date="2026-05-15", maturity_date="2030-05-17",
+         underlyings=["BVERSA10"], initial_level_pct=100, barrier_type="european", barrier_level_pct=60,
+         coupon_rate_pct=8.25, coupon_rate_basis="per_annum", coupon_frequency="quarterly", coupon_memory=True,
+         autocall_observation_dates=["2027-05-10", "2027-11-08", "2028-05-08", "2028-11-08", "2029-05-08", "2029-11-08"],
+         autocall_level_pct=100, day_count="30/360", settlement="cash", business_day_convention="mod_following",
+         coupon_barrier_pct=70, final_valuation_date="2030-05-10", dist_fee_pct=1.25, hedge_cost_pct=0.30,
          booking_overrides={}, planted=[], clean_control=True),
 ]
 
@@ -245,198 +275,91 @@ BOILER_LEGAL = (
 )
 
 
-# ----------------------------------------------------------------------------- layouts
-def layout_prose(p: dict) -> str:
-    s = "prose"
-    n_und = len(p["underlyings"])
-    return f"""INDICATIVE TERM SHEET
-
-{ISSUER}
-{PROGRAMME}
-
-{'Worst-of ' if n_und > 1 else ''}Autocallable Barrier Note linked to {', '.join(INDEX_NAME[u] for u in p['underlyings'])}
-Reference: {p['trade_id']}
-Dated {d(p['trade_date'], s)}
-
-1. Summary of the transaction
-
-{ISSUER} (the "Issuer") will issue notes (the "Notes") with reference {p['trade_id']} in an aggregate Notional Amount of {money(p['notional'], p['currency'], s)}. The Notes are linked to the performance of {underlying_phrase(p)}. The Trade Date is {d(p['trade_date'], s)}, the Issue Date is {d(p['issue_date'], s)} and the Scheduled Maturity Date is {d(p['maturity_date'], s)}, subject to the Business Day Convention below.
-
-The Initial Level of each Underlying is {pct(p['initial_level_pct'], s)} of its official closing level on the Trade Date.
-
-2. Coupon
-
-The Notes pay a conditional Coupon of {rate_phrase(p, s)}, on each Coupon Payment Date on which the Coupon Condition is satisfied. Coupon amounts accrue on a {DAYCOUNT_WORD[p['day_count']]} day count basis. {memory_clause(p)}
-
-3. Early redemption and barrier
-
-{autocall_clause(p, s)}
-
-{barrier_clause(p, s)}
-
-4. Settlement
-
-Settlement at maturity or upon early redemption is in {p['settlement']}, in {p['currency']}. Payment dates are adjusted in accordance with the {BDC_WORD[p['business_day_convention']]} Business Day Convention. Business Days: Toronto, New York and London.
-
-5. Other
-
-{BOILER_FEES}
-
-{BOILER_RISK}
-
-{BOILER_LEGAL}
-"""
+# ----------------------------------------------------------------------------- rendering
+def product_title(p: dict) -> str:
+    names = " and ".join(INDEX_NAME[u] for u in p["underlyings"])
+    kind = ("Autocallable " if p["autocall_observation_dates"] != "ABSENT" else "")
+    kind += "Contingent Coupon Notes" + (" with Memory" if p["coupon_memory"] else "")
+    return f"{'Worst-of ' if len(p['underlyings']) > 1 else ''}{kind} linked to {names}"
 
 
-def layout_table(p: dict) -> str:
-    s = "table"
-    und = "; ".join(f"{INDEX_NAME[u]} ({u})" for u in p["underlyings"])
-    basket = "Worst-of basket" if len(p["underlyings"]) > 1 else "Single index"
-    ac_dates = ", ".join(d(x, s) for x in p["autocall_observation_dates"]) if p["autocall_observation_dates"] != "ABSENT" else "Not applicable"
-    if p["autocall_level_pct"] == "ABSENT":
-        ac_lvl = "Not applicable"
-    elif isinstance(p["autocall_level_pct"], list):
-        ac_lvl = " / ".join(pct(l, s) for l in p["autocall_level_pct"])
+def underlying_phrase_v2(p: dict) -> str:
+    if p["underlyings"] == ["BVERSA10"]:
+        return 'the Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index) (the "Underlying")'
+    return underlying_phrase(p)
+
+
+def coupon_clause(p: dict, s: str) -> str:
+    freq = freq_adverb(p["coupon_frequency"])
+    cb = p.get("coupon_barrier_pct")
+    cond = (f"provided the closing level of the Underlying on the relevant Coupon Observation Date is at or above the Coupon Barrier of {pct(cb, s)} of the Initial Level"
+            if cb else "on each Coupon Payment Date on which the Coupon Condition is satisfied")
+    return (f"The Notes pay a conditional Coupon of {rate_phrase(p, s)}, payable {freq} in arrears, {cond}. "
+            f"Coupon amounts accrue on a {DAYCOUNT_WORD[p['day_count']]} day count basis.")
+
+
+FMT = {"clauses": "prose", "prose": "clauses", "table": "table", "letter": "letter"}
+
+
+def render_context(p: dict) -> dict:
+    s = FMT[p["layout"]]
+    dates, lvls = p["autocall_observation_dates"], p["autocall_level_pct"]
+    if dates == "ABSENT":
+        ac_dates, ac_level = "Not applicable", "Not applicable"
     else:
-        ac_lvl = pct(p["autocall_level_pct"], s) + " of Initial Level"
+        ac_dates = ", ".join(d(x, s) for x in dates)
+        ac_level = (" / ".join(pct(l, s) for l in lvls) + " of the Initial Level (per observation date)" if isinstance(lvls, list)
+                    else f"{pct(lvls, s)} of the Initial Level")
     if p["barrier_type"] == "none":
-        ki_type, ki_lvl_row = "None (capital protected at maturity)", ""
+        ki_type, ki_row = "None (capital protected at maturity)", ""
     else:
         ki_type = "European (Final Valuation Date only)" if p["barrier_type"] == "european" else "American (continuous observation)"
-        ki_lvl_row = "" if p["barrier_level_pct"] == "ABSENT" else f"Knock-in Level               | {pct(p['barrier_level_pct'], s)} of Initial Level\n"
-    return f"""{ISSUER.upper()}
-{PROGRAMME}
-FINAL TERMS SUMMARY — {p['trade_id']}
-
-Product                      | {basket} Autocallable Note
-Issuer                       | {ISSUER}
-Trade Reference              | {p['trade_id']}
-Notional Amount              | {money(p['notional'], p['currency'], s)}
-Currency                     | {p['currency']}
-Trade Date                   | {d(p['trade_date'], s)}
-Issue Date                   | {d(p['issue_date'], s)}
-Maturity Date                | {d(p['maturity_date'], s)}
-Underlying(s)                | {und}
-Initial Level                | {pct(p['initial_level_pct'], s)} of closing level on Trade Date
-Coupon                       | {rate_phrase(p, s)}
-Coupon Frequency             | {p['coupon_frequency'].capitalize()}
-Coupon Memory                | {'Yes' if p['coupon_memory'] else 'No'}
-Day Count Fraction           | {DAYCOUNT_WORD[p['day_count']]}
-Autocall Observation Dates   | {ac_dates}
-Autocall Level               | {ac_lvl}
-Knock-in Type                | {ki_type}
-{ki_lvl_row}Settlement                   | {p['settlement'].capitalize()}
-Business Day Convention      | {BDC_WORD[p['business_day_convention']]}
-Business Days                | Toronto, New York, London
-Calculation Agent            | Issuer
-Governing Law                | Ontario
-
-Notes to the table
-
-{memory_clause(p)}
-
-{barrier_clause(p, s)}
-
-{autocall_clause(p, s)}
-
-{BOILER_FEES}
-
-{BOILER_RISK}
-
-{BOILER_LEGAL}
-"""
+        ki_row = "" if p["barrier_level_pct"] == "ABSENT" else f"{pct(p['barrier_level_pct'], s)} of the Initial Level"
+    return dict(
+        layout=p["layout"], accent=ACCENT[p["layout"]], issuer=ISSUER, programme=PROGRAMME, desk=DESK,
+        product_title=product_title(p), trade_id=p["trade_id"],
+        notional=money(p["notional"], p["currency"], s), currency=p["currency"],
+        trade_date=d(p["trade_date"], s), issue_date=d(p["issue_date"], s), maturity_date=d(p["maturity_date"], s),
+        final_valuation_date=d(p["final_valuation_date"], s) if p.get("final_valuation_date") else None,
+        underlyings_short="; ".join(f"{INDEX_NAME[u]} ({u})" for u in p["underlyings"]),
+        underlying_phrase=underlying_phrase_v2(p),
+        underlying_prose=("The Underlying is " + underlying_phrase(p).replace("the worst performing of ", "the worst performing of ")
+                          if p["underlyings"] != ["BVERSA10"] else ""),
+        initial_level=pct(p["initial_level_pct"], s),
+        index=VERSA10 if "BVERSA10" in p["underlyings"] else None,
+        coupon_phrase=rate_phrase(p, s), coupon_clause=coupon_clause(p, s),
+        coupon_frequency_word=p["coupon_frequency"].capitalize(), coupon_memory=p["coupon_memory"],
+        coupon_barrier=pct(p["coupon_barrier_pct"], s) if p.get("coupon_barrier_pct") else None,
+        memory_clause=memory_clause(p), autocall_clause=autocall_clause(p, s), barrier_clause=barrier_clause(p, s),
+        day_count_word=DAYCOUNT_WORD[p["day_count"]], autocall_dates_text=ac_dates, autocall_level_text=ac_level,
+        knockin_type_text=ki_type, knockin_level_row=ki_row,
+        settlement_word=p["settlement"].capitalize(), bdc_word=BDC_WORD[p["business_day_convention"]],
+        dist_fee=f"{p.get('dist_fee_pct', 1.50):.2f}%", hedge_cost=f"{p.get('hedge_cost_pct', 0.35):.2f}%",
+    )
 
 
-def layout_clauses(p: dict) -> str:
-    s = "clauses"
-    return f"""TERMS AND CONDITIONS OF THE NOTES
-{ISSUER} — {PROGRAMME}
-Tranche reference {p['trade_id']}
-
-1. Issuer. The Notes are issued by {ISSUER}.
-
-2. Notional Amount and Currency. The aggregate Notional Amount is {money(p['notional'], p['currency'], s)}. The Specified Currency is {p['currency']} and all payments under the Notes are made in {p['currency']}.
-
-3. Dates. Trade Date: {d(p['trade_date'], s)}. Issue Date: {d(p['issue_date'], s)}. Maturity Date: {d(p['maturity_date'], s)}, subject to adjustment in accordance with Condition 9.
-
-4. Underlying. The Notes are linked to {underlying_phrase(p)}. The Initial Level is {pct(p['initial_level_pct'], s)} of the official closing level of each Underlying on the Trade Date.
-
-5. Coupon. Subject to the Coupon Condition, the Notes bear a Coupon of {rate_phrase(p, s)}. Coupons are payable {freq_adverb(p['coupon_frequency'])} in arrear and are calculated on the basis of {DAYCOUNT_WORD[p['day_count']]}.
-
-6. Memory. {memory_clause(p)}
-
-7. Automatic Early Redemption. {autocall_clause(p, s)}
-
-8. Knock-in. {barrier_clause(p, s)}
-
-9. Business Day Convention. Where any payment date would otherwise fall on a day that is not a Business Day, it shall be adjusted in accordance with the {BDC_WORD[p['business_day_convention']]} Business Day Convention. Business Days are days on which commercial banks are open in Toronto, New York and London.
-
-10. Settlement. {p['settlement'].capitalize()} settlement.
-
-11. Fees. {BOILER_FEES}
-
-12. Risk. {BOILER_RISK}
-
-13. General. {BOILER_LEGAL}
-"""
+_env = Environment(loader=FileSystemLoader(str(TEMPLATES)), undefined=StrictUndefined, autoescape=False,
+                   trim_blocks=True, lstrip_blocks=True)
 
 
-def layout_letter(p: dict) -> str:
-    s = "letter"
-    und_lines = "\n".join(f"    - {INDEX_NAME[u]} (Bloomberg ticker {u})" for u in p["underlyings"])
-    if p["autocall_observation_dates"] == "ABSENT":
-        ac_annex = "  Automatic early redemption: not applicable."
-    elif isinstance(p["autocall_level_pct"], list):
-        ac_annex = "  Autocall schedule (observation date, trigger as % of Initial Level):\n" + "\n".join(
-            f"    {d(x, s)}   {pct(l, s)}" for x, l in zip(p["autocall_observation_dates"], p["autocall_level_pct"]))
-    else:
-        ac_annex = f"  Autocall trigger: {pct(p['autocall_level_pct'], s)} of Initial Level on each of: " + ", ".join(d(x, s) for x in p["autocall_observation_dates"]) + "."
-    return f"""{ISSUER}
-Global Markets — Structured Products Desk
-Toronto
-
-{d(p['trade_date'], s)}
-
-Dear Client,
-
-Re: {p['trade_id']} — {'Worst-of ' if len(p['underlyings']) > 1 else ''}Autocallable Note on {' and '.join(INDEX_NAME[u] for u in p['underlyings'])}
-
-Further to our conversation, we are pleased to confirm the indicative terms of the above transaction. {ISSUER} will issue Notes in a total Notional Amount of {money(p['notional'], p['currency'], s)} under its {PROGRAMME}. The Notes were traded on {d(p['trade_date'], s)}, will be issued on {d(p['issue_date'], s)} and mature on {d(p['maturity_date'], s)}.
-
-The Notes pay a conditional coupon of {rate_phrase(p, s)}, accruing on a {DAYCOUNT_WORD[p['day_count']]} basis. {memory_clause(p)}
-
-{autocall_clause(p, s)}
-
-{barrier_clause(p, s)}
-
-All payments are made in {p['currency']} by {p['settlement']} settlement and payment dates follow the {BDC_WORD[p['business_day_convention']]} convention (Toronto, New York and London business days).
-
-Please review the Annex and revert with any comments before we proceed to booking.
-
-Kind regards,
-Structured Products Desk
-
-ANNEX — KEY TERMS
-  Reference: {p['trade_id']}
-  Issuer: {ISSUER}
-  Underlying(s):
-{und_lines}
-  Initial Level: {pct(p['initial_level_pct'], s)} of closing level on {d(p['trade_date'], s)}
-  Notional: {money(p['notional'], p['currency'], s)}
-  Coupon: {rate_phrase(p, s)}; memory: {'yes' if p['coupon_memory'] else 'no'}
-  Day count: {DAYCOUNT_WORD[p['day_count']]}
-{ac_annex}
-  Knock-in: {('none' if p['barrier_type'] == 'none' else p['barrier_type'].capitalize() + (' at ' + pct(p['barrier_level_pct'], s) if p['barrier_level_pct'] != 'ABSENT' else ', level per Final Terms'))}
-
-{BOILER_FEES}
-
-{BOILER_RISK}
-
-{BOILER_LEGAL}
-"""
+def render_html(p: dict) -> str:
+    return _env.get_template("note.html.j2").render(**render_context(p))
 
 
-LAYOUTS = {"prose": layout_prose, "table": layout_table, "clauses": layout_clauses, "letter": layout_letter}
+def html_to_text(html: str) -> str:
+    """Canonical TXT of the document: the same content, one line per block/table cell."""
+    soup = BeautifulSoup(html, "html.parser")
+    for t in soup(["style", "script"]):
+        t.decompose()
+    text = soup.get_text("\n", strip=True)
+    return re.sub(r"\n{3,}", "\n\n", text) + "\n"
+
+
+def html_to_pdf(html: str, out: Path) -> int:
+    from weasyprint import HTML
+    doc = HTML(string=html, base_url=str(TEMPLATES)).render()
+    doc.write_pdf(str(out))
+    return len(doc.pages)
 
 
 # ----------------------------------------------------------------------------- outputs
@@ -457,19 +380,25 @@ def booking_of(p: dict) -> dict:
 
 
 def main() -> None:
-    for sub in ("termsheets", "bookings", "truth"):
+    for sub in ("termsheets", "pdf", "html", "bookings", "truth"):
         (GOLDEN / sub).mkdir(parents=True, exist_ok=True)
-    manifest = {"version": 1,
+    manifest = {"version": 2,
                 "generator": "scripts/gen_golden.py",
-                "history": [{"date": "2026-09-11", "note": "initial labels, generated from parameters (ADR-13)"}],
+                "history": [{"date": "2026-09-11", "note": "initial labels, generated from parameters (ADR-13)"},
+                            {"date": "2026-09-12", "note": "v0.2 CS1: PDF+HTML+TXT per document from approved templates; G12 economics replaced by the approved template's (ADR-20); Versa docs carry the Underlying Index section"}],
                 "documents": []}
+    pages = {}
     for p in DOCS:
-        text = LAYOUTS[p["layout"]](p)
+        html = render_html(p)
+        (GOLDEN / "html" / f"{p['id']}.html").write_text(html)
+        pages[p["id"]] = html_to_pdf(html, GOLDEN / "pdf" / f"{p['id']}.pdf")
+        text = html_to_text(html)
         (GOLDEN / "termsheets" / f"{p['id']}.txt").write_text(text)
         (GOLDEN / "truth" / f"{p['id']}.json").write_text(json.dumps(truth_of(p), indent=2) + "\n")
         (GOLDEN / "bookings" / f"{p['trade_id']}.json").write_text(json.dumps(booking_of(p), indent=2) + "\n")
-        entry = {"id": p["id"], "layout": p["layout"], "trade_id": p["trade_id"],
-                 "termsheet": f"termsheets/{p['id']}.txt", "booking": f"bookings/{p['trade_id']}.json",
+        entry = {"id": p["id"], "layout": p["layout"], "product_type": "note", "trade_id": p["trade_id"],
+                 "termsheet": f"termsheets/{p['id']}.txt", "pdf": f"pdf/{p['id']}.pdf", "html": f"html/{p['id']}.html",
+                 "booking": f"bookings/{p['trade_id']}.json",
                  "truth": f"truth/{p['id']}.json",
                  "planted": [dict(pl, severity="critical" if pl["field"] not in
                                   ("issue_date", "autocall_observation_dates", "autocall_level_pct", "settlement", "business_day_convention")
@@ -481,7 +410,7 @@ def main() -> None:
         manifest["documents"].append(entry)
     (GOLDEN / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     words = [len((GOLDEN / "termsheets" / f"{p['id']}.txt").read_text().split()) for p in DOCS]
-    print(f"wrote {len(DOCS)} docs; words min/max {min(words)}/{max(words)}; planted {sum(len(p['planted']) for p in DOCS)}")
+    print(f"wrote {len(DOCS)} docs (html+pdf+txt); words min/max {min(words)}/{max(words)}; pages {pages}; planted {sum(len(p['planted']) for p in DOCS)}")
 
 
 if __name__ == "__main__":

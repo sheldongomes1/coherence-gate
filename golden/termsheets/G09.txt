@@ -1,36 +1,55 @@
+NORTHBRIDGE CAPITAL MARKETS (CANADA) INC.
+Structured Notes Programme, Series 2026  ·  Global Markets — Equity & Index Solutions
 INDICATIVE TERM SHEET
-
-Northbridge Capital Markets (Canada) Inc.
-Structured Notes Programme, Series 2026
-
-Autocallable Barrier Note linked to BVERSA10 Index
-Reference: SN-2026-0109
-Dated 28 April 2026
-
-1. Summary of the transaction
-
-Northbridge Capital Markets (Canada) Inc. (the "Issuer") will issue notes (the "Notes") with reference SN-2026-0109 in an aggregate Notional Amount of CAD 5,000,000. The Notes are linked to the performance of the BVERSA10 Index (Bloomberg: BVERSA10 Index). The Trade Date is 28 April 2026, the Issue Date is 5 May 2026 and the Scheduled Maturity Date is 7 May 2029, subject to the Business Day Convention below.
-
-The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.
-
+Autocallable Contingent Coupon Notes linked to Bloomberg Versa 10 Index  ·  Reference SN-2026-0109  ·  Dated April 28, 2026
+1. The Transaction
+Northbridge Capital Markets (Canada) Inc. (the "Issuer") will issue notes (the "Notes") with reference SN-2026-0109 in an aggregate Notional Amount of 5,000,000 CAD, linked to the performance of the Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index) (the "Underlying"). The Trade Date is April 28, 2026; the Issue Date is May 5, 2026; the Scheduled Maturity Date is May 7, 2029, subject to adjustment in accordance with the Modified Following Business Day Convention (Business Days: Toronto, New York and London). The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.
 2. Coupon
-
-The Notes pay a conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum), on each Coupon Payment Date on which the Coupon Condition is satisfied. Coupon amounts accrue on a 30/360 day count basis. No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.
-
-3. Early redemption and barrier
-
-Automatic Early Redemption: if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level, the Notes redeem early at 100% of the Notional Amount plus the Coupon then due. Autocall Observation Dates: 28 April 2027, 28 October 2027, 28 April 2028, 30 October 2028.
-
-Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 70% of the Initial Level. If a Knock-in Event has occurred and the Notes have not been redeemed early, the Final Redemption Amount will be reduced in line with the performance of the Underlying.
-
-4. Settlement
-
-Settlement at maturity or upon early redemption is in cash, in CAD. Payment dates are adjusted in accordance with the Modified Following Business Day Convention. Business Days: Toronto, New York and London.
-
-5. Other
-
-Fees and distribution: the Issue Price includes distribution fees of up to 1.50% of the Notional Amount payable to the distributor. The Issuer's hedging costs are estimated at 0.35% per annum. These amounts are not Coupons and are not payable to Noteholders.
-
-RISK FACTORS (SUMMARY). An investment in the Notes involves risks. Investors may lose some or all of their investment. The Notes are unsecured obligations of the Issuer and are subject to the credit risk of the Issuer. The secondary market, if any, may be illiquid; a bid price, where available, may be up to 3.00% below the theoretical value of the Notes. Past performance of the Underlying is not a reliable indicator of future performance. A 10% decline in the Underlying does not translate into a 10% decline in the value of the Notes; the relationship is non-linear and depends on remaining maturity, volatility and interest rates.
-
-This document is an indicative term sheet and does not constitute an offer. The Notes will be issued under the Issuer's Structured Notes Programme, Series 2026 and are subject to the Base Prospectus and the applicable Final Terms. In the event of inconsistency between this term sheet and the Final Terms, the Final Terms prevail. Not for distribution in the United States or to U.S. persons. Governing law: Ontario. Calculation Agent: the Issuer.
+The Notes pay a conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum), payable quarterly in arrears, on each Coupon Payment Date on which the Coupon Condition is satisfied. Coupon amounts accrue on a 30/360 day count basis. No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.
+3. Automatic Early Redemption
+Automatic Early Redemption: if on any Autocall Observation Date the closing level of the Underlying is at or above 100 per cent. of the Initial Level, the Notes redeem early at 100% of the Notional Amount plus the Coupon then due. Autocall Observation Dates: April 28, 2027, October 28, 2027, April 28, 2028, October 30, 2028.
+4. Knock-in
+Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 70 per cent. of the Initial Level. If a Knock-in Event has occurred and the Notes have not been redeemed early, the Final Redemption Amount will be reduced in line with the performance of the Underlying.
+5. Settlement
+Cash settlement in CAD.
+6. The Underlying Index
+The Underlying is a rules-based, volatility-targeting index administered by Bloomberg Index Services Limited ("BISL") and calculated in accordance with the Bloomberg Versa Indices Methodology dated 21 March 2025 (the "Index Methodology"), as supplemented by the index-specific document for the Underlying. The parameters below summarise the index-specific terms relevant to the Notes; in the event of any inconsistency, the Index Methodology and the index-specific document prevail.
+Index / Ticker
+Bloomberg Versa 10 Index — BVERSA10 Index
+Index Administrator
+Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator
+Return Treatment
+Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process
+Volatility Target
+10% per annum
+Volatility Calculation
+Exponentially weighted moving average (EWMA), short-term and long-term variance; Volatility Value Selection: Highest
+Exposure
+Determined daily; Maximum Target Exposure 150%; Minimum Target Exposure 0%; Exposure Direction: Long-only
+Determination Lag
+One Index Business Day
+Rebalancing
+Each Index Business Day, in accordance with the Index Methodology
+Deduction Factor
+0.50% per annum, deducted daily from the Index Value
+Transaction Cost Rate
+0.02% on changes in Underlying Index units, as provided in the Index Methodology
+Index Currency
+USD
+The Index Value is floored at zero; if the Index Value reaches zero it will remain at zero. Market disruptions affecting the Underlying are addressed in accordance with the Index Methodology and the BISL Benchmark Procedures Handbook.
+7. Summary of Dates and Levels
+Trade / Issue / Maturity
+April 28, 2026 / May 5, 2026 / May 7, 2029
+Autocall Observation Dates
+April 28, 2027, October 28, 2027, April 28, 2028, October 30, 2028
+Autocall Level
+100 per cent. of the Initial Level
+Knock-in
+European (Final Valuation Date only); 70 per cent. of the Initial Level
+Day Count
+30/360
+8. Fees and Other Terms
+The Issue Price of 100% includes distribution fees of up to 1.50% of the Notional Amount payable to the distributor. The Issuer's estimated hedging costs are 0.35% per annum. These amounts are not Coupons and are not payable to Noteholders. Calculation Agent: the Issuer. Governing law: Ontario. Minimum denomination: CAD 10,000.
+Risk Factors (Summary)
+An investment in the Notes involves significant risks. Investors may lose some or all of their investment. The Notes are unsecured obligations of the Issuer and are subject to the credit risk of the Issuer. The Underlying employs a volatility-targeting mechanism which may materially reduce exposure to its underlying index in periods of elevated volatility, including in rising markets, and the Deduction Factor and Transaction Cost Rate reduce the Index Value on an ongoing basis; as an Excess Return index, the Underlying does not benefit from any cash or reinvestment return. Past performance, including back-tested performance, of the Underlying is not a reliable indicator of future performance. The secondary market, if any, may be illiquid; a bid price, where available, may be up to 3.00% below the theoretical value of the Notes. A 10% decline in the Underlying does not translate into a 10% decline in the value of the Notes; the relationship is non-linear.
+This document is an indicative term sheet and does not constitute an offer, solicitation or recommendation. The Notes will be issued under the Issuer's Structured Notes Programme, Series 2026 and are subject to the Base Prospectus and the applicable Final Terms; in the event of inconsistency between this term sheet and the Final Terms, the Final Terms prevail. "Bloomberg®" and the Bloomberg Versa Indices are trademarks or service marks of Bloomberg Finance L.P. BISL does not sponsor, endorse or guarantee the Notes. Not for distribution in the United States or to U.S. persons. Northbridge Capital Markets (Canada) Inc. is a fictitious entity; this is a synthetic specimen document prepared for systems demonstration purposes.

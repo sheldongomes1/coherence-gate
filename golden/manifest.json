@@ -1,18 +1,25 @@
 {
-  "version": 1,
+  "version": 2,
   "generator": "scripts/gen_golden.py",
   "history": [
     {
       "date": "2026-09-11",
       "note": "initial labels, generated from parameters (ADR-13)"
+    },
+    {
+      "date": "2026-09-12",
+      "note": "v0.2 CS1: PDF+HTML+TXT per document from approved templates; G12 economics replaced by the approved template's (ADR-20); Versa docs carry the Underlying Index section"
     }
   ],
   "documents": [
     {
       "id": "G01",
       "layout": "prose",
+      "product_type": "note",
       "trade_id": "SN-2026-0101",
       "termsheet": "termsheets/G01.txt",
+      "pdf": "pdf/G01.pdf",
+      "html": "html/G01.html",
       "booking": "bookings/SN-2026-0101.json",
       "truth": "truth/G01.json",
       "planted": [
@@ -27,8 +34,11 @@
     {
       "id": "G02",
       "layout": "table",
+      "product_type": "note",
       "trade_id": "SN-2026-0102",
       "termsheet": "termsheets/G02.txt",
+      "pdf": "pdf/G02.pdf",
+      "html": "html/G02.html",
       "booking": "bookings/SN-2026-0102.json",
       "truth": "truth/G02.json",
       "planted": [
@@ -43,8 +53,11 @@
     {
       "id": "G03",
       "layout": "clauses",
+      "product_type": "note",
       "trade_id": "SN-2026-0103",
       "termsheet": "termsheets/G03.txt",
+      "pdf": "pdf/G03.pdf",
+      "html": "html/G03.html",
       "booking": "bookings/SN-2026-0103.json",
       "truth": "truth/G03.json",
       "planted": [
@@ -59,8 +72,11 @@
     {
       "id": "G04",
       "layout": "letter",
+      "product_type": "note",
       "trade_id": "SN-2026-0104",
       "termsheet": "termsheets/G04.txt",
+      "pdf": "pdf/G04.pdf",
+      "html": "html/G04.html",
       "booking": "bookings/SN-2026-0104.json",
       "truth": "truth/G04.json",
       "planted": [
@@ -75,8 +91,11 @@
     {
       "id": "G05",
       "layout": "prose",
+      "product_type": "note",
       "trade_id": "SN-2026-0105",
       "termsheet": "termsheets/G05.txt",
+      "pdf": "pdf/G05.pdf",
+      "html": "html/G05.html",
       "booking": "bookings/SN-2026-0105.json",
       "truth": "truth/G05.json",
       "planted": [
@@ -91,8 +110,11 @@
     {
       "id": "G06",
       "layout": "table",
+      "product_type": "note",
       "trade_id": "SN-2026-0106",
       "termsheet": "termsheets/G06.txt",
+      "pdf": "pdf/G06.pdf",
+      "html": "html/G06.html",
       "booking": "bookings/SN-2026-0106.json",
       "truth": "truth/G06.json",
       "planted": [
@@ -107,8 +129,11 @@
     {
       "id": "G07",
       "layout": "clauses",
+      "product_type": "note",
       "trade_id": "SN-2026-0107",
       "termsheet": "termsheets/G07.txt",
+      "pdf": "pdf/G07.pdf",
+      "html": "html/G07.html",
       "booking": "bookings/SN-2026-0107.json",
       "truth": "truth/G07.json",
       "planted": [
@@ -123,8 +148,11 @@
     {
       "id": "G08",
       "layout": "letter",
+      "product_type": "note",
       "trade_id": "SN-2026-0108",
       "termsheet": "termsheets/G08.txt",
+      "pdf": "pdf/G08.pdf",
+      "html": "html/G08.html",
       "booking": "bookings/SN-2026-0108.json",
       "truth": "truth/G08.json",
       "planted": [
@@ -139,8 +167,11 @@
     {
       "id": "G09",
       "layout": "prose",
+      "product_type": "note",
       "trade_id": "SN-2026-0109",
       "termsheet": "termsheets/G09.txt",
+      "pdf": "pdf/G09.pdf",
+      "html": "html/G09.html",
       "booking": "bookings/SN-2026-0109.json",
       "truth": "truth/G09.json",
       "planted": [],
@@ -155,8 +186,11 @@
     {
       "id": "G10",
       "layout": "table",
+      "product_type": "note",
       "trade_id": "SN-2026-0110",
       "termsheet": "termsheets/G10.txt",
+      "pdf": "pdf/G10.pdf",
+      "html": "html/G10.html",
       "booking": "bookings/SN-2026-0110.json",
       "truth": "truth/G10.json",
       "planted": [
@@ -171,8 +205,11 @@
     {
       "id": "G11",
       "layout": "clauses",
+      "product_type": "note",
       "trade_id": "SN-2026-0111",
       "termsheet": "termsheets/G11.txt",
+      "pdf": "pdf/G11.pdf",
+      "html": "html/G11.html",
       "booking": "bookings/SN-2026-0111.json",
       "truth": "truth/G11.json",
       "planted": [],
@@ -180,9 +217,12 @@
     },
     {
       "id": "G12",
-      "layout": "letter",
+      "layout": "clauses",
+      "product_type": "note",
       "trade_id": "SN-2026-0112",
       "termsheet": "termsheets/G12.txt",
+      "pdf": "pdf/G12.pdf",
+      "html": "html/G12.html",
       "booking": "bookings/SN-2026-0112.json",
       "truth": "truth/G12.json",
       "planted": [],

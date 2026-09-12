@@ -1,29 +1,20 @@
-TERMS AND CONDITIONS OF THE NOTES
-Northbridge Capital Markets (Canada) Inc. — Structured Notes Programme, Series 2026
-Tranche reference SN-2026-0107
-
-1. Issuer. The Notes are issued by Northbridge Capital Markets (Canada) Inc..
-
-2. Notional Amount and Currency. The aggregate Notional Amount is 6,000,000 EUR. The Specified Currency is EUR and all payments under the Notes are made in EUR.
-
-3. Dates. Trade Date: January 20, 2026. Issue Date: January 27, 2026. Maturity Date: January 29, 2029, subject to adjustment in accordance with Condition 9.
-
-4. Underlying. The Notes are linked to the EURO STOXX 50 Index (Bloomberg: SX5E Index). The Initial Level is 100 per cent. of the official closing level of each Underlying on the Trade Date.
-
-5. Coupon. Subject to the Coupon Condition, the Notes bear a Coupon of 8 per cent. per annum, payable annually. Coupons are payable annually in arrear and are calculated on the basis of 30/360.
-
-6. Memory. Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.
-
-7. Automatic Early Redemption. Automatic Early Redemption: if on an Autocall Observation Date the closing level of the Underlying is at or above the applicable Autocall Level, the Notes redeem early at 100% of the Notional Amount plus the Coupon then due. Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): January 20, 2027 at 100 per cent., January 20, 2028 at 95 per cent., July 20, 2028 at 90 per cent..
-
-8. Knock-in. Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 55 per cent. of the Initial Level. If a Knock-in Event has occurred and the Notes have not been redeemed early, the Final Redemption Amount will be reduced in line with the performance of the Underlying.
-
-9. Business Day Convention. Where any payment date would otherwise fall on a day that is not a Business Day, it shall be adjusted in accordance with the Following Business Day Convention. Business Days are days on which commercial banks are open in Toronto, New York and London.
-
-10. Settlement. Cash settlement.
-
-11. Fees. Fees and distribution: the Issue Price includes distribution fees of up to 1.50% of the Notional Amount payable to the distributor. The Issuer's hedging costs are estimated at 0.35% per annum. These amounts are not Coupons and are not payable to Noteholders.
-
-12. Risk. RISK FACTORS (SUMMARY). An investment in the Notes involves risks. Investors may lose some or all of their investment. The Notes are unsecured obligations of the Issuer and are subject to the credit risk of the Issuer. The secondary market, if any, may be illiquid; a bid price, where available, may be up to 3.00% below the theoretical value of the Notes. Past performance of the Underlying is not a reliable indicator of future performance. A 10% decline in the Underlying does not translate into a 10% decline in the value of the Notes; the relationship is non-linear and depends on remaining maturity, volatility and interest rates.
-
-13. General. This document is an indicative term sheet and does not constitute an offer. The Notes will be issued under the Issuer's Structured Notes Programme, Series 2026 and are subject to the Base Prospectus and the applicable Final Terms. In the event of inconsistency between this term sheet and the Final Terms, the Final Terms prevail. Not for distribution in the United States or to U.S. persons. Governing law: Ontario. Calculation Agent: the Issuer.
+NORTHBRIDGE CAPITAL MARKETS (CANADA) INC.
+Structured Notes Programme, Series 2026  ·  Global Markets — Equity & Index Solutions
+INDICATIVE TERM SHEET
+Autocallable Contingent Coupon Notes with Memory linked to EURO STOXX 50 Index  ·  Reference SN-2026-0107  ·  Dated 20 January 2026
+1. Summary of the Transaction
+Northbridge Capital Markets (Canada) Inc. (the "Issuer") will issue notes (the "Notes") with reference SN-2026-0107 in an aggregate Notional Amount of EUR 6,000,000. The Notes are linked to the performance of the EURO STOXX 50 Index (Bloomberg: SX5E Index). The Trade Date is 20 January 2026, the Issue Date is 27 January 2026 and the Scheduled Maturity Date is 29 January 2029, in each case subject to the Business Day Convention set out below. The Initial Level of the Underlying is 100% of its official closing level on the Trade Date.
+2. The Underlying Index
+The Underlying is the EURO STOXX 50 Index (Bloomberg: SX5E Index) The Initial Level of each Underlying is 100% of its official closing level on the Trade Date, as published by the relevant index sponsor. Index Adjustment Events, Index Disruption Events and successor-index provisions apply as set out in the Base Prospectus.
+3. Coupon
+The Notes pay a conditional Coupon of 8% per annum, payable annually, payable annually in arrears, on each Coupon Payment Date on which the Coupon Condition is satisfied. Coupon amounts accrue on a 30/360 day count basis. Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.
+4. Automatic Early Redemption and Barrier
+Automatic Early Redemption: if on an Autocall Observation Date the closing level of the Underlying is at or above the applicable Autocall Level, the Notes redeem early at 100% of the Notional Amount plus the Coupon then due. Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): 20 January 2027 at 100%, 20 January 2028 at 95%, 20 July 2028 at 90%.
+Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 55% of the Initial Level. If a Knock-in Event has occurred and the Notes have not been redeemed early, the Final Redemption Amount will be reduced in line with the performance of the Underlying.
+5. Settlement
+Settlement at maturity or upon automatic early redemption is in cash, in EUR. Payment dates are adjusted in accordance with the Following Business Day Convention. Business Days: Toronto, New York and London.
+6. Fees and Other Terms
+The Issue Price of 100% includes distribution fees of up to 1.50% of the Notional Amount payable to the distributor. The Issuer's estimated hedging costs are 0.35% per annum. These amounts are not Coupons and are not payable to Noteholders. Calculation Agent: the Issuer. Governing law: Ontario. Minimum denomination: EUR 10,000.
+Risk Factors (Summary)
+An investment in the Notes involves significant risks. Investors may lose some or all of their investment. The Notes are unsecured obligations of the Issuer and are subject to the credit risk of the Issuer. Past performance, including back-tested performance, of the Underlying is not a reliable indicator of future performance. The secondary market, if any, may be illiquid; a bid price, where available, may be up to 3.00% below the theoretical value of the Notes. A 10% decline in the Underlying does not translate into a 10% decline in the value of the Notes; the relationship is non-linear. The memory feature does not guarantee that any deferred Coupon will ultimately be paid.
+This document is an indicative term sheet and does not constitute an offer, solicitation or recommendation. The Notes will be issued under the Issuer's Structured Notes Programme, Series 2026 and are subject to the Base Prospectus and the applicable Final Terms; in the event of inconsistency between this term sheet and the Final Terms, the Final Terms prevail. Not for distribution in the United States or to U.S. persons. Northbridge Capital Markets (Canada) Inc. is a fictitious entity; this is a synthetic specimen document prepared for systems demonstration purposes.
