@@ -1,0 +1,255 @@
+{
+  "family": "gemini",
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "fields": {
+    "trade_id": {
+      "status": "EXTRACTED",
+      "value": "SN-2026-0109",
+      "citation": {
+        "text_span": "Reference: SN-2026-0109",
+        "char_range": [
+          157,
+          180
+        ]
+      },
+      "note": null
+    },
+    "issuer": {
+      "status": "EXTRACTED",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "citation": {
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
+        "char_range": [
+          233,
+          289
+        ]
+      },
+      "note": null
+    },
+    "notional": {
+      "status": "EXTRACTED",
+      "value": "CAD 5,000,000",
+      "citation": {
+        "text_span": "aggregate Notional Amount of CAD 5,000,000.",
+        "char_range": [
+          355,
+          398
+        ]
+      },
+      "note": null
+    },
+    "currency": {
+      "status": "EXTRACTED",
+      "value": "CAD",
+      "citation": {
+        "text_span": "aggregate Notional Amount of CAD 5,000,000.",
+        "char_range": [
+          355,
+          398
+        ]
+      },
+      "note": null
+    },
+    "trade_date": {
+      "status": "EXTRACTED",
+      "value": "28 April 2026",
+      "citation": {
+        "text_span": "The Trade Date is 28 April 2026",
+        "char_range": [
+          490,
+          521
+        ]
+      },
+      "note": null
+    },
+    "issue_date": {
+      "status": "EXTRACTED",
+      "value": "5 May 2026",
+      "citation": {
+        "text_span": "the Issue Date is 5 May 2026",
+        "char_range": [
+          523,
+          551
+        ]
+      },
+      "note": null
+    },
+    "maturity_date": {
+      "status": "EXTRACTED",
+      "value": "7 May 2029",
+      "citation": {
+        "text_span": "the Scheduled Maturity Date is 7 May 2029",
+        "char_range": [
+          556,
+          597
+        ]
+      },
+      "note": null
+    },
+    "underlyings": {
+      "status": "EXTRACTED",
+      "value": [
+        "BVERSA10 Index"
+      ],
+      "citation": {
+        "text_span": "BVERSA10 Index (Bloomberg: BVERSA10 Index)",
+        "char_range": [
+          446,
+          488
+        ]
+      },
+      "note": null
+    },
+    "initial_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.",
+        "char_range": [
+          646,
+          739
+        ]
+      },
+      "note": null
+    },
+    "barrier_type": {
+      "status": "EXTRACTED",
+      "value": "european",
+      "citation": {
+        "text_span": "observed on the Final Valuation Date only (European observation)",
+        "char_range": [
+          1557,
+          1621
+        ]
+      },
+      "note": null
+    },
+    "barrier_level_pct": {
+      "status": "EXTRACTED",
+      "value": "70%",
+      "citation": {
+        "text_span": "Knock-in Level of 70% of the Initial Level.",
+        "char_range": [
+          1627,
+          1670
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "8.25%",
+      "citation": {
+        "text_span": "conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum)",
+        "char_range": [
+          768,
+          841
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_basis": {
+      "status": "EXTRACTED",
+      "value": "per_annum",
+      "citation": {
+        "text_span": "conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum)",
+        "char_range": [
+          768,
+          841
+        ]
+      },
+      "note": null
+    },
+    "coupon_frequency": {
+      "status": "EXTRACTED",
+      "value": "quarterly",
+      "citation": {
+        "text_span": "The Notes pay a conditional Coupon of 2.0625% per quarter",
+        "char_range": [
+          752,
+          809
+        ]
+      },
+      "note": null
+    },
+    "coupon_memory": {
+      "status": "EXTRACTED",
+      "value": "false",
+      "citation": {
+        "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+        "char_range": [
+          966,
+          1147
+        ]
+      },
+      "note": null
+    },
+    "autocall_observation_dates": {
+      "status": "EXTRACTED",
+      "value": [
+        "28 April 2027",
+        "28 October 2027",
+        "28 April 2028",
+        "30 October 2028"
+      ],
+      "citation": {
+        "text_span": "Autocall Observation Dates: 28 April 2027, 28 October 2027, 28 April 2028, 30 October 2028.",
+        "char_range": [
+          1404,
+          1495
+        ]
+      },
+      "note": null
+    },
+    "autocall_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "closing level of the Underlying is at or above 100% of the Initial Level",
+        "char_range": [
+          1250,
+          1322
+        ]
+      },
+      "note": null
+    },
+    "day_count": {
+      "status": "EXTRACTED",
+      "value": "30/360",
+      "citation": {
+        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "char_range": [
+          915,
+          965
+        ]
+      },
+      "note": null
+    },
+    "settlement": {
+      "status": "EXTRACTED",
+      "value": "cash",
+      "citation": {
+        "text_span": "Settlement at maturity or upon early redemption is in cash, in CAD.",
+        "char_range": [
+          1856,
+          1923
+        ]
+      },
+      "note": null
+    },
+    "business_day_convention": {
+      "status": "EXTRACTED",
+      "value": "Modified Following",
+      "citation": {
+        "text_span": "Modified Following Business Day Convention.",
+        "char_range": [
+          1974,
+          2017
+        ]
+      },
+      "note": null
+    }
+  },
+  "raw_text": "{\"status\":{\"trade_id\":\"EXTRACTED\",\"issuer\":\"EXTRACTED\",\"notional\":\"EXTRACTED\",\"currency\":\"EXTRACTED\",\"trade_date\":\"EXTRACTED\",\"issue_date\":\"EXTRACTED\",\"maturity_date\":\"EXTRACTED\",\"underlyings\":\"EXTRACTED\",\"initial_level_pct\":\"EXTRACTED\",\"barrier_type\":\"EXTRACTED\",\"barrier_level_pct\":\"EXTRACTED\",\"coupon_rate_pct\":\"EXTRACTED\",\"coupon_rate_basis\":\"EXTRACTED\",\"coupon_frequency\":\"EXTRACTED\",\"coupon_memory\":\"EXTRACTED\",\"autocall_observation_dates\":\"EXTRACTED\",\"autocall_level_pct\":\"EXTRACTED\",\"day_count\":\"EXTRACTED\",\"settlement\":\"EXTRACTED\",\"business_day_convention\":\"EXTRACTED\"},\"value\":{\"trade_id\":\"SN-2026-0109\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"CAD 5,000,000\",\"currency\":\"CAD\",\"trade_date\":\"28 April 2026\",\"issue_date\":\"5 May 2026\",\"maturity_date\":\"7 May 2029\",\"underlyings\":[\"BVERSA10 Index\"],\"initial_level_pct\":\"100%\",\"barrier_type\":\"european\",\"barrier_level_pct\":\"70%\",\"coupon_rate_pct\":\"8.25%\",\"coupon_rate_basis\":\"per_annum\",\"coupon_frequency\":\"quarterly\",\"coupon_memory\":\"false\",\"autocall_observation_dates\":[\"28 April 2027\",\"28 October 2027\",\"28 April 2028\",\"30 October 2028\"],\"autocall_level_pct\":\"100%\",\"day_count\":\"30/360\",\"settlement\":\"cash\",\"business_day_convention\":\"Modified Following\"},\"citation\":{\"trade_id\":\"Reference: SN-2026-0109\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc. (the \\\"Issuer\\\")\",\"notional\":\"aggregate Notional Amount of CAD 5,000,000.\",\"currency\":\"aggregate Notional Amount of CAD 5,000,000.\",\"trade_date\":\"The Trade Date is 28 April 2026\",\"issue_date\":\"the Issue Date is 5 May 2026\",\"maturity_date\":\"the Scheduled Maturity Date is 7 May 2029\",\"underlyings\":\"BVERSA10 Index (Bloomberg: BVERSA10 Index)\",\"initial_level_pct\":\"The Initial Level of each Underlying is 100% of its official closing level on the Trade Date.\",\"barrier_type\":\"observed on the Final Valuation Date only (European observation)\",\"barrier_level_pct\":\"Knock-in Level of 70% of the Initial Level.\",\"coupon_rate_pct\":\"conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum)\",\"coupon_rate_basis\":\"conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum)\",\"coupon_frequency\":\"The Notes pay a conditional Coupon of 2.0625% per quarter\",\"coupon_memory\":\"No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.\",\"autocall_observation_dates\":\"Autocall Observation Dates: 28 April 2027, 28 October 2027, 28 April 2028, 30 October 2028.\",\"autocall_level_pct\":\"closing level of the Underlying is at or above 100% of the Initial Level\",\"day_count\":\"Coupon amounts accrue on a 30/360 day count basis.\",\"settlement\":\"Settlement at maturity or upon early redemption is in cash, in CAD.\",\"business_day_convention\":\"Modified Following Business Day Convention.\"}}"
+}

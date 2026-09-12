@@ -1,0 +1,9 @@
+{
+  "doc_id": "G09",
+  "sha256": "fca06ea52e0d936b7a09f3e6d8622e9ea6bbce4234c64084360a627763c87680",
+  "trade_id": "SN-2026-0109",
+  "document_lane": "AUTO_CLEAR",
+  "cost_usd": 0.109196,
+  "n_auto_clear": 19,
+  "n_triage": 0
+}

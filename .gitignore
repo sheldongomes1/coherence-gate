@@ -14,6 +14,7 @@ __pycache__/
 runs/*
 !runs/.gitkeep
 !runs/showcase/
+!runs/showcase-demo/
 # editor / os
 .DS_Store
 .idea/

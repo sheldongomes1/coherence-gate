@@ -45,7 +45,7 @@ clean:
 
 showcase:
 	@test -n "$(RUN)" || (echo "usage: make showcase RUN=runs/<ts>"; exit 1)
-	rm -rf runs/showcase && cp -r $(RUN) runs/showcase && echo "frozen $(RUN) -> runs/showcase"
+	rm -rf runs/showcase && cp -r $(RUN) runs/showcase && echo "frozen $(RUN) -> runs/showcase (eval run); runs/showcase-demo holds a frozen make demo run"
 
 brief:
 	@test -n "$(RUN)" || (echo "usage: make brief RUN=runs/<ts>"; exit 1)

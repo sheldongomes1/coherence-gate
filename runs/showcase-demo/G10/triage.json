@@ -1,0 +1,22 @@
+[
+  {
+    "id": "G10:barrier_level_pct",
+    "doc_id": "G10",
+    "field": "barrier_level_pct",
+    "type": "TS_ABSENT",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": "70",
+    "citations": [],
+    "detail": "term sheet declares barrier_level_pct absent; booking has 70",
+    "lane": "TRIAGE",
+    "triage": {
+      "classification": "GENUINE_AMBIGUITY",
+      "desk_query": "Term sheet G10 contains no knock-in barrier clause \u2014 the extraction cites no span for barrier_level_pct, i.e. the document is silent on any barrier. The booking record carries barrier_level_pct = 70, implying a knock-in at 70% of initial level. Please confirm whether this note is in fact barriered and, if so, identify the term sheet section or supplement (e.g. final terms, pricing annex, or an amended/superseding document) that establishes the 70% level; if no such provision exists, confirm the booking should be amended to remove the barrier and the payoff re-booked as unbarriered.",
+      "cited_clause": "",
+      "booking_field": "barrier_level_pct",
+      "booking_value": "70",
+      "rationale": "With no barrier language anywhere in the term sheet, it cannot be determined from the document alone whether the booking reflects an unpapered term, a missing supplement, or an erroneous entry, so the desk must resolve the source of the 70% figure."
+    }
+  }
+]
