@@ -20,7 +20,10 @@ class GeminiExtractor:
         self.pin = pin
         self.settings = settings or ExtractionSettings()
         # Same code path serves Vertex: GOOGLE_GENAI_USE_VERTEXAI=true + project/location env (HLD §8).
-        http = gt.HttpOptions(timeout=self.settings.timeout_s * 1000)  # google-genai timeout is in ms
+        # google-genai timeout is in ms. Retries are bounded explicitly: the SDK default let one
+        # call spin for 2.2 h on a flaky connection (eval_log 2026-09-11, iteration 2).
+        http = gt.HttpOptions(timeout=int(self.settings.timeout_s * 1000),
+                              retry_options=gt.HttpRetryOptions(attempts=2, initial_delay=2, max_delay=10))
         self.client = genai.Client(http_options=http) if os.environ.get("GOOGLE_GENAI_USE_VERTEXAI") else \
             genai.Client(api_key=os.environ["GOOGLE_API_KEY"], http_options=http)
 

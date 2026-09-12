@@ -22,6 +22,11 @@ def build_context(golden: Path, out_dir: Path, *, stub: bool, config: Config | N
     run_id = datetime.now().strftime("%Y%m%d-%H%M%S")
     run_dir = out_dir / run_id
     tracer = Tracer(run_id=run_id, path=run_dir / "trace.jsonl")
+    from dataclasses import asdict
+    from ..extract.base import prompt_sha
+    tracer.step(doc_id="-", step="config", outcome="OK", detail={
+        "models": {p.family: p.model for p in config.pins}, "extraction": asdict(config.extraction),
+        "prompt_sha": prompt_sha(config.extraction.prompt_version), "stub": stub, "booking_transport": booking_transport})
     for pin in config.pins:
         if not pin.pinned:
             tracer.step(doc_id="-", step="config", outcome="UNPINNED_MODEL", model=pin.model)

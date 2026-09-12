@@ -60,6 +60,16 @@ def _pin(block: dict, env_key: str) -> ModelPin:
     )
 
 
+def _extraction_settings(block: dict) -> ExtractionSettings:
+    kw = {k: v for k, v in block.items() if k in ExtractionSettings.__dataclass_fields__}
+    # Sweep knobs (ADR-15) without editing the pinned file; both are written to the trace.
+    if os.environ.get("CG_GEMINI_THINKING"):
+        kw["gemini_thinking_level"] = None if os.environ["CG_GEMINI_THINKING"] == "none" else os.environ["CG_GEMINI_THINKING"]
+    if os.environ.get("CG_CLAUDE_EFFORT"):
+        kw["claude_effort"] = os.environ["CG_CLAUDE_EFFORT"]
+    return ExtractionSettings(**kw)
+
+
 def load_config(path: Path = MODELS_YAML) -> Config:
     load_dotenv(ROOT / ".env")
     raw = yaml.safe_load(Path(path).read_text())
@@ -67,6 +77,5 @@ def load_config(path: Path = MODELS_YAML) -> Config:
         gemini=_pin(raw["extractors"]["gemini"], "CG_MODEL_GEMINI"),
         claude=_pin(raw["extractors"]["claude"], "CG_MODEL_CLAUDE"),
         triage=_pin(raw["triage"], "CG_MODEL_TRIAGE"),
-        extraction=ExtractionSettings(**{k: v for k, v in (raw.get("extraction") or {}).items()
-                                         if k in ExtractionSettings.__dataclass_fields__}),
+        extraction=_extraction_settings(raw.get("extraction") or {}),
     )
