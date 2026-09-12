@@ -237,3 +237,29 @@ bounded retries already ran).
 
 **Consequences:** Technical failures are visible, cheap and honest: the document does not
 auto-clear, the desk is not spammed, and the trace says why.
+
+## ADR-19: Gemini ships at medium thinking; the low-thinking numbers are the documented trade-off
+
+**Date:** 2026-09-11
+**Status:** Accepted (closes the sweep promised in ADR-15)
+
+**Context:** Two full runs differing only in Gemini's thinking level (`eval_log.md`
+iterations 3 and 4). Medium: 9/9 strict catch, Gemini median 27 s, worst 720 s, $0.114 per
+document. Low: 8/9 (Gemini wrote an observation date into `autocall_level_pct` on the
+step-down schedule, G07), median 3 s, worst 6 s, $0.072 per document. False flags were 3/218
+in both, all verbose enum forms, fixed in the normalizer afterwards. Claude Opus 5 at medium
+was 228/228 on extraction accuracy in every run.
+
+**Decision:** `gemini_thinking_level: medium` stays the pinned default. The low-thinking run
+stays in `eval_log.md` and is named in the brief as the measured cost/latency alternative.
+`CG_GEMINI_THINKING=low` switches it without editing the pinned file.
+
+**Alternatives considered:** Ship low and report 8/9 (cheaper and 9× faster, but the miss was
+a genuine mis-mapping on the one field type that steps, and the headline number is the
+product). A second low run to test whether the miss is stable (worth doing in Phase 2 with a
+larger golden set; one more run on n=12 would not settle it).
+
+**Consequences:** Gemini is the slow, variable-cost extractor in this pipeline (its thinking
+volume swings 1k–32k tokens per identical call). The 240 s timeout and 2-attempt retry bound
+make that variance visible rather than fatal. Phase 2 routes Gemini through Vertex AI and
+re-runs the sweep on n≈50.

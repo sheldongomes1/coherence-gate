@@ -58,6 +58,10 @@ per-annum in the booking (resolved by deterministic normalization, not flagged),
 document that genuinely omits its barrier level (produces a critical `TS_ABSENT` finding,
 never a blank).
 
+**Effort sweep, measured (eval_log.md):** with Gemini's thinking set to low instead of medium,
+cost per document fell 37% and Gemini's median latency fell from 27 s to 3 s, at the price of
+one mis-mapped field (8/9). Medium ships; the trade-off is documented, not hidden.
+
 **Honest ceiling:** n = 12 documents, directional, not statistically significant. Synthetic
 documents generated from parameters across four layout families; one prompt per extractor;
 one run per number, no retries. The eval cannot see error classes it does not plant. Full
