@@ -6,7 +6,7 @@ import anthropic
 
 from ..config import ExtractionSettings, ModelPin
 from ..schema_loader import Schema
-from ..trace import Tracer
+from ..trace import DeadlineExceeded, Tracer, run_with_deadline
 from ..types import Extraction, Family
 from .base import SYSTEM, all_malformed, finalize, raw_extraction_json_schema, render_prompt
 
@@ -24,14 +24,17 @@ class ClaudeExtractor:
         prompt = render_prompt(schema, document, prompt_version or self.settings.prompt_version)
         with tracer.timed(doc_id=doc_id, step="extract:claude", pin=self.pin) as u:
             try:
-                resp = self.client.messages.create(
+                resp = run_with_deadline(lambda: self.client.messages.create(
                     model=self.pin.model,
                     max_tokens=self.settings.max_output_tokens_claude,
                     system=SYSTEM,
                     messages=[{"role": "user", "content": prompt}],
                     output_config={"effort": self.settings.claude_effort,
                                    "format": {"type": "json_schema", "schema": raw_extraction_json_schema(schema)}},
-                )
+                ), self.settings.deadline_s, what="claude.messages.create")
+            except DeadlineExceeded as exc:
+                u.outcome, u.detail = "TIMEOUT", str(exc)
+                return all_malformed(self.family, self.pin, schema, reason=u.detail)
             except Exception as exc:  # noqa: BLE001 — outcome, not crash
                 u.outcome, u.detail = "API_ERROR", f"{type(exc).__name__}: {str(exc)[:300]}"
                 return all_malformed(self.family, self.pin, schema, reason=u.detail)

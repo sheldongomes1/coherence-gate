@@ -4,10 +4,10 @@ You are extracting the economic terms of a trade document (a structured-note ter
 
 Rules
 
-1. Output exactly one JSON object with three maps, "status", "value" and "citation", each keyed by every schema field listed below. Every field must appear in all three maps.
-2. For each field set status to "EXTRACTED" or "DECLARED_ABSENT".
+1. Output exactly one JSON object with two maps, "value" and "citation", each keyed by every schema field listed below, plus an "absent" list naming every field the document does not state. Every field must appear in both maps.
+2. A field is either EXTRACTED (not in "absent") or DECLARED_ABSENT (listed in "absent").
    - EXTRACTED: value is the term AS WRITTEN in the document (keep the document's own units, formats and wording: "17 April 2026", "USD 10,000,000", "65%", "Actual/360", "Modified Following"). Do not convert units, do not annualise or de-annualise rates, do not compute anything, do not infer from market convention. citation is a short passage copied VERBATIM from the document (character for character, including punctuation and case) that contains the term.
-   - DECLARED_ABSENT: the document does not state this term anywhere. value and citation are empty strings (empty array for list fields). If a term is referred to but its value is deferred elsewhere (e.g. "as specified in the Final Terms"), it is ABSENT. Never guess a value.
+   - DECLARED_ABSENT: the document does not state this term anywhere. List the field in "absent"; its value and citation are empty strings (empty array for list fields). If a term is referred to but its value is deferred elsewhere (e.g. "as specified in the Final Terms"), it is ABSENT. Never guess a value.
 3. If a term appears more than once (e.g. in prose and in a table) and the occurrences agree, cite either one. If they conflict, take the terms table.
 4. coupon_rate_pct is the rate figure as printed; coupon_rate_basis says whether that figure is quoted per annum or per coupon period. If the document prints both a per-period and a per-annum figure, extract the per-annum figure and set coupon_rate_basis to "per_annum".
 5. Percentages, fees, thresholds and examples in risk factors, fee disclosures or selling restrictions are not terms. Do not extract them.

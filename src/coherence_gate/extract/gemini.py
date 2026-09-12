@@ -8,7 +8,7 @@ from google.genai import types as gt
 
 from ..config import ExtractionSettings, ModelPin
 from ..schema_loader import Schema
-from ..trace import Tracer
+from ..trace import DeadlineExceeded, Tracer, run_with_deadline
 from ..types import Extraction, Family
 from .base import SYSTEM, all_malformed, finalize, raw_extraction_json_schema, render_prompt
 
@@ -41,7 +41,11 @@ class GeminiExtractor:
         )
         with tracer.timed(doc_id=doc_id, step="extract:gemini", pin=self.pin) as u:
             try:
-                resp = self.client.models.generate_content(model=self.pin.model, contents=prompt, config=cfg)
+                resp = run_with_deadline(lambda: self.client.models.generate_content(model=self.pin.model, contents=prompt, config=cfg),
+                                         self.settings.deadline_s, what="gemini.generate_content")
+            except DeadlineExceeded as exc:
+                u.outcome, u.detail = "TIMEOUT", str(exc)
+                return all_malformed(self.family, self.pin, schema, reason=u.detail)
             except Exception as exc:  # noqa: BLE001 — outcome, not crash
                 u.outcome, u.detail = "API_ERROR", f"{type(exc).__name__}: {str(exc)[:300]}"
                 return all_malformed(self.family, self.pin, schema, reason=u.detail)

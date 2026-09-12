@@ -11,7 +11,7 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
 from ..config import ROOT, ModelPin
 from ..schema_loader import load_schema
-from ..trace import Tracer
+from ..trace import Tracer, run_with_deadline
 from ..types import BookingLookup, Finding, TriageNote
 
 PROMPT_VERSION = "triage_v1"
@@ -67,12 +67,12 @@ class TriageAgent:
         for f in findings:
             with tracer.timed(doc_id=doc_id, step=f"triage:{f.field}", pin=self.pin) as u:
                 try:
-                    resp = self.client.messages.create(
+                    resp = run_with_deadline(lambda: self.client.messages.create(
                         model=self.pin.model, max_tokens=4000,
                         system="You draft precise desk queries for a structured-products documentation team.",
                         messages=[{"role": "user", "content": self.render(f)}],
                         output_config={"effort": self.effort, "format": {"type": "json_schema", "schema": TRIAGE_SCHEMA}},
-                    )
+                    ), 300.0, what="triage")
                 except Exception as exc:  # noqa: BLE001
                     u.outcome, u.detail = "API_ERROR", f"{type(exc).__name__}: {str(exc)[:300]}"
                     f.triage = self._unavailable(f, u.detail)

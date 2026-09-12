@@ -79,3 +79,16 @@ def test_locate_tolerates_pasted_tags_escapes_and_entities():
     assert md[s:e].startswith("Underlying(s)") and md[s:e].endswith("(SPX)")
     s2, e2 = locate("S&P 500 Index (SPX)", md)
     assert md[s2:e2] == "S&amp;P 500 Index (SPX)"
+
+
+def test_guard_shape_e_two_maps_plus_absent_list():
+    from coherence_gate.extract.base import raw_extraction_json_schema
+    js = raw_extraction_json_schema(S)
+    assert set(js["required"]) == {"value", "citation", "absent"} and js["properties"]["absent"]["items"]["enum"] == S.names
+    data = {"value": {f.name: "" for f in S.fields}, "citation": {f.name: "" for f in S.fields},
+            "absent": [f.name for f in S.fields if f.name not in ("trade_date", "notional")]}
+    data["value"]["trade_date"] = "17 April 2026"; data["citation"]["trade_date"] = "Trade Date: 17 April 2026"
+    data["value"]["notional"] = "USD 5,000,000"  # extracted but no citation -> violation
+    fields, v = guard(data, DOC, S)
+    assert fields["trade_date"].status is Status.EXTRACTED and fields["issuer"].status is Status.DECLARED_ABSENT
+    assert isinstance(fields["notional"], Malformed) and v == ["notional: no-citation"]

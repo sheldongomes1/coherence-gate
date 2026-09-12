@@ -50,26 +50,26 @@ def prompt_sha(version: str = PROMPT_VERSION) -> str:
 
 
 def raw_extraction_json_schema(schema: Schema) -> dict[str, Any]:
-    """Strict, flat, union-free JSON schema shared by both families (ADR-16).
+    """Strict, flat, union-free JSON schema shared by both families (ADR-16, amended ADR-24).
 
-    Shape: three maps keyed by field name — status, value, citation. Values are strings "as
-    written" (arrays of strings for list fields); "" stands for null. Claude's structured-output
-    compiler rejects 20 nested per-field objects ("compiled grammar too large") but accepts
-    this shape; Gemini accepts either, so both families get the same contract."""
+    Shape: two maps keyed by field name — `value` (string as written; array of strings for list
+    fields; "" / [] when absent) and `citation` (verbatim span; "" when absent) — plus `absent`,
+    an array that must name every field the document does not state. The earlier three-map
+    shape (a `status` map) overflowed Claude's grammar compiler at 27 fields; this shape compiles
+    for both products and keeps absence an explicit declaration, not an empty string."""
     def val(f):
         return {"type": "array", "items": {"type": "string"}} if f.base_type.startswith("list") else {"type": "string"}
     return {
-        "type": "object", "additionalProperties": False, "required": ["status", "value", "citation"],
+        "type": "object", "additionalProperties": False, "required": ["value", "citation", "absent"],
         "properties": {
-            "status": {"type": "object", "additionalProperties": False, "required": schema.names,
-                       "description": "EXTRACTED or DECLARED_ABSENT for every field.",
-                       "properties": {f.name: {"type": "string", "enum": ["EXTRACTED", "DECLARED_ABSENT"]} for f in schema.fields}},
             "value": {"type": "object", "additionalProperties": False, "required": schema.names,
-                      "description": "The term as written in the document; empty string (or empty array) when DECLARED_ABSENT.",
+                      "description": "The term as written in the document; empty string (or empty array) when the field is DECLARED_ABSENT.",
                       "properties": {f.name: {**val(f), "description": f"{f.type}. {f.description}"} for f in schema.fields}},
             "citation": {"type": "object", "additionalProperties": False, "required": schema.names,
                          "description": "Verbatim passage from the document containing the term; empty string when DECLARED_ABSENT.",
                          "properties": {f.name: {"type": "string"} for f in schema.fields}},
+            "absent": {"type": "array", "items": {"type": "string", "enum": schema.names},
+                       "description": "Every schema field the document does NOT state (DECLARED_ABSENT). A field listed here must have empty value and citation; a field not listed here must have both."},
         },
     }
 

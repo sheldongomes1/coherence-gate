@@ -83,7 +83,13 @@ def _shape_ok(base_type: str, value: Any) -> bool:
 
 
 def _per_field(data: dict) -> dict:
-    """maps3 shape {status:{f..}, value:{f..}, citation:{f..}} -> {f: {status, value, citation, note}}."""
+    """Map shapes -> {f: {status, value, citation, note}}.
+    Shape E (ADR-24): {value:{f..}, citation:{f..}, absent:[f..]}. Shape maps3 (ADR-16): {status:{f..}, value:{f..}, citation:{f..}}."""
+    if {"value", "citation", "absent"} <= set(data) and isinstance(data["value"], dict) and isinstance(data["citation"], dict):
+        absent = set(data["absent"]) if isinstance(data["absent"], list) else set()
+        names = set(data["value"]) | set(data["citation"]) | absent
+        return {n: {"status": "DECLARED_ABSENT" if n in absent else "EXTRACTED",
+                    "value": data["value"].get(n), "citation": {"text_span": data["citation"].get(n)}, "note": None} for n in names}
     if not ({"status", "value", "citation"} <= set(data) and all(isinstance(data[k], dict) for k in ("status", "value", "citation"))):
         return data
     names = set(data["status"]) | set(data["value"]) | set(data["citation"])

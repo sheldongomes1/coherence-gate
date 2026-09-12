@@ -69,3 +69,10 @@
 - Lesson: "verbatim" must be defined against a view of the artifact, not its bytes: tags and pipes are layout, entities are encoding, neither is evidence. Offsets still map back to the artifact on disk. Re-guarding the stored outputs recovered 86 of 87 failures with zero model calls; the eval, not a prompt, found the bug.
 - Fix / rework: tag/pipe/entity-tolerant locator with an offset map (tests). The one residual is a sentence split by a page break around the running footer: a real parse tax, fixed in Phase 2 by dropping header/footer elements at parse time.
 - Post angle: "My parse tax was 71 false flags. 70 of them were my own definition of 'verbatim'. The last one was a page footer."
+
+## 2026-09-12 — Two wasted evals: I changed the schema and did not re-run the smoke test
+- Situation: added 7 index fields (27/28 per product) for the reference lane and launched the full 15-document chain.
+- What broke / what we assumed: I assumed the three-map output shape that compiled at 20 fields would compile at 27. Claude's grammar compiler said no on every document; the pipeline degraded honestly (MALFORMED everywhere, 1/17) and burned two hours of wall clock and a few dollars proving it.
+- Lesson: any change to the output contract is a model-facing change and gets the ten-token probe before anything expensive. The fix (two maps + an explicit `absent` list) is arguably a better contract than the one it replaced.
+- Fix / rework: ADR-24; the smoke test is now the first line of the release chain, not an optional step.
+- Post angle: "The most expensive bug of the weekend was a checklist item I skipped because the last change 'was just fields'."

@@ -76,3 +76,35 @@ class Tracer:
 
 def read_trace(path: Path) -> list[dict]:
     return [json.loads(l) for l in Path(path).read_text().splitlines() if l.strip()]
+
+
+# ----------------------------------------------------------------------------- wall-clock deadline
+class DeadlineExceeded(TimeoutError):
+    """A model/parser call exceeded its wall-clock budget. Raised in the caller's thread; the
+    stalled call is abandoned on a daemon thread (SDK-level timeouts proved unreliable twice:
+    a Gemini call ran 4 h 21 min, a Mixedbread poll 3.6 h; eval_log 2026-09-12)."""
+
+
+def run_with_deadline(fn, seconds: float, *, what: str = "call"):
+    """Run fn() on a daemon thread and wait at most `seconds`. On timeout raise DeadlineExceeded."""
+    import concurrent.futures as cf
+    import threading
+
+    result: dict = {}
+    done = threading.Event()
+
+    def target():
+        try:
+            result["value"] = fn()
+        except BaseException as exc:  # noqa: BLE001
+            result["error"] = exc
+        finally:
+            done.set()
+
+    t = threading.Thread(target=target, name=f"deadline:{what}", daemon=True)
+    t.start()
+    if not done.wait(seconds):
+        raise DeadlineExceeded(f"{what} exceeded {seconds:.0f}s wall clock; call abandoned")
+    if "error" in result:
+        raise result["error"]
+    return result["value"]

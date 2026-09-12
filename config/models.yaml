@@ -28,4 +28,5 @@ extraction:
   max_output_tokens_gemini: 32000   # cap INCLUDES thinking tokens on Gemini 3.x; medium thinking used ~3-8k
   max_output_tokens_claude: 16000   # includes adaptive-thinking tokens; non-streaming safe
   temperature: 0
-  timeout_s: 240        # per model call; the SDKs retry twice on transient errors, so worst case ~12 min per call
+  timeout_s: 240        # per HTTP request; the SDKs retry twice on transient errors
+  deadline_s: 540       # HARD wall clock per model call (thread deadline); SDK timeouts alone let calls run for hours

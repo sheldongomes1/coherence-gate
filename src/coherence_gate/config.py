@@ -32,6 +32,7 @@ class ExtractionSettings:
     max_output_tokens_gemini: int = 32000
     max_output_tokens_claude: int = 16000
     timeout_s: float = 240.0
+    deadline_s: float = 540.0   # hard wall clock per model call (~2 SDK attempts + backoff)
     temperature: float = 0.0
 
 

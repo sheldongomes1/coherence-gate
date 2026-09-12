@@ -368,3 +368,27 @@ prompt).
 **Consequences:** Three planted reference cases: G09 (Type I called Total Return), G14
 (monthly rebalancing), G03 (vol target: booking-static mismatch only, deferred in the
 rulebook by design). Volatility Target is the demo's "the gate knows what it cannot check".
+
+## ADR-24: Output shape amended to two maps plus an `absent` list (grammar limit at 27 fields)
+
+**Date:** 2026-09-12
+**Status:** Accepted (amends ADR-16)
+
+**Context:** With the index sub-fields, the note schema has 27 fields and the option schema 28.
+The three-map shape (status/value/citation) hit Claude's "compiled grammar is too large" at
+that size; every Claude extraction in the first 15-document runs failed with HTTP 400, which
+the pipeline reported as MALFORMED on every field (1/17 catch). Probes on a ten-token
+document: three maps 400; two maps compile; two maps + `absent` array with an enum of field
+names compiles for both products.
+
+**Decision:** Both families and the reference extractor use `{value: {…}, citation: {…},
+absent: [field names]}`. Absence stays an explicit declaration (a field must be *named* absent,
+and then its value and citation must be empty); the guard enforces the pairing both ways and
+still accepts the older three-map shape for stored outputs.
+
+**Alternatives considered:** Dropping status entirely with "" meaning absent (loses the
+explicit declaration). Splitting extraction into two calls per family (doubles cost and breaks
+the one-contract symmetry). Free JSON without a grammar (loses the every-field guarantee).
+
+**Consequences:** The smoke test on both products now precedes any full run (lesson learned
+at the cost of two wasted evals). Prompt v2 and reference_v1 describe the new shape.

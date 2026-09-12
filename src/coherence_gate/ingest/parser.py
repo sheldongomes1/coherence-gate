@@ -45,12 +45,17 @@ class MixedbreadParser:
         self.sdk_version = getattr(_m, "__version__", "?")
 
     def parse(self, pdf: Path) -> ParseResult:
+        from ..trace import run_with_deadline
         t0 = time.perf_counter()
-        with open(pdf, "rb") as fh:
-            f = self.client.files.create(file=fh)
-        job = self.client.parsing.jobs.create(file_id=f.id, return_format="markdown", mode=self.mode,
-                                              chunking_strategy="page")
-        job = self.client.parsing.jobs.poll(job.id, poll_timeout_ms=self.poll_timeout_s * 1000)
+
+        def _upload():
+            with open(pdf, "rb") as fh:
+                return self.client.files.create(file=fh)
+        f = run_with_deadline(_upload, 120.0, what="mixedbread.files.create")
+        job = run_with_deadline(lambda: self.client.parsing.jobs.create(file_id=f.id, return_format="markdown", mode=self.mode,
+                                                                        chunking_strategy="page"), 120.0, what="mixedbread.jobs.create")
+        job = run_with_deadline(lambda: self.client.parsing.jobs.poll(job.id, poll_timeout_ms=self.poll_timeout_s * 1000),
+                                self.poll_timeout_s + 60, what="mixedbread.jobs.poll")
         latency = int((time.perf_counter() - t0) * 1000)
         if job.status != "completed" or job.result is None:
             raise RuntimeError(f"mixedbread job {job.id} status={job.status} error={job.error}")

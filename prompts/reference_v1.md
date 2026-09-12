@@ -4,8 +4,8 @@ You are extracting the rules and defaults stated in an index methodology documen
 
 Rules
 
-1. Output exactly one JSON object with three maps, "status", "value" and "citation", each keyed by every schema field listed below. Every field must appear in all three maps.
-2. EXTRACTED: the value AS WRITTEN in the methodology, with a citation copied VERBATIM from the document. DECLARED_ABSENT: value and citation are empty strings.
+1. Output exactly one JSON object with two maps, "value" and "citation", each keyed by every schema field listed below, plus an "absent" list naming every field the methodology does not fix. Every field must appear in both maps.
+2. EXTRACTED (not in "absent"): the value AS WRITTEN in the methodology, with a citation copied VERBATIM from the document. DECLARED_ABSENT (listed in "absent"): value and citation are empty strings.
 3. Distinguish carefully:
    - A RULE the methodology fixes unconditionally (e.g. "The Index Value shall be floored at zero", "Rebalance Date: Every Index Business Day", "Type I ... The Index Value is Excess Return") is EXTRACTED.
    - A DEFAULT stated as "unless explicitly stated otherwise in the index specific document, X is Y" is EXTRACTED with value Y (the schema field name says it is a default).
