@@ -16,20 +16,48 @@ from ..types import Citation, FieldExtraction, Malformed, Status
 _WS = re.compile(r"\s+")
 
 
+_TAG = re.compile(r"<[^>]+>")
+_SEP = re.compile(r"[\s|]+")
+
+
+def _view(document: str) -> tuple[str, list[int]]:
+    """A matching view of the document: HTML tags and '|' become single spaces, so a span cited
+    as 'Trade Date | 2026-05-12' can anchor into '<td>Trade Date</td>\n<td>2026-05-12</td>' (parsed
+    PDFs) or '| Trade Date | 2026-05-12 |' (markdown tables). Returns the view and a map from
+    view offsets back to ORIGINAL offsets, so char_range always refers to the artifact on disk."""
+    out, idx = [], []
+    i = 0
+    for m in _TAG.finditer(document):
+        for j in range(i, m.start()):
+            out.append(" " if document[j] == "|" else document[j]); idx.append(j)
+        out.append(" "); idx.append(m.start())
+        i = m.end()
+    for j in range(i, len(document)):
+        out.append(" " if document[j] == "|" else document[j]); idx.append(j)
+    idx.append(len(document))
+    return "".join(out), idx
+
+
 def locate(span: str, document: str) -> tuple[int, int] | None:
-    """Offsets of `span` in `document`: exact, else whitespace-insensitive (offsets still refer
-    to the original document). None if not found."""
+    """Offsets of `span` in `document`: exact; else whitespace-insensitive; else against the
+    tag/pipe-stripped view (offsets mapped back to the original). None if not found."""
     if not span:
         return None
     i = document.find(span)
     if i >= 0:
         return (i, i + len(span))
-    # whitespace-collapsed match: build a regex where any whitespace run matches any whitespace run
-    parts = [re.escape(p) for p in _WS.split(span.strip()) if p]
+    parts = [re.escape(p) for p in _SEP.split(span.strip()) if p]
     if not parts:
         return None
-    m = re.search(r"\s+".join(parts), document)
-    return (m.start(), m.end()) if m else None
+    pattern = re.compile(r"\s+".join(parts))
+    m = pattern.search(document)
+    if m:
+        return (m.start(), m.end())
+    view, idx = _view(document)
+    m = pattern.search(view)
+    if not m:
+        return None
+    return (idx[m.start()], idx[m.end() - 1] + 1)
 
 
 def _shape_ok(base_type: str, value: Any) -> bool:

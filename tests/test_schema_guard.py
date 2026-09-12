@@ -60,3 +60,14 @@ def test_guard_violations_are_per_field_not_fatal():
 def test_guard_non_object():
     fields, v = guard(["nope"], DOC, S)
     assert all(isinstance(f, Malformed) for f in fields.values()) and v
+
+
+def test_locate_across_parsed_html_table_and_markdown_pipes():
+    md = "<table>\n  <tr>\n    <td>Trade Date</td>\n    <td>2026-05-12</td>\n  </tr>\n  <tr>\n    <td>Issue Date</td>\n    <td>2026-05-19</td>\n  </tr>\n</table>"
+    s, e = locate("Trade Date | 2026-05-12", md)
+    assert md[s:e].startswith("Trade Date") and md[s:e].endswith("2026-05-12")
+    assert md[s:e] == "Trade Date</td>\n    <td>2026-05-12"          # offsets refer to the artifact on disk
+    pipes = "| Trade Date | 2026-05-12 |\n| Issue Date | 2026-05-19 |"
+    s2, e2 = locate("Trade Date | 2026-05-12", pipes)
+    assert pipes[s2:e2] == "Trade Date | 2026-05-12"
+    assert locate("Trade Date | 2026-05-13", md) is None               # a wrong value still fails
