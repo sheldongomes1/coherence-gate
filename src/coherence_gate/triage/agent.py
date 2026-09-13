@@ -10,6 +10,7 @@ import anthropic
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
 from ..config import ROOT, ModelPin
+from ..extract.schema_guard import display_span
 from ..schema_loader import load_schema
 from ..trace import Tracer, run_with_deadline
 from ..types import BookingLookup, Finding, TriageNote
@@ -60,7 +61,7 @@ class TriageAgent:
             finding_type_meaning=MEANING.get(f.type, ""), severity=f.severity,
             ts_value="ABSENT" if f.ts_value is None else str(f.ts_value),
             booking_value="ABSENT" if f.booking_value is None else str(f.booking_value),
-            detail=f.detail, citations=[c.text_span for c in f.citations])
+            detail=f.detail, citations=[display_span(c.text_span) for c in f.citations])
 
     def triage(self, *, doc_id: str, document: str, findings: list[Finding], booking: BookingLookup,
                tracer: Tracer) -> None:

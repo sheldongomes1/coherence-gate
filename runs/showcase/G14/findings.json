@@ -339,11 +339,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G14 states in the terms table: \"<td>Participation Rate</td>\\n    <td>100%</td>\" \u2014 i.e. a Participation Rate of 100%. The booking record carries participation_rate_pct = 95. Both extractors read 100% from the term sheet, so please confirm whether the booking should be corrected to 100, or whether a 95% participation was agreed in a pricing supplement or amendment not reflected in the term sheet we hold. If the latter, provide the governing document reference.",
-      "cited_clause": "<td>Participation Rate</td>\n    <td>100%</td>",
+      "desk_query": "Term sheet G14 states verbatim: \"Participation Rate 100%\". The booking record carries participation_rate_pct = 95, a 5-point shortfall against the documented rate. Both extractors independently read 100% from the term sheet, so the discrepancy appears to originate in the booking. Confirm whether the booking should be amended to 100, or identify the executed amendment or pricing supplement that supports 95.",
+      "cited_clause": "Participation Rate 100%",
       "booking_field": "participation_rate_pct",
       "booking_value": "95",
-      "rationale": "Both extractors independently agree on an unambiguous, explicitly labelled 100% participation rate in the term sheet, so the divergent booking value is the more likely error."
+      "rationale": "Both extractors agree on an unambiguous, explicitly labelled term sheet value of 100%, leaving the divergent booking value as the likely error."
     }
   },
   {
@@ -738,11 +738,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "The term sheet's Rebalancing row states: \"Each calendar month, in accordance with the Index Methodology\", indicating a monthly rebalance cadence for the underlying index. The booking record carries index_rebalance_frequency = daily. Please confirm the correct cadence and, if the term sheet governs, correct the booking to monthly; if the index in fact rebalances each Index Business Day, identify the governing document or index methodology provision that supports the daily booking.",
-      "cited_clause": "Each calendar month, in accordance with the Index Methodology",
+      "desk_query": "Term sheet G14 states under Rebalancing: \"Each calendar month, in accordance with the Index Methodology\", which indicates a monthly rebalancing cadence for the underlying index. The booking record carries index_rebalance_frequency = daily. Please confirm the correct cadence is monthly and, if so, arrange correction of the booking field; if daily is intended, identify the governing index documentation that overrides the term sheet language.",
+      "cited_clause": "Rebalancing Each calendar month, in accordance with the Index Methodology",
       "booking_field": "index_rebalance_frequency",
       "booking_value": "daily",
-      "rationale": "Both extractors agree on an unambiguous term sheet clause stating a monthly cadence, so the daily booking value is the likely error."
+      "rationale": "Both extractors agree on unambiguous term sheet language specifying monthly rebalancing, so the divergent daily booking value is the more likely error."
     }
   },
   {
@@ -870,11 +870,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "DOCUMENT_LIKELY_WRONG",
-      "desk_query": "The G14 term sheet describes the underlying index rebalancing as \"Each calendar month, in accordance with the Index Methodology\", but the booking record field ref:index_rebalance_frequency carries the methodology rule value \"daily\". Since the term sheet expressly defers to the Index Methodology, the monthly description appears inconsistent with the governing document. Please confirm whether the index rebalances daily per the current methodology and, if so, authorise a correction to the term sheet Rebalancing row; if a monthly variant or legacy methodology version applies to this note, identify the version and effective date.",
-      "cited_clause": "Each calendar month, in accordance with the Index Methodology",
+      "desk_query": "The G14 term sheet states under Rebalancing: \"Each calendar month, in accordance with the Index Methodology\", but the Index Methodology rule captured in booking field ref:index_rebalance_frequency is \"daily\". Please confirm whether the underlying index in fact rebalances daily and the term sheet's monthly description is an error requiring correction/restatement, or whether a monthly-rebalanced index variant is the correct underlying. If the methodology is controlling, confirm the term sheet language should be amended to reflect daily rebalancing before settlement.",
+      "cited_clause": "Rebalancing Each calendar month, in accordance with the Index Methodology",
       "booking_field": "ref:index_rebalance_frequency",
       "booking_value": "daily",
-      "rationale": "The term sheet subordinates its own description to the Index Methodology, which specifies daily rebalancing, so the marketing-facing 'monthly' wording is the more likely error."
+      "rationale": "The booking value reflects the governing Index Methodology rule, which the term sheet itself defers to, so the term sheet's \"each calendar month\" description is the likely error."
     }
   },
   {

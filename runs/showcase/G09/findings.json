@@ -629,11 +629,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G09 states the underlying index is \"Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process\", while the booking record carries index_return_treatment = excess_return. Both extractors independently read the term sheet as Total Return, so the booking appears inconsistent with the executed documentation. Please confirm whether the note was priced and hedged on the Total Return version of the index and, if so, authorise correction of index_return_treatment to total_return. If the desk priced on an excess-return basis, identify the governing document or amendment that supports it.",
+      "desk_query": "Term sheet G09 states the underlying index is \"Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process\", while the booking record carries index_return_treatment = excess_return. Both extractors agree on the term sheet reading, so the booking appears inconsistent with the documented return treatment. Please confirm whether the note was traded on the Total Return version of the index and, if so, authorise correction of index_return_treatment to total_return; if the desk intends an excess return index, identify the index version and methodology type actually referenced.",
       "cited_clause": "Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
       "booking_field": "index_return_treatment",
       "booking_value": "excess_return",
-      "rationale": "The term sheet language is explicit and unambiguous with both extractors in agreement, so the divergent booking value is the likelier error."
+      "rationale": "The term sheet is explicit and unambiguous on Total Return with both extractors agreeing, leaving the booking value as the likely error."
     }
   },
   {
@@ -916,11 +916,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "DOCUMENT_LIKELY_WRONG",
-      "desk_query": "The term sheet describes the underlying as \"Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process\", but the Index Methodology classifies Type I as an excess return index, and the booking record carries ref:index_return_treatment = excess_return. The term sheet's own qualifier \u2014 that no cash return or financing cost accrues \u2014 is consistent with excess return treatment, so the \"Total Return\" label appears to be a drafting error rather than a booking error. Please confirm the index is Type I / excess return as booked, and instruct whether the term sheet should be corrected to remove or restate the \"Total Return\" designation. If instead a total return variant was intended and priced, advise immediately so the booking and the payoff assumptions can be revisited.",
+      "desk_query": "Term sheet G09 describes the underlying as \"Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process\", but the Index Methodology classifies a Type I index as excess return, and the booking record carries ref:index_return_treatment = excess_return. The term sheet's own parenthetical \u2014 no cash return or financing cost accruing \u2014 is consistent with excess return treatment, so the \"Total Return\" label appears to be a drafting error rather than a booking error. Please confirm the index is Type I / excess return as booked, and instruct whether the term sheet should be corrected to read \"Excess Return (Type I)\" before distribution. If instead a total return variant was intended, confirm the correct index version and methodology reference so booking can be amended.",
       "cited_clause": "Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
       "booking_field": "ref:index_return_treatment",
       "booking_value": "excess_return",
-      "rationale": "The term sheet's own descriptive language (no cash return or financing cost accrual) matches the methodology's excess return definition for Type I, so the \"Total Return\" label in the document is the element that contradicts both the methodology and the booking."
+      "rationale": "The booking value matches the index methodology's rule for Type I, and the term sheet's own descriptive language (no cash return or financing cost accrual) contradicts its \"Total Return\" label, pointing to a term-sheet drafting error."
     }
   }
 ]

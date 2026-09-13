@@ -27,11 +27,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G01 states the barrier twice and consistently: \"Knock-in Level of 65 per cent. of the Initial Level.\" and \"European (Final Valuation Date only); 65 per cent. of the Initial Level\". The booking record carries barrier_level_pct = 70. Please confirm whether the booking should be amended to 65, or identify the executed document version or amendment that supports a 70 per cent knock-in level.",
+      "desk_query": "Term sheet G01 states \"Knock-in Level of 65 per cent. of the Initial Level.\" and further specifies \"European (Final Valuation Date only); 65 per cent. of the Initial Level\", while the booking record carries barrier_level_pct = 70. Both extractors agree on 65 from two independent spans, so the booking appears to be off by five points. Please confirm the knock-in barrier is 65% of Initial Level and correct barrier_level_pct in the booking, or provide the amendment or pricing supplement that supports 70%.",
       "cited_clause": "Knock-in Level of 65 per cent. of the Initial Level.",
       "booking_field": "barrier_level_pct",
       "booking_value": "70",
-      "rationale": "Both extractors agree and two independent spans in the term sheet unambiguously state 65 per cent, so the divergent booking value is the more likely error."
+      "rationale": "Two consistent, unambiguous term sheet spans both state 65%, so the discrepancy most likely originates in the booking record rather than the document."
     }
   }
 ]

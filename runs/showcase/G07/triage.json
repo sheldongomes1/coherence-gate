@@ -35,11 +35,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G07 states: \"Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): 20 January 2027 at 100%, 20 January 2028 at 95%, 20 July 2028 at 90%.\" The booking record field autocall_level_pct is ['100', '100', '100'], i.e. a flat 100% trigger on all three observation dates, which omits the stepping schedule. Please confirm the autocall levels step down to 95% and 90% on the second and third observation dates and have the booking amended accordingly, or advise if a flat 100% trigger was intentionally agreed and documented elsewhere.",
+      "desk_query": "Term sheet G07 states: \"Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): 20 January 2027 at 100%, 20 January 2028 at 95%, 20 July 2028 at 90%.\" The booking record field autocall_level_pct is set to ['100', '100', '100'], i.e. a flat 100% trigger at all three observation dates, whereas the term sheet specifies a stepping-down schedule of 100% / 95% / 90%. Please confirm the intended autocall schedule and, if the stepped levels are correct, rebook autocall_level_pct as [100, 95, 90] aligned to 20 Jan 2027, 20 Jan 2028 and 20 Jul 2028. If the flat 100% booking is intentional, identify the amendment or supplement that overrides the term sheet.",
       "cited_clause": "Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): 20 January 2027 at 100%, 20 January 2028 at 95%, 20 July 2028 at 90%.",
       "booking_field": "autocall_level_pct",
       "booking_value": "['100', '100', '100']",
-      "rationale": "Both extractors agree on an unambiguous, explicit stepping schedule in the term sheet, so the flat 100% booking appears to be a data-entry error rather than a document defect."
+      "rationale": "Both extractors agree on an unambiguous, explicitly stepping schedule in the term sheet, so the flat 100% booking most likely reflects a capture error that dropped the step-down."
     }
   }
 ]

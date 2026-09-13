@@ -227,11 +227,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G08 states under Underlying(s): \"EURO STOXX 50 Index (SX5E)\", and both extractors agree on that value. The booking record field \"underlyings\" holds ['SPX'], a different index. Please confirm the trade references SX5E and correct the booking, or provide the amendment/confirmation evidencing SPX as the underlying. This is a critical field affecting valuation and risk, so a same-day reply is required.",
-      "cited_clause": "Underlying(s) | EURO STOXX 50 Index (SX5E)",
+      "desk_query": "Term sheet G08 states under Underlying(s): \"EURO STOXX 50 Index (SX5E)\", with no reference to any US index. The booking record field \"underlyings\" is set to ['SPX']. Please confirm the trade references the EURO STOXX 50 Index (SX5E) and rebook the underlying accordingly, or provide the amendment/confirmation supporting SPX. This drives payoff, fixings and risk, so a same-day reply is required.",
+      "cited_clause": "Underlying(s) EURO STOXX 50 Index (SX5E)",
       "booking_field": "underlyings",
       "booking_value": "['SPX']",
-      "rationale": "The term sheet unambiguously names a single underlying with both index name and ticker, and both extractors concur, so the divergent booked ticker is the likely error."
+      "rationale": "Both extractors agree on an unambiguous term sheet designation of SX5E, so the divergent SPX in the booking record is the likely error."
     }
   },
   {

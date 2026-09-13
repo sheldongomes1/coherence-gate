@@ -12,11 +12,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "DOCUMENT_LIKELY_WRONG",
-      "desk_query": "Term sheet G10 contains no knock-in barrier provision \u2014 no clause states a barrier level as a percentage of initial, and the extractors returned no citable span. The booking record nevertheless carries barrier_level_pct = 70. Confirm whether the note is in fact barrier-linked and the term sheet is missing or omits the knock-in language (e.g. a supplement, annex or final terms not supplied), or whether the note is unbarriered and the booking value of 70 must be removed. If a barrier applies, provide the governing document and the exact clause fixing the 70% level and its observation basis (continuous vs. final valuation).",
+      "desk_query": "Term sheet G10 contains no knock-in barrier clause \u2014 no percentage of initial level is stated anywhere in the document \u2014 yet the booking record carries barrier_level_pct = 70. Please confirm whether this note is in fact barriered at 70% of initial and the term sheet is missing or superseded by a later version/supplement containing that clause, or whether the note has no knock-in feature and the booking field was populated in error. If a barrier applies, provide the executed document and section reference stating the 70% level and the observation basis (continuous vs. final-valuation-date observation).",
       "cited_clause": "",
       "booking_field": "barrier_level_pct",
       "booking_value": "70",
-      "rationale": "A booked 70% knock-in barrier is a core economic term unlikely to be invented at booking, so the more probable explanation is an incomplete or superseded term sheet lacking the barrier clause rather than a booking error \u2014 though the desk must confirm which."
+      "rationale": "A specific, non-default 70% value in the booking is unlikely to be invented, so the more probable cause is that the term sheet on file is incomplete or an outdated version lacking the barrier clause."
     }
   }
 ]

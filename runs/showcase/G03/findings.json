@@ -491,11 +491,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G03 states: \"Coupon amounts accrue on a Actual/360 day count basis.\" The booking record carries day_count = 30/360, which conflicts with the documented Actual/360 basis and will misstate accrued coupon amounts. Please confirm whether the booking should be corrected to ACT/360, or identify any executed amendment or supplement that supports 30/360. Response needed before the next coupon accrual calculation.",
+      "desk_query": "Term sheet G03 states: \"Coupon amounts accrue on a Actual/360 day count basis.\" The booking record carries day_count = 30/360, which conflicts with the documented Actual/360 basis and will misstate accrued coupon amounts. Please confirm whether the booking should be amended to ACT/360, or provide the executed amendment or supplemental term sheet supporting 30/360. Response needed before the next coupon accrual run.",
       "cited_clause": "Coupon amounts accrue on a Actual/360 day count basis.",
       "booking_field": "day_count",
       "booking_value": "30/360",
-      "rationale": "Both extractors agree on an unambiguous term sheet clause specifying Actual/360, so the divergent 30/360 in the booking record is the likely error."
+      "rationale": "Both extractors agree on an unambiguous, explicit term sheet clause specifying Actual/360, so the divergent booking value is the likely error."
     }
   },
   {
@@ -666,11 +666,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G03 states under the index description: \"Volatility Target</td>\\n    <td>10% per annum\", i.e. a volatility target of 10% per annum. The booking record carries index_vol_target_pct = 12. Both extractors independently read 10% from the term sheet, so please confirm whether the booking should be corrected to 10, or identify the document or amendment that supports a 12% target.",
-      "cited_clause": "Volatility Target</td>\n    <td>10% per annum",
+      "desk_query": "Term sheet G03 states \"Volatility Target 10% per annum\" for the underlying index, but the booking record carries index_vol_target_pct = 12. Both extractors agree on the term sheet figure of 10, so the booking appears to be off by two points. Please confirm the correct volatility target and, if 10% is right, authorise correction of index_vol_target_pct from 12 to 10; if the booking reflects a later amendment or a different index series, send the supporting document.",
+      "cited_clause": "Volatility Target 10% per annum",
       "booking_field": "index_vol_target_pct",
       "booking_value": "12",
-      "rationale": "Both extractors agree on an unambiguous, explicitly labelled term sheet value of 10% per annum, so the divergent booking value of 12 is the more likely error."
+      "rationale": "The term sheet states the volatility target unambiguously and both extractors concur, so the divergent booking value is the more likely error."
     }
   },
   {

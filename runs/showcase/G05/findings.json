@@ -83,11 +83,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G05 states: \"in an aggregate Notional Amount of 10,000,000 USD\". The booking record field \"notional\" is 1,000,000 \u2014 a factor-of-ten difference consistent with a digit being dropped at entry. Please confirm the aggregate principal amount is USD 10,000,000 and correct the booking, or provide the amendment/allocation document supporting USD 1,000,000.",
+      "desk_query": "Term sheet G05 states: \"in an aggregate Notional Amount of 10,000,000 USD\". The booking record field \"notional\" is 1,000,000 \u2014 a factor-of-ten difference consistent with a digit-entry error. Please confirm the correct aggregate notional is USD 10,000,000 and amend the booking, or provide the amendment/allocation document supporting USD 1,000,000.",
       "cited_clause": "in an aggregate Notional Amount of 10,000,000 USD",
       "booking_field": "notional",
       "booking_value": "1000000",
-      "rationale": "Both extractors cite an unambiguous term sheet figure of 10,000,000 and the booking differs by exactly one order of magnitude, the signature of a keying error on the booking side."
+      "rationale": "Both extractors cite an unambiguous term sheet figure of 10,000,000 and the booking differs by exactly one order of magnitude, pointing to a keying error in the booking rather than a document defect."
     }
   },
   {
