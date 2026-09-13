@@ -121,7 +121,8 @@ def _fixture(doc_id: str, trade_id: str, fixtures: dict) -> dict:
     return fx
 
 
-def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None, golden_href: str | None = None) -> Path:
+def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None, golden_href: str | None = None,
+           live: bool = False) -> Path:
     """`golden_href`: where the golden files sit relative to the page (default: computed from the run dir;
     the assembled static site passes 'golden')."""
     data = load_run(run_dir)
@@ -219,7 +220,7 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
         book=book, run_id=data["run_id"], ts=datetime.now().strftime("%Y-%m-%d %H:%M"), rows=rows,
         n_attested=sum(r["state"] == "ATTESTED" for r in rows), n_attention=sum(r["state"] in ("MISMATCH", "DISAGREEMENT") for r in rows),
         n_stale=sum(r["state"] == "STALE" for r in rows), cost=sum(l["cost_usd"] for l in trace), tools=tools,
-        exposure=exposure, evidence_json=json.dumps(evidence, default=str).replace("</", "<\\/"))
+        exposure=exposure, evidence_json=json.dumps(evidence, default=str).replace("</", "<\\/"), live=live)
     out = out or Path(run_dir) / "desk_view.html"
     out.write_text(html)
     return out

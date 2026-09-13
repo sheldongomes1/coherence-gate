@@ -1,0 +1,37 @@
+[
+  {
+    "id": "G12:coupon_memory",
+    "doc_id": "G12",
+    "field": "coupon_memory",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": true,
+    "booking_value": false,
+    "citations": [
+      {
+        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
+        "char_range": [
+          3392,
+          3528
+        ]
+      },
+      {
+        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
+        "char_range": [
+          3392,
+          3528
+        ]
+      }
+    ],
+    "detail": "TS True \u2260 booking False",
+    "lane": "TRIAGE",
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G12 states: \"Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.\" The booking record has coupon_memory = False, which would treat missed coupons as permanently forgone rather than recoverable at a later observation. Please confirm the note carries the memory/catch-up feature and, if so, correct coupon_memory to True and re-run coupon projection and valuation. If the booking is intentional, identify the offsetting term or amendment that disapplies the memory feature.",
+      "cited_clause": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
+      "booking_field": "coupon_memory",
+      "booking_value": "False",
+      "rationale": "Both extractors agree on an unambiguous, explicitly labelled memory clause in the term sheet, so the divergent booking flag is the likely error."
+    }
+  }
+]

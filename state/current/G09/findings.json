@@ -1,0 +1,926 @@
+[
+  {
+    "id": "G09:trade_id",
+    "doc_id": "G09",
+    "field": "trade_id",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "SN-2026-0109",
+    "booking_value": "SN-2026-0109",
+    "citations": [
+      {
+        "text_span": "Reference SN-2026-0109",
+        "char_range": [
+          231,
+          253
+        ]
+      },
+      {
+        "text_span": "will issue notes (the \"Notes\") with reference SN-2026-0109",
+        "char_range": [
+          358,
+          416
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:issuer",
+    "doc_id": "G09",
+    "field": "issuer",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "Northbridge Capital Markets (Canada) Inc.",
+    "booking_value": "Northbridge Capital Markets (Canada) Inc.",
+    "citations": [
+      {
+        "text_span": "Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          301,
+          342
+        ]
+      },
+      {
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
+        "char_range": [
+          301,
+          374
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:notional",
+    "doc_id": "G09",
+    "field": "notional",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "5000000",
+    "booking_value": "5000000",
+    "citations": [
+      {
+        "text_span": "Notional Amount of 5,000,000 CAD",
+        "char_range": [
+          433,
+          465
+        ]
+      },
+      {
+        "text_span": "in an aggregate Notional Amount of 5,000,000 CAD",
+        "char_range": [
+          417,
+          465
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:currency",
+    "doc_id": "G09",
+    "field": "currency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "CAD",
+    "booking_value": "CAD",
+    "citations": [
+      {
+        "text_span": "Notional Amount of 5,000,000 CAD",
+        "char_range": [
+          433,
+          465
+        ]
+      },
+      {
+        "text_span": "in an aggregate Notional Amount of 5,000,000 CAD",
+        "char_range": [
+          417,
+          465
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:trade_date",
+    "doc_id": "G09",
+    "field": "trade_date",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "2026-04-28",
+    "booking_value": "2026-04-28",
+    "citations": [
+      {
+        "text_span": "The Trade Date is April 28, 2026",
+        "char_range": [
+          573,
+          605
+        ]
+      },
+      {
+        "text_span": "The Trade Date is April 28, 2026;",
+        "char_range": [
+          573,
+          606
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:issue_date",
+    "doc_id": "G09",
+    "field": "issue_date",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "2026-05-05",
+    "booking_value": "2026-05-05",
+    "citations": [
+      {
+        "text_span": "the Issue Date is May 5, 2026",
+        "char_range": [
+          607,
+          636
+        ]
+      },
+      {
+        "text_span": "the Issue Date is May 5, 2026;",
+        "char_range": [
+          607,
+          637
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:maturity_date",
+    "doc_id": "G09",
+    "field": "maturity_date",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "2029-05-07",
+    "booking_value": "2029-05-07",
+    "citations": [
+      {
+        "text_span": "the Scheduled Maturity Date is May 7, 2029",
+        "char_range": [
+          638,
+          680
+        ]
+      },
+      {
+        "text_span": "the Scheduled Maturity Date is May 7, 2029",
+        "char_range": [
+          638,
+          680
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:underlyings",
+    "doc_id": "G09",
+    "field": "underlyings",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": [
+      "BVERSA10"
+    ],
+    "booking_value": [
+      "BVERSA10"
+    ],
+    "citations": [
+      {
+        "text_span": "Bloomberg: BVERSA10 Index",
+        "char_range": [
+          526,
+          551
+        ]
+      },
+      {
+        "text_span": "the Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index) (the \"Underlying\")",
+        "char_range": [
+          496,
+          571
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:initial_level_pct",
+    "doc_id": "G09",
+    "field": "initial_level_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "100",
+    "booking_value": "100",
+    "citations": [
+      {
+        "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.",
+        "char_range": [
+          817,
+          919
+        ]
+      },
+      {
+        "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.",
+        "char_range": [
+          817,
+          919
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:barrier_type",
+    "doc_id": "G09",
+    "field": "barrier_type",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "european",
+    "booking_value": "european",
+    "citations": [
+      {
+        "text_span": "observed on the Final Valuation Date only (European observation)",
+        "char_range": [
+          1800,
+          1864
+        ]
+      },
+      {
+        "text_span": "European (Final Valuation Date only); 70 per cent. of the Initial Level",
+        "char_range": [
+          4954,
+          5025
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:barrier_level_pct",
+    "doc_id": "G09",
+    "field": "barrier_level_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "70",
+    "booking_value": "70",
+    "citations": [
+      {
+        "text_span": "Knock-in Level of 70 per cent. of the Initial Level.",
+        "char_range": [
+          1870,
+          1922
+        ]
+      },
+      {
+        "text_span": "European (Final Valuation Date only); 70 per cent. of the Initial Level",
+        "char_range": [
+          4954,
+          5025
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:coupon_rate_pct",
+    "doc_id": "G09",
+    "field": "coupon_rate_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "8.25",
+    "booking_value": "8.25",
+    "citations": [
+      {
+        "text_span": "equivalent to 8.25% per annum",
+        "char_range": [
+          994,
+          1023
+        ]
+      },
+      {
+        "text_span": "a conditional Coupon of 2.0625% per quarter (equivalent to 8.25% per annum)",
+        "char_range": [
+          949,
+          1024
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:coupon_frequency",
+    "doc_id": "G09",
+    "field": "coupon_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "quarterly",
+    "booking_value": "quarterly",
+    "citations": [
+      {
+        "text_span": "payable quarterly in arrears",
+        "char_range": [
+          1026,
+          1054
+        ]
+      },
+      {
+        "text_span": "payable quarterly in arrears",
+        "char_range": [
+          1026,
+          1054
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:coupon_memory",
+    "doc_id": "G09",
+    "field": "coupon_memory",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": false,
+    "booking_value": false,
+    "citations": [
+      {
+        "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+        "char_range": [
+          1179,
+          1360
+        ]
+      },
+      {
+        "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+        "char_range": [
+          1179,
+          1360
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:autocall_observation_dates",
+    "doc_id": "G09",
+    "field": "autocall_observation_dates",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": [
+      "2027-04-28",
+      "2027-10-28",
+      "2028-04-28",
+      "2028-10-30"
+    ],
+    "booking_value": [
+      "2027-04-28",
+      "2027-10-28",
+      "2028-04-28",
+      "2028-10-30"
+    ],
+    "citations": [
+      {
+        "text_span": "Autocall Observation Dates: April 28, 2027, October 28, 2027, April 28, 2028, October 30, 2028.",
+        "char_range": [
+          1627,
+          1722
+        ]
+      },
+      {
+        "text_span": "Autocall Observation Dates: April 28, 2027, October 28, 2027, April 28, 2028, October 30, 2028.",
+        "char_range": [
+          1627,
+          1722
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:autocall_level_pct",
+    "doc_id": "G09",
+    "field": "autocall_level_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "100",
+    "booking_value": "100",
+    "citations": [
+      {
+        "text_span": "closing level of the Underlying is at or above 100 per cent. of the Initial Level",
+        "char_range": [
+          1464,
+          1545
+        ]
+      },
+      {
+        "text_span": "Autocall Level\n    100 per cent. of the Initial Level",
+        "char_range": [
+          4841,
+          4903
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:day_count",
+    "doc_id": "G09",
+    "field": "day_count",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "30/360",
+    "booking_value": "30/360",
+    "citations": [
+      {
+        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "char_range": [
+          1128,
+          1178
+        ]
+      },
+      {
+        "text_span": "Day Count\n    30/360",
+        "char_range": [
+          5054,
+          5083
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:settlement",
+    "doc_id": "G09",
+    "field": "settlement",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "cash",
+    "booking_value": "cash",
+    "citations": [
+      {
+        "text_span": "Cash settlement in CAD.",
+        "char_range": [
+          2111,
+          2134
+        ]
+      },
+      {
+        "text_span": "Cash settlement in CAD.",
+        "char_range": [
+          2111,
+          2134
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:business_day_convention",
+    "doc_id": "G09",
+    "field": "business_day_convention",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "mod_following",
+    "booking_value": "mod_following",
+    "citations": [
+      {
+        "text_span": "Modified Following Business Day Convention",
+        "char_range": [
+          727,
+          769
+        ]
+      },
+      {
+        "text_span": "subject to adjustment in accordance with the Modified Following Business Day Convention",
+        "char_range": [
+          682,
+          769
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:index_administrator",
+    "doc_id": "G09",
+    "field": "index_administrator",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "Bloomberg Index Services Limited",
+    "booking_value": "Bloomberg Index Services Limited",
+    "citations": [
+      {
+        "text_span": "Bloomberg Index Services Limited",
+        "char_range": [
+          2240,
+          2272
+        ]
+      },
+      {
+        "text_span": "Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator",
+        "char_range": [
+          2836,
+          2958
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:index_return_type",
+    "doc_id": "G09",
+    "field": "index_return_type",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "type_i",
+    "booking_value": "type_i",
+    "citations": [
+      {
+        "text_span": "Type I under the Index Methodology",
+        "char_range": [
+          3048,
+          3082
+        ]
+      },
+      {
+        "text_span": "Total Return (Type I under the Index Methodology)",
+        "char_range": [
+          3034,
+          3083
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:index_return_treatment",
+    "doc_id": "G09",
+    "field": "index_return_treatment",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": "total_return",
+    "booking_value": "excess_return",
+    "citations": [
+      {
+        "text_span": "Total Return (Type I under the Index Methodology)",
+        "char_range": [
+          3034,
+          3083
+        ]
+      },
+      {
+        "text_span": "Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
+        "char_range": [
+          3034,
+          3159
+        ]
+      }
+    ],
+    "detail": "TS total_return \u2260 booking excess_return",
+    "lane": "TRIAGE",
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G09 states the underlying index is \"Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process\", while the booking record carries index_return_treatment = excess_return. Both extractors agree on the term sheet reading, so the booking appears inconsistent with the documented return treatment. Please confirm whether the note was traded on the Total Return version of the index and, if so, authorise correction of index_return_treatment to total_return; if the desk intends an excess return index, identify the index version and methodology type actually referenced.",
+      "cited_clause": "Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
+      "booking_field": "index_return_treatment",
+      "booking_value": "excess_return",
+      "rationale": "The term sheet is explicit and unambiguous on Total Return with both extractors agreeing, leaving the booking value as the likely error."
+    }
+  },
+  {
+    "id": "G09:index_vol_target_pct",
+    "doc_id": "G09",
+    "field": "index_vol_target_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "10",
+    "booking_value": "10",
+    "citations": [
+      {
+        "text_span": "10% per annum",
+        "char_range": [
+          3236,
+          3249
+        ]
+      },
+      {
+        "text_span": "Volatility Target\n    10% per annum",
+        "char_range": [
+          3196,
+          3249
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:index_rebalance_frequency",
+    "doc_id": "G09",
+    "field": "index_rebalance_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "daily",
+    "booking_value": "daily",
+    "citations": [
+      {
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
+        "char_range": [
+          3851,
+          3916
+        ]
+      },
+      {
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
+        "char_range": [
+          3851,
+          3916
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:index_deduction_factor_pct",
+    "doc_id": "G09",
+    "field": "index_deduction_factor_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "0.5",
+    "booking_value": "0.5",
+    "citations": [
+      {
+        "text_span": "0.50% per annum, deducted daily from the Index Value",
+        "char_range": [
+          3992,
+          4044
+        ]
+      },
+      {
+        "text_span": "0.50% per annum, deducted daily from the Index Value",
+        "char_range": [
+          3992,
+          4044
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:index_transaction_cost_rate_pct",
+    "doc_id": "G09",
+    "field": "index_transaction_cost_rate_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "0.02",
+    "booking_value": "0.02",
+    "citations": [
+      {
+        "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+        "char_range": [
+          4125,
+          4205
+        ]
+      },
+      {
+        "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+        "char_range": [
+          4125,
+          4205
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:ref:index_administrator",
+    "doc_id": "G09",
+    "field": "ref:index_administrator",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "Bloomberg Index Services Limited",
+    "booking_value": "Bloomberg Index Services Limited",
+    "citations": [
+      {
+        "text_span": "Bloomberg Index Services Limited",
+        "char_range": [
+          2240,
+          2272
+        ]
+      },
+      {
+        "text_span": "Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator",
+        "char_range": [
+          2836,
+          2958
+        ]
+      }
+    ],
+    "detail": "claim Bloomberg Index Services Limited agrees with the methodology rule administrator = Bloomberg Index Services Limited",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:ref:index_rebalance_frequency",
+    "doc_id": "G09",
+    "field": "ref:index_rebalance_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "daily",
+    "booking_value": "daily",
+    "citations": [
+      {
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
+        "char_range": [
+          3851,
+          3916
+        ]
+      },
+      {
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
+        "char_range": [
+          3851,
+          3916
+        ]
+      }
+    ],
+    "detail": "claim daily agrees with the methodology rule rebalance_frequency = daily",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:ref:index_vol_target_pct",
+    "doc_id": "G09",
+    "field": "ref:index_vol_target_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "10",
+    "booking_value": null,
+    "citations": [
+      {
+        "text_span": "10% per annum",
+        "char_range": [
+          3236,
+          3249
+        ]
+      },
+      {
+        "text_span": "Volatility Target\n    10% per annum",
+        "char_range": [
+          3196,
+          3249
+        ]
+      }
+    ],
+    "detail": "deferred: the methodology defines volatility_target_pct but fixes no value (index-specific document); not checkable here",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:ref:index_deduction_factor_pct",
+    "doc_id": "G09",
+    "field": "ref:index_deduction_factor_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "0.5",
+    "booking_value": "0",
+    "citations": [
+      {
+        "text_span": "0.50% per annum, deducted daily from the Index Value",
+        "char_range": [
+          3992,
+          4044
+        ]
+      },
+      {
+        "text_span": "0.50% per annum, deducted daily from the Index Value",
+        "char_range": [
+          3992,
+          4044
+        ]
+      }
+    ],
+    "detail": "methodology default 0; the index-specific document may override \u2014 informational, not checked",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:ref:index_transaction_cost_rate_pct",
+    "doc_id": "G09",
+    "field": "ref:index_transaction_cost_rate_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "0.02",
+    "booking_value": "0",
+    "citations": [
+      {
+        "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+        "char_range": [
+          4125,
+          4205
+        ]
+      },
+      {
+        "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+        "char_range": [
+          4125,
+          4205
+        ]
+      }
+    ],
+    "detail": "methodology default 0; the index-specific document may override \u2014 informational, not checked",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G09:ref:index_return_treatment",
+    "doc_id": "G09",
+    "field": "ref:index_return_treatment",
+    "type": "REFERENCE_INCONSISTENT",
+    "severity": "critical",
+    "ts_value": "total_return",
+    "booking_value": "excess_return",
+    "citations": [
+      {
+        "text_span": "Total Return (Type I under the Index Methodology)",
+        "char_range": [
+          3034,
+          3083
+        ]
+      },
+      {
+        "text_span": "Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
+        "char_range": [
+          3034,
+          3159
+        ]
+      }
+    ],
+    "detail": "term sheet calls a type_i index 'total_return'; the methodology says type_i is excess_return",
+    "lane": "TRIAGE",
+    "triage": {
+      "classification": "DOCUMENT_LIKELY_WRONG",
+      "desk_query": "Term sheet G09 describes the underlying as \"Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process\", but the Index Methodology classifies a Type I index as excess return, and the booking record carries ref:index_return_treatment = excess_return. The term sheet's own parenthetical \u2014 no cash return or financing cost accruing \u2014 is consistent with excess return treatment, so the \"Total Return\" label appears to be a drafting error rather than a booking error. Please confirm the index is Type I / excess return as booked, and instruct whether the term sheet should be corrected to read \"Excess Return (Type I)\" before distribution. If instead a total return variant was intended, confirm the correct index version and methodology reference so booking can be amended.",
+      "cited_clause": "Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
+      "booking_field": "ref:index_return_treatment",
+      "booking_value": "excess_return",
+      "rationale": "The booking value matches the index methodology's rule for Type I, and the term sheet's own descriptive language (no cash return or financing cost accrual) contradicts its \"Total Return\" label, pointing to a term-sheet drafting error."
+    }
+  }
+]

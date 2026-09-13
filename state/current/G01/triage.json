@@ -1,0 +1,37 @@
+[
+  {
+    "id": "G01:barrier_level_pct",
+    "doc_id": "G01",
+    "field": "barrier_level_pct",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": "65",
+    "booking_value": "70",
+    "citations": [
+      {
+        "text_span": "Knock-in Level of 65 per cent. of the Initial Level.",
+        "char_range": [
+          1821,
+          1873
+        ]
+      },
+      {
+        "text_span": "European (Final Valuation Date only); 65 per cent. of the Initial Level",
+        "char_range": [
+          2864,
+          2935
+        ]
+      }
+    ],
+    "detail": "TS 65 \u2260 booking 70",
+    "lane": "TRIAGE",
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G01 states \"Knock-in Level of 65 per cent. of the Initial Level.\" and further specifies \"European (Final Valuation Date only); 65 per cent. of the Initial Level\", while the booking record carries barrier_level_pct = 70. Both extractors agree on 65 from two independent spans, so the booking appears to be off by five points. Please confirm the knock-in barrier is 65% of Initial Level and correct barrier_level_pct in the booking, or provide the amendment or pricing supplement that supports 70%.",
+      "cited_clause": "Knock-in Level of 65 per cent. of the Initial Level.",
+      "booking_field": "barrier_level_pct",
+      "booking_value": "70",
+      "rationale": "Two consistent, unambiguous term sheet spans both state 65%, so the discrepancy most likely originates in the booking record rather than the document."
+    }
+  }
+]

@@ -1,0 +1,297 @@
+{
+  "family": "gemini",
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "fields": {
+    "trade_id": {
+      "status": "EXTRACTED",
+      "value": "SN-2026-0101",
+      "citation": {
+        "text_span": "Reference SN-2026-0101",
+        "char_range": [
+          220,
+          242
+        ]
+      },
+      "note": null
+    },
+    "issuer": {
+      "status": "EXTRACTED",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "citation": {
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
+        "char_range": [
+          290,
+          346
+        ]
+      },
+      "note": null
+    },
+    "notional": {
+      "status": "EXTRACTED",
+      "value": "5,000,000 USD",
+      "citation": {
+        "text_span": "aggregate Notional Amount of 5,000,000 USD",
+        "char_range": [
+          412,
+          454
+        ]
+      },
+      "note": null
+    },
+    "currency": {
+      "status": "EXTRACTED",
+      "value": "USD",
+      "citation": {
+        "text_span": "Cash settlement in USD.",
+        "char_range": [
+          2062,
+          2085
+        ]
+      },
+      "note": null
+    },
+    "trade_date": {
+      "status": "EXTRACTED",
+      "value": "April 14, 2026",
+      "citation": {
+        "text_span": "The Trade Date is April 14, 2026;",
+        "char_range": [
+          527,
+          560
+        ]
+      },
+      "note": null
+    },
+    "issue_date": {
+      "status": "EXTRACTED",
+      "value": "April 21, 2026",
+      "citation": {
+        "text_span": "the Issue Date is April 21, 2026;",
+        "char_range": [
+          561,
+          594
+        ]
+      },
+      "note": null
+    },
+    "maturity_date": {
+      "status": "EXTRACTED",
+      "value": "April 23, 2029",
+      "citation": {
+        "text_span": "the Scheduled Maturity Date is April 23, 2029",
+        "char_range": [
+          595,
+          640
+        ]
+      },
+      "note": null
+    },
+    "underlyings": {
+      "status": "EXTRACTED",
+      "value": [
+        "SPX Index"
+      ],
+      "citation": {
+        "text_span": "Bloomberg: SPX Index",
+        "char_range": [
+          504,
+          524
+        ]
+      },
+      "note": null
+    },
+    "initial_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100 per cent.",
+      "citation": {
+        "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.",
+        "char_range": [
+          777,
+          879
+        ]
+      },
+      "note": null
+    },
+    "barrier_type": {
+      "status": "EXTRACTED",
+      "value": "European",
+      "citation": {
+        "text_span": "observed on the Final Valuation Date only (European observation)",
+        "char_range": [
+          1751,
+          1815
+        ]
+      },
+      "note": null
+    },
+    "barrier_level_pct": {
+      "status": "EXTRACTED",
+      "value": "65 per cent.",
+      "citation": {
+        "text_span": "Knock-in Level of 65 per cent. of the Initial Level.",
+        "char_range": [
+          1821,
+          1873
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "7.5 per cent.",
+      "citation": {
+        "text_span": "conditional Coupon of 7.5 per cent. per annum",
+        "char_range": [
+          911,
+          956
+        ]
+      },
+      "note": null
+    },
+    "coupon_rate_basis": {
+      "status": "EXTRACTED",
+      "value": "per_annum",
+      "citation": {
+        "text_span": "7.5 per cent. per annum",
+        "char_range": [
+          933,
+          956
+        ]
+      },
+      "note": null
+    },
+    "coupon_frequency": {
+      "status": "EXTRACTED",
+      "value": "quarterly",
+      "citation": {
+        "text_span": "payable quarterly, payable quarterly in arrears",
+        "char_range": [
+          958,
+          1005
+        ]
+      },
+      "note": null
+    },
+    "coupon_memory": {
+      "status": "EXTRACTED",
+      "value": "No memory feature",
+      "citation": {
+        "text_span": "No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.",
+        "char_range": [
+          1130,
+          1311
+        ]
+      },
+      "note": null
+    },
+    "autocall_observation_dates": {
+      "status": "EXTRACTED",
+      "value": [
+        "April 14, 2027",
+        "October 14, 2027",
+        "April 14, 2028",
+        "October 16, 2028"
+      ],
+      "citation": {
+        "text_span": "Autocall Observation Dates: April 14, 2027, October 14, 2027, April 14, 2028, October 16, 2028.",
+        "char_range": [
+          1578,
+          1673
+        ]
+      },
+      "note": null
+    },
+    "autocall_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100 per cent.",
+      "citation": {
+        "text_span": "100 per cent. of the Initial Level",
+        "char_range": [
+          1462,
+          1496
+        ]
+      },
+      "note": null
+    },
+    "day_count": {
+      "status": "EXTRACTED",
+      "value": "30/360",
+      "citation": {
+        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "char_range": [
+          1079,
+          1129
+        ]
+      },
+      "note": null
+    },
+    "settlement": {
+      "status": "EXTRACTED",
+      "value": "Cash",
+      "citation": {
+        "text_span": "Cash settlement in USD.",
+        "char_range": [
+          2062,
+          2085
+        ]
+      },
+      "note": null
+    },
+    "business_day_convention": {
+      "status": "EXTRACTED",
+      "value": "Modified Following",
+      "citation": {
+        "text_span": "Modified Following Business Day Convention",
+        "char_range": [
+          687,
+          729
+        ]
+      },
+      "note": null
+    },
+    "index_administrator": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "index_return_type": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "index_return_treatment": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "index_vol_target_pct": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "index_rebalance_frequency": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "index_deduction_factor_pct": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    },
+    "index_transaction_cost_rate_pct": {
+      "status": "DECLARED_ABSENT",
+      "value": null,
+      "citation": null,
+      "note": null
+    }
+  },
+  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"SN-2026-0101\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"5,000,000 USD\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"April 14, 2026\",\n    \"issue_date\": \"April 21, 2026\",\n    \"maturity_date\": \"April 23, 2029\",\n    \"underlyings\": [\n      \"SPX Index\"\n    ],\n    \"initial_level_pct\": \"100 per cent.\",\n    \"barrier_type\": \"European\",\n    \"barrier_level_pct\": \"65 per cent.\",\n    \"coupon_rate_pct\": \"7.5 per cent.\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"quarterly\",\n    \"coupon_memory\": \"No memory feature\",\n    \"autocall_observation_dates\": [\n      \"April 14, 2027\",\n      \"October 14, 2027\",\n      \"April 14, 2028\",\n      \"October 16, 2028\"\n    ],\n    \"autocall_level_pct\": \"100 per cent.\",\n    \"day_count\": \"30/360\",\n    \"settlement\": \"Cash\",\n    \"business_day_convention\": \"Modified Following\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"citation\": {\n    \"trade_id\": \"Reference SN-2026-0101\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc. (the \\\"Issuer\\\")\",\n    \"notional\": \"aggregate Notional Amount of 5,000,000 USD\",\n    \"currency\": \"Cash settlement in USD.\",\n    \"trade_date\": \"The Trade Date is April 14, 2026;\",\n    \"issue_date\": \"the Issue Date is April 21, 2026;\",\n    \"maturity_date\": \"the Scheduled Maturity Date is April 23, 2029\",\n    \"underlyings\": \"Bloomberg: SPX Index\",\n    \"initial_level_pct\": \"The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.\",\n    \"barrier_type\": \"observed on the Final Valuation Date only (European observation)\",\n    \"barrier_level_pct\": \"Knock-in Level of 65 per cent. of the Initial Level.\",\n    \"coupon_rate_pct\": \"conditional Coupon of 7.5 per cent. per annum\",\n    \"coupon_rate_basis\": \"7.5 per cent. per annum\",\n    \"coupon_frequency\": \"payable quarterly, payable quarterly in arrears\",\n    \"coupon_memory\": \"No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.\",\n    \"autocall_observation_dates\": \"Autocall Observation Dates: April 14, 2027, October 14, 2027, April 14, 2028, October 16, 2028.\",\n    \"autocall_level_pct\": \"100 per cent. of the Initial Level\",\n    \"day_count\": \"Coupon amounts accrue on a 30/360 day count basis.\",\n    \"settlement\": \"Cash settlement in USD.\",\n    \"business_day_convention\": \"Modified Following Business Day Convention\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"absent\": [\n    \"index_administrator\",\n    \"index_return_type\",\n    \"index_return_treatment\",\n    \"index_vol_target_pct\",\n    \"index_rebalance_frequency\",\n    \"index_deduction_factor_pct\",\n    \"index_transaction_cost_rate_pct\"\n  ]\n}"
+}

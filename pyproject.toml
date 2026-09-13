@@ -19,6 +19,9 @@ dependencies = [
     "pypdf>=6.18.1",
     "mixedbread>=0.54.0",
     "markdown>=3.10.3",
+    "fastapi>=0.141.1",
+    "uvicorn[standard]>=0.52.4",
+    "python-multipart>=0.0.32",
 ]
 
 [project.optional-dependencies]

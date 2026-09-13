@@ -1,0 +1,601 @@
+[
+  {
+    "id": "G02:trade_id",
+    "doc_id": "G02",
+    "field": "trade_id",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "SN-2026-0102",
+    "booking_value": "SN-2026-0102",
+    "citations": [
+      {
+        "text_span": "SN-2026-0102",
+        "char_range": [
+          236,
+          248
+        ]
+      },
+      {
+        "text_span": "Trade Reference SN-2026-0102",
+        "char_range": [
+          303,
+          344
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:issuer",
+    "doc_id": "G02",
+    "field": "issuer",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "Northbridge Capital Markets (Canada) Inc.",
+    "booking_value": "Northbridge Capital Markets (Canada) Inc.",
+    "citations": [
+      {
+        "text_span": "Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          393,
+          434
+        ]
+      },
+      {
+        "text_span": "Issuer Northbridge Capital Markets (Canada) Inc.",
+        "char_range": [
+          373,
+          434
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:notional",
+    "doc_id": "G02",
+    "field": "notional",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "3000000",
+    "booking_value": "3000000",
+    "citations": [
+      {
+        "text_span": "EUR 3,000,000.00",
+        "char_range": [
+          492,
+          508
+        ]
+      },
+      {
+        "text_span": "Notional Amount EUR 3,000,000.00",
+        "char_range": [
+          463,
+          508
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:currency",
+    "doc_id": "G02",
+    "field": "currency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "EUR",
+    "booking_value": "EUR",
+    "citations": [
+      {
+        "text_span": "EUR",
+        "char_range": [
+          214,
+          217
+        ]
+      },
+      {
+        "text_span": "Currency EUR",
+        "char_range": [
+          537,
+          562
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:trade_date",
+    "doc_id": "G02",
+    "field": "trade_date",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "2026-05-12",
+    "booking_value": "2026-05-12",
+    "citations": [
+      {
+        "text_span": "2026-05-12",
+        "char_range": [
+          251,
+          261
+        ]
+      },
+      {
+        "text_span": "Trade Date 2026-05-12",
+        "char_range": [
+          591,
+          625
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:issue_date",
+    "doc_id": "G02",
+    "field": "issue_date",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "2026-05-19",
+    "booking_value": "2026-05-19",
+    "citations": [
+      {
+        "text_span": "2026-05-19",
+        "char_range": [
+          678,
+          688
+        ]
+      },
+      {
+        "text_span": "Issue Date 2026-05-19",
+        "char_range": [
+          654,
+          688
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:maturity_date",
+    "doc_id": "G02",
+    "field": "maturity_date",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "2028-05-19",
+    "booking_value": "2028-05-19",
+    "citations": [
+      {
+        "text_span": "2028-05-19",
+        "char_range": [
+          744,
+          754
+        ]
+      },
+      {
+        "text_span": "Maturity Date 2028-05-19",
+        "char_range": [
+          717,
+          754
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:underlyings",
+    "doc_id": "G02",
+    "field": "underlyings",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": [
+      "SX5E"
+    ],
+    "booking_value": [
+      "SX5E"
+    ],
+    "citations": [
+      {
+        "text_span": "EURO STOXX 50 Index (SX5E)",
+        "char_range": [
+          810,
+          836
+        ]
+      },
+      {
+        "text_span": "Underlying(s) EURO STOXX 50 Index (SX5E)",
+        "char_range": [
+          783,
+          836
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:initial_level_pct",
+    "doc_id": "G02",
+    "field": "initial_level_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "100",
+    "booking_value": "100",
+    "citations": [
+      {
+        "text_span": "100.00% of the official closing level on the Trade Date",
+        "char_range": [
+          892,
+          947
+        ]
+      },
+      {
+        "text_span": "Initial Level 100.00% of the official closing level on the Trade Date",
+        "char_range": [
+          865,
+          947
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:barrier_type",
+    "doc_id": "G02",
+    "field": "barrier_type",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "american",
+    "booking_value": "american",
+    "citations": [
+      {
+        "text_span": "American (continuous observation)",
+        "char_range": [
+          1492,
+          1525
+        ]
+      },
+      {
+        "text_span": "Knock-in Type American (continuous observation)",
+        "char_range": [
+          1465,
+          1525
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:barrier_level_pct",
+    "doc_id": "G02",
+    "field": "barrier_level_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "60",
+    "booking_value": "60",
+    "citations": [
+      {
+        "text_span": "60.00% of the Initial Level",
+        "char_range": [
+          1582,
+          1609
+        ]
+      },
+      {
+        "text_span": "Knock-in Level 60.00% of the Initial Level",
+        "char_range": [
+          1554,
+          1609
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:coupon_rate_pct",
+    "doc_id": "G02",
+    "field": "coupon_rate_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "9",
+    "booking_value": "9",
+    "citations": [
+      {
+        "text_span": "9.00% per annum, payable semi-annually",
+        "char_range": [
+          996,
+          1034
+        ]
+      },
+      {
+        "text_span": "Coupon 9.00% per annum, payable semi-annually",
+        "char_range": [
+          976,
+          1034
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:coupon_frequency",
+    "doc_id": "G02",
+    "field": "coupon_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "semiannual",
+    "booking_value": "semiannual",
+    "citations": [
+      {
+        "text_span": "Semiannual",
+        "char_range": [
+          1093,
+          1103
+        ]
+      },
+      {
+        "text_span": "Coupon Frequency Semiannual",
+        "char_range": [
+          1063,
+          1103
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:coupon_memory",
+    "doc_id": "G02",
+    "field": "coupon_memory",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": true,
+    "booking_value": true,
+    "citations": [
+      {
+        "text_span": "Applicable",
+        "char_range": [
+          1159,
+          1169
+        ]
+      },
+      {
+        "text_span": "Coupon Memory Applicable",
+        "char_range": [
+          1132,
+          1169
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:autocall_level_pct",
+    "doc_id": "G02",
+    "field": "autocall_level_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "100",
+    "booking_value": "100",
+    "citations": [
+      {
+        "text_span": "100.00% of the Initial Level",
+        "char_range": [
+          1408,
+          1436
+        ]
+      },
+      {
+        "text_span": "Autocall Level 100.00% of the Initial Level",
+        "char_range": [
+          1380,
+          1436
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:day_count",
+    "doc_id": "G02",
+    "field": "day_count",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": "ACT/365",
+    "booking_value": "ACT/365",
+    "citations": [
+      {
+        "text_span": "Actual/365 (Fixed)",
+        "char_range": [
+          1230,
+          1248
+        ]
+      },
+      {
+        "text_span": "Day Count Fraction Actual/365 (Fixed)",
+        "char_range": [
+          1198,
+          1248
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:settlement",
+    "doc_id": "G02",
+    "field": "settlement",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "cash",
+    "booking_value": "cash",
+    "citations": [
+      {
+        "text_span": "Cash",
+        "char_range": [
+          1662,
+          1666
+        ]
+      },
+      {
+        "text_span": "Settlement Cash",
+        "char_range": [
+          1638,
+          1666
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:business_day_convention",
+    "doc_id": "G02",
+    "field": "business_day_convention",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": "following",
+    "booking_value": "following",
+    "citations": [
+      {
+        "text_span": "Following",
+        "char_range": [
+          1732,
+          1741
+        ]
+      },
+      {
+        "text_span": "Business Day Convention Following",
+        "char_range": [
+          1695,
+          1741
+        ]
+      }
+    ],
+    "detail": "match",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:index_administrator",
+    "doc_id": "G02",
+    "field": "index_administrator",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:index_return_type",
+    "doc_id": "G02",
+    "field": "index_return_type",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:index_return_treatment",
+    "doc_id": "G02",
+    "field": "index_return_treatment",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:index_vol_target_pct",
+    "doc_id": "G02",
+    "field": "index_vol_target_pct",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:index_rebalance_frequency",
+    "doc_id": "G02",
+    "field": "index_rebalance_frequency",
+    "type": "CLEAN",
+    "severity": "critical",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:index_deduction_factor_pct",
+    "doc_id": "G02",
+    "field": "index_deduction_factor_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  },
+  {
+    "id": "G02:index_transaction_cost_rate_pct",
+    "doc_id": "G02",
+    "field": "index_transaction_cost_rate_pct",
+    "type": "CLEAN",
+    "severity": "minor",
+    "ts_value": null,
+    "booking_value": null,
+    "citations": [],
+    "detail": "absent in both",
+    "lane": "AUTO_CLEAR",
+    "triage": null
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "G06:currency",
+    "doc_id": "G06",
+    "field": "currency",
+    "type": "MISMATCH",
+    "severity": "critical",
+    "ts_value": "USD",
+    "booking_value": "CAD",
+    "citations": [
+      {
+        "text_span": "USD",
+        "char_range": [
+          477,
+          480
+        ]
+      },
+      {
+        "text_span": "Currency</td>\n    <td>USD",
+        "char_range": [
+          522,
+          547
+        ]
+      }
+    ],
+    "detail": "TS USD \u2260 booking CAD",
+    "lane": "TRIAGE",
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G06 states \"Currency USD\" for the notional, but the booking record carries currency = CAD. Both extractors agree on the term sheet value, and no CAD reference appears in the cited spans. Please confirm the note is denominated in USD and correct the booking, or identify the clause supporting a CAD denomination (e.g. a quanto or settlement-currency provision) if the CAD booking is intentional.",
+      "cited_clause": "Currency USD",
+      "booking_field": "currency",
+      "booking_value": "CAD",
+      "rationale": "The term sheet is explicit and both extractors concur on USD, so the divergent CAD booking is the more likely error."
+    }
+  }
+]

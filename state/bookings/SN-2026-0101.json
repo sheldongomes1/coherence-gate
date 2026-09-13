@@ -1,0 +1,28 @@
+{
+  "trade_id": "SN-2026-0101",
+  "issuer": "Northbridge Capital Markets (Canada) Inc.",
+  "notional": 5000000,
+  "currency": "USD",
+  "trade_date": "2026-04-14",
+  "issue_date": "2026-04-21",
+  "maturity_date": "2029-04-23",
+  "underlyings": [
+    "SPX"
+  ],
+  "initial_level_pct": 100,
+  "barrier_type": "european",
+  "barrier_level_pct": 70,
+  "coupon_rate_pct": 7.5,
+  "coupon_frequency": "quarterly",
+  "coupon_memory": false,
+  "autocall_observation_dates": [
+    "2027-04-14",
+    "2027-10-14",
+    "2028-04-14",
+    "2028-10-16"
+  ],
+  "autocall_level_pct": 100,
+  "day_count": "30/360",
+  "settlement": "cash",
+  "business_day_convention": "mod_following"
+}

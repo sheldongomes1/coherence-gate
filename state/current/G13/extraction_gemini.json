@@ -1,0 +1,346 @@
+{
+  "family": "gemini",
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "fields": {
+    "trade_id": {
+      "status": "EXTRACTED",
+      "value": "OP-2026-0114",
+      "citation": {
+        "text_span": "Reference OP-2026-0114",
+        "char_range": [
+          216,
+          238
+        ]
+      },
+      "note": null
+    },
+    "buyer": {
+      "status": "EXTRACTED",
+      "value": "Lakeshore Life Insurance Company",
+      "citation": {
+        "text_span": "Lakeshore Life Insurance Company (\"Party B\", the Buyer)",
+        "char_range": [
+          372,
+          427
+        ]
+      },
+      "note": null
+    },
+    "seller": {
+      "status": "EXTRACTED",
+      "value": "Northbridge Capital Markets (Canada) Inc.",
+      "citation": {
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (\"Party A\", the Seller)",
+        "char_range": [
+          293,
+          358
+        ]
+      },
+      "note": null
+    },
+    "option_style": {
+      "status": "EXTRACTED",
+      "value": "european",
+      "citation": {
+        "text_span": "European-style, cash-settled call option",
+        "char_range": [
+          430,
+          470
+        ]
+      },
+      "note": null
+    },
+    "option_type": {
+      "status": "EXTRACTED",
+      "value": "call",
+      "citation": {
+        "text_span": "European-style, cash-settled call option",
+        "char_range": [
+          430,
+          470
+        ]
+      },
+      "note": null
+    },
+    "underlyings": {
+      "status": "EXTRACTED",
+      "value": [
+        "BVERSA10"
+      ],
+      "citation": {
+        "text_span": "Bloomberg: BVERSA10 Index",
+        "char_range": [
+          524,
+          549
+        ]
+      },
+      "note": null
+    },
+    "notional": {
+      "status": "EXTRACTED",
+      "value": "25,000,000",
+      "citation": {
+        "text_span": "Notional Amount\tUSD 25,000,000",
+        "char_range": [
+          3368,
+          3411
+        ]
+      },
+      "note": null
+    },
+    "currency": {
+      "status": "EXTRACTED",
+      "value": "USD",
+      "citation": {
+        "text_span": "Notional Amount\tUSD 25,000,000",
+        "char_range": [
+          3368,
+          3411
+        ]
+      },
+      "note": null
+    },
+    "trade_date": {
+      "status": "EXTRACTED",
+      "value": "2026-05-08",
+      "citation": {
+        "text_span": "Trade Date\t8 May 2026",
+        "char_range": [
+          3440,
+          3474
+        ]
+      },
+      "note": null
+    },
+    "effective_date": {
+      "status": "EXTRACTED",
+      "value": "2026-05-12",
+      "citation": {
+        "text_span": "Effective Date\t12 May 2026",
+        "char_range": [
+          3503,
+          3542
+        ]
+      },
+      "note": null
+    },
+    "strike_level_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "Strike Level\t100% of the Initial Index Level",
+        "char_range": [
+          3731,
+          3788
+        ]
+      },
+      "note": null
+    },
+    "participation_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "100%",
+      "citation": {
+        "text_span": "Participation Rate\t100%",
+        "char_range": [
+          3817,
+          3853
+        ]
+      },
+      "note": null
+    },
+    "valuation_date": {
+      "status": "EXTRACTED",
+      "value": "2028-05-08",
+      "citation": {
+        "text_span": "Valuation Date\t8 May 2028",
+        "char_range": [
+          3882,
+          3920
+        ]
+      },
+      "note": null
+    },
+    "expiration_date": {
+      "status": "EXTRACTED",
+      "value": "2028-05-08",
+      "citation": {
+        "text_span": "Expiration Date\t8 May 2028",
+        "char_range": [
+          3992,
+          4031
+        ]
+      },
+      "note": null
+    },
+    "automatic_exercise": {
+      "status": "EXTRACTED",
+      "value": "true",
+      "citation": {
+        "text_span": "Automatic Exercise\tApplicable",
+        "char_range": [
+          4060,
+          4102
+        ]
+      },
+      "note": null
+    },
+    "premium_pct": {
+      "status": "EXTRACTED",
+      "value": "4.15%",
+      "citation": {
+        "text_span": "Premium\t4.15% of the Notional Amount (USD 1,037,500)",
+        "char_range": [
+          4131,
+          4196
+        ]
+      },
+      "note": null
+    },
+    "premium_amount": {
+      "status": "EXTRACTED",
+      "value": "1,037,500",
+      "citation": {
+        "text_span": "Premium\t4.15% of the Notional Amount (USD 1,037,500)",
+        "char_range": [
+          4131,
+          4196
+        ]
+      },
+      "note": null
+    },
+    "premium_payment_date": {
+      "status": "EXTRACTED",
+      "value": "2026-05-12",
+      "citation": {
+        "text_span": "Premium Payment Date\t12 May 2026",
+        "char_range": [
+          4225,
+          4270
+        ]
+      },
+      "note": null
+    },
+    "cash_settlement_days": {
+      "status": "EXTRACTED",
+      "value": "3",
+      "citation": {
+        "text_span": "Three Currency Business Days following the Valuation Date",
+        "char_range": [
+          4341,
+          4398
+        ]
+      },
+      "note": null
+    },
+    "settlement_currency": {
+      "status": "EXTRACTED",
+      "value": "USD",
+      "citation": {
+        "text_span": "Settlement Currency\tUSD",
+        "char_range": [
+          4427,
+          4463
+        ]
+      },
+      "note": null
+    },
+    "calculation_agent": {
+      "status": "EXTRACTED",
+      "value": "Party A",
+      "citation": {
+        "text_span": "Calculation Agent: Party A.",
+        "char_range": [
+          5202,
+          5229
+        ]
+      },
+      "note": null
+    },
+    "index_administrator": {
+      "status": "EXTRACTED",
+      "value": "Bloomberg Index Services Limited",
+      "citation": {
+        "text_span": "Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator",
+        "char_range": [
+          1918,
+          2040
+        ]
+      },
+      "note": null
+    },
+    "index_return_type": {
+      "status": "EXTRACTED",
+      "value": "type_i",
+      "citation": {
+        "text_span": "Excess Return (Type I under the Index Methodology)",
+        "char_range": [
+          2099,
+          2149
+        ]
+      },
+      "note": null
+    },
+    "index_return_treatment": {
+      "status": "EXTRACTED",
+      "value": "excess_return",
+      "citation": {
+        "text_span": "Return Treatment\tExcess Return",
+        "char_range": [
+          2069,
+          2112
+        ]
+      },
+      "note": null
+    },
+    "index_vol_target_pct": {
+      "status": "EXTRACTED",
+      "value": "10%",
+      "citation": {
+        "text_span": "Volatility Target\t10% per annum",
+        "char_range": [
+          2254,
+          2298
+        ]
+      },
+      "note": null
+    },
+    "index_rebalance_frequency": {
+      "status": "EXTRACTED",
+      "value": "daily",
+      "citation": {
+        "text_span": "Rebalancing\tEach Index Business Day, in accordance with the Index Methodology",
+        "char_range": [
+          2746,
+          2836
+        ]
+      },
+      "note": null
+    },
+    "index_deduction_factor_pct": {
+      "status": "EXTRACTED",
+      "value": "0.50%",
+      "citation": {
+        "text_span": "Deduction Factor\t0.50% per annum, deducted daily from the Index Value",
+        "char_range": [
+          2865,
+          2947
+        ]
+      },
+      "note": null
+    },
+    "index_transaction_cost_rate_pct": {
+      "status": "EXTRACTED",
+      "value": "0.02%",
+      "citation": {
+        "text_span": "Transaction Cost Rate\t0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+        "char_range": [
+          2976,
+          3091
+        ]
+      },
+      "note": null
+    }
+  },
+  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"OP-2026-0114\",\n    \"buyer\": \"Lakeshore Life Insurance Company\",\n    \"seller\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"option_style\": \"european\",\n    \"option_type\": \"call\",\n    \"underlyings\": [\n      \"BVERSA10\"\n    ],\n    \"notional\": \"25,000,000\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"2026-05-08\",\n    \"effective_date\": \"2026-05-12\",\n    \"strike_level_pct\": \"100%\",\n    \"participation_rate_pct\": \"100%\",\n    \"valuation_date\": \"2028-05-08\",\n    \"expiration_date\": \"2028-05-08\",\n    \"automatic_exercise\": \"true\",\n    \"premium_pct\": \"4.15%\",\n    \"premium_amount\": \"1,037,500\",\n    \"premium_payment_date\": \"2026-05-12\",\n    \"cash_settlement_days\": \"3\",\n    \"settlement_currency\": \"USD\",\n    \"calculation_agent\": \"Party A\",\n    \"index_administrator\": \"Bloomberg Index Services Limited\",\n    \"index_return_type\": \"type_i\",\n    \"index_return_treatment\": \"excess_return\",\n    \"index_vol_target_pct\": \"10%\",\n    \"index_rebalance_frequency\": \"daily\",\n    \"index_deduction_factor_pct\": \"0.50%\",\n    \"index_transaction_cost_rate_pct\": \"0.02%\"\n  },\n  \"citation\": {\n    \"trade_id\": \"Reference OP-2026-0114\",\n    \"buyer\": \"Lakeshore Life Insurance Company (\\\"Party B\\\", the Buyer)\",\n    \"seller\": \"Northbridge Capital Markets (Canada) Inc. (\\\"Party A\\\", the Seller)\",\n    \"option_style\": \"European-style, cash-settled call option\",\n    \"option_type\": \"European-style, cash-settled call option\",\n    \"underlyings\": \"Bloomberg: BVERSA10 Index\",\n    \"notional\": \"Notional Amount\\tUSD 25,000,000\",\n    \"currency\": \"Notional Amount\\tUSD 25,000,000\",\n    \"trade_date\": \"Trade Date\\t8 May 2026\",\n    \"effective_date\": \"Effective Date\\t12 May 2026\",\n    \"strike_level_pct\": \"Strike Level\\t100% of the Initial Index Level\",\n    \"participation_rate_pct\": \"Participation Rate\\t100%\",\n    \"valuation_date\": \"Valuation Date\\t8 May 2028\",\n    \"expiration_date\": \"Expiration Date\\t8 May 2028\",\n    \"automatic_exercise\": \"Automatic Exercise\\tApplicable\",\n    \"premium_pct\": \"Premium\\t4.15% of the Notional Amount (USD 1,037,500)\",\n    \"premium_amount\": \"Premium\\t4.15% of the Notional Amount (USD 1,037,500)\",\n    \"premium_payment_date\": \"Premium Payment Date\\t12 May 2026\",\n    \"cash_settlement_days\": \"Three Currency Business Days following the Valuation Date\",\n    \"settlement_currency\": \"Settlement Currency\\tUSD\",\n    \"calculation_agent\": \"Calculation Agent: Party A.\",\n    \"index_administrator\": \"Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator\",\n    \"index_return_type\": \"Excess Return (Type I under the Index Methodology)\",\n    \"index_return_treatment\": \"Return Treatment\\tExcess Return\",\n    \"index_vol_target_pct\": \"Volatility Target\\t10% per annum\",\n    \"index_rebalance_frequency\": \"Rebalancing\\tEach Index Business Day, in accordance with the Index Methodology\",\n    \"index_deduction_factor_pct\": \"Deduction Factor\\t0.50% per annum, deducted daily from the Index Value\",\n    \"index_transaction_cost_rate_pct\": \"Transaction Cost Rate\\t0.02% on changes in Underlying Index units, as provided in the Index Methodology\"\n  },\n  \"absent\": []\n}"
+}
