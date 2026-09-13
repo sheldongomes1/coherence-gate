@@ -8,7 +8,10 @@ from pathlib import Path
 import yaml
 from dotenv import load_dotenv
 
-ROOT = Path(__file__).resolve().parents[2]
+# Repo root in development (src/coherence_gate/config.py -> ../..). When the package is installed
+# into site-packages (the Cloud Run image), CG_ROOT points at the directory holding schema/, golden/,
+# prompts/, config/, templates/ and runs/showcase.
+ROOT = Path(os.environ.get("CG_ROOT") or Path(__file__).resolve().parents[2])
 MODELS_YAML = ROOT / "config" / "models.yaml"
 
 

@@ -15,7 +15,9 @@ from pydantic import BaseModel, Field, create_model
 
 from .types import FieldExtraction
 
-SCHEMA_DIR = Path(__file__).resolve().parents[2] / "schema"
+from .config import ROOT
+
+SCHEMA_DIR = ROOT / "schema"
 SCHEMA_PATH = SCHEMA_DIR / "termsheet_v1.json"
 PRODUCTS_PATH = SCHEMA_DIR / "products.json"
 
