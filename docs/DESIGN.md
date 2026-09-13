@@ -129,5 +129,5 @@ code, model supplies only the verbatim span (ADR-3); merger compares normalized 
 | CS8c feedback → proposals | done, one real cycle in git history (feedback → proposal → apply → eval → diff → HELD) | `proposals/`, `eval_diff_cycle.md`, `proposals/DECISIONS.md` |
 | Release run on 15 docs, pdf source, reference lane | done: run 20260912-191532, 17/17, 0/417, 396/396 both families | `runs/showcase`, `eval_log.md` |
 | MODEL-RISK filled, showcase frozen, v0.2.0 tag | done | `MODEL-RISK.md`, `BRIEF.md`, tag v0.2.0 |
-| v0.2.1 review pass (2026-09-13): independent review → P0/P1/P2 fixed | done | ADR-29 fast relaunch, ADR-30 NOT_EVALUABLE/INFO lane, cost breakdown by source, web hardening (containment, escaping, MCP, atomic writes), report column 'calls that never completed', tag v0.2.1 |
+| v0.2.1 review pass (2026-09-13): independent review → P0/P1/P2 fixed | done | ADR-29 fast relaunch, ADR-30 NOT_EVALUABLE/INFO lane, cost breakdown by source, web hardening (containment, escaping, MCP, atomic writes), report column 'calls that never completed', `cg eval --resume` (ADR-31), tag v0.2.1 |
 | Live-check rehearsal (6 booking edits) | 4/6 caught; 1 Gemini deadline event, 1 masked by the tolerance under test | `eval_log.md` |
