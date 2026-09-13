@@ -125,7 +125,7 @@ def _fixture(doc_id: str, trade_id: str, fixtures: dict) -> dict:
 
 
 def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None, golden_href: str | None = None,
-           live: bool = False) -> Path:
+           live: bool = False, feedback_path: Path | None = None) -> Path:
     """`golden_href`: where the golden files sit relative to the page (default: computed from the run dir;
     the assembled static site passes 'golden')."""
     data = load_run(run_dir)
@@ -137,12 +137,13 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
     book = (cfg.get("book") or {}).get("name", "Demo book")
     fx_path = ROOT / "golden" / "desk_fixtures.json"
     fixtures = json.loads(fx_path.read_text()) if fx_path.exists() else {}
-    fb_path = ROOT / "feedback" / "feedback.jsonl"
+    fb_path = Path(feedback_path) if feedback_path else ROOT / "feedback" / "feedback.jsonl"
     verdicts: dict[str, str] = {}
+    fb_rows: dict[str, dict] = {}   # latest record per finding id: the modal shows verdict, note and time
     if fb_path.exists():
         for l in fb_path.read_text().splitlines():
             if l.strip():
-                r = json.loads(l); verdicts[r["finding_id"]] = r["verdict"]
+                r = json.loads(l); verdicts[r["finding_id"]] = r["verdict"]; fb_rows[r["finding_id"]] = r
     rows = []
     for d in data["docs"]:
         state, why = trust_state(d["findings"])
@@ -215,7 +216,9 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
                "ts": _fmt(f.get("ts_value")), "bk": _fmt(f.get("booking_value")), "detail": f.get("detail", ""),
                "citations": [_clean_cite(c["text_span"]) for c in f.get("citations", [])],
                "consequence": consequence(f) if f["type"] in RED_TYPES else "",
-               "triage": (f.get("triage") or {}).get("desk_query"), "classification": (f.get("triage") or {}).get("classification")}
+               "triage": (f.get("triage") or {}).get("desk_query"), "classification": (f.get("triage") or {}).get("classification"),
+               "feedback": ({"verdict": fb_rows[k]["verdict"], "note": fb_rows[k].get("note") or "", "ts": str(fb_rows[k].get("ts", ""))[:16]}
+                            if (k := f"{d['doc_id']}:{f['field']}") in fb_rows else None)}
               for f in d["findings"]]
         order = {t: i for i, t in enumerate(["MISMATCH", "TS_ABSENT", "BOOKING_ABSENT", "RELATION_VIOLATION", "REFERENCE_INCONSISTENT",
                                               "EXTRACTOR_DISAGREEMENT", "MALFORMED_EXTRACTION", "NOT_EVALUABLE", "CLEAN"])}
@@ -229,7 +232,8 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
         book=book, run_id=data["run_id"], ts=datetime.now().strftime("%Y-%m-%d %H:%M"), rows=rows,
         n_attested=sum(r["state"] == "ATTESTED" for r in rows), n_attention=sum(r["state"] in ("MISMATCH", "DISAGREEMENT") for r in rows),
         n_stale=sum(r["state"] == "STALE" for r in rows), cost=data["cost"]["total"], costb=data["cost"], tools=tools,
-        exposure=exposure, evidence_json=json.dumps(evidence, default=str).replace("</", "<\\/"), live=live)
+        exposure=exposure, evidence_json=json.dumps(evidence, default=str).replace("</", "<\\/"), live=live,
+        n_feedback=len(fb_rows))
     out = out or Path(run_dir) / "desk_view.html"
     out.write_text(html)
     return out

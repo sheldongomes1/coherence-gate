@@ -31,6 +31,7 @@ STATE = Path(os.environ.get("STATE_DIR", ROOT / "state"))
 SITE = Path(os.environ.get("SITE_DIR", ROOT / "site"))
 STORE = STATE / "bookings"
 RUN = STATE / "current"
+FEEDBACK = STATE / "feedback.jsonl"   # the desk's verdicts on findings (CS8b); same record shape as `cg feedback`
 GOLDEN = ROOT / "golden"
 
 @asynccontextmanager
@@ -70,6 +71,8 @@ def init_state(reset: bool = False) -> None:
         shutil.copytree(GOLDEN / "bookings", STORE)
     if not RUN.exists():
         shutil.copytree(ROOT / "runs" / "showcase", RUN)
+    if not FEEDBACK.exists() and (ROOT / "feedback" / "feedback.jsonl").exists():
+        shutil.copy(ROOT / "feedback" / "feedback.jsonl", FEEDBACK)   # the one real cycle's record ships with the showcase
     render_pages()
 
 
@@ -77,7 +80,7 @@ def render_pages() -> None:
     from ..report.desk_view import render as render_desk
     from ..report.html import render as render_html
     render_html(RUN)
-    render_desk(RUN, store_dir=STORE, golden_href="golden", live=True)
+    render_desk(RUN, store_dir=STORE, golden_href="golden", live=True, feedback_path=FEEDBACK)
 
 
 def _manifest() -> dict:
@@ -227,6 +230,36 @@ def api_relaunch(doc: str | None = None, scope: str = "stale", full: int = 0) ->
         jobs.pop(job_id, None)
         return JSONResponse({"job": None, "message": "the relaunch queue is full (8 jobs); try again in a minute"}, status_code=429)
     return JSONResponse({"job": job_id, "docs": docs, "mode": "full" if full else "recheck", "queue_position": _queue.qsize()})
+
+
+VERDICTS = {"desk_accepted", "desk_rejected"}   # the two the CLI and `cg propose` understand
+
+
+@app.post("/api/feedback")
+async def api_feedback(request: Request) -> JSONResponse:
+    """CS8b: the desk's verdict on one finding. Appends a record in the `cg feedback` shape; never
+    changes model or pipeline behaviour (it feeds `cg propose`, which is human-reviewed and eval-gated)."""
+    from datetime import datetime, timezone
+    body = await request.json()
+    doc, field, verdict = str(body.get("doc", "")), str(body.get("field", "")), str(body.get("verdict", ""))
+    note = str(body.get("note", ""))[:500]
+    if verdict not in VERDICTS or not doc.isalnum() or not field.replace("_", "").replace(":", "").isalnum():
+        return JSONResponse({"error": "verdict must be desk_accepted or desk_rejected; doc and field must name a finding"}, status_code=400)
+    fpath = RUN / doc / "findings.json"
+    f = next((x for x in json.loads(fpath.read_text()) if x["field"] == field), None) if fpath.exists() else None
+    if f is None:
+        return JSONResponse({"error": f"no finding {doc}:{field} in the current run"}, status_code=404)
+    run_id = next((json.loads(l)["run_id"] for l in (RUN / "trace.jsonl").read_text().splitlines() if '"config"' in l), RUN.name)
+    row = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "run_id": run_id, "finding_id": f"{doc}:{field}",
+           "doc_id": doc, "field": field, "finding_type": f["type"], "severity": f["severity"], "verdict": verdict,
+           "note": note, "ts_value": f.get("ts_value"), "booking_value": f.get("booking_value"), "detail": f.get("detail"),
+           "via": "desk_view"}
+    with lock:
+        with FEEDBACK.open("a") as fh:
+            fh.write(json.dumps(row, default=str) + "\n")
+        render_pages()
+    n = sum(1 for l in FEEDBACK.read_text().splitlines() if l.strip())
+    return JSONResponse({"recorded": row, "n_feedback": n})
 
 
 @app.get("/api/status/{job_id}")
