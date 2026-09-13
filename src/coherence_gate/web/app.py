@@ -87,6 +87,9 @@ def _run_docs(job_id: str, doc_ids: list[str]) -> None:
         job.update({"status": "error", "error": f"{type(exc).__name__}: {str(exc)[:300]}"})
 
 
+NO_STORE = {"Cache-Control": "no-store, max-age=0"}
+
+
 @app.on_event("startup")
 def _startup() -> None:
     init_state()
@@ -98,13 +101,13 @@ def _startup() -> None:
 def desk_view() -> HTMLResponse:
     with lock:
         render_pages()
-        return HTMLResponse((RUN / "desk_view.html").read_text())
+        return HTMLResponse((RUN / "desk_view.html").read_text(), headers=NO_STORE)
 
 
 @app.get("/run_report.html", response_class=HTMLResponse)
 def run_report() -> HTMLResponse:
     with lock:
-        return HTMLResponse((RUN / "run_report.html").read_text())
+        return HTMLResponse((RUN / "run_report.html").read_text(), headers=NO_STORE)
 
 
 @app.get("/api/state")
