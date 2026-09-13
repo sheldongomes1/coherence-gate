@@ -15,6 +15,7 @@ COPY golden ./golden
 COPY runs/showcase ./runs/showcase
 COPY site ./site
 COPY scripts ./scripts
+COPY feedback ./feedback
 ENV CG_ROOT=/app STATE_DIR=/app/state SITE_DIR=/app/site PYTHONUNBUFFERED=1
 EXPOSE 8080
 CMD ["sh", "-c", "uvicorn coherence_gate.web.app:app --host 0.0.0.0 --port ${PORT:-8080}"]
