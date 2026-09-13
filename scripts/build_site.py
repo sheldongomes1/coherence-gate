@@ -23,9 +23,13 @@ NAV = (BANNER + '<nav style="font:13px -apple-system,Segoe UI,Roboto,Helvetica,A
        + " · ".join(f'<a href="{h}" style="color:#12314f;text-decoration:none">{t}</a>' for h, t in _LINKS) + "</nav>")
 
 
-def md_to_html(src: Path, dst: Path, title: str) -> None:
-    body = markdown.markdown(src.read_text(), extensions=["tables", "fenced_code"])
-    dst.write_text(f"<!doctype html><html><head><meta charset='utf-8'><title>{title}</title>{CSS}</head><body>{NAV}{body}</body></html>")
+import re as _re
+
+
+def md_to_html(src: Path, dst: Path, title: str, nav: str = None) -> None:
+    text = _re.sub(r"\]\(([^)\s]+?)\.md(#[^)]*)?\)", r"](\1.html\2)", src.read_text())  # .md links -> rendered pages
+    body = markdown.markdown(text, extensions=["tables", "fenced_code"])
+    dst.write_text(f"<!doctype html><html><head><meta charset='utf-8'><title>{title}</title>{CSS}</head><body>{nav if nav is not None else NAV}{body}</body></html>")
 
 
 def main() -> None:
@@ -43,6 +47,15 @@ def main() -> None:
         if src.exists():
             shutil.copy(src, SITE / name)
             md_to_html(src, SITE / name.replace(".md", ".html"), name.replace(".md", ""))
+    # the design documents the README links to, rendered under docs/ (nav links become ../)
+    (SITE / "docs").mkdir(exist_ok=True)
+    for name in ("GOAL.md", "INSTRUCTIONS.md", "SKILL.md"):
+        if (ROOT / name).exists():
+            shutil.copy(ROOT / name, SITE / name); md_to_html(ROOT / name, SITE / name.replace(".md", ".html"), name)
+    docs_nav = NAV.replace('href="', 'href="../')
+    for src in sorted((ROOT / "docs").glob("*.md")):
+        shutil.copy(src, SITE / "docs" / src.name)
+        md_to_html(src, SITE / "docs" / src.name.replace(".md", ".html"), src.stem, nav=docs_nav)
     # nav on the two generated pages too
     for page in ("desk_view.html", "index.html", "run_report.html"):
         p = SITE / page; h = p.read_text()
