@@ -350,7 +350,7 @@ def render_markdown(ev: EvalResult) -> str:
               f"| per document (the two readings, traced tokens × pinned prices; desk queries below) | ${ev.cost_per_doc:.4f} (min ${ev.cost_min:.4f}, max ${ev.cost_max:.4f}) |",
               f"| desk queries drafted (`triage:*` trace lines when this report was written) | ${ev.triage_cost:.4f} for {ev.n_triage_calls} call(s)"
               + (" — eval runs draft none; `cg triage --run` drafts them afterwards and appends its figure at the end of this file" if not ev.n_triage_calls else "") + " |",
-              f"| per book of {n_book} documents (documents only) | ${ev.cost_total:.4f} |",
+              f"| per book of {n_book} documents (readings only; the desk queries above come on top) | ${ev.cost_total:.4f} |",
               f"| methodology (reference) extraction, once per methodology version, cached afterwards | ${ev.reference_cost:.4f} |",
               f"| everything traced under this run id | ${ev.cost_traced_total:.4f} |",
               "| parsing | not reported by the vendor API; parse latency is in the trace |", ""]

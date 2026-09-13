@@ -46,3 +46,18 @@ def test_resume_reuses_completed_and_reextracts_the_rest(tmp_path):
     report = (second.run_dir / "eval_report.md").read_text()
     assert "Resumed from" in report and "G11" in report and "G10" in report
     assert second.never_completed["claude"]["docs"] == ["G10"]     # the reused document is not a failure of this run
+
+
+def test_rescore_reproduces_the_stored_numbers(tmp_path):
+    """A report-format change is a rescore from artifacts, not a rerun: same numbers, no model call, a note in the header."""
+    import json
+    from coherence_gate.eval.harness import rescore
+    golden = ROOT / "golden"
+    first = run_eval(golden, tmp_path / "runs", stub=True, only=["G11", "G10"], source="txt", reference=False)
+    before = json.loads((first.run_dir / "summary.json").read_text())
+    ev = rescore(first.run_dir, golden)
+    after = json.loads((first.run_dir / "summary.json").read_text())
+    for k in ("catch_strict", "false_flag_fields", "agreement", "extraction_accuracy", "cost_total_usd"):
+        assert before[k] == after[k], k
+    assert "Rescored" in (first.run_dir / "eval_report.md").read_text()
+    assert ev.n_docs == 2

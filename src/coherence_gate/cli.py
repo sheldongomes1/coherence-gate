@@ -33,6 +33,15 @@ def cmd_eval(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_rescore(a: argparse.Namespace) -> int:
+    from .eval.harness import rescore
+    ev = rescore(Path(a.run), Path(a.golden))
+    console.print(f"[bold]rescored {ev.run_id}[/] → {ev.run_dir}/eval_report.md: catch {ev.catch_strict.hit}/{ev.catch_strict.n}, "
+                  f"false flags {ev.false_flag_fields.hit}/{ev.false_flag_fields.n}, agreement {ev.agreement.hit}/{ev.agreement.n}, "
+                  f"cost/doc ${ev.cost_per_doc:.4f}; re-run `cg ablation` / `cg triage` appendices if the run had them")
+    return 0
+
+
 def cmd_run(a: argparse.Namespace) -> int:
     from .eval.harness import build_context
     from .pipeline import run_document
@@ -283,6 +292,8 @@ def main(argv: list[str] | None = None) -> int:
     e = sub.add_parser("eval"); common(e); e.add_argument("--only", nargs="*")
     e.add_argument("--resume", help="prior run dir: reuse the stored extractions of documents whose calls completed there; extract the rest again")
     e.set_defaults(fn=cmd_eval)
+    rs = sub.add_parser("rescore", help="re-score a stored run from its artifacts with the current scoring code (no model call)")
+    rs.add_argument("--run", required=True); rs.add_argument("--golden", default="golden"); rs.set_defaults(fn=cmd_rescore)
     r = sub.add_parser("run"); common(r); r.add_argument("termsheet"); r.add_argument("--trade-id"); r.set_defaults(fn=cmd_run)
     t = sub.add_parser("trace"); t.add_argument("--latest", nargs="?", const="runs"); t.add_argument("--run"); t.set_defaults(fn=cmd_trace)
     ck = sub.add_parser("check", help="live check: one document (pdf or txt) against its booking"); common(ck)

@@ -1,8 +1,10 @@
 # eval_report.md — run 20260913-113753 — source: pdf
 
+> **Rescored 2026-09-13** from this run's stored artifacts with scoring code `52f4de5` (no model call, no new reading; extractions re-normalized, findings and lanes as persisted). Previous report headline: catch 17/17, false flags 0/399.
+
 Every number below is a count over a stated n, from this one run, with no retries. Red means the claim it supports does not hold on this run.
 
-**Resumed from `runs/20260913-105614`.** 14 document(s) reused the extractions stored there (both families' calls completed; extractions attested to the document hash; deterministic steps re-run here): G01, G02, G03, G04, G05, G07, G08, G09, G10, G11, G12, G13, G14, G15. 1 document(s) extracted again because a call never completed in the prior run: G06. Per-document cost includes the reused extraction's cost; the trace of the prior run holds those calls.
+**Resumed from `runs/20260913-105614`.** 14 document(s) reused the extractions stored there (both families' calls completed; extractions attested to the document hash; deterministic steps re-run here): G01, G02, G03, G04, G05, G07, G08, G09, G10, G11, G12, G13, G14, G15. 1 document(s) extracted again because a call never completed in the prior run: G06 (gemini: TIMEOUT). Per-document cost includes the reused extraction's cost; the trace of the prior run holds those calls.
 
 ## 1. Headline: did the gate catch what was planted, and did it flag what was clean?
 
@@ -18,7 +20,7 @@ Every number below is a count over a stated n, from this one run, with no retrie
 
 **Checks not performed (18), excluded from every rate above** — a check the gate could not perform is neither a clean field nor a flag; it is listed, never auto-cleared:
 
-- methodology default 0; the index-specific document may overr: 12
+- methodology default 0; the index-specific document may override: 12
 - deferred: 6
 
 ## 2. Extraction accuracy per family (vs the golden truth files; agreeing on absence counts, see n absent above)
@@ -27,6 +29,8 @@ Every number below is a count over a stated n, from this one run, with no retrie
 |---|---|---|---|
 | gemini | 🟢 396/396 (100.0%) | 396 | 0 |
 | claude | 🟢 396/396 (100.0%) | 396 | 0 |
+
+In the prior run, gemini on G06: TIMEOUT never completed; those documents were extracted again in this run (the column above counts this run's calls only).
 
 ## 3. Per product type
 
@@ -48,7 +52,7 @@ Source for this run: parsed PDF. Run `cg ablation --txt-run <txt run> --pdf-run 
 | reference checks performed (documents with an Underlying Index section × mapped rules) | 18 |
 | reference flags raised | 2 |
 | flags on parameters the methodology defers or merely defaults (must be 0) | 🟢 0 |
-| checks not evaluable (families disagreed on the rule or the claim) | 18 |
+| checks not evaluable (default or deferred methodology parameters, or the families disagreed on the rule; reasons listed in §1) | 18 |
 
 A parameter the methodology defers to the index-specific document (e.g. Volatility Target) is reported as `deferred`, never as a flag; the term sheet's value is checked against the booking's static data instead.
 
@@ -65,19 +69,19 @@ Measured on the v0.1 golden set (12 documents, 9 planted findings), not on the c
 
 | scope | USD |
 |---|---|
-| per document (both extractions + triage where run, traced tokens × pinned prices) | $0.1672 (min $0.0943, max $0.3200) |
-| per book of 15 documents (documents only) | $2.5077 |
+| per document (the two readings, traced tokens × pinned prices; desk queries below) | $0.1672 (min $0.0943, max $0.3200) |
+| desk queries drafted (`triage:*` trace lines when this report was written) | $0.2344 for 16 call(s) |
+| per book of 15 documents (readings only; the desk queries above come on top) | $2.5077 |
 | methodology (reference) extraction, once per methodology version, cached afterwards | $0.0000 |
-| everything traced under this run id | $0.1249 |
+| everything traced under this run id | $0.3593 |
 | parsing | not reported by the vendor API; parse latency is in the trace |
 
 ## 8. Models (pinned)
 
-| family | model | pinned | $/1M in | $/1M out |
-|---|---|---|---|---|
-| gemini | gemini-3.8-flash | True | 0.75 | 3.75 |
-| claude | claude-opus-5 | True | 5.0 | 25.0 |
-| claude | claude-opus-5 | True | 5.0 | 25.0 |
+| family | role | model | pinned | $/1M in | $/1M out |
+|---|---|---|---|---|---|
+| gemini | extractor A | gemini-3.8-flash | True | 0.75 | 3.75 |
+| claude | extractor B; drafts desk queries (triage) | claude-opus-5 | True | 5.0 | 25.0 |
 
 ## 9. Planted findings (mutants)
 
@@ -109,7 +113,7 @@ none
 
 - n = 15 synthetic documents, 17 planted findings plus 1 normalizer trap, 3 clean controls. **Directional, not statistically significant.**
 - Documents are synthetic, generated from one parameter table through four layout families in one house style; phrasing is machine-uniform. Real desk paper has more layouts, scans, multi-page annexes and hand edits.
-- One prompt per extractor family; no prompt ensemble. One run per number: no retries, no reruns, no best-of.
+- One prompt per extractor family; no prompt ensemble. One run per number: no retries, no reruns, no best-of. A resumed run (ADR-31, named in the header when it applies) re-extracts only the documents whose calls never completed and reuses the other documents' stored answers exactly as they fell, wrong ones included.
 - The eval can only see error classes it plants. Unplanted classes (wrong observation-date count, swapped issuer/guarantor, a coupon barrier read as a knock-in) are invisible to it unless they happen to hit a planted field.
 - The triage agent sees only the finding, its citations and the booking field; it cannot exculpate a finding using an unflagged clause elsewhere in the document.
 - Parsing is single-sourced (one vendor, one mode) behind one interface; the local fallback exists but its parse tax is not measured here.

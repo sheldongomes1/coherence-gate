@@ -568,3 +568,16 @@ the lane silently disappearing.
 **Alternatives considered:** (a) Keep restarting from zero: honest but three restarts cost a morning and proved nothing new. (b) Retry the failed call inside the run: rejected, it re-rolls the model on the same document within one scored pass (ADR-10 / SKILL.md). (c) Splice the missing documents into the old run's report by hand: rejected, an unreproducible number. (d) Run the eval off the laptop (Cloud Run job): right for later, but new plumbing on the release path at 11:30 on deadline day.
 
 **Consequences:** A stall costs one document, not the run. A resumed run is a composite and is labelled as one; the eval_log line for a release must say "resumed from X" when it applies. A MALFORMED reading is deliberately reusable: it is the model's answer and must count against it. The web service's relaunch is unchanged (it never carries prior cost, because its summaries are the same file being overwritten).
+
+## ADR-32: A report-format change is a rescore from stored artifacts, never a rerun
+
+**Date:** 2026-09-13
+**Status:** Accepted (taken during the second review pass; no user checkpoint, logged as a skip: the alternative was paying $2.50 and 40 minutes to change the wording of three table rows)
+
+**Context:** The second independent review asked for label and attribution changes in `eval_report.md` (§5 reason wording, a desk-queries row in §7, roles in §8, the resume caveat in §11, the prior run's failed call named under §2). The release report is frozen from a run; the scoring code that wrote it had moved on. Re-running the eval to regenerate prose would spend money and, worse, could change the numbers by chance while the intent was to change only their presentation.
+
+**Decision:** `cg rescore --run <dir>`: reload each document's stored extractions, re-normalize them (deterministic), take findings, merges, lanes and costs as persisted, read the trace back, and run the current `scoring.score` + `render_markdown`. The report header states that it was rescored, on what date, with which code, and what the previous headline was; `summary.json` is rewritten. Appendices written by other commands (`cg ablation`, `cg triage`) are re-appended by those commands. First use: the v0.2.1 release run, rescored with identical numbers (17/17, 0/399, 396/396, $0.1672/doc) and §7 now showing the $0.2344 of desk queries the previous format hid.
+
+**Alternatives considered:** (a) Re-run the eval: money and a chance of a different result for a presentational change. (b) Edit the frozen report by hand: forbidden by the project's own rule that numbers are generated, never typed. (c) Resume the run into a new run id (ADR-31): works, but creates a new run whose trace no longer holds the desk-query lines, losing the very cost the change was meant to show.
+
+**Consequences:** Presentation and measurement are separated: the measurement is the artifacts, the report is a pure function of them. A rescore can only reflow what was stored; anything not persisted (an intermediate value) cannot be reported after the fact, which is an argument for persisting more, not for re-running. The rescore test asserts identical numbers on a stub run.

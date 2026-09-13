@@ -61,8 +61,15 @@
     ],
     "re_extracted": [
       "G06"
-    ]
+    ],
+    "prior_never_completed": {
+      "G06": {
+        "gemini": "TIMEOUT"
+      }
+    }
   },
+  "triage_cost_usd": 0.2344,
+  "n_triage_calls": 16,
   "cost_total_usd": 2.5077,
   "cost_per_doc_usd": 0.1672,
   "source": "pdf",
@@ -890,11 +897,11 @@
   },
   "not_evaluable": {
     "deferred": 6,
-    "methodology default 0; the index-specific document may overr": 12
+    "methodology default 0; the index-specific document may override": 12
   },
   "n_truth_absent": 67,
   "reference_cost_usd": 0.0,
-  "cost_traced_total_usd": 0.1249,
+  "cost_traced_total_usd": 0.3593,
   "planted_detail": [
     {
       "doc": "G01",

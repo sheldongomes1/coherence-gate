@@ -153,3 +153,62 @@ def run_eval(golden: Path, out_dir: Path, *, stub: bool, booking_transport: str 
     except Exception as exc:  # noqa: BLE001
         ctx.tracer.step(doc_id="-", step="render", outcome="ERROR", detail=str(exc)[:200])
     return ev
+
+
+def rescore(run_dir: Path, golden: Path) -> scoring.EvalResult:
+    """Re-score a stored run from its artifacts with the CURRENT scoring code: no model call, no new
+    reading. Extractions are reloaded and re-normalized (deterministic), findings, merges, lanes and
+    costs are taken as persisted, the trace is read back. A report-format change is a rescore, not a
+    rerun. The report says it was rescored and from what; `cg ablation` and `cg triage` appendices are
+    re-appended by their own commands."""
+    import subprocess
+    from types import SimpleNamespace
+    from .. import normalize
+    from ..report.html import read_trace
+    from ..schema_loader import all_schemas
+    from ..types import Extraction, Finding, Lane
+    run_dir = Path(run_dir)
+    manifest = json.loads((golden / "manifest.json").read_text())
+    trace = read_trace(run_dir / "trace.jsonl")
+    cfg_line = next((l for l in trace if l["step"] == "config" and l["outcome"] == "OK"), {})
+    run_id = cfg_line.get("run_id") or run_dir.name
+    schemas = all_schemas()
+    ctx = SimpleNamespace(run_id=run_id, out_dir=run_dir, config=load_config(), schemas=schemas,
+                          source=(cfg_line.get("detail") or {}).get("source", "txt"), tracer=SimpleNamespace(lines=trace))
+    results: dict[str, DocumentResult] = {}
+    for entry in manifest["documents"]:
+        d = run_dir / entry["id"]
+        if not (d / "summary.json").exists():
+            continue
+        summary = json.loads((d / "summary.json").read_text())
+        ptype = summary.get("product_type") or entry.get("product_type") or "note"
+        extractions = {fam: Extraction.model_validate(json.loads((d / f"extraction_{fam}.json").read_text())) for fam in ("gemini", "claude")}
+        normalized = {fam: normalize.normalize_extraction(e, schemas[ptype]) for fam, e in extractions.items()}
+        results[entry["id"]] = DocumentResult(
+            doc_id=entry["id"], sha256=summary.get("sha256", ""), trade_id=summary.get("trade_id"),
+            extractions=extractions, normalized=normalized,
+            merged=json.loads((d / "merged.json").read_text()) if (d / "merged.json").exists() else {},
+            booking=json.loads((d / "booking.json").read_text()) if (d / "booking.json").exists() else {},
+            findings=[Finding.model_validate(f) for f in json.loads((d / "findings.json").read_text())],
+            document_lane=Lane(summary["document_lane"]), cost_usd=float(summary.get("cost_usd") or 0.0), out_dir=d,
+            source=summary.get("source", ctx.source), parse_meta=summary.get("parse"), product_type=ptype,
+            extras={"attested_hashes": summary.get("attested_hashes"), "cost_breakdown": summary.get("cost_breakdown")})
+    prev = json.loads((run_dir / "summary.json").read_text()) if (run_dir / "summary.json").exists() else {}
+    ev = scoring.score(manifest, results, ctx, golden)
+    ev.resumed = prev.get("resumed")
+    if ev.resumed and "prior_never_completed" not in ev.resumed and Path(ev.resumed["prior_run"]).exists():
+        ev.resumed["prior_never_completed"] = never_completed_in(Path(ev.resumed["prior_run"]))   # older summaries lack it
+    try:
+        code = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=str(golden.parent)).stdout.strip()
+    except OSError:
+        code = "?"
+    from datetime import date
+    note = (f"> **Rescored {date.today().isoformat()}** from this run's stored artifacts with scoring code `{code}` (no model call, no new "
+            f"reading; extractions re-normalized, findings and lanes as persisted). Previous report headline: "
+            f"catch {prev.get('catch_strict', {}).get('hit', '?')}/{prev.get('catch_strict', {}).get('n', '?')}, false flags "
+            f"{prev.get('false_flag_fields', {}).get('hit', '?')}/{prev.get('false_flag_fields', {}).get('n', '?')}.\n\n")
+    text = scoring.render_markdown(ev)
+    head, _, rest = text.partition("\n\n")
+    (run_dir / "eval_report.md").write_text(head + "\n\n" + note + rest)
+    (run_dir / "summary.json").write_text(json.dumps(ev.summary(), indent=2))
+    return ev
