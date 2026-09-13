@@ -456,4 +456,7 @@ terms (a pricer; GOAL.md excludes greeks and V2-CHANGES forbids claiming magnitu
 error). Weighting by severity only (loses the exposure ordering the desk asked for).
 
 **Consequences:** True attribution is named as roadmap ("hedge-to-liability coherence"): plug
-the desk's risk system, reprice both term sets, show the delta of the difference.
+the desk's risk system, reprice both term sets, show the delta of the difference. Same-day
+amendment: the separate "at stake" column was redundant with Δ USD-equiv. and was removed; the
+Δ USD cell is rendered red on non-attested rows and the sort order (largest exposure first
+within each trust state) is kept.
