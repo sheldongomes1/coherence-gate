@@ -9,4 +9,4 @@ sweep:
       summary: runs/showcase-sweep/gemini-low/summary.json
       note: "Gemini median 3 s, worst 6 s; one field mis-mapped on the step-down schedule (G07)"
 book:
-  name: "Northbridge structured notes desk — demo book"
+  name: "Structured Products Desk — Demo Book"
