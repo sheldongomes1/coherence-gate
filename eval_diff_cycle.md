@@ -20,6 +20,12 @@
 |---|---|---|---|
 | G02 | autocall_observation_dates | MISMATCH | CLEAN |
 
+## Wholesale extractor events (not attributable to the change under test)
+
+- claude G11: lost every field in the candidate run — a deadline/API/truncation event in that run; the rows above that move because of it (false flags, agreement, accuracy for that family) are NOT effects of the change
+- gemini G11: lost every field in the candidate run — a deadline/API/truncation event in that run; the rows above that move because of it (false flags, agreement, accuracy for that family) are NOT effects of the change
+- gemini G13: lost every field in the baseline run — a deadline/API/truncation event in that run; the rows above that move because of it (false flags, agreement, accuracy for that family) are NOT effects of the change
+
 ## Extraction fields whose correctness moved
 
 | family | doc:field | before | after |

@@ -38,6 +38,8 @@ CONSEQUENCE = {
     ("REFERENCE_INCONSISTENT", "ref:index_rebalance_frequency"): "term sheet says the index rebalances {ts} but the rulebook says {bk} — the hedge described is not the index that trades",
     ("REFERENCE_INCONSISTENT", None): "term sheet describes the index contrary to its methodology ({field}: documented {ts}, rulebook {bk})",
     ("MISMATCH", "index_vol_target_pct"): "index vol target booked {bk} vs {ts} documented — static data describes a different index",
+    ("MISMATCH", "index_return_treatment"): "index return treatment booked {bk} vs {ts} documented — the note is described on different index economics than the one booked",
+    ("MISMATCH", "index_rebalance_frequency"): "index rebalancing booked {bk} vs {ts} documented — static data and document describe different indices",
     ("MISMATCH", None): "{field} booked {bk} vs {ts} documented",
 }
 
@@ -104,8 +106,9 @@ def trust_state(findings: list[dict]) -> tuple[str, str]:
     if ambers:
         fields = ", ".join(sorted({f["field"] for f in ambers}))
         return "DISAGREEMENT", f"reading uncertain on {fields} — human review queued"
-    n = len(findings)
-    return "ATTESTED", f"booking attested against term sheet — {n} fields, both families agree"
+    n = sum(1 for f in findings if f["type"] == "CLEAN")
+    ne = sum(1 for f in findings if f["type"] == "NOT_EVALUABLE")
+    return "ATTESTED", f"booking attested against term sheet — {n} fields, both families agree" + (f" ({ne} check{'s' if ne != 1 else ''} not evaluable, listed in the evidence)" if ne else "")
 
 
 def _musd(v) -> str:
@@ -200,7 +203,9 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
             links["text the gate read"] = rel((golden / "termsheets" / f"{doc}.txt").resolve())
         if (Path(run_dir) / doc / "booking.json").exists():
             links["booking as read by this run"] = f"{doc}/booking.json"
-        if tid and (golden / "bookings" / f"{tid}.json").exists():
+        if store_dir is not None and tid:
+            links["booking store (current record, editable)"] = f"/booking/{tid}"
+        elif tid and (golden / "bookings" / f"{tid}.json").exists():
             links["booking store (current record)"] = rel((golden / "bookings" / f"{tid}.json").resolve())
         fs = [{"field": f["field"], "type": f["type"], "severity": f["severity"], "lane": f["lane"],
                "ts": _fmt(f.get("ts_value")), "bk": _fmt(f.get("booking_value")), "detail": f.get("detail", ""),
@@ -209,8 +214,8 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
                "triage": (f.get("triage") or {}).get("desk_query"), "classification": (f.get("triage") or {}).get("classification")}
               for f in d["findings"]]
         order = {t: i for i, t in enumerate(["MISMATCH", "TS_ABSENT", "BOOKING_ABSENT", "RELATION_VIOLATION", "REFERENCE_INCONSISTENT",
-                                              "EXTRACTOR_DISAGREEMENT", "MALFORMED_EXTRACTION", "CLEAN"])}
-        fs.sort(key=lambda f: (f["type"] == "CLEAN", f["severity"] != "critical", LEAD_RANK.get(f["field"], 50), order.get(f["type"], 9), f["field"]))
+                                              "EXTRACTOR_DISAGREEMENT", "MALFORMED_EXTRACTION", "NOT_EVALUABLE", "CLEAN"])}
+        fs.sort(key=lambda f: ({"CLEAN": 2, "NOT_EVALUABLE": 1}.get(f["type"], 0), f["severity"] != "critical", LEAD_RANK.get(f["field"], 50), order.get(f["type"], 9), f["field"]))
         evidence[d["doc_id"]] = {"trade_id": d["trade_id"], "lane": d["document_lane"], "product": d.get("product_type", "note"),
                                  "source": d.get("source"), "parse": (d.get("parse") or {}).get("job_id"), "findings": fs,
                                  "links": links, "attested": d.get("attested_hashes") or {}}
@@ -219,7 +224,7 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
     html = env.get_template("desk_view.html.j2").render(
         book=book, run_id=data["run_id"], ts=datetime.now().strftime("%Y-%m-%d %H:%M"), rows=rows,
         n_attested=sum(r["state"] == "ATTESTED" for r in rows), n_attention=sum(r["state"] in ("MISMATCH", "DISAGREEMENT") for r in rows),
-        n_stale=sum(r["state"] == "STALE" for r in rows), cost=sum(l["cost_usd"] for l in trace), tools=tools,
+        n_stale=sum(r["state"] == "STALE" for r in rows), cost=data["cost"]["total"], costb=data["cost"], tools=tools,
         exposure=exposure, evidence_json=json.dumps(evidence, default=str).replace("</", "<\\/"), live=live)
     out = out or Path(run_dir) / "desk_view.html"
     out.write_text(html)
@@ -237,14 +242,18 @@ def _stale_reason(run_dir: Path, d: dict, store_dir: Path | None = None) -> str 
     from ..pipeline import booking_hash
     moved = []
     doc_path = att.get("document_path")
-    if doc_path and att.get("document_sha256") and Path(doc_path).exists():
+    if doc_path and att.get("document_sha256"):
+        if not Path(doc_path).exists():
+            return "attestation cannot be verified — the attested document artifact is missing; re-check queued"
         if hashlib.sha256(Path(doc_path).read_text().encode()).hexdigest() != att["document_sha256"]:
             moved.append("document")
     tid = att.get("booking_trade_id")
     if tid and att.get("booking_sha256"):
         res = store.lookup(store_dir or (ROOT / "golden" / "bookings"), tid)
         keys = att.get("booking_terms_keys")  # older runs attested to the whole record
-        if not res["found"] or booking_hash(res["record"], keys) != att["booking_sha256"]:
+        if not res["found"]:
+            return "attestation invalidated — booking record no longer found in the store; re-check queued"
+        if booking_hash(res["record"], keys) != att["booking_sha256"]:
             moved.append("deal terms in the booking")
     if not moved:
         return None

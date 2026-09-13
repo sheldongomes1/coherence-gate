@@ -128,8 +128,10 @@ def test_fixtures_reproduce_manifest_exactly(golden):
             if findings[fld].type != typ:
                 misses.append((entry["id"], fld, typ, findings[fld].type, findings[fld].detail))
         for fld, f in findings.items():
-            if fld not in planted and f.type is not FindingType.CLEAN:
+            if fld not in planted and f.type not in (FindingType.CLEAN, FindingType.NOT_EVALUABLE):
                 extras.append((entry["id"], fld, f.type, f.detail))
+        ne = [f for f in findings.values() if f.type is FindingType.NOT_EVALUABLE]
+        assert all(f.lane is Lane.INFO for f in ne), "not-evaluable checks must sit in the INFO lane"
         if entry.get("clean_control"):
             assert lane is Lane.AUTO_CLEAR, f"{entry['id']} clean control must auto-clear"
         for t in entry.get("traps", []):

@@ -48,9 +48,8 @@ class ReferenceRules:
 
     @property
     def claims(self) -> list[dict]:
-        return [dict(rf) for rf in self.schema.relations] if False else [
-            {"ref_field": f.name, "claim": r.get("claim"), "binding": r.get("binding", "rule")}
-            for f, r in ((f, _raw_field(self.schema, f.name)) for f in self.schema.fields) if r.get("claim")]
+        return [{"ref_field": f.name, "claim": r.get("claim"), "binding": r.get("binding", "rule")}
+                for f, r in ((f, _raw_field(self.schema, f.name)) for f in self.schema.fields) if r.get("claim")]
 
 
 def _raw_field(schema: Schema, name: str) -> dict:
@@ -157,17 +156,17 @@ def check_reference(doc_id: str, ts_merged: dict[str, MergedField], ref: Referen
         if ts_status == "absent":
             continue  # the document makes no such claim
         if ts_status == "unusable":
-            out.append(finding(claim, FindingType.CLEAN, None, None, "not evaluable: term-sheet claim unreadable (families disagree or malformed)", sev))
+            out.append(finding(claim, FindingType.NOT_EVALUABLE, None, None, "not evaluable: term-sheet claim unreadable (families disagree or malformed)", sev))
             continue
         rv, r_status = ref.value(rf["name"])
         if binding == "deferred" or r_status == "absent":
-            out.append(finding(claim, FindingType.CLEAN, tv, None, f"deferred: the methodology defines {rf['name']} but fixes no value (index-specific document); not checkable here", sev))
+            out.append(finding(claim, FindingType.NOT_EVALUABLE, tv, None, f"deferred: the methodology defines {rf['name']} but fixes no value (index-specific document); not checkable here", sev))
             continue
         if binding == "default":
-            out.append(finding(claim, FindingType.CLEAN, tv, rv, f"methodology default {rv}; the index-specific document may override — informational, not checked", sev))
+            out.append(finding(claim, FindingType.NOT_EVALUABLE, tv, rv, f"methodology default {rv}; the index-specific document may override — informational, not checked", sev))
             continue
         if r_status == "unusable":
-            out.append(finding(claim, FindingType.CLEAN, tv, None, f"not evaluable: reference rule {rf['name']} unreadable (families disagree or malformed)", sev))
+            out.append(finding(claim, FindingType.NOT_EVALUABLE, tv, None, f"not evaluable: reference rule {rf['name']} unreadable (families disagree or malformed)", sev))
             continue
         if normalize.values_equal(tv, rv):
             out.append(finding(claim, FindingType.CLEAN, tv, rv, f"claim {tv} agrees with the methodology rule {rf['name']} = {rv}", sev))
@@ -187,7 +186,7 @@ def check_reference(doc_id: str, ts_merged: dict[str, MergedField], ref: Referen
                 out.append(finding("index_return_treatment", FindingType.REFERENCE_INCONSISTENT, tr, rv,
                                    f"term sheet calls a {tt} index '{tr}'; the methodology says {tt} is {rv}", Severity.critical))
         else:
-            out.append(finding("index_return_treatment", FindingType.CLEAN, tr, None, f"not evaluable: methodology treatment for {tt} unreadable", Severity.critical))
+            out.append(finding("index_return_treatment", FindingType.NOT_EVALUABLE, tr, None, f"not evaluable: methodology treatment for {tt} unreadable", Severity.critical))
     elif s2 == "ok" and s1 == "absent":
-        out.append(finding("index_return_treatment", FindingType.CLEAN, tr, None, "not checkable: term sheet states a return treatment but no methodology Type", Severity.critical))
+        out.append(finding("index_return_treatment", FindingType.NOT_EVALUABLE, tr, None, "not checkable: term sheet states a return treatment but no methodology Type", Severity.critical))
     return out

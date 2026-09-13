@@ -44,6 +44,9 @@ def test_relation_holds_and_fails():
     assert len(f) == 1 and f[0].type is FindingType.CLEAN and f[0].field == "rel:premium_arithmetic"
     f = comparator.check_relations("D", _merged(ts), lk(bad_book), OPT)
     assert f[0].type is FindingType.RELATION_VIOLATION and "booking" in f[0].detail and "term sheet" not in f[0].detail.split("—")[0]
-    # not evaluable -> CLEAN with the reason stated, never silent
+    # not evaluable on both sides -> NOT_EVALUABLE with the reason stated, never silent, never CLEAN
     f = comparator.check_relations("D", _merged({"premium_pct": Decimal("4.15")}), lk({}), OPT)
-    assert f[0].type is FindingType.CLEAN and "not evaluable" in f[0].detail
+    assert f[0].type is FindingType.NOT_EVALUABLE and "not evaluable" in f[0].detail
+    # relation findings carry the constituent fields' citations
+    f = comparator.check_relations("D", _merged(ts), lk(bad_book), OPT)
+    assert len(f[0].citations) == 6   # three constituent fields × both families

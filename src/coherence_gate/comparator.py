@@ -56,7 +56,7 @@ def compare(doc_id: str, merged: dict[str, MergedField], booking: BookingLookup,
         bk_raw = record.get(key) if record is not None else None
         bk_note = ""
         try:
-            bk = normalize_value(spec, bk_raw) if bk_raw is not None else None
+            bk = normalize_value(spec, bk_raw, context=record) if bk_raw is not None else None
         except NormalizeError as exc:
             bk = None
             bk_note = f"booking value {bk_raw!r} not normalizable ({exc}); "
@@ -136,17 +136,23 @@ def check_relations(doc_id: str, merged: dict[str, MergedField], booking: Bookin
                 terms.append(f"{vals[f['field']]}{'×' + str(f['scale']) if f.get('scale') else ''}")
             target = Decimal(str(vals[rel["equals"]]))
             ok = abs(prod - target) <= tol
-            return f"{' × '.join(terms)} = {prod.normalize()} vs {rel['equals']} {target.normalize()}", ok
+            from .normalize import _plain
+            return f"{' × '.join(terms)} = {_plain(prod):,} vs {rel['equals']} {_plain(target):,}", ok
 
         ts_detail, ts_ok = evaluate(ts)
         bk_detail, bk_ok = evaluate(bk)
         failed = [side for side, ok in (("term sheet", ts_ok), ("booking", bk_ok)) if ok is False]
         detail = f"{rel['name']}: term sheet [{ts_detail}]; booking [{bk_detail}]"
+        # the relation's evidence is the citations of its constituent fields (B3)
+        cites = [c for k in keys if merged.get(k) for c in merged[k].citations]
+        base["citations"] = cites
         if failed:
             out.append(Finding(**base, type=FindingType.RELATION_VIOLATION,
                                ts_value=ts.get(rel["equals"]), booking_value=bk.get(rel["equals"]),
                                detail=f"violated on {', '.join(failed)} — " + detail))
+        elif ts_ok is None and bk_ok is None:
+            out.append(Finding(**base, type=FindingType.NOT_EVALUABLE, detail="not evaluable on either side — " + detail))
         else:
             out.append(Finding(**base, type=FindingType.CLEAN, ts_value=ts.get(rel["equals"]), booking_value=bk.get(rel["equals"]),
-                               detail=detail))
+                               detail=detail + ("" if ts_ok is not None and bk_ok is not None else " (one side not evaluable; the other holds)")))
     return out

@@ -59,6 +59,7 @@ def build_context(golden: Path, out_dir: Path, *, stub: bool, config: Config | N
     ctx = RunContext(run_id=run_id, out_dir=run_dir, config=config, tracer=tracer, schema=load_schema(),
                      booking=booking, extractors=extractors, triage=triage,
                      source=source, parser=parser, parsed_dir=golden / "parsed")
+    ctx.reference_wanted = bool(reference and not stub)
     if reference and not stub:
         from ..reference import load_reference
         ctx.reference = load_reference(ctx)

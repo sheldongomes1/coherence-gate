@@ -50,11 +50,13 @@ class EvalResult:
     auto_clear_correctness: Rate
     agreement: Rate
     extraction_accuracy: dict[str, Rate]
-    cost_total: float
+    cost_total: float          # model cost attributed to documents (extraction + triage where run)
     cost_per_doc: float
     cost_min: float
     cost_max: float
     n_docs: int
+    reference_cost: float = 0.0     # one-off methodology extraction (cached afterwards)
+    cost_traced_total: float = 0.0  # every traced line of this run id
     planted_detail: list[dict] = field(default_factory=list)
     false_flag_detail: list[dict] = field(default_factory=list)
     auto_clear_violations: list[dict] = field(default_factory=list)
@@ -64,6 +66,8 @@ class EvalResult:
     field_accuracy: dict[str, dict[str, bool]] = field(default_factory=dict)  # family -> "doc:field" -> correct
     by_product: dict[str, dict] = field(default_factory=dict)  # product_type -> {docs, catch, planted, false_flags, clean_fields}
     reference_lane: dict | None = None  # CS4 results when the lane ran
+    not_evaluable: dict[str, int] = field(default_factory=dict)  # reason -> count of checks that were NOT performed (never auto-cleared, never flagged)
+    n_truth_absent: int = 0   # truth values that are ABSENT (agreement/accuracy count agreeing on absence)
 
     def summary(self) -> dict[str, Any]:
         r = lambda x: {"hit": x.hit, "n": x.n}  # noqa: E731
@@ -75,7 +79,8 @@ class EvalResult:
                 "extraction_accuracy": {k: r(v) for k, v in self.extraction_accuracy.items()},
                 "cost_total_usd": self.cost_total, "cost_per_doc_usd": self.cost_per_doc,
                 "source": self.source, "field_accuracy": self.field_accuracy, "by_product": self.by_product,
-                "reference_lane": self.reference_lane,
+                "reference_lane": self.reference_lane, "not_evaluable": self.not_evaluable, "n_truth_absent": self.n_truth_absent,
+                "reference_cost_usd": self.reference_cost, "cost_traced_total_usd": self.cost_traced_total,
                 "planted_detail": self.planted_detail, "false_flag_detail": self.false_flag_detail}
 
 
@@ -132,14 +137,19 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
 
     # false flags on clean fields
     ff_detail, n_clean = [], 0
+    not_evaluable: dict[str, int] = {}
     for doc in results:
         ref_keys = [f.field for f in results[doc].findings if f.field.startswith("ref:")]
         for k in check_keys_of[doc] + ref_keys:
             if (doc, k) in excluded:
                 continue
+            f = by_doc[doc].get(k)
+            if f is not None and f.type is FindingType.NOT_EVALUABLE:
+                key = f.detail.split(":")[0].split(" — ")[0][:60]
+                not_evaluable[key] = not_evaluable.get(key, 0) + 1
+                continue   # a check that was not performed is neither a clean field nor a flag
             n_clean += 1
             by_product[ptype[doc]]["clean_fields"] += 1
-            f = by_doc[doc].get(k)
             if f is None or f.type is not FindingType.CLEAN:
                 ff_detail.append({"doc": doc, "field": k, "type": f.type if f else "MISSING", "detail": f.detail if f else ""})
                 by_product[ptype[doc]]["false_flags"] += 1
@@ -160,6 +170,7 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
                 acc[fam] += ok
                 field_acc[fam][f"{d['id']}:{k}"] = bool(ok)
     n_fields = sum(len(keys_of[d]) for d in results)
+    n_truth_absent = sum(1 for d in docs for k in keys_of[d["id"]] if json.loads((golden / d["truth"]).read_text()).get(k, "ABSENT") == "ABSENT")
 
     # reference lane (CS4): planted REFERENCE_INCONSISTENT caught; deferred/default fields never flagged
     ref_planted = [(d_, f_, t_) for d_, f_, t_ in planted if t_ == "REFERENCE_INCONSISTENT"]
@@ -169,13 +180,16 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
     reference_lane = None
     if ref_ran or ref_planted:
         deferred_flags = sum(1 for f in ref_findings if f.type == FindingType.REFERENCE_INCONSISTENT and "deferred" in f.detail)
-        reference_lane = {"ran": ref_ran, "catch": f"{ref_caught}/{len(ref_planted)}", "checks": len(ref_findings),
+        reference_lane = {"ran": ref_ran, "catch": f"{ref_caught}/{len(ref_planted)}",
+                          "checks": sum(1 for f in ref_findings if f.type != FindingType.NOT_EVALUABLE),
                           "flags": sum(1 for f in ref_findings if f.type == FindingType.REFERENCE_INCONSISTENT),
                           "deferred_false_flags": deferred_flags,
-                          "not_evaluable": sum(1 for f in ref_findings if "not evaluable" in f.detail)}
+                          "not_evaluable": sum(1 for f in ref_findings if f.type == FindingType.NOT_EVALUABLE)}
 
     costs = [r.cost_usd for r in results.values()]
     total = round(sum(costs), 4)
+    ref_cost = round(sum(l["cost_usd"] for l in ctx.tracer.lines if l["doc_id"] == "REF"), 4)
+    traced_total = round(sum(l["cost_usd"] for l in ctx.tracer.lines if l["run_id"] == ctx.run_id), 4)
     models = [{"family": p.family, "model": p.model, "pinned": p.pinned,
                "price_in": p.price_in, "price_out": p.price_out} for p in ctx.config.pins]
     return EvalResult(
@@ -188,11 +202,11 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
         auto_clear_correctness=Rate(len(planted) - len(violations), len(planted), "auto_clear_correctness (planted never auto-cleared)", must_be_full=True),
         agreement=Rate(agree, n_fields, "cross-family agreement (fields)"),
         extraction_accuracy={fam: Rate(v, n_fields, f"extraction_accuracy ({fam}) vs truth") for fam, v in acc.items()},
-        cost_total=total, cost_per_doc=round(total / max(len(costs), 1), 4),
+        cost_total=total, cost_per_doc=round(total / max(len(costs), 1), 4), reference_cost=ref_cost, cost_traced_total=traced_total,
         cost_min=round(min(costs, default=0), 4), cost_max=round(max(costs, default=0), 4),
         n_docs=len(results), planted_detail=planted_detail, false_flag_detail=ff_detail,
         auto_clear_violations=violations, models=models, source=ctx.source, field_accuracy=field_acc, by_product=by_product,
-        reference_lane=reference_lane,
+        reference_lane=reference_lane, not_evaluable=not_evaluable, n_truth_absent=n_truth_absent,
         stub=all(l.get("detail") and "stub" in str(l.get("detail")) for l in ctx.tracer.lines if l["step"].startswith("extract:")),
     )
 
@@ -215,7 +229,7 @@ def _sweep_section() -> list[str]:
         rows.append((r["label"], sm, r.get("note", "")))
     if not rows:
         return []
-    out = [f"## 6. {sw.get('title', 'Effort sweep')}", "",
+    out = [f"## 6. {sw.get('title', 'Effort sweep')}", "", "Measured on the v0.1 golden set (12 documents, 9 planted findings), not on the current set; the mechanism is identical.", "",
            "| setting | run | strict catch | false flags | agreement | auto-clear ok | cost/doc | note |", "|---|---|---|---|---|---|---|---|"]
     for label, sm, note in rows:
         r = lambda k: f"{sm[k]['hit']}/{sm[k]['n']}"  # noqa: E731
@@ -243,13 +257,17 @@ def render_markdown(ev: EvalResult) -> str:
               f"| **false_flag_rate (clean fields that were flagged)** | {ev.false_flag_fields.render()} | {ev.false_flag_fields.n} |",
               f"| clean control documents NOT auto-cleared | {ev.false_flag_docs.render()} | {ev.false_flag_docs.n} |",
               f"| **auto_clear_correctness (nothing planted was auto-cleared; must be 100%)** | {ev.auto_clear_correctness.render()} | {ev.auto_clear_correctness.n} |",
-              f"| cross-family agreement (fields where both families read the same value) | {ev.agreement.render()} | {ev.agreement.n} |",
+              f"| cross-family agreement (fields where both families read the same value, or both declared it absent; {ev.n_truth_absent} of {ev.agreement.n} truth values are absent) | {ev.agreement.render()} | {ev.agreement.n} |",
               f"| G09 normalizer trap resolved as CLEAN (per-quarter vs per-annum) | {ev.trap_resolved.render()} | {ev.trap_resolved.n} |", ""]
     if ev.auto_clear_correctness.hit != ev.auto_clear_correctness.n:
         lines += [f"{RED} **auto_clear_correctness is not 100%: the tiered-autonomy claim does not hold on this run.** "
                   f"Violations: {ev.auto_clear_violations}", ""]
+    if ev.not_evaluable:
+        n_ne = sum(ev.not_evaluable.values())
+        lines += [f"**Checks not performed ({n_ne}), excluded from every rate above** — a check the gate could not perform is neither a clean field nor a flag; it is listed, never auto-cleared:", ""]
+        lines += [f"- {k}: {v}" for k, v in sorted(ev.not_evaluable.items(), key=lambda kv: -kv[1])] + [""]
     # 2. extraction accuracy
-    lines += ["## 2. Extraction accuracy per family (vs the golden truth files)", "", "| family | correct fields | n |", "|---|---|---|"]
+    lines += ["## 2. Extraction accuracy per family (vs the golden truth files; agreeing on absence counts, see n absent above)", "", "| family | correct fields | n |", "|---|---|---|"]
     for fam, r in ev.extraction_accuracy.items():
         lines.append(f"| {fam} | {r.render()} | {r.n} |")
     lines.append("")
@@ -284,7 +302,9 @@ def render_markdown(ev: EvalResult) -> str:
     # 7. cost
     lines += ["## 7. Cost", "", "| scope | USD |", "|---|---|",
               f"| per document (both extractions + triage where run, traced tokens × pinned prices) | ${ev.cost_per_doc:.4f} (min ${ev.cost_min:.4f}, max ${ev.cost_max:.4f}) |",
-              f"| per book of {n_book} documents (this run) | ${ev.cost_total:.4f} |",
+              f"| per book of {n_book} documents (documents only) | ${ev.cost_total:.4f} |",
+              f"| methodology (reference) extraction, once per methodology version, cached afterwards | ${ev.reference_cost:.4f} |",
+              f"| everything traced under this run id | ${ev.cost_traced_total:.4f} |",
               "| parsing | not reported by the vendor API; parse latency is in the trace |", ""]
     # 8. models
     lines += ["## 8. Models (pinned)", "", "| family | model | pinned | $/1M in | $/1M out |", "|---|---|---|---|---|"]

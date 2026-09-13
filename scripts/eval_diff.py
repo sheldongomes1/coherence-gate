@@ -40,6 +40,28 @@ moved = [(k, pa[k]["reported"], pb[k]["reported"]) for k in sorted(set(pa) & set
 lines += ["## Planted findings whose reported outcome moved", ""]
 lines += (["| doc | field | before | after |", "|---|---|---|---|"] + [f"| {k[0]} | {k[1]} | {x} | {y} |" for k, x, y in moved]) if moved else ["none"]
 fa, fb = A.get("field_accuracy", {}), B.get("field_accuracy", {})
+
+
+def wholesale(acc_a, acc_b):
+    """(family, doc) pairs where EVERY field of a document flipped for one family in one run: an extractor
+    event (deadline, API error, truncated output) in that run, not an effect of the change under test."""
+    out = []
+    for fam in sorted(set(acc_a) | set(acc_b)):
+        docs = {k.split(":")[0] for k in list(acc_a.get(fam, {})) + list(acc_b.get(fam, {}))}
+        for doc in sorted(docs):
+            ka = {k: v for k, v in acc_a.get(fam, {}).items() if k.startswith(doc + ":")}
+            kb = {k: v for k, v in acc_b.get(fam, {}).items() if k.startswith(doc + ":")}
+            if ka and kb and all(ka.values()) and not any(kb.values()):
+                out.append((fam, doc, "lost every field in the candidate run"))
+            elif ka and kb and not any(ka.values()) and all(kb.values()):
+                out.append((fam, doc, "lost every field in the baseline run"))
+    return out
+
+
+ws = wholesale(fa, fb)
+lines += ["", "## Wholesale extractor events (not attributable to the change under test)", ""]
+lines += ([f"- {fam} {doc}: {why} — a deadline/API/truncation event in that run; the rows above that move because of it "
+           f"(false flags, agreement, accuracy for that family) are NOT effects of the change" for fam, doc, why in ws] if ws else ["none detected"])
 lines += ["", "## Extraction fields whose correctness moved", ""]
 rows = []
 for fam in sorted(set(fa) | set(fb)):

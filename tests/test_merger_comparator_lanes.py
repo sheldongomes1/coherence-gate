@@ -91,3 +91,13 @@ def test_lanes():
     f2 = list(_findings(full(BASE), full(BASE), {**BOOK, "currency": "CAD"}).values())
     f2, doc2 = lanes.assign(f2)
     assert doc2 is Lane.TRIAGE and sum(x.lane is Lane.TRIAGE for x in f2) == 1
+
+
+def test_not_evaluable_is_info_lane_and_does_not_block_auto_clear():
+    from coherence_gate.types import Finding, Severity
+    fs = [Finding(id="D:a", doc_id="D", field="a", type=FindingType.CLEAN, severity=Severity.minor),
+          Finding(id="D:ref:b", doc_id="D", field="ref:b", type=FindingType.NOT_EVALUABLE, severity=Severity.critical, detail="deferred")]
+    fs, doc = lanes.assign(fs)
+    assert fs[1].lane is Lane.INFO and doc is Lane.AUTO_CLEAR
+    fs2 = [Finding(id="D:ref:b", doc_id="D", field="ref:b", type=FindingType.NOT_EVALUABLE, severity=Severity.critical)]
+    assert lanes.assign(fs2)[1] is Lane.TRIAGE   # nothing performed -> nothing attested

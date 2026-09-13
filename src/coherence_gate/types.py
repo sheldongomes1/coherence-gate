@@ -28,6 +28,7 @@ class FindingType(StrEnum):
     MALFORMED_EXTRACTION = "MALFORMED_EXTRACTION"  # ADR-7
     RELATION_VIOLATION = "RELATION_VIOLATION"      # v0.2 CS3: a deterministic cross-field rule failed
     REFERENCE_INCONSISTENT = "REFERENCE_INCONSISTENT"  # v0.2 CS4: a term-sheet claim about the index contradicts its methodology
+    NOT_EVALUABLE = "NOT_EVALUABLE"  # a check that could not be performed (deferred parameter, missing input, families disagree on the rule); never auto-clears, never a flag
 
 
 class Severity(StrEnum):
@@ -38,6 +39,7 @@ class Severity(StrEnum):
 class Lane(StrEnum):
     AUTO_CLEAR = "AUTO_CLEAR"
     TRIAGE = "TRIAGE"
+    INFO = "INFO"  # recorded, not attested, no human action: the check was not performed (NOT_EVALUABLE)
 
 
 class Family(StrEnum):

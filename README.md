@@ -35,7 +35,7 @@ stated.
 git clone https://github.com/sheldongomes1/coherence-gate && cd coherence-gate
 make setup                 # uv venv + deps; writes .env from .env.example
 # fill GOOGLE_API_KEY and ANTHROPIC_API_KEY in .env
-make test                  # deterministic core: 75 unit tests, no API calls, ~3 s
+make test                  # deterministic core: 80 unit tests, no API calls, ~3 s
 make demo                  # the three-document walkthrough (triage on, ~3 min, ~$0.40); v2 demo script below
 make eval                  # all 15 golden docs (parsed PDFs, reference lane) -> runs/<ts>/eval_report.md (~12 min, ~$2.20)
 make trace                 # every model call of the latest run: model, version, tokens, latency, cost
@@ -52,8 +52,10 @@ records a desk disposition (in production, a button on the desk-view row; the CL
 `make eval`, and `make eval-diff` shows the effect. The model never learns.
 One real cycle is in the history: the desk rejected G02's autocall-date finding, `cg propose` drafted a
 3-day tolerance, it was applied in its own commit and measured (`eval_diff_cycle.md`): strict catch
-17/17 → 16/17 and a planted case was auto-cleared, so the proposal was **held** and reverted
-(`proposals/DECISIONS.md`). The proposal file stays on record, unapplied.
+17/17 → 16/17 and the planted G02 case was auto-cleared, so the proposal was **held** and reverted
+(`proposals/DECISIONS.md`). The other rows that moved in that diff are extractor deadline events in one
+run or the other and are labelled as such, not attributed to the tolerance. The proposal file stays on
+record, unapplied.
 
 Other useful entry points: `uv run cg run golden/termsheets/G05.txt --triage` runs one
 document; `uv run cg eval --stub` runs the harness with no model calls (the Phase 0 state);
@@ -99,10 +101,12 @@ its missing barrier, G09 survives the per-quarter/per-annum trap.
 ## What the eval measures (and cannot)
 
 Mutation-testing framing: each planted discrepancy is a mutant, catch rate is kill rate.
-Nine planted findings, one must-not-flag trap (per-quarter vs per-annum coupon), two clean
-controls that measure over-flagging. Strict catch requires the right field *and* the right
+Seventeen planted findings across notes and options (including two reference-lane incoherences
+and one cross-field arithmetic violation), one must-not-flag trap (per-quarter vs per-annum
+coupon), three clean controls that measure over-flagging. Checks the gate cannot perform
+(deferred parameters, missing inputs) are reported as not evaluable: neither clean nor flagged. Strict catch requires the right field *and* the right
 finding type; a field-only row is shown as a diagnostic. The eval only sees error classes it
-plants, on four synthetic layout families, with one prompt per family. n=12: directional.
+plants, on four synthetic layout families, with one prompt per family. n=15: directional.
 
 ## Architecture
 
@@ -134,10 +138,10 @@ booking store (JSON) ─► MCP tool booking_lookup(trade_id) ──────
 | [`docs/DESIGN.md`](docs/DESIGN.md) | phases 1–3, priorities, cut lines, timeline |
 | [`docs/HLD.md`](docs/HLD.md) | components, data flows, trust boundaries, autonomy model |
 | [`docs/LLD.md`](docs/LLD.md) | module contracts, normalization and tolerance tables, scoring formulas |
-| [`docs/DECISIONS.md`](docs/DECISIONS.md) | 17 ADRs, including the ones made at build checkpoints (schema shape, effort, triage context) |
+| [`docs/DECISIONS.md`](docs/DECISIONS.md) | 30 ADRs, including the ones made at build checkpoints (schema shape, effort, triage context, attestation, relaunch) |
 | [`docs/lessons.md`](docs/lessons.md) | what broke during the build and what it taught |
 | [`docs/V2-CHANGES.md`](docs/V2-CHANGES.md) | the v0.2 change sets (PDF ingestion, option product, reference lane, desk view, live check) |
-| [`docs/MODEL-RISK.md`](docs/MODEL-RISK.md) | model-risk summary in committee format, values filled from a run |
+| [`MODEL-RISK.md`](MODEL-RISK.md) | model-risk summary in committee format, values filled from a run (`scripts/fill_model_risk.py`; template in `docs/`) |
 | [`eval_diff.md`](eval_diff.md) | a model/effort change as a before/after diff: "a deprecation is a rerun and a comparison" |
 | [`BRIEF.md`](BRIEF.md) | one page for the evaluator; results table generated from a run by `scripts/fill_brief.py` |
 | [`eval_log.md`](eval_log.md) | every prompt/schema/normalizer iteration and what it did to both rates |
@@ -145,8 +149,8 @@ booking store (JSON) ─► MCP tool booking_lookup(trade_id) ──────
 ## Layout
 
 ```
-schema/termsheet_v1.json     frozen schema, 20 fields, critical flags
-golden/                      12 term sheets, 12 bookings, 12 truth files, manifest.json (generated: scripts/gen_golden.py)
+schema/                      termsheet_v2.json (27 fields), option_v1.json (28), index_methodology_v1.json (14), products.json registry
+golden/                      15 documents (12 notes + 3 OTC options) as PDF/HTML/TXT, bookings, truth, parsed text, manifest.json (generated: scripts/gen_golden.py)
 prompts/                     extract_v1.md, triage_v1.md (versioned; a change = new file + eval_log line)
 config/models.yaml           pinned model ids, prices, effort settings, timeouts
 templates/                   run_report.html.j2

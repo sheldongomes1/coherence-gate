@@ -124,6 +124,25 @@ demo.
 
 **Consequences:** The G06 currency plant (USD vs CAD) is natural for a Canadian issuer.
 
+## ADR-13: The golden set is generated from one parameter table
+
+**Date:** 2026-09-11
+**Status:** Accepted (checkpoint decision)
+
+**Context:** Twelve realistic term sheets with varied layouts, each with a truth file, a
+booking and a manifest label, hand-written, would drift: a truth file saying 65 while the text
+says 65.0%. A schema change would mean 36 hand edits.
+
+**Decision:** `scripts/gen_golden.py` holds the parameter rows and the layout renderers; text
+(later HTML/PDF/TXT), truth, booking and manifest all come from the same row, and planted
+discrepancies are applied to the booking only. Regenerable in one command.
+
+**Alternatives considered:** Hand-written documents (most realistic, slowest, label drift).
+Generated then hand-edit three (some variance, some drift protection); deferred to Phase 2.
+
+**Consequences:** Four layout families and machine-uniform phrasing, stated in every honest-
+ceiling section. Approved hand-made templates later became the house style (ADR-20).
+
 ## ADR-14: Ambiguous numeric dates are rejected, never guessed
 
 **Date:** 2026-09-11
@@ -510,3 +529,29 @@ finding is the point of the relaunch).
 
 **Consequences:** A booking edit is checked in seconds; model calls happen when a document is
 first read, when it is deliberately re-read, and once per new finding for the desk query.
+
+## ADR-30: A check the gate cannot perform is NOT_EVALUABLE, never CLEAN
+
+**Date:** 2026-09-13
+**Status:** Accepted (from the independent review)
+
+**Context:** Reference checks on deferred or default parameters, relations with missing
+inputs, and rules the two families disagreed on were emitted as `CLEAN` with an explanatory
+detail. That placed 24 unperformed checks among the 418 "auto-cleared" findings of the release
+run and inside the false-flag denominator, while MODEL-RISK claimed auto-clear requires
+agreement and a deterministic match.
+
+**Decision:** New finding type `NOT_EVALUABLE` and lane `INFO`: recorded with its reason,
+excluded from the auto-clear count, the false-flag denominator and the attested-field count,
+never a flag. A document auto-clears when every *performed* check is CLEAN. Families
+disagreeing on a methodology rule is `NOT_EVALUABLE` (the rule is unusable), never CLEAN. The
+eval report lists not-performed checks by reason; the desk view and modal show them as their
+own group.
+
+**Alternatives considered:** Keep CLEAN with a detail (what the review caught: an unperformed
+check counted as attested). Treat as TRIAGE (a human queue full of checks nobody can act on).
+
+**Consequences:** Headline denominators shrink slightly and the attested-fields figure is
+now what it says. If the methodology cannot be loaded, every index claim becomes
+`NOT_EVALUABLE` with the reason and the trace says `reference_check: UNAVAILABLE`, instead of
+the lane silently disappearing.

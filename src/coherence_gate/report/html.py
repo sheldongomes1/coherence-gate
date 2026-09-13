@@ -27,7 +27,17 @@ def load_run(run_dir: Path) -> dict:
         docs.append({**summary, "findings": findings, "booking_transport": booking.get("transport", "?"),
                      "attested_hashes": summary.get("attested_hashes"),
                      "trace": [l for l in trace if l["doc_id"] == summary["doc_id"]]})
-    return {"run_id": run_dir.name, "docs": docs, "trace": trace}
+    docs_cost = round(sum(d.get("cost_usd") or 0 for d in docs), 4)
+    doc_ids = {d["doc_id"] for d in docs}
+    triage_cost = round(sum(l["cost_usd"] for l in trace if l["step"].startswith("triage:") and l["doc_id"] in doc_ids), 4)
+    # per-document summaries already include triage lines traced under the run's own id; add only later desk-query drafting
+    run_ids = {l["run_id"] for l in trace}
+    own = run_dir.name
+    later_triage = round(sum(l["cost_usd"] for l in trace if l["step"].startswith("triage:") and l["doc_id"] in doc_ids and l["run_id"] != own), 4)
+    ref_cost = round(sum(l["cost_usd"] for l in trace if l["doc_id"] == "REF"), 4)
+    cost = {"documents": docs_cost, "later_desk_queries": later_triage, "methodology_once": ref_cost,
+            "total": round(docs_cost + later_triage + ref_cost, 4), "n_docs": len(docs), "runs_in_trace": len(run_ids)}
+    return {"run_id": run_dir.name, "docs": docs, "trace": trace, "cost": cost}
 
 
 def render(run_dir: Path, out: Path | None = None) -> Path:
@@ -43,7 +53,8 @@ def render(run_dir: Path, out: Path | None = None) -> Path:
         d["exposure"] = abs(fx.get("delta_usd") or 0)
         for f in d["findings"]:
             f["attention"] = f["type"] in RED_TYPES or f["type"] in AMBER_TYPES
-        d["findings"].sort(key=lambda f: (not f["attention"], f["severity"] != "critical", LEAD_RANK.get(f["field"], 50), f["field"]))
+            f["not_evaluable"] = f["type"] == "NOT_EVALUABLE"
+        d["findings"].sort(key=lambda f: (not f["attention"], f["not_evaluable"], f["severity"] != "critical", LEAD_RANK.get(f["field"], 50), f["field"]))
         d["n_attention"] = sum(f["attention"] for f in d["findings"])
     docs.sort(key=lambda d: (state_order.get(d["trust"], 9), -d["exposure"], d["doc_id"]))
     all_f = [f for d in docs for f in d["findings"]]
@@ -53,7 +64,7 @@ def render(run_dir: Path, out: Path | None = None) -> Path:
     env.filters["cite"] = lambda t: display_span(t or "")
     html = env.get_template("run_report.html.j2").render(
         run_id=data["run_id"], docs=docs, models=models,
-        total_cost=sum(l["cost_usd"] for l in data["trace"]),
+        total_cost=data["cost"]["total"], cost=data["cost"],
         n_auto_docs=sum(d["document_lane"] == "AUTO_CLEAR" for d in docs),
         n_auto_fields=sum(f["lane"] == "AUTO_CLEAR" for f in all_f), n_fields=len(all_f),
         n_triage=sum(f["lane"] == "TRIAGE" for f in all_f),

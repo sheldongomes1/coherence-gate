@@ -9,6 +9,7 @@ One instance (Cloud Run max-instances=1) keeps the state coherent; it is a demo,
 """
 from __future__ import annotations
 
+import html as _html
 import json
 import os
 import queue
@@ -92,15 +93,15 @@ def _run_docs(job_id: str, doc_ids: list[str], full: bool = False) -> None:
         for i, doc in enumerate(doc_ids, 1):
             job.update({"status": "running", "current": doc, "done": i - 1, "total": len(doc_ids), "mode": "full" if full else "recheck"})
             e = man[doc]
-            with lock:
-                if full:
+            # no page lock while the pipeline runs: artifacts are written atomically and the worker is single
+            if full:
+                run_document(GOLDEN / e["termsheet"], ctx, trade_id=None, pdf_path=GOLDEN / e["pdf"], product_type=e.get("product_type"))
+            else:
+                try:
+                    recheck_document(doc, ctx, RUN, product_type=e.get("product_type"))
+                except (FileNotFoundError, ValueError) as why:  # nothing reusable: full read, and say so
+                    job["mode"] = f"full ({why})"
                     run_document(GOLDEN / e["termsheet"], ctx, trade_id=None, pdf_path=GOLDEN / e["pdf"], product_type=e.get("product_type"))
-                else:
-                    try:
-                        recheck_document(doc, ctx, RUN, product_type=e.get("product_type"))
-                    except (FileNotFoundError, ValueError) as why:  # nothing reusable: full read, and say so
-                        job["mode"] = f"full ({why})"
-                        run_document(GOLDEN / e["termsheet"], ctx, trade_id=None, pdf_path=GOLDEN / e["pdf"], product_type=e.get("product_type"))
             job["done"] = i
         job["timings"]["docs_s"] = round(time.time() - t_docs, 1)
         t_r = time.time()
@@ -122,7 +123,8 @@ def get_ctx():
     with _ctx_lock:
         if "ctx" not in _ctx_cache:
             from ..eval.harness import build_context
-            _ctx_cache["ctx"] = build_context(GOLDEN, STATE / "runs", stub=False, booking_transport="direct", with_triage=True,
+            # booking truth reaches the pipeline only through the MCP tool, as in the eval runs (HLD §4)
+            _ctx_cache["ctx"] = build_context(GOLDEN, STATE / "runs", stub=False, booking_transport="mcp", with_triage=True,
                                               source="pdf", parser_name="mixedbread", reference=True, bookings_dir=STORE)
         return _ctx_cache["ctx"]
 
@@ -199,32 +201,43 @@ def api_status(job_id: str) -> JSONResponse:
 
 @app.get("/booking/{trade_id}", response_class=HTMLResponse)
 def booking_form(trade_id: str) -> HTMLResponse:
-    p = STORE / f"{trade_id}.json"
-    if not p.exists():
+    p = _store_path(trade_id)
+    if p is None:
         return HTMLResponse("unknown trade", status_code=404)
     rec = json.loads(p.read_text())
+    e = _html.escape
     rows = "".join(
-        f'<tr><td class="k">{k}</td><td><input name="{k}" value="{json.dumps(v) if isinstance(v, (list, bool)) else v}" style="width:100%;font:13px ui-monospace,monospace"></td></tr>'
+        f'<tr><td class="k">{e(k)}</td><td><input name="{e(k)}" value="{e(json.dumps(v) if isinstance(v, (list, bool)) else str(v))}" style="width:100%;font:13px ui-monospace,monospace"></td></tr>'
         for k, v in rec.items())
     html = f"""<!doctype html><html><head><meta charset="utf-8"><title>Booking {trade_id}</title>
 <style>body{{font:14px -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:900px;margin:30px auto;padding:0 16px;color:#1c1b19;background:#fbfaf7}}
 table{{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e4e1da}}td{{padding:6px 8px;border-bottom:1px solid #e4e1da}}td.k{{width:34%;font-family:ui-monospace,monospace;font-size:12.5px;background:#f4f2ec}}
 button{{background:#12314f;color:#fff;border:0;padding:9px 16px;border-radius:6px;font-size:14px;cursor:pointer}}.sub{{color:#6b6862}}</style></head><body>
-<div class="sub"><a href="/">← desk view</a></div><h2>Booking record {trade_id} (the bank's truth, editable for the demo)</h2>
+<div class="sub"><a href="/">← desk view</a></div><h2>Booking record {e(trade_id)} (the bank's truth, editable for the demo)</h2>
 <p class="sub">Change any field that affects the terms of the deal (e.g. participation_rate_pct 100 → 95, coupon_memory true → false, barrier_level_pct). Save, go back to the desk view: the row is STALE because its deal-terms hash moved. Press Relaunch: the gate re-reads the term sheet with both model families and re-checks it against this record. Lists and booleans are JSON.</p>
 <form method="post"><table>{rows}</table><p><button type="submit">Save booking</button> &nbsp; <a href="/">cancel</a></p></form>
 </body></html>"""
     return HTMLResponse(html)
 
 
-@app.post("/booking/{trade_id}")
-async def booking_save(trade_id: str, request: Request) -> RedirectResponse:
+def _store_path(trade_id: str) -> Path | None:
+    """Only trade ids that already exist in the store, by exact name (no path characters)."""
+    if not trade_id or any(c in trade_id for c in "/\\.") or len(trade_id) > 64:
+        return None
     p = STORE / f"{trade_id}.json"
+    return p if p.is_file() else None
+
+
+@app.post("/booking/{trade_id}")
+async def booking_save(trade_id: str, request: Request):
+    p = _store_path(trade_id)
+    if p is None:
+        return HTMLResponse("unknown trade", status_code=404)
     rec = json.loads(p.read_text())
     form = await request.form()
-    for k in rec:
+    for k in rec:   # only keys the record already has; values are typed like the existing value, capped in length
         if k in form:
-            raw = str(form[k]).strip()
+            raw = str(form[k]).strip()[:2000]
             old = rec[k]
             try:
                 if isinstance(old, bool):
@@ -255,10 +268,21 @@ if SITE.exists():
     app.mount("/site", StaticFiles(directory=str(SITE), html=True), name="site")
 
 
+@app.get("/site/index.html")
+@app.get("/site/desk_view.html")
+def _site_index() -> RedirectResponse:
+    return RedirectResponse("/", status_code=302)   # the live desk view, not the frozen static copy
+
+
 @app.get("/{path:path}")
 def fallback(path: str):
+    """Static files from the current run or the site bundle, contained to those directories."""
     for base in (RUN, SITE):
-        p = base / path
-        if p.is_file():
-            return FileResponse(str(p))
+        root = base.resolve()
+        try:
+            p = (root / path).resolve()
+        except (OSError, ValueError):
+            continue
+        if root in p.parents and p.is_file() and not p.name.endswith((".tmp", ".env")):
+            return FileResponse(str(p), headers=NO_STORE if p.suffix in (".html", ".json", ".jsonl") else None)
     return HTMLResponse("not found", status_code=404)

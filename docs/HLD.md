@@ -64,7 +64,7 @@ for what it cannot.
 | `booking/mcp_server.py` + `client.py` | tool | The only path to booking truth. MCP over stdio; JSON per trade id | No |
 | `comparator.py` | code | Merged value vs booking value under the v1 tolerance table (all exact) | Yes |
 | `lanes.py` | code | AUTO_CLEAR vs TRIAGE, per field and per document | Yes |
-| `triage/agent.py` | model | For each non-clean finding: classify (advisory) and draft the desk query citing clause + booking field | No |
+| `triage/agent.py` | model | For each non-clean finding: classify (advisory) and draft the desk query from the finding, its citations and the booking field (never the whole document, ADR-17) | No |
 | `trace.py` | code | Append one JSON line per step; wraps every model call | — |
 | `report/` | code | Static HTML + trace pretty-print | — |
 | `eval/` | code | Run all golden docs; binary scoring; `eval_report.md` with ceiling | — |
@@ -84,9 +84,9 @@ for what it cannot.
 
 ### 3.3 Data flow for a discrepancy (G10, barrier omitted)
 Steps 1–4 as above. Both extractors `DECLARED_ABSENT` on `barrier_level_pct`. Merger: agree
-on absence. Booking has 70 → comparator emits `TS_ABSENT` (critical). Lanes: the other 19
-fields auto-clear; `barrier_level_pct` goes to TRIAGE. Triage agent receives the finding, the
-booking field, and the document, and drafts the query. Document lane = TRIAGE.
+on absence. Booking has 70 → comparator emits `TS_ABSENT` (critical). Lanes: the other
+fields auto-clear; `barrier_level_pct` goes to TRIAGE. Triage agent receives the finding, its
+citations and the booking field (not the document), and drafts the query. Document lane = TRIAGE.
 
 ### 3.4 Data flow for the normalizer trap (G09)
 Extractor A may return `coupon_rate_pct=2.0625, basis=per_period`; B may return `8.25,
@@ -112,6 +112,7 @@ canonical value; comparator matches booking 8.25 → CLEAN. No prompt did arithm
 | Condition on a field | Lane | Human touch |
 |---|---|---|
 | A = B (normalized) ∧ comparator CLEAN | AUTO_CLEAR | none; logged with both citations |
+| check not performable (deferred parameter, missing input, families disagree on a rule) | INFO (`NOT_EVALUABLE`) | none; listed, never attested, never a flag |
 | A ≠ B | TRIAGE (`EXTRACTOR_DISAGREEMENT`) | desk query drafted |
 | A = B ∧ booking differs | TRIAGE (`MISMATCH`) | desk query drafted |
 | A = B = ABSENT ∧ booking present | TRIAGE (`TS_ABSENT`) | desk query drafted |

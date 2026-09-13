@@ -7,7 +7,7 @@
  table{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--line);font-size:13px}th,td{padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}th{background:#f3f1ec;font-weight:600;white-space:nowrap}
  .mono{font-family:var(--mono);font-size:12px}.num{text-align:right;font-family:var(--mono);font-size:12px;white-space:nowrap}
  .st{display:inline-block;border-radius:4px;padding:2px 8px;font-weight:700;font-size:12px;letter-spacing:.2px}
- .st-MISMATCH{background:var(--badbg);color:var(--bad)}.st-DISAGREEMENT{background:var(--warnbg);color:var(--warn)}.st-ATTESTED{background:var(--okbg);color:var(--ok)}.st-STALE{background:var(--stalebg);color:var(--stale)}
+ .t-NOT_EVALUABLE{color:var(--muted)}.st-MISMATCH{background:var(--badbg);color:var(--bad)}.st-DISAGREEMENT{background:var(--warnbg);color:var(--warn)}.st-ATTESTED{background:var(--okbg);color:var(--ok)}.st-STALE{background:var(--stalebg);color:var(--stale)}
  tr.r-MISMATCH td{background:#fff8f7}tr.r-STALE td{background:#f6f6f8}
  .why{margin-top:3px;color:#333}.why a{color:inherit}
  details{margin-top:28px}summary{cursor:pointer;color:var(--muted)}
@@ -54,7 +54,7 @@
 {% for t in tools %}<tr><td class="mono">{{ t.name }}</td><td>{{ t.kind }}</td><td class="num">{{ t.calls }}</td><td>{{ t.note }}</td></tr>{% endfor %}
 </tbody></table></div>
 {% if live %}<p class="sub"><form method="post" action="/api/reset" style="display:inline" onsubmit="return confirm('Reset the demo bookings and results to the showcase state?')"><button class="btn mini sec" type="submit">Reset demo to showcase state</button></form> <span class="ind">restores the original bookings and results; use after a demo</span></p>{% endif %}
-<p class="sub">Cost of this check: <b>${{ '%.2f'|format(cost) }}</b> for {{ rows|length }} documents (${{ '%.2f'|format(cost / (rows|length if rows|length else 1)) }} per document), traced tokens × list prices; the marginal cost per additional position is flat. Models extract and explain; code decides. Full evidence per position in <a href="run_report.html">run_report.html</a>; quality numbers in eval_report.md.</p>
+<p class="sub">Cost of this check: <b>${{ '%.2f'|format(cost) }}</b> = documents ${{ '%.2f'|format(costb.documents) }} for {{ rows|length }} ({{ '$%.3f'|format(costb.documents / (rows|length if rows|length else 1)) }} each, both extractions and any desk query){% if costb.later_desk_queries %} + desk queries drafted afterwards ${{ '%.2f'|format(costb.later_desk_queries) }}{% endif %}{% if costb.methodology_once %} + the methodology extracted once ${{ '%.2f'|format(costb.methodology_once) }} (cached for every later check){% endif %}; traced tokens × list prices. The marginal cost per additional position is flat. Models extract and explain; code decides. Full evidence per position in <a href="run_report.html">run_report.html</a>; quality numbers in eval_report.md.</p>
 </details>
 
 <div id="backdrop" role="dialog" aria-modal="true"><div id="modal"><button class="close" aria-label="close">×</button><div id="modal-body"></div></div></div>
@@ -73,7 +73,7 @@
   }
   function open(doc){
     var d = data[doc]; if (!d) return;
-    var bad = d.findings.filter(function(f){ return f.type !== 'CLEAN'; }), ok = d.findings.filter(function(f){ return f.type === 'CLEAN'; });
+    var bad = d.findings.filter(function(f){ return f.type !== 'CLEAN' && f.type !== 'NOT_EVALUABLE'; }), ok = d.findings.filter(function(f){ return f.type === 'CLEAN'; }), ne = d.findings.filter(function(f){ return f.type === 'NOT_EVALUABLE'; });
     var head = '<tr><th>field</th><th>type</th><th>sev</th><th>documented</th><th>booked</th><th>consequence · citations (both families)</th></tr>';
     var html = '<h2>' + esc(d.trade_id) + ' <span class="st st-' + (d.lane === 'AUTO_CLEAR' ? 'ATTESTED' : 'MISMATCH') + '">' + esc(d.lane) + '</span></h2>'
       + '<div class="sub">' + esc(d.product) + ' · source ' + esc(d.source || 'txt') + (d.parse ? ' · parse job ' + esc(d.parse) : '') + ' · <a href="run_report.html#' + esc(doc) + '">full run report ↗</a></div>'
@@ -86,6 +86,7 @@
     } else {
       html += '<p>No findings requiring attention: every field agrees across both families and matches the booking.</p>';
     }
+    if (ne.length) html += '<details><summary>' + ne.length + ' check' + (ne.length !== 1 ? 's' : '') + ' NOT EVALUABLE (not performed: deferred parameter, missing input or the families disagree on the rule — never auto-cleared, never a flag)</summary><div class="wrap"><table><thead>' + head + '</thead><tbody>' + ne.map(row).join('') + '</tbody></table></div></details>';
     html += '<details><summary>' + ok.length + ' field' + (ok.length !== 1 ? 's' : '') + ' CLEAN (auto-cleared with citations)</summary><div class="wrap"><table><thead>' + head + '</thead><tbody>' + ok.map(row).join('') + '</tbody></table></div></details>';
     body.innerHTML = html; bd.classList.add('open'); document.body.style.overflow = 'hidden';
   }

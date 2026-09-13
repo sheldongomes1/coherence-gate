@@ -107,5 +107,11 @@ judgment is versioned, not the model.
   magnitude.
 - Vendor parsing is single-sourced in the demo; the interface is one module
   and swappable (local fallback implemented).
+- The demo service is intentionally unauthenticated (edit-booking, relaunch
+  and reset endpoints are open on a public URL) because it holds only
+  synthetic data and exists to be driven by the audience; a production
+  deployment sits behind the bank's identity layer. Booking truth reaches the
+  pipeline through the MCP tool in the eval runs and in the demo service
+  alike; the in-process client behind the same interface exists for tests.
 - Sample sizes are demo-scale throughout; production onboarding requires a
   larger, layout-diverse, partly hand-written golden set (Phase 2, DESIGN.md).

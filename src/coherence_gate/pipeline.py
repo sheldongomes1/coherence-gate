@@ -15,7 +15,7 @@ from .config import Config
 from .extract.base import Extractor
 from .schema_loader import Schema, all_schemas, detect_product
 from .trace import Tracer
-from .types import Extraction, Family, FieldExtraction, Finding, FindingType, Lane, Malformed, NormalizedField, Status, TriageNote
+from .types import Extraction, Family, FieldExtraction, Finding, FindingType, Lane, Malformed, NormalizedField, Severity, Status, TriageNote
 
 
 @dataclass
@@ -30,6 +30,7 @@ class RunContext:
     triage: Any | None = None  # TriageAgent (S3)
     schemas: dict[str, Schema] = field(default_factory=all_schemas)  # product_type -> schema (CS3)
     reference: Any | None = None  # reference.ReferenceRules when the Versa lane is on (CS4)
+    reference_wanted: bool = False  # the lane was requested; if reference is None the load failed (traced per document)
     source: str = "txt"         # "pdf" -> parse stage; "txt" -> read the canonical .txt (ablation / fallback)
     parser: Any | None = None   # ingest.Parser when source == "pdf"
     parsed_dir: Path | None = None
@@ -189,6 +190,14 @@ def _complete(doc_id: str, text: str, sha: str, product_type: str, schema: Schem
         findings += ref_findings
         ctx.tracer.step(doc_id=doc_id, step="reference_check", outcome="OK" if ref_findings else "NO_CLAIMS",
                         detail={t: sum(f.type == t for f in ref_findings) for t in {f.type for f in ref_findings}})
+    elif getattr(ctx, "reference_wanted", False):
+        # the lane was requested but the methodology could not be loaded: say so on every document,
+        # and mark the index claims NOT_EVALUABLE rather than silently dropping the check
+        claims = [k for k in merged if k.startswith("index_") and not merged[k].absent]
+        for k in claims:
+            findings.append(Finding(id=f"{doc_id}:ref:{k}", doc_id=doc_id, field=f"ref:{k}", type=FindingType.NOT_EVALUABLE,
+                                    severity=Severity.critical, ts_value=merged[k].value, detail="reference lane unavailable (methodology not loaded); claim not checked"))
+        ctx.tracer.step(doc_id=doc_id, step="reference_check", outcome="UNAVAILABLE", detail={"claims_not_checked": len(claims)})
     findings, doc_lane = lanes.assign(findings)
     ctx.tracer.step(doc_id=doc_id, step="compare", outcome=doc_lane,
                     detail={t: sum(f.type == t for f in findings) for t in {f.type for f in findings}})
@@ -238,19 +247,26 @@ def _complete(doc_id: str, text: str, sha: str, product_type: str, schema: Schem
     return result
 
 
+def _write(path: Path, text: str) -> None:
+    """Atomic write (temp file + rename) so a reader never sees a half-written artifact."""
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(text)
+    tmp.replace(path)
+
+
 def persist(r: DocumentResult, ctx: RunContext) -> None:
     d = ctx.out_dir / r.doc_id
     d.mkdir(parents=True, exist_ok=True)
     for fam, ext in r.extractions.items():
-        (d / f"extraction_{fam}.json").write_text(ext.model_dump_json(indent=2))
-    (d / "merged.json").write_text(json.dumps(r.merged, indent=2, default=str))
-    (d / "booking.json").write_text(json.dumps(r.booking, indent=2, default=str))
-    (d / "findings.json").write_text(json.dumps([f.model_dump() for f in r.findings], indent=2, default=str))
-    (d / "triage.json").write_text(json.dumps([{**f.model_dump(), "triage": f.triage.model_dump() if f.triage else None}
+        _write(d / f"extraction_{fam}.json", ext.model_dump_json(indent=2))
+    _write(d / "merged.json", json.dumps(r.merged, indent=2, default=str))
+    _write(d / "booking.json", json.dumps(r.booking, indent=2, default=str))
+    _write(d / "findings.json", json.dumps([f.model_dump() for f in r.findings], indent=2, default=str))
+    _write(d / "triage.json", json.dumps([{**f.model_dump(), "triage": f.triage.model_dump() if f.triage else None}
                                                for f in r.findings if f.lane is Lane.TRIAGE], indent=2, default=str))
     auto = [f.model_dump() for f in r.findings if f.lane is Lane.AUTO_CLEAR]
-    (d / "auto_clear.json").write_text(json.dumps(auto, indent=2, default=str))
-    (d / "summary.json").write_text(json.dumps({
+    _write(d / "auto_clear.json", json.dumps(auto, indent=2, default=str))
+    _write(d / "summary.json", json.dumps({
         "doc_id": r.doc_id, "sha256": r.sha256, "trade_id": r.trade_id, "document_lane": r.document_lane,
         "cost_usd": r.cost_usd, "n_auto_clear": len(auto), "n_triage": len(r.findings) - len(auto),
         "source": r.source, "parse": r.parse_meta, "product_type": r.product_type,

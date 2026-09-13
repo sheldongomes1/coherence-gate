@@ -30,7 +30,14 @@ def _parse_tax(run: Path) -> str:
 
 
 ac_ok = s["auto_clear_correctness"]["hit"] == s["auto_clear_correctness"]["n"]
+manifest = json.loads(Path("golden/manifest.json").read_text())
+_docs = [d for d in manifest["documents"]]
+_planted = sum(len(d["planted"]) for d in _docs)
+_traps = sum(len(d.get("traps", [])) for d in _docs)
+_clean = sum(1 for d in _docs if d.get("clean_control"))
 vals = {
+    "n_planted": str(_planted), "n_traps": str(_traps), "n_clean": str(_clean),
+    "cost_ref": f"${s.get('reference_cost_usd', 0):.2f}", "cost_traced": f"${s.get('cost_traced_total_usd', 0):.2f}",
     "catch_strict": r("catch_strict"),
     "false_flags": r("false_flag_fields"),
     "clean_docs": f"{s['false_flag_docs']['n'] - s['false_flag_docs']['hit']}/{s['false_flag_docs']['n']}",

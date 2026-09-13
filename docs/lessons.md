@@ -52,7 +52,7 @@
 ## 2026-09-11 — The sweep that decided the default was two runs and a table, not an opinion
 - Situation: choosing Gemini's thinking level for the shipped default (ADR-15 → ADR-19).
 - What broke / what we assumed: I assumed extraction is "just copying" and low thinking would be free. Low was 9× faster and 37% cheaper, and it mis-mapped one field on the only stepping schedule in the set (8/9).
-- Lesson: on n=12 one miss is the difference between 100% and 89%. The honest move is to ship the setting that caught everything, print the cheaper setting's numbers next to it, and say the sample is too small to know whether the miss is stable.
+- Lesson: on n=12 one miss is the difference between 100% and 88.9%. The honest move is to ship the setting that caught everything, print the cheaper setting's numbers next to it, and say the sample is too small to know whether the miss is stable.
 - Fix / rework: ADR-19; the brief carries the trade-off sentence; the env knob makes the sweep reproducible in one command.
 - Post angle: "My cheapest config was 9× faster. I didn't ship it, and the reason is a table, not a feeling."
 

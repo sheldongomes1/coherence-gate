@@ -265,7 +265,7 @@ Scoring (binary, counts):
 
 | Metric | Definition |
 |---|---|
-| `catch_rate` | planted findings with a reported finding of the same (doc, field, type) / planted. n = 9 (INSTRUCTIONS' tenth "discrepant" document, G09, is a must-NOT-flag trap and is scored separately) |
+| `catch_rate` | planted findings with a reported finding of the same (doc, field, type) / planted. v0.1: n = 9 (INSTRUCTIONS' tenth "discrepant" document, G09, is a must-NOT-flag trap and is scored separately); v0.2: n = 17 on the 15-document set. `NOT_EVALUABLE` checks are excluded from every denominator |
 | `false_flag_rate_fields` | non-CLEAN findings on fields not planted / clean comparison fields. Denominator = 12 docs × 19 keys − planted(9) − trap(1) = 218 |
 | `false_flag_docs` | count of G11, G12 not in document lane AUTO_CLEAR (0/2 is the target) |
 | `trap_resolved` | G09 `coupon_rate_pct` is CLEAN (1/1) |
