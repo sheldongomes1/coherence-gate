@@ -21,3 +21,5 @@ runs/*
 .idea/
 .vscode/
 site/
+# interview packet and prep: personal, never published
+private/
