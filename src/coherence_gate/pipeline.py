@@ -127,6 +127,45 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
         futs = {fam: pool.submit(ex.extract, text, doc_id=doc_id, tracer=ctx.tracer, schema=schema)
                 for fam, ex in ctx.extractors.items()}
         extractions = {fam: f.result() for fam, f in futs.items()}
+    return _complete(doc_id, text, sha, product_type, schema, extractions, parse_meta, doc_path, ctx, trade_id)
+
+
+def recheck_document(doc_id: str, ctx: RunContext, prior_dir: Path, trade_id: str | None = None,
+                     product_type: str | None = None) -> DocumentResult:
+    """Re-check a document against the CURRENT booking WITHOUT re-extracting: the stored extractions
+    of both families are attested to the document's hash, and the document has not changed, so
+    only the deterministic steps (normalize, merge, compare, relations, reference, lanes) run
+    again, plus triage for findings that are new since the prior run. Seconds, not minutes.
+    Falls back to a full run if the stored extractions or the attested document are missing or
+    the document hash moved."""
+    prior = Path(prior_dir) / doc_id
+    summary = json.loads((prior / "summary.json").read_text()) if (prior / "summary.json").exists() else {}
+    att = summary.get("attested_hashes") or {}
+    doc_path = Path(att.get("document_path", "")) if att.get("document_path") else None
+    if not doc_path or not doc_path.exists() or not all((prior / f"extraction_{f}.json").exists() for f in ("gemini", "claude")):
+        raise FileNotFoundError(f"no reusable extraction for {doc_id} in {prior_dir}")
+    text = doc_path.read_text()
+    sha = hashlib.sha256(text.encode()).hexdigest()
+    if att.get("document_sha256") and att["document_sha256"] != sha:
+        raise ValueError(f"document {doc_id} changed since it was extracted; a full re-read is required")
+    extractions = {Family(f): Extraction.model_validate(json.loads((prior / f"extraction_{f}.json").read_text()))
+                   for f in ("gemini", "claude")}
+    product_type = product_type or summary.get("product_type") or "note"
+    schema = ctx.schemas[product_type]
+    ctx.tracer.step(doc_id=doc_id, step="load", outcome="REUSED_EXTRACTION",
+                    detail={"source": summary.get("source", "txt"), "sha256": sha, "reason": "document unchanged; extractions attested to this hash"})
+    for fam, e in extractions.items():
+        ctx.tracer.step(doc_id=doc_id, step=f"extract:{fam}", outcome="CACHED", model=e.model, model_version=e.model_version)
+    prior_findings = {(f["field"], f["type"], str(f.get("ts_value")), str(f.get("booking_value"))): f
+                      for f in json.loads((prior / "findings.json").read_text())} if (prior / "findings.json").exists() else {}
+    return _complete(doc_id, text, sha, product_type, schema, extractions, summary.get("parse"), doc_path, ctx, trade_id,
+                     prior_findings=prior_findings)
+
+
+def _complete(doc_id: str, text: str, sha: str, product_type: str, schema: Schema, extractions: dict[Family, Extraction],
+              parse_meta: dict | None, doc_path: Path, ctx: RunContext, trade_id: str | None,
+              prior_findings: dict | None = None) -> DocumentResult:
+    """Everything after extraction: deterministic steps, triage, persist."""
 
     # 2. normalize (code), 3. merge (code)
     norm = {fam: normalize.normalize_extraction(ext, schema) for fam, ext in extractions.items()}
@@ -153,6 +192,13 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
     findings, doc_lane = lanes.assign(findings)
     ctx.tracer.step(doc_id=doc_id, step="compare", outcome=doc_lane,
                     detail={t: sum(f.type == t for f in findings) for t in {f.type for f in findings}})
+
+    # reuse prior desk queries for findings that did not change (recheck path); triage only the new ones
+    if prior_findings:
+        for f in findings:
+            k = (f.field, f.type, str(f.ts_value), str(f.booking_value))
+            if k in prior_findings and prior_findings[k].get("triage"):
+                f.triage = TriageNote.model_validate(prior_findings[k]["triage"])
 
     # 7. triage (model, only for TRIAGE findings; a clean document makes no further calls).
     #    A wholesale extractor failure (timeout, API error, refusal, non-JSON) is a technical

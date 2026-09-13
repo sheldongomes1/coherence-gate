@@ -63,9 +63,11 @@ def stale_docs() -> list[str]:
     return [d["doc_id"] for d in load_run(RUN)["docs"] if _stale_reason(RUN, d, STORE)]
 
 
-def _run_docs(job_id: str, doc_ids: list[str]) -> None:
+def _run_docs(job_id: str, doc_ids: list[str], full: bool = False) -> None:
+    """full=False: re-check against the current booking reusing the attested extractions (seconds).
+    full=True: re-read the term sheet with both families (1–4 min per trade)."""
     from ..eval.harness import build_context
-    from ..pipeline import run_document
+    from ..pipeline import recheck_document, run_document
     man = _manifest()
     job = jobs[job_id]
     try:
@@ -74,10 +76,17 @@ def _run_docs(job_id: str, doc_ids: list[str]) -> None:
         ctx.out_dir = RUN  # results replace the trade's folder inside the current run
         ctx.tracer.path = RUN / "trace.jsonl"
         for i, doc in enumerate(doc_ids, 1):
-            job.update({"status": "running", "current": doc, "done": i - 1, "total": len(doc_ids)})
+            job.update({"status": "running", "current": doc, "done": i - 1, "total": len(doc_ids), "mode": "full" if full else "recheck"})
             e = man[doc]
             with lock:
-                run_document(GOLDEN / e["termsheet"], ctx, trade_id=None, pdf_path=GOLDEN / e["pdf"], product_type=e.get("product_type"))
+                if full:
+                    run_document(GOLDEN / e["termsheet"], ctx, trade_id=None, pdf_path=GOLDEN / e["pdf"], product_type=e.get("product_type"))
+                else:
+                    try:
+                        recheck_document(doc, ctx, RUN, product_type=e.get("product_type"))
+                    except (FileNotFoundError, ValueError) as why:  # nothing reusable: full read, and say so
+                        job["mode"] = f"full ({why})"
+                        run_document(GOLDEN / e["termsheet"], ctx, trade_id=None, pdf_path=GOLDEN / e["pdf"], product_type=e.get("product_type"))
             job["done"] = i
         ctx.booking.close()
         with lock:
@@ -116,8 +125,9 @@ def api_state() -> JSONResponse:
 
 
 @app.post("/api/relaunch")
-def api_relaunch(doc: str | None = None, scope: str = "stale") -> JSONResponse:
-    """doc=<G14>: one trade. scope=stale: every trade whose booking changed. scope=all: the whole book."""
+def api_relaunch(doc: str | None = None, scope: str = "stale", full: int = 0) -> JSONResponse:
+    """doc=<G14>: one trade. scope=stale: every trade whose booking changed. scope=all: the whole book.
+    full=1: re-read the term sheet with both model families instead of reusing the attested extraction."""
     if doc:
         docs = [doc]
     elif scope == "all":
@@ -130,9 +140,9 @@ def api_relaunch(doc: str | None = None, scope: str = "stale") -> JSONResponse:
     if running:
         return JSONResponse({"job": None, "message": "a relaunch is already running"}, status_code=409)
     job_id = uuid.uuid4().hex[:8]
-    jobs[job_id] = {"status": "queued", "docs": docs, "done": 0, "total": len(docs), "started": time.time()}
-    threading.Thread(target=_run_docs, args=(job_id, docs), daemon=True).start()
-    return JSONResponse({"job": job_id, "docs": docs})
+    jobs[job_id] = {"status": "queued", "docs": docs, "done": 0, "total": len(docs), "started": time.time(), "mode": "full" if full else "recheck"}
+    threading.Thread(target=_run_docs, args=(job_id, docs, bool(full)), daemon=True).start()
+    return JSONResponse({"job": job_id, "docs": docs, "mode": "full" if full else "recheck"})
 
 
 @app.get("/api/status/{job_id}")

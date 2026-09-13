@@ -27,13 +27,14 @@
  .relaunch{position:absolute;top:58px;right:24px;display:flex;gap:8px;align-items:center}.btn{background:#12314f;color:#fff;border:0;padding:9px 16px;border-radius:6px;font-size:14px;cursor:pointer}.btn.sec{background:#fff;color:#12314f;border:1px solid #12314f}
  #jobstatus{display:none}.rowact{margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
  .btn.mini{padding:4px 10px;font-size:12px;border-radius:5px}.btn.mini.sec{background:#fff;color:#12314f;border:1px solid #12314f}.btn:disabled{opacity:.5;cursor:default}
- .rowstatus{font-size:11.5px;color:var(--warn);font-weight:600}
+ .rowstatus{font-size:11.5px;color:var(--warn);font-weight:600}.pulse{animation:pulse 1.1s ease-in-out infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+ .reread{font-size:11px;color:var(--muted)}.reread a{color:var(--muted)}
  #progress{display:none;background:var(--warnbg);color:var(--warn);border:1px solid #e8d9a8;border-radius:6px;padding:8px 12px;margin:10px 0 4px;font-size:13px}#progress.on{display:block}
  body{position:relative}
 </style></head><body>
 {% if live %}<div class="banner"><b>For demo purposes only — using demo data.</b> Fictional issuer and counterparty, synthetic documents, indicative risk figures. Nothing here is a real trade.</div>
 <div class="topnav"><a href="/">desk view</a> · <a href="run_report.html">run report</a> · <a href="/site/eval_report.html">eval report</a> · <a href="/site/BRIEF.html">brief</a> · <a href="/site/eval_log.html">eval log</a> · <a href="/site/eval_diff.html">model-swap diff</a> · <a href="/site/eval_diff_cycle.html">feedback-cycle diff</a> · <a href="/site/MODEL-RISK.html">model risk</a> · <a href="/site/README.html">readme</a></div>
-<div class="relaunch"><span id="jobstatus"></span><button class="btn" id="relaunch" title="Re-check every trade whose booking changed (STALE); if none changed, re-check the whole book">Relaunch</button><form method="post" action="/api/reset" style="margin:0" onsubmit="return confirm('Reset the demo bookings and results to the showcase state?')"><button class="btn sec" type="submit" title="Restore the showcase bookings and results">Reset</button></form></div>{% endif %}
+<div class="relaunch"><span id="jobstatus"></span><button class="btn" id="relaunch" title="Re-check every trade whose booking changed (STALE) against its current booking; if none changed, re-check the whole book">Relaunch</button></div>{% endif %}
 <h1>{{ book }}</h1>
 <div class="sub">6am page · run {{ run_id }} · {{ ts }}</div>
 {% if live %}<div id="progress"></div>{% endif %}
@@ -44,7 +45,7 @@
 <tbody>
 {% for r in rows %}
 <tr class="r-{{ r.state }}"><td class="mono"><a href="run_report.html#{{ r.doc_id }}">{{ r.trade_id }}</a></td><td>{{ r.product }}</td><td class="mono">{{ r.underlying }}</td><td class="num">{{ r.notional }}</td><td class="mono">{{ r.maturity }}</td><td class="num">{{ r.delta }}</td><td class="num"{% if r.state != 'ATTESTED' %} style="font-weight:700;color:var(--bad)"{% endif %}>{{ r.delta_usd_fmt }}</td><td class="num">{{ r.vega }}</td>
-<td><span class="st st-{{ r.state }}">{{ r.state }}</span><div class="why">{{ r.why }} <a href="run_report.html#{{ r.doc_id }}" class="ev" data-doc="{{ r.doc_id }}">→ evidence</a></div>{% if live %}<div class="rowact"><a class="btn mini sec" href="/booking/{{ r.trade_id }}">Edit booking</a><button class="btn mini rl" data-doc="{{ r.doc_id }}" title="Re-read the term sheet with both families and re-check it against the current booking (~1–4 min)">Relaunch this trade</button><span class="rowstatus" id="rs-{{ r.doc_id }}"></span></div>{% endif %}</td></tr>
+<td><span class="st st-{{ r.state }}">{{ r.state }}</span><div class="why">{{ r.why }} <a href="run_report.html#{{ r.doc_id }}" class="ev" data-doc="{{ r.doc_id }}">→ evidence</a></div>{% if live %}<div class="rowact"><a class="btn mini sec" href="/booking/{{ r.trade_id }}">Edit booking</a><button class="btn mini rl" data-doc="{{ r.doc_id }}" title="Re-check this trade against its current booking, reusing the attested extraction of the unchanged term sheet (seconds)">Relaunch this trade</button><span class="rowstatus" id="rs-{{ r.doc_id }}"></span><span class="reread">· <a href="#" class="rr" data-doc="{{ r.doc_id }}" title="Only needed if the document itself changed: both model families re-read the term sheet (1–4 min)">re-read term sheet</a></span></div>{% endif %}</td></tr>
 {% endfor %}
 </tbody></table></div>
 <p class="ind">Risk figures (delta, delta USD-equivalent, vega, FX) are indicative fixtures for the demo book and are not computed by this system. Convention: the delta of the booked position from the desk's side (the desk sold the call and issued the note, so both are short the index); the hedge is the mirror image and is not shown. The trust column asserts direction of concern, never magnitude. Trust states: ATTESTED — booking attested against the document, both model families agree on every field; DISAGREEMENT — reading uncertain, human review queued; MISMATCH — documented and booked terms differ; STALE — a prior attestation no longer applies because the document, or a booking field that affects the terms of the deal, changed since. The attestation is a hash of the deal-terms fields of the booking (the fields the document governs), so fixings, marks, accruals and lifecycle flags never invalidate it; an amendment to a term does.</p>
@@ -52,6 +53,7 @@
 <div class="wrap"><table><thead><tr><th>tool</th><th>kind</th><th class="num">calls</th><th>notes</th></tr></thead><tbody>
 {% for t in tools %}<tr><td class="mono">{{ t.name }}</td><td>{{ t.kind }}</td><td class="num">{{ t.calls }}</td><td>{{ t.note }}</td></tr>{% endfor %}
 </tbody></table></div>
+{% if live %}<p class="sub"><form method="post" action="/api/reset" style="display:inline" onsubmit="return confirm('Reset the demo bookings and results to the showcase state?')"><button class="btn mini sec" type="submit">Reset demo to showcase state</button></form> <span class="ind">restores the original bookings and results; use after a demo</span></p>{% endif %}
 <p class="sub">Cost of this check: <b>${{ '%.2f'|format(cost) }}</b> for {{ rows|length }} documents (${{ '%.2f'|format(cost / (rows|length if rows|length else 1)) }} per document), traced tokens × list prices; the marginal cost per additional position is flat. Models extract and explain; code decides. Full evidence per position in <a href="run_report.html">run_report.html</a>; quality numbers in eval_report.md.</p>
 </details>
 
@@ -97,28 +99,31 @@
 {% if live %}<script>
 (function(){
   var st = document.getElementById('jobstatus'), btn = document.getElementById('relaunch'), bar = document.getElementById('progress');
-  var rowBtns = document.querySelectorAll('button.rl'), resetBtn = document.querySelector('form[action="/api/reset"] button');
+  var rowBtns = document.querySelectorAll('button.rl'), rereads = document.querySelectorAll('a.rr'), resetBtn = document.querySelector('form[action="/api/reset"] button');
   function setBusy(b){ btn.disabled = b; if (resetBtn) resetBtn.disabled = b; rowBtns.forEach(function(x){ x.disabled = b; }); }
-  function show(text, on){ st.textContent = text; bar.textContent = text; bar.classList.toggle('on', !!on); }
-  function rowStatus(docs, text){ (docs || []).forEach(function(d){ var el = document.getElementById('rs-' + d); if (el) el.textContent = text; }); }
+  function show(text, on, pulse){ st.textContent = text; bar.textContent = text; bar.classList.toggle('on', !!on); bar.classList.toggle('pulse', !!pulse); }
+  function rowMark(d, text, pulse){ var el = document.getElementById('rs-' + d); if (!el) return; el.textContent = text; el.classList.toggle('pulse', !!pulse); }
   var t0 = null;
   function poll(id){
     fetch('/api/status/' + id).then(function(r){ return r.json(); }).then(function(j){
       var secs = t0 ? Math.round((Date.now() - t0) / 1000) : 0;
       if (j.status === 'running' || j.status === 'queued') {
-        show('⏳ Relaunch in progress: ' + (j.current ? 'checking ' + j.current : 'starting') + ' — ' + j.done + '/' + j.total + ' done, ' + secs + 's elapsed. Both families re-read the term sheet, code compares it with the current booking, triage drafts the query. Typically 1–4 minutes per trade; the page reloads when finished.', true);
-        (j.docs || []).forEach(function(d, i){ rowStatus([d], i < j.done ? '✓ re-checked' : (d === j.current ? '⏳ running ' + secs + 's…' : '⏳ queued…')); });
-        setTimeout(function(){ poll(id); }, 3000);
-      } else if (j.status === 'done') { show('✓ done — reloading', true); rowStatus(j.docs, '✓ done'); location.reload(); }
-      else { show('✗ relaunch failed: ' + (j.error || j.status), true); rowStatus(j.docs, '✗ ' + (j.error || j.status)); setBusy(false); }
+        var full = (j.mode || '').indexOf('full') === 0;
+        show('Working: ' + (j.current ? 'checking ' + j.current : 'starting') + ' — ' + j.done + '/' + j.total + ' done, ' + secs + 's elapsed. ' +
+             (full ? 'Both model families are re-reading the term sheet, then code compares it with the current booking and triage drafts the query (1–4 min per trade).'
+                   : 'The term sheet is unchanged, so its attested extraction is reused; code re-compares it with the current booking and triage drafts queries for any new finding (seconds).') + ' The page reloads when finished.', true, true);
+        (j.docs || []).forEach(function(d, i){ if (i < j.done) rowMark(d, '✓ re-checked', false); else rowMark(d, 'working' + (d === j.current ? ' ' + secs + 's' : ''), true); });
+        setTimeout(function(){ poll(id); }, 1500);
+      } else if (j.status === 'done') { show('✓ done — reloading', true, false); (j.docs || []).forEach(function(d){ rowMark(d, '✓ done', false); }); location.reload(); }
+      else { show('✗ relaunch failed: ' + (j.error || j.status), true, false); (j.docs || []).forEach(function(d){ rowMark(d, '✗ ' + (j.error || j.status), false); }); setBusy(false); }
     });
   }
   function launch(q, docs){
-    setBusy(true); show('⏳ starting relaunch…', true); rowStatus(docs, '⏳ queued…'); t0 = Date.now();
+    setBusy(true); show('Working…', true, true); (docs || []).forEach(function(d){ rowMark(d, 'working', true); }); t0 = Date.now();
     fetch('/api/relaunch' + q, {method: 'POST'}).then(function(r){ return r.json(); }).then(function(j){
-      if (!j.job) { show(j.message || 'nothing to do', true); rowStatus(docs, j.message || ''); setBusy(false); return; }
-      show('⏳ queued: ' + j.docs.join(', '), true); poll(j.job);
-    }).catch(function(e){ show('✗ request failed: ' + e, true); setBusy(false); });
+      if (!j.job) { show(j.message || 'nothing to do', true, false); (docs || []).forEach(function(d){ rowMark(d, j.message || '', false); }); setBusy(false); return; }
+      poll(j.job);
+    }).catch(function(e){ show('✗ request failed: ' + e, true, false); setBusy(false); });
   }
   btn.addEventListener('click', function(){
     fetch('/api/state').then(function(r){ return r.json(); }).then(function(s){
@@ -127,10 +132,11 @@
     });
   });
   rowBtns.forEach(function(b){ b.addEventListener('click', function(e){ e.preventDefault(); var d = b.getAttribute('data-doc'); launch('?doc=' + d, [d]); }); });
+  rereads.forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); if (btn.disabled) return; var d = a.getAttribute('data-doc'); launch('?doc=' + d + '&full=1', [d]); }); });
   fetch('/api/state').then(function(r){ return r.json(); }).then(function(s){
     var running = Object.keys(s.jobs).filter(function(k){ return s.jobs[k].status === 'running' || s.jobs[k].status === 'queued'; });
     if (running.length) { setBusy(true); t0 = Date.now() - 1000 * Math.round(Date.now()/1000 - (s.jobs[running[0]].started || Date.now()/1000)); poll(running[0]); }
-    else if (s.stale.length) show(s.stale.length + ' booking(s) changed since the last check: ' + s.stale.join(', ') + ' — press Relaunch (top right) to re-check them', true);
+    else if (s.stale.length) show(s.stale.length + ' booking(s) changed since the last check: ' + s.stale.join(', ') + ' — press Relaunch (top right) to re-check them against the edited booking', true, false);
   });
 })();
 </script>{% endif %}

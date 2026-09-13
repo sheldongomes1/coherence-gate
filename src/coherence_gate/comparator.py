@@ -54,11 +54,12 @@ def compare(doc_id: str, merged: dict[str, MergedField], booking: BookingLookup,
         sev = Severity.critical if spec.critical else Severity.minor
         base = dict(id=f"{doc_id}:{key}", doc_id=doc_id, field=key, severity=sev, citations=m.citations)
         bk_raw = record.get(key) if record is not None else None
+        bk_note = ""
         try:
             bk = normalize_value(spec, bk_raw) if bk_raw is not None else None
         except NormalizeError as exc:
             bk = None
-            base["detail"] = f"booking value not normalizable: {exc}"
+            bk_note = f"booking value {bk_raw!r} not normalizable ({exc}); "
 
         if m.malformed_families:
             fams = ",".join(m.malformed_families)
@@ -75,10 +76,11 @@ def compare(doc_id: str, merged: dict[str, MergedField], booking: BookingLookup,
             findings.append(Finding(**base, type=FindingType.TS_ABSENT, booking_value=bk,
                                     detail=f"term sheet declares {key} absent; booking has {_fmt(bk)}"))
         elif m.absent and bk is None:
-            findings.append(Finding(**base, type=FindingType.CLEAN, detail="absent in both"))
+            findings.append(Finding(**base, type=FindingType.BOOKING_ABSENT if bk_note else FindingType.CLEAN,
+                                    booking_value=bk_raw if bk_note else None, detail=bk_note + ("term sheet absent" if bk_note else "absent in both")))
         elif bk is None:
-            findings.append(Finding(**base, type=FindingType.BOOKING_ABSENT, ts_value=m.value,
-                                    detail=f"term sheet has {_fmt(m.value)}; booking has no {key}"))
+            findings.append(Finding(**base, type=FindingType.BOOKING_ABSENT, ts_value=m.value, booking_value=bk_raw if bk_note else None,
+                                    detail=bk_note + f"term sheet has {_fmt(m.value)}; booking has no usable {key}"))
         elif values_equal(m.value, bk):
             findings.append(Finding(**base, type=FindingType.CLEAN, ts_value=m.value, booking_value=bk, detail="match"))
         elif _within_tolerance(spec, m.value, bk, schema):
