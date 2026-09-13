@@ -89,8 +89,19 @@
     if (ne.length) html += '<details><summary>' + ne.length + ' check' + (ne.length !== 1 ? 's' : '') + ' NOT EVALUABLE (not performed: deferred parameter, missing input or the families disagree on the rule — never auto-cleared, never a flag)</summary><div class="wrap"><table><thead>' + head + '</thead><tbody>' + ne.map(row).join('') + '</tbody></table></div></details>';
     html += '<details><summary>' + ok.length + ' field' + (ok.length !== 1 ? 's' : '') + ' CLEAN (auto-cleared with citations)</summary><div class="wrap"><table><thead>' + head + '</thead><tbody>' + ok.map(row).join('') + '</tbody></table></div></details>';
     body.innerHTML = html; bd.classList.add('open'); document.body.style.overflow = 'hidden';
+    opener = document.activeElement; document.querySelector('#modal .close').focus();
   }
-  function close(){ bd.classList.remove('open'); document.body.style.overflow = ''; }
+  var opener = null;
+  function close(){ bd.classList.remove('open'); document.body.style.overflow = ''; if (opener && opener.focus) opener.focus(); opener = null; }
+  // keep Tab inside the dialog while it is open (a11y: focus trap, restored to the opener on close)
+  bd.addEventListener('keydown', function(e){
+    if (e.key !== 'Tab' || !bd.classList.contains('open')) return;
+    var f = Array.prototype.filter.call(bd.querySelectorAll('a[href],button,summary,[tabindex]:not([tabindex="-1"])'), function(el){ return !el.disabled && el.offsetParent !== null; });
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
   document.querySelectorAll('a.ev').forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); open(a.getAttribute('data-doc')); }); });
   bd.addEventListener('click', function(e){ if (e.target === bd) close(); });
   document.querySelector('#modal .close').addEventListener('click', close);

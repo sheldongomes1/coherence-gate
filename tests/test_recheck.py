@@ -19,10 +19,23 @@ def test_recheck_reuses_extractions_and_reads_current_booking(tmp_path):
     ctx.booking = DirectBookingClient(store)
     r1 = run_document(ROOT / "golden" / "termsheets" / "G11.txt", ctx, trade_id="SN-2026-0111")
     b = store / "SN-2026-0111.json"; rec = json.loads(b.read_text()); rec["currency"] = "CAD"; b.write_text(json.dumps(rec))
-    n_before = len(ctx.tracer.lines)
+    mark = ctx.tracer.mark()
     r2 = recheck_document("G11", ctx, ctx.out_dir, trade_id="SN-2026-0111")
-    new = ctx.tracer.lines[n_before:]
+    new = [l for l in ctx.tracer.lines if l["seq"] >= mark]
     assert any(l["step"] == "load" and l["outcome"] == "REUSED_EXTRACTION" for l in new)
     assert all(l["outcome"] == "CACHED" for l in new if l["step"].startswith("extract:"))
     assert r2.booking["record"]["currency"] == "CAD"            # the current booking was read
     assert r2.out_dir == r1.out_dir and (r2.out_dir / "findings.json").exists()
+
+
+def test_tracer_cost_is_per_pass_and_window_is_bounded(tmp_path):
+    from coherence_gate.trace import Tracer
+    t = Tracer(run_id="t", path=tmp_path / "trace.jsonl")
+    t.step(doc_id="G01", step="extract:claude", outcome="OK", cost_usd=1.0)
+    m = t.mark()
+    t.step(doc_id="G01", step="extract:claude", outcome="CACHED", cost_usd=0.25)
+    assert t.total_cost("G01") == 1.25 and t.total_cost("G01", since=m) == 0.25   # second pass costs only itself
+    t.lines = type(t.lines)(maxlen=3)
+    for i in range(10):
+        t.step(doc_id="G02", step="x", outcome="OK")
+    assert len(t.lines) == 3 and sum(1 for _ in open(tmp_path / "trace.jsonl")) == 12  # memory bounded, file complete

@@ -10,6 +10,7 @@ One instance (Cloud Run max-instances=1) keeps the state coherent; it is a demo,
 from __future__ import annotations
 
 import html as _html
+from contextlib import asynccontextmanager
 import json
 import os
 import queue
@@ -32,7 +33,15 @@ STORE = STATE / "bookings"
 RUN = STATE / "current"
 GOLDEN = ROOT / "golden"
 
-app = FastAPI(title="Coherence Gate demo")
+@asynccontextmanager
+async def _lifespan(_: FastAPI):
+    init_state()
+    threading.Thread(target=_worker, name="relaunch-worker", daemon=True).start()
+    threading.Thread(target=get_ctx, name="warm-context", daemon=True).start()  # first click never pays the reference load
+    yield
+
+
+app = FastAPI(lifespan=_lifespan, title="Coherence Gate demo")
 jobs: dict[str, dict] = {}
 lock = threading.Lock()
 _queue: "queue.Queue[str]" = queue.Queue()   # job ids, processed one at a time by the worker thread
@@ -144,11 +153,6 @@ def _active_docs() -> set[str]:
     return {d for j in jobs.values() if j["status"] in ("queued", "running") for d in j["docs"]}
 
 
-@app.on_event("startup")
-def _startup() -> None:
-    init_state()
-    threading.Thread(target=_worker, name="relaunch-worker", daemon=True).start()
-    threading.Thread(target=get_ctx, name="warm-context", daemon=True).start()  # first click never pays the reference load
 
 
 @app.get("/", response_class=HTMLResponse)

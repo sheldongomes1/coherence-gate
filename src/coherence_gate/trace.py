@@ -8,6 +8,7 @@ from __future__ import annotations
 import json
 import time
 from contextlib import contextmanager
+from collections import deque
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -31,10 +32,18 @@ class StepUsage:
 class Tracer:
     run_id: str
     path: Path
-    lines: list[dict] = field(default_factory=list)
+    # In-memory window only; the file on `path` is the record of truth. Bounded because the demo
+    # service keeps one tracer for the life of the process (every relaunch would otherwise grow it).
+    lines: deque[dict] = field(default_factory=lambda: deque(maxlen=20_000))
+    _seq: int = 0  # count of lines ever written; `mark()` returns it so per-document cost is a window
 
     def __post_init__(self) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
+
+    def mark(self) -> int:
+        """Position to pass back to `total_cost(since=...)`: cost of one pipeline pass, not of every
+        pass this tracer ever saw for the same document."""
+        return self._seq
 
     def step(self, *, doc_id: str, step: str, outcome: str, model: str | None = None,
              model_version: str | None = None, prompt_tokens: int = 0, output_tokens: int = 0,
@@ -54,6 +63,8 @@ class Tracer:
                               prompt_tokens=prompt_tokens, output_tokens=output_tokens, latency_ms=latency_ms,
                               cost_usd=cost_usd, outcome=outcome),
         }
+        line["seq"] = self._seq
+        self._seq += 1
         self.lines.append(line)
         with self.path.open("a") as fh:
             fh.write(json.dumps(line, default=str) + "\n")
@@ -77,8 +88,9 @@ class Tracer:
                       prompt_tokens=usage.prompt_tokens, output_tokens=usage.output_tokens,
                       latency_ms=latency, cost_usd=cost, detail=usage.detail)
 
-    def total_cost(self, doc_id: str | None = None) -> float:
-        return round(sum(l["cost_usd"] for l in self.lines if doc_id is None or l["doc_id"] == doc_id), 6)
+    def total_cost(self, doc_id: str | None = None, since: int = 0) -> float:
+        return round(sum(l["cost_usd"] for l in self.lines
+                         if (doc_id is None or l["doc_id"] == doc_id) and l.get("seq", 0) >= since), 6)
 
 
 _PROVIDER = {"gemini": "gcp.gemini", "claude": "anthropic"}

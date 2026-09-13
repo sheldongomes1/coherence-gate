@@ -89,6 +89,7 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
     """`doc_path` is the canonical .txt; when ctx.source == "pdf", `pdf_path` is parsed and the
     parsed markdown becomes the source text every citation anchors into (CS2 citation chain)."""
     doc_id = doc_path.stem
+    mark = ctx.tracer.mark()
     parse_meta = None
     if ctx.source == "pdf":
         from .ingest import parse_document
@@ -128,7 +129,7 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
         futs = {fam: pool.submit(ex.extract, text, doc_id=doc_id, tracer=ctx.tracer, schema=schema)
                 for fam, ex in ctx.extractors.items()}
         extractions = {fam: f.result() for fam, f in futs.items()}
-    return _complete(doc_id, text, sha, product_type, schema, extractions, parse_meta, doc_path, ctx, trade_id)
+    return _complete(doc_id, text, sha, product_type, schema, extractions, parse_meta, doc_path, ctx, trade_id, mark=mark)
 
 
 def recheck_document(doc_id: str, ctx: RunContext, prior_dir: Path, trade_id: str | None = None,
@@ -140,6 +141,7 @@ def recheck_document(doc_id: str, ctx: RunContext, prior_dir: Path, trade_id: st
     Falls back to a full run if the stored extractions or the attested document are missing or
     the document hash moved."""
     prior = Path(prior_dir) / doc_id
+    mark = ctx.tracer.mark()
     summary = json.loads((prior / "summary.json").read_text()) if (prior / "summary.json").exists() else {}
     att = summary.get("attested_hashes") or {}
     doc_path = Path(att.get("document_path", "")) if att.get("document_path") else None
@@ -160,13 +162,14 @@ def recheck_document(doc_id: str, ctx: RunContext, prior_dir: Path, trade_id: st
     prior_findings = {(f["field"], f["type"], str(f.get("ts_value")), str(f.get("booking_value"))): f
                       for f in json.loads((prior / "findings.json").read_text())} if (prior / "findings.json").exists() else {}
     return _complete(doc_id, text, sha, product_type, schema, extractions, summary.get("parse"), doc_path, ctx, trade_id,
-                     prior_findings=prior_findings)
+                     prior_findings=prior_findings, mark=mark)
 
 
 def _complete(doc_id: str, text: str, sha: str, product_type: str, schema: Schema, extractions: dict[Family, Extraction],
               parse_meta: dict | None, doc_path: Path, ctx: RunContext, trade_id: str | None,
-              prior_findings: dict | None = None) -> DocumentResult:
-    """Everything after extraction: deterministic steps, triage, persist."""
+              prior_findings: dict | None = None, mark: int = 0) -> DocumentResult:
+    """Everything after extraction: deterministic steps, triage, persist. `mark` is the tracer
+    position where this pass started, so the persisted cost is this pass's cost only."""
 
     # 2. normalize (code), 3. merge (code)
     norm = {fam: normalize.normalize_extraction(ext, schema) for fam, ext in extractions.items()}
@@ -241,7 +244,7 @@ def _complete(doc_id: str, text: str, sha: str, product_type: str, schema: Schem
                             normalized={str(k): v for k, v in norm.items()},
                             merged={k: m.model_dump() for k, m in merged.items()},
                             booking=lookup.model_dump(), findings=findings, document_lane=doc_lane,
-                            cost_usd=ctx.tracer.total_cost(doc_id), source=ctx.source, parse_meta=parse_meta,
+                            cost_usd=ctx.tracer.total_cost(doc_id, since=mark), source=ctx.source, parse_meta=parse_meta,
                             product_type=product_type, extras={"attested_hashes": attested})
     persist(result, ctx)
     return result
