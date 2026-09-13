@@ -28,6 +28,7 @@
  #jobstatus{font-size:12px;color:var(--muted);max-width:360px}.rowact{margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
  .btn.mini{padding:4px 10px;font-size:12px;border-radius:5px}.btn.mini.sec{background:#fff;color:#12314f;border:1px solid #12314f}.btn:disabled{opacity:.5;cursor:default}
  .rowstatus{font-size:11.5px;color:var(--warn);font-weight:600}
+ #progress{display:none;background:var(--warnbg);color:var(--warn);border:1px solid #e8d9a8;border-radius:6px;padding:8px 12px;margin:10px 0 4px;font-size:13px}#progress.on{display:block}
  body{position:relative}
 </style></head><body>
 {% if live %}<div class="banner"><b>For demo purposes only — using demo data.</b> Fictional issuer and counterparty, synthetic documents, indicative risk figures. Nothing here is a real trade.</div>
@@ -35,6 +36,7 @@
 <div class="relaunch"><span id="jobstatus"></span><button class="btn" id="relaunch" title="Re-check every trade whose booking changed (STALE); if none changed, re-check the whole book">Relaunch</button><form method="post" action="/api/reset" style="margin:0" onsubmit="return confirm('Reset the demo bookings and results to the showcase state?')"><button class="btn sec" type="submit" title="Restore the showcase bookings and results">Reset</button></form></div>{% endif %}
 <h1>{{ book }}</h1>
 <div class="sub">6am page · run {{ run_id }} · {{ ts }}</div>
+{% if live %}<div id="progress"></div>{% endif %}
 <div class="line"><b>{{ exposure.total|musd }}</b> gross delta-equivalent exposure under check<span class="ind"> (indicative)</span> across <b>{{ rows|length }} positions</b> · <b style="color:var(--ok)">{{ exposure.attested|musd }} attested</b> ({{ n_attested }}) · <b style="color:var(--bad)">{{ exposure.attention|musd }} requires attention</b> ({{ n_attention }}){% if n_stale %} · <b style="color:var(--stale)">{{ exposure.stale|musd }} stale</b> ({{ n_stale }}){% endif %}</div>
 <div class="sub">The red figure is the delta exposure of positions whose booking does not match the document or whose reading is uncertain: until the booking is corrected, no risk number from that position can be trusted. It is the position's delta, not the delta attributable to the discrepancy; attributing it would mean repricing booked versus documented terms, which this system does not do (roadmap: hedge-to-liability coherence). Rows requiring attention are sorted by delta exposure, largest first; their Δ USD is shown in red. Booked notional in the book: {{ exposure.notional_total|musd }} (USD-equivalent, indicative FX).</div>
 <div class="wrap"><table>
@@ -94,29 +96,29 @@
 </script>
 {% if live %}<script>
 (function(){
-  var st = document.getElementById('jobstatus'), btn = document.getElementById('relaunch');
-  var rowBtns = document.querySelectorAll('button.rl');
-  function setBusy(b){ btn.disabled = b; rowBtns.forEach(function(x){ x.disabled = b; }); }
+  var st = document.getElementById('jobstatus'), btn = document.getElementById('relaunch'), bar = document.getElementById('progress');
+  var rowBtns = document.querySelectorAll('button.rl'), resetBtn = document.querySelector('form[action="/api/reset"] button');
+  function setBusy(b){ btn.disabled = b; if (resetBtn) resetBtn.disabled = b; rowBtns.forEach(function(x){ x.disabled = b; }); }
+  function show(text, on){ st.textContent = text; bar.textContent = text; bar.classList.toggle('on', !!on); }
   function rowStatus(docs, text){ (docs || []).forEach(function(d){ var el = document.getElementById('rs-' + d); if (el) el.textContent = text; }); }
   var t0 = null;
   function poll(id){
     fetch('/api/status/' + id).then(function(r){ return r.json(); }).then(function(j){
       var secs = t0 ? Math.round((Date.now() - t0) / 1000) : 0;
       if (j.status === 'running' || j.status === 'queued') {
-        st.textContent = 'relaunch running: ' + (j.current || '') + ' (' + j.done + '/' + j.total + ' done, ' + secs + 's; both families extract, code compares, triage drafts)';
-        rowStatus(j.docs, ''); if (j.current) rowStatus([j.current], '⏳ running ' + secs + 's…');
-        (j.docs || []).slice(0, j.done).forEach(function(d){ rowStatus([d], '✓ re-checked, reloading when all done'); });
+        show('⏳ Relaunch in progress: ' + (j.current ? 'checking ' + j.current : 'starting') + ' — ' + j.done + '/' + j.total + ' done, ' + secs + 's elapsed. Both families re-read the term sheet, code compares it with the current booking, triage drafts the query. Typically 1–4 minutes per trade; the page reloads when finished.', true);
+        (j.docs || []).forEach(function(d, i){ rowStatus([d], i < j.done ? '✓ re-checked' : (d === j.current ? '⏳ running ' + secs + 's…' : '⏳ queued…')); });
         setTimeout(function(){ poll(id); }, 3000);
-      } else if (j.status === 'done') { st.textContent = 'done — reloading'; rowStatus(j.docs, '✓ done'); location.reload(); }
-      else { st.textContent = 'relaunch failed: ' + (j.error || j.status); rowStatus(j.docs, '✗ ' + (j.error || j.status)); setBusy(false); }
+      } else if (j.status === 'done') { show('✓ done — reloading', true); rowStatus(j.docs, '✓ done'); location.reload(); }
+      else { show('✗ relaunch failed: ' + (j.error || j.status), true); rowStatus(j.docs, '✗ ' + (j.error || j.status)); setBusy(false); }
     });
   }
   function launch(q, docs){
-    setBusy(true); st.textContent = 'starting…'; rowStatus(docs, '⏳ queued…'); t0 = Date.now();
+    setBusy(true); show('⏳ starting relaunch…', true); rowStatus(docs, '⏳ queued…'); t0 = Date.now();
     fetch('/api/relaunch' + q, {method: 'POST'}).then(function(r){ return r.json(); }).then(function(j){
-      if (!j.job) { st.textContent = j.message || 'nothing to do'; rowStatus(docs, j.message || ''); setBusy(false); return; }
-      st.textContent = 'queued ' + j.docs.join(', '); poll(j.job);
-    }).catch(function(e){ st.textContent = 'request failed: ' + e; setBusy(false); });
+      if (!j.job) { show(j.message || 'nothing to do', true); rowStatus(docs, j.message || ''); setBusy(false); return; }
+      show('⏳ queued: ' + j.docs.join(', '), true); poll(j.job);
+    }).catch(function(e){ show('✗ request failed: ' + e, true); setBusy(false); });
   }
   btn.addEventListener('click', function(){
     fetch('/api/state').then(function(r){ return r.json(); }).then(function(s){
@@ -128,7 +130,7 @@
   fetch('/api/state').then(function(r){ return r.json(); }).then(function(s){
     var running = Object.keys(s.jobs).filter(function(k){ return s.jobs[k].status === 'running' || s.jobs[k].status === 'queued'; });
     if (running.length) { setBusy(true); t0 = Date.now() - 1000 * Math.round(Date.now()/1000 - (s.jobs[running[0]].started || Date.now()/1000)); poll(running[0]); }
-    else if (s.stale.length) st.textContent = s.stale.length + ' booking(s) changed since the last check: ' + s.stale.join(', ') + ' — press Relaunch';
+    else if (s.stale.length) show(s.stale.length + ' booking(s) changed since the last check: ' + s.stale.join(', ') + ' — press Relaunch (top right) to re-check them', true);
   });
 })();
 </script>{% endif %}
