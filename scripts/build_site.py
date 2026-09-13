@@ -42,7 +42,11 @@ def main() -> None:
     for page in ("desk_view.html", "index.html", "run_report.html"):
         p = SITE / page; h = p.read_text()
         p.write_text(h.replace("<body>", "<body>" + NAV.replace("<nav>", '<nav style="font:13px system-ui;color:#6b6862;margin-bottom:12px">'), 1))
-    (SITE / "Dockerfile").write_text("FROM nginx:1.27-alpine\nCOPY . /usr/share/nginx/html\nRUN rm -f /usr/share/nginx/html/Dockerfile\n")
+    (SITE / "Dockerfile").write_text(
+        "FROM nginx:1.27-alpine\n"
+        "COPY . /usr/share/nginx/html\n"
+        "RUN rm -f /usr/share/nginx/html/Dockerfile && sed -i 's/listen       80;/listen       8080;/' /etc/nginx/conf.d/default.conf\n"
+        "EXPOSE 8080\n")  # Cloud Run injects PORT=8080
     print(f"site/ ready ({sum(f.stat().st_size for f in SITE.rglob('*') if f.is_file()) / 1e6:.1f} MB): index.html = desk view")
 
 
