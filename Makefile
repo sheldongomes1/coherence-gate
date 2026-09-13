@@ -4,7 +4,7 @@ UV      ?= uv
 PY      := $(UV) run python
 RUN_DIR ?= runs
 
-.PHONY: help setup demo eval test lint trace models report clean
+.PHONY: help setup demo eval test lint trace models report clean site deploy-site golden parse ablation check eval-diff brief showcase eval-txt
 
 help:
 	@echo "make setup   - create venv + install deps (uv sync)"
