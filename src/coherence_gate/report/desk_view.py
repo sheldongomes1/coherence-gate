@@ -116,13 +116,17 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
             state, why = "STALE", stale
         fx = _fixture(d["doc_id"], d["trade_id"] or "", fixtures)
         dusd = fx.get("delta_usd")
+        at_stake = abs(dusd) if (dusd is not None and state != "ATTESTED") else None
+        n_crit = sum(1 for f in d["findings"] if f["type"] != "CLEAN" and f["severity"] == "critical")
         rows.append({"doc_id": d["doc_id"], "trade_id": d["trade_id"] or d["doc_id"], "state": state, "why": why,
+                     "at_stake": at_stake, "at_stake_fmt": _musd(at_stake) if at_stake is not None else "—", "n_critical": n_crit,
                      "product": d.get("product_type", "note"), "underlying": fx.get("underlying", "—"),
                      "notional": fx.get("notional", "—"), "notional_usd": fx.get("notional_usd", 0), "maturity": fx.get("maturity", "—"),
                      "delta": fx.get("delta_pct_notional", "—"), "delta_usd": dusd, "delta_usd_fmt": _musd(dusd),
                      "vega": fx.get("vega_usd_per_vol_pt", "—")})
+    # red → stale → amber → green; within a state, the biggest exposure at stake first
     order = {"MISMATCH": 0, "STALE": 1, "DISAGREEMENT": 2, "ATTESTED": 3}
-    rows.sort(key=lambda r: (order[r["state"]], r["trade_id"]))
+    rows.sort(key=lambda r: (order[r["state"]], -(r["at_stake"] or 0), r["trade_id"]))
     trace = data["trace"]
     steps = [l["step"] for l in trace]
     tools = [

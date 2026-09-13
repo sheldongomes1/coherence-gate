@@ -438,3 +438,22 @@ touching PDFs (which would invalidate the parse cache). Sign convention fixed on
 after review: every row shows the delta of the booked position from the desk's side (sold call
 and issued note are both short the index, negative), never the hedge; the earlier fixtures mixed
 the two views.
+
+## ADR-27: "At stake" is the position's delta on a mismatched booking, never the delta of the discrepancy
+
+**Date:** 2026-09-13
+**Status:** Accepted
+
+**Context:** The desk asked for the dollar value of each mismatch, sorted largest first.
+
+**Decision:** The desk view shows, for every non-attested row, the position's delta-equivalent
+USD as "at stake" (with the count of critical findings), and sorts red rows by it descending.
+The page states that this is the whole position's delta, not the delta attributable to the
+discrepancy, because attributing it would require repricing booked versus documented terms.
+
+**Alternatives considered:** Computing the delta difference between booked and documented
+terms (a pricer; GOAL.md excludes greeks and V2-CHANGES forbids claiming magnitudes of greek
+error). Weighting by severity only (loses the exposure ordering the desk asked for).
+
+**Consequences:** True attribution is named as roadmap ("hedge-to-liability coherence"): plug
+the desk's risk system, reprice both term sets, show the delta of the difference.

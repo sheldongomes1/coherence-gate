@@ -14,56 +14,56 @@
  .wrap{overflow-x:auto}.ind{color:var(--muted);font-size:11px}
 </style></head><body>
 <h1>Northbridge structured notes desk — demo book</h1>
-<div class="sub">6am page · run showcase · 2026-09-13 05:17</div>
+<div class="sub">6am page · run showcase · 2026-09-13 05:21</div>
 <div class="line"><b>USD 70.1mm</b> gross delta-equivalent exposure under check<span class="ind"> (indicative)</span> across <b>15 positions</b> · <b style="color:var(--ok)">USD 19.8mm attested</b> (3) · <b style="color:var(--bad)">USD 50.3mm requires attention</b> (12)</div>
-<div class="sub">The red figure is delta exposure resting on positions whose booking does not match the document, or whose reading is uncertain. Booked notional in the book: USD 153.7mm (USD-equivalent, indicative FX).</div>
+<div class="sub">The red figure, and the "at stake" column, is the delta exposure of positions whose booking does not match the document or whose reading is uncertain: until the booking is corrected, no risk number from that position can be trusted. It is the position's delta, not the delta attributable to the discrepancy; attributing it would mean repricing booked versus documented terms, which this system does not do (roadmap: hedge-to-liability coherence). Rows requiring attention are sorted by exposure at stake, largest first. Booked notional in the book: USD 153.7mm (USD-equivalent, indicative FX).</div>
 <div class="wrap"><table>
-<thead><tr><th>reference</th><th>product</th><th>underlying</th><th class="num">notional</th><th>maturity / expiry</th><th class="num">Δ<span class="ind"> (% notional)</span></th><th class="num">Δ USD-equiv.<span class="ind"> (indicative)</span></th><th class="num">vega<span class="ind"> ($/vol pt)</span></th><th>trust</th></tr></thead>
+<thead><tr><th>reference</th><th>product</th><th>underlying</th><th class="num">notional</th><th>maturity / expiry</th><th class="num">Δ<span class="ind"> (% notional)</span></th><th class="num">Δ USD-equiv.<span class="ind"> (indicative)</span></th><th class="num">vega<span class="ind"> ($/vol pt)</span></th><th class="num">at stake<span class="ind"> (Δ USD on this booking)</span></th><th>trust</th></tr></thead>
 <tbody>
 
-<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G14">OP-2026-0117</a></td><td>otc_option</td><td class="mono">BVERSA10</td><td class="num">USD 40,000,000</td><td class="mono">2027-06-15</td><td class="num">-45%</td><td class="num">-USD 18.0mm</td><td class="num">-16,000</td>
+<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G14">OP-2026-0117</a></td><td>otc_option</td><td class="mono">BVERSA10</td><td class="num">USD 40,000,000</td><td class="mono">2027-06-15</td><td class="num">-45%</td><td class="num">-USD 18.0mm</td><td class="num">-16,000</td><td class="num" style="font-weight:700;color:var(--bad)">USD 18.0mm<div class="ind">3 critical</div></td>
 <td><span class="st st-MISMATCH">MISMATCH</span><div class="why">index_rebalance_frequency booked daily vs monthly documented (+2 more) <a href="run_report.html#G14">→ evidence</a></div></td></tr>
 
-<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G15">OP-2026-0121</a></td><td>otc_option</td><td class="mono">BVERSA10</td><td class="num">USD 25,000,000</td><td class="mono">2028-07-20</td><td class="num">-49%</td><td class="num">-USD 12.2mm</td><td class="num">-20,000</td>
+<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G15">OP-2026-0121</a></td><td>otc_option</td><td class="mono">BVERSA10</td><td class="num">USD 25,000,000</td><td class="mono">2028-07-20</td><td class="num">-49%</td><td class="num">-USD 12.2mm</td><td class="num">-20,000</td><td class="num" style="font-weight:700;color:var(--bad)">USD 12.2mm<div class="ind">2 critical</div></td>
 <td><span class="st st-MISMATCH">MISMATCH</span><div class="why">premium booked 830000 vs 1037500 documented — cash settlement on the wrong amount (+1 more) <a href="run_report.html#G15">→ evidence</a></div></td></tr>
 
-<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G01">SN-2026-0101</a></td><td>note</td><td class="mono">SPX</td><td class="num">USD 5,000,000</td><td class="mono">2029-04-23</td><td class="num">-42%</td><td class="num">-USD 2.1mm</td><td class="num">-2,500</td>
-<td><span class="st st-MISMATCH">MISMATCH</span><div class="why">knock-in booked 70 vs 65 documented — knock-in risk computed off the wrong level <a href="run_report.html#G01">→ evidence</a></div></td></tr>
-
-<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G02">SN-2026-0102</a></td><td>note</td><td class="mono">SX5E</td><td class="num">EUR 3,000,000</td><td class="mono">2028-05-19</td><td class="num">-47%</td><td class="num">-USD 1.5mm</td><td class="num">-1,200</td>
-<td><span class="st st-MISMATCH">MISMATCH</span><div class="why">autocall date booked [&#39;2027-05-12&#39;, &#39;2027-11-15&#39;, &#39;2028-05-12&#39;] vs [&#39;2027-05-12&#39;, &#39;2027-11-12&#39;, &#39;2028-05-12&#39;] documented — early-redemption cash flow on the wrong day · desk verdict recorded: rejected <a href="run_report.html#G02">→ evidence</a></div></td></tr>
-
-<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G03">SN-2026-0103</a></td><td>note</td><td class="mono">SPTSX60 / BVERSA10</td><td class="num">CAD 8,000,000</td><td class="mono">2029-03-12</td><td class="num">-25%</td><td class="num">-USD 1.5mm</td><td class="num">-3,200</td>
-<td><span class="st st-MISMATCH">MISMATCH</span><div class="why">day count booked 30/360 vs ACT/360 documented — accrued coupon miscomputed every period (+1 more) <a href="run_report.html#G03">→ evidence</a></div></td></tr>
-
-<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G04">SN-2026-0104</a></td><td>note</td><td class="mono">SPX / SX5E</td><td class="num">USD 2,500,000</td><td class="mono">2028-06-16</td><td class="num">-30%</td><td class="num">-USD 750,000</td><td class="num">-1,000</td>
-<td><span class="st st-MISMATCH">MISMATCH</span><div class="why">memory booked False vs True documented — coupon liability understated <a href="run_report.html#G04">→ evidence</a></div></td></tr>
-
-<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G05">SN-2026-0105</a></td><td>note</td><td class="mono">SPX</td><td class="num">USD 10,000,000</td><td class="mono">2028-02-24</td><td class="num">-37%</td><td class="num">-USD 3.7mm</td><td class="num">-10,000</td>
+<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G05">SN-2026-0105</a></td><td>note</td><td class="mono">SPX</td><td class="num">USD 10,000,000</td><td class="mono">2028-02-24</td><td class="num">-37%</td><td class="num">-USD 3.7mm</td><td class="num">-10,000</td><td class="num" style="font-weight:700;color:var(--bad)">USD 3.7mm<div class="ind">1 critical</div></td>
 <td><span class="st st-MISMATCH">MISMATCH</span><div class="why">notional booked 1000000 vs 10000000 documented — hedge sized off the wrong notional <a href="run_report.html#G05">→ evidence</a></div></td></tr>
 
-<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G06">SN-2026-0106</a></td><td>note</td><td class="mono">SPTSX60</td><td class="num">USD 4,000,000</td><td class="mono">2029-07-16</td><td class="num">-43%</td><td class="num">-USD 1.7mm</td><td class="num">-3,200</td>
-<td><span class="st st-MISMATCH">MISMATCH</span><div class="why">currency booked CAD vs USD documented — FX exposure unrecognised <a href="run_report.html#G06">→ evidence</a></div></td></tr>
-
-<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G07">SN-2026-0107</a></td><td>note</td><td class="mono">SX5E</td><td class="num">EUR 6,000,000</td><td class="mono">2029-01-29</td><td class="num">-33%</td><td class="num">-USD 2.1mm</td><td class="num">-6,000</td>
-<td><span class="st st-MISMATCH">MISMATCH</span><div class="why">autocall levels booked [&#39;100&#39;, &#39;100&#39;, &#39;100&#39;] vs [&#39;100&#39;, &#39;95&#39;, &#39;90&#39;] documented — step-down not booked, redemption probability wrong <a href="run_report.html#G07">→ evidence</a></div></td></tr>
-
-<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G08">SN-2026-0108</a></td><td>note</td><td class="mono">SX5E</td><td class="num">USD 7,500,000</td><td class="mono">2028-08-18</td><td class="num">-45%</td><td class="num">-USD 3.4mm</td><td class="num">-3,750</td>
+<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G08">SN-2026-0108</a></td><td>note</td><td class="mono">SX5E</td><td class="num">USD 7,500,000</td><td class="mono">2028-08-18</td><td class="num">-45%</td><td class="num">-USD 3.4mm</td><td class="num">-3,750</td><td class="num" style="font-weight:700;color:var(--bad)">USD 3.4mm<div class="ind">1 critical</div></td>
 <td><span class="st st-MISMATCH">MISMATCH</span><div class="why">underlying booked [&#39;SPX&#39;] vs [&#39;SX5E&#39;] documented — hedge on the wrong index <a href="run_report.html#G08">→ evidence</a></div></td></tr>
 
-<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G09">SN-2026-0109</a></td><td>note</td><td class="mono">BVERSA10</td><td class="num">CAD 5,000,000</td><td class="mono">2029-05-07</td><td class="num">-57%</td><td class="num">-USD 2.1mm</td><td class="num">-4,000</td>
+<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G07">SN-2026-0107</a></td><td>note</td><td class="mono">SX5E</td><td class="num">EUR 6,000,000</td><td class="mono">2029-01-29</td><td class="num">-33%</td><td class="num">-USD 2.1mm</td><td class="num">-6,000</td><td class="num" style="font-weight:700;color:var(--bad)">USD 2.1mm</td>
+<td><span class="st st-MISMATCH">MISMATCH</span><div class="why">autocall levels booked [&#39;100&#39;, &#39;100&#39;, &#39;100&#39;] vs [&#39;100&#39;, &#39;95&#39;, &#39;90&#39;] documented — step-down not booked, redemption probability wrong <a href="run_report.html#G07">→ evidence</a></div></td></tr>
+
+<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G01">SN-2026-0101</a></td><td>note</td><td class="mono">SPX</td><td class="num">USD 5,000,000</td><td class="mono">2029-04-23</td><td class="num">-42%</td><td class="num">-USD 2.1mm</td><td class="num">-2,500</td><td class="num" style="font-weight:700;color:var(--bad)">USD 2.1mm<div class="ind">1 critical</div></td>
+<td><span class="st st-MISMATCH">MISMATCH</span><div class="why">knock-in booked 70 vs 65 documented — knock-in risk computed off the wrong level <a href="run_report.html#G01">→ evidence</a></div></td></tr>
+
+<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G09">SN-2026-0109</a></td><td>note</td><td class="mono">BVERSA10</td><td class="num">CAD 5,000,000</td><td class="mono">2029-05-07</td><td class="num">-57%</td><td class="num">-USD 2.1mm</td><td class="num">-4,000</td><td class="num" style="font-weight:700;color:var(--bad)">USD 2.1mm<div class="ind">2 critical</div></td>
 <td><span class="st st-MISMATCH">MISMATCH</span><div class="why">index_return_treatment booked excess_return vs total_return documented (+1 more) <a href="run_report.html#G09">→ evidence</a></div></td></tr>
 
-<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G10">SN-2026-0110</a></td><td>note</td><td class="mono">SPX</td><td class="num">USD 3,500,000</td><td class="mono">2029-09-10</td><td class="num">-34%</td><td class="num">-USD 1.2mm</td><td class="num">-3,150</td>
+<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G06">SN-2026-0106</a></td><td>note</td><td class="mono">SPTSX60</td><td class="num">USD 4,000,000</td><td class="mono">2029-07-16</td><td class="num">-43%</td><td class="num">-USD 1.7mm</td><td class="num">-3,200</td><td class="num" style="font-weight:700;color:var(--bad)">USD 1.7mm<div class="ind">1 critical</div></td>
+<td><span class="st st-MISMATCH">MISMATCH</span><div class="why">currency booked CAD vs USD documented — FX exposure unrecognised <a href="run_report.html#G06">→ evidence</a></div></td></tr>
+
+<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G02">SN-2026-0102</a></td><td>note</td><td class="mono">SX5E</td><td class="num">EUR 3,000,000</td><td class="mono">2028-05-19</td><td class="num">-47%</td><td class="num">-USD 1.5mm</td><td class="num">-1,200</td><td class="num" style="font-weight:700;color:var(--bad)">USD 1.5mm</td>
+<td><span class="st st-MISMATCH">MISMATCH</span><div class="why">autocall date booked [&#39;2027-05-12&#39;, &#39;2027-11-15&#39;, &#39;2028-05-12&#39;] vs [&#39;2027-05-12&#39;, &#39;2027-11-12&#39;, &#39;2028-05-12&#39;] documented — early-redemption cash flow on the wrong day · desk verdict recorded: rejected <a href="run_report.html#G02">→ evidence</a></div></td></tr>
+
+<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G03">SN-2026-0103</a></td><td>note</td><td class="mono">SPTSX60 / BVERSA10</td><td class="num">CAD 8,000,000</td><td class="mono">2029-03-12</td><td class="num">-25%</td><td class="num">-USD 1.5mm</td><td class="num">-3,200</td><td class="num" style="font-weight:700;color:var(--bad)">USD 1.5mm<div class="ind">2 critical</div></td>
+<td><span class="st st-MISMATCH">MISMATCH</span><div class="why">day count booked 30/360 vs ACT/360 documented — accrued coupon miscomputed every period (+1 more) <a href="run_report.html#G03">→ evidence</a></div></td></tr>
+
+<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G10">SN-2026-0110</a></td><td>note</td><td class="mono">SPX</td><td class="num">USD 3,500,000</td><td class="mono">2029-09-10</td><td class="num">-34%</td><td class="num">-USD 1.2mm</td><td class="num">-3,150</td><td class="num" style="font-weight:700;color:var(--bad)">USD 1.2mm<div class="ind">1 critical</div></td>
 <td><span class="st st-MISMATCH">MISMATCH</span><div class="why">term sheet is silent on barrier_level_pct; booking carries 70 — booked term has no documentary basis <a href="run_report.html#G10">→ evidence</a></div></td></tr>
 
-<tr class="r-ATTESTED"><td class="mono"><a href="run_report.html#G13">OP-2026-0114</a></td><td>otc_option</td><td class="mono">BVERSA10</td><td class="num">USD 25,000,000</td><td class="mono">2028-05-08</td><td class="num">-65%</td><td class="num">-USD 16.2mm</td><td class="num">-25,000</td>
+<tr class="r-MISMATCH"><td class="mono"><a href="run_report.html#G04">SN-2026-0104</a></td><td>note</td><td class="mono">SPX / SX5E</td><td class="num">USD 2,500,000</td><td class="mono">2028-06-16</td><td class="num">-30%</td><td class="num">-USD 750,000</td><td class="num">-1,000</td><td class="num" style="font-weight:700;color:var(--bad)">USD 750,000<div class="ind">1 critical</div></td>
+<td><span class="st st-MISMATCH">MISMATCH</span><div class="why">memory booked False vs True documented — coupon liability understated <a href="run_report.html#G04">→ evidence</a></div></td></tr>
+
+<tr class="r-ATTESTED"><td class="mono"><a href="run_report.html#G13">OP-2026-0114</a></td><td>otc_option</td><td class="mono">BVERSA10</td><td class="num">USD 25,000,000</td><td class="mono">2028-05-08</td><td class="num">-65%</td><td class="num">-USD 16.2mm</td><td class="num">-25,000</td><td class="num">—</td>
 <td><span class="st st-ATTESTED">ATTESTED</span><div class="why">booking attested against term sheet — 35 fields, both families agree</div></td></tr>
 
-<tr class="r-ATTESTED"><td class="mono"><a href="run_report.html#G11">SN-2026-0111</a></td><td>note</td><td class="mono">SPX / SPTSX60</td><td class="num">USD 4,500,000</td><td class="mono">2028-06-02</td><td class="num">-35%</td><td class="num">-USD 1.6mm</td><td class="num">-2,700</td>
+<tr class="r-ATTESTED"><td class="mono"><a href="run_report.html#G11">SN-2026-0111</a></td><td>note</td><td class="mono">SPX / SPTSX60</td><td class="num">USD 4,500,000</td><td class="mono">2028-06-02</td><td class="num">-35%</td><td class="num">-USD 1.6mm</td><td class="num">-2,700</td><td class="num">—</td>
 <td><span class="st st-ATTESTED">ATTESTED</span><div class="why">booking attested against term sheet — 26 fields, both families agree</div></td></tr>
 
-<tr class="r-ATTESTED"><td class="mono"><a href="run_report.html#G12">SN-2026-0112</a></td><td>note</td><td class="mono">BVERSA10</td><td class="num">USD 7,500,000</td><td class="mono">2030-05-17</td><td class="num">-26%</td><td class="num">-USD 1.9mm</td><td class="num">-3,000</td>
+<tr class="r-ATTESTED"><td class="mono"><a href="run_report.html#G12">SN-2026-0112</a></td><td>note</td><td class="mono">BVERSA10</td><td class="num">USD 7,500,000</td><td class="mono">2030-05-17</td><td class="num">-26%</td><td class="num">-USD 1.9mm</td><td class="num">-3,000</td><td class="num">—</td>
 <td><span class="st st-ATTESTED">ATTESTED</span><div class="why">booking attested against term sheet — 32 fields, both families agree</div></td></tr>
 
 </tbody></table></div>
