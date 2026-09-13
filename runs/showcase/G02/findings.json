@@ -429,7 +429,14 @@
     ],
     "detail": "TS ['2027-05-12', '2027-11-12', '2028-05-12'] \u2260 booking ['2027-05-12', '2027-11-15', '2028-05-12']",
     "lane": "TRIAGE",
-    "triage": null
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G02 states: \"Autocall Observation Dates 2027-05-12, 2027-11-12, 2028-05-12\", but the booking record field autocall_observation_dates holds ['2027-05-12', '2027-11-15', '2028-05-12'] \u2014 the second observation is booked as 15 Nov 2027 against a documented 12 Nov 2027. The first and third dates tie out exactly, so this looks like a single-date entry or adjustment applied to observation 2 only; note 12 Nov 2027 is a Friday, so a weekend roll does not explain it. Please confirm whether the booked 2027-11-15 reflects an intended business-day or holiday adjustment under the note's terms, or whether the booking should be corrected to 2027-11-12 per the term sheet.",
+      "cited_clause": "Autocall Observation Dates 2027-05-12, 2027-11-12, 2028-05-12",
+      "booking_field": "autocall_observation_dates",
+      "booking_value": "['2027-05-12', '2027-11-15', '2028-05-12']",
+      "rationale": "Both extractors agree on an unambiguous, explicitly labelled schedule in the term sheet and two of the three dates match the booking, so the isolated three-day shift in the second date points to a booking entry error rather than a document defect."
+    }
   },
   {
     "id": "G02:autocall_level_pct",

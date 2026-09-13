@@ -627,7 +627,14 @@
     ],
     "detail": "TS total_return \u2260 booking excess_return",
     "lane": "TRIAGE",
-    "triage": null
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G09 states the underlying index return treatment as \"Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process\", but the booking record carries index_return_treatment = excess_return. Both extractors agree on the term sheet reading, so the booking appears inconsistent with the executed documentation. Please confirm whether the index is Total Return (Type I) as documented and, if so, authorise correction of index_return_treatment to total_return; if the trade was priced on an excess return basis, identify the governing document or amendment supporting that.",
+      "cited_clause": "Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
+      "booking_field": "index_return_treatment",
+      "booking_value": "excess_return",
+      "rationale": "The term sheet language is explicit and unambiguous with both extractors in agreement, so the divergent booking value is the more likely error."
+    }
   },
   {
     "id": "G09:index_vol_target_pct",
@@ -907,6 +914,13 @@
     ],
     "detail": "term sheet calls a type_i index 'total_return'; the methodology says type_i is excess_return",
     "lane": "TRIAGE",
-    "triage": null
+    "triage": {
+      "classification": "DOCUMENT_LIKELY_WRONG",
+      "desk_query": "The term sheet describes the underlying as \"Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process\", but the Index Methodology classifies a Type I index as excess return, and the booking record carries ref:index_return_treatment = excess_return. The term sheet's own qualifier that no cash return or financing cost accrues is consistent with excess-return treatment, which suggests the \"Total Return\" label is a drafting error rather than a booking error. Please confirm that the Type I underlying is excess return and that booking should remain excess_return, and authorise a term-sheet correction of the \"Total Return\" descriptor. If the desk instead intends genuine total-return economics, confirm the correct index type and we will re-book.",
+      "cited_clause": "Total Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
+      "booking_field": "ref:index_return_treatment",
+      "booking_value": "excess_return",
+      "rationale": "The methodology defines Type I as excess return and the term sheet's own parenthetical (no cash return or financing cost accruing) matches excess-return mechanics, so the mislabel sits in the document rather than the booking."
+    }
   }
 ]

@@ -109,7 +109,14 @@
     ],
     "detail": "TS USD \u2260 booking CAD",
     "lane": "TRIAGE",
-    "triage": null
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G06 states \"Currency</td>\n    <td>USD\", while the booking record carries currency = CAD. Both extractors agree the term sheet notional currency is USD, so the booking appears to be denominated in the wrong currency. Please confirm the correct notional currency and, if USD, amend the booking record; if CAD is intended, identify the executed document or amendment that supports it. This is a critical field affecting notional, settlement and FX exposure, so a same-day reply is needed.",
+      "cited_clause": "Currency</td>\n    <td>USD",
+      "booking_field": "currency",
+      "booking_value": "CAD",
+      "rationale": "Both extractors independently cite an unambiguous term sheet currency of USD, leaving the divergent booking value as the likely error."
+    }
   },
   {
     "id": "G06:trade_date",

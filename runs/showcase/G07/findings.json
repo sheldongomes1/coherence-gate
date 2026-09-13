@@ -465,7 +465,14 @@
     ],
     "detail": "TS [Decimal('100'), Decimal('95'), Decimal('90')] \u2260 booking [Decimal('100'), Decimal('100'), Decimal('100')]",
     "lane": "TRIAGE",
-    "triage": null
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G07 states: \"Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): 20 January 2027 at 100%, 20 January 2028 at 95%, 20 July 2028 at 90%.\" The booking record field autocall_level_pct is set to ['100', '100', '100'], i.e. a flat 100% barrier at all three observation dates, which does not reflect the stepping schedule. Please confirm the note is a stepping autocall at 100% / 95% / 90% and have the booking amended to match, or advise if the flat 100% booking reflects a term agreed outside the term sheet.",
+      "cited_clause": "Autocall Observation Dates and Autocall Levels (as a percentage of the Initial Level): 20 January 2027 at 100%, 20 January 2028 at 95%, 20 July 2028 at 90%.",
+      "booking_field": "autocall_level_pct",
+      "booking_value": "['100', '100', '100']",
+      "rationale": "Both extractors agree on an unambiguous, explicitly stepping schedule in the term sheet, so the flat 100% booking is the likely error."
+    }
   },
   {
     "id": "G07:day_count",

@@ -489,7 +489,14 @@
     ],
     "detail": "TS ACT/360 \u2260 booking 30/360",
     "lane": "TRIAGE",
-    "triage": null
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G03 states: \"Coupon amounts accrue on a Actual/360 day count basis.\" The booking record carries day_count = 30/360, which conflicts with the documented Actual/360 basis. Please confirm whether the booking should be corrected to ACT/360, or identify the executed document provision that supports 30/360. This affects all coupon accrual amounts, so please respond before the next coupon calculation date.",
+      "cited_clause": "Coupon amounts accrue on a Actual/360 day count basis.",
+      "booking_field": "day_count",
+      "booking_value": "30/360",
+      "rationale": "Both extractors agree on unambiguous term sheet language specifying Actual/360, so the divergent booking value is the likely error."
+    }
   },
   {
     "id": "G03:settlement",
@@ -657,7 +664,14 @@
     ],
     "detail": "TS 10 \u2260 booking 12",
     "lane": "TRIAGE",
-    "triage": null
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G03 states under \"Volatility Target</td>\n    <td>10% per annum\" that the underlying index targets 10% annualised volatility, but the booking record carries index_vol_target_pct = 12. Both extractors independently read 10% from the term sheet, so the booking appears to be off by 2 percentage points. Please confirm the index volatility target is 10% per annum and correct the booking, or identify the index variant or supplement that supports a 12% target.",
+      "cited_clause": "Volatility Target</td>\n    <td>10% per annum",
+      "booking_field": "index_vol_target_pct",
+      "booking_value": "12",
+      "rationale": "The term sheet states the volatility target unambiguously and both extractors agree on 10%, leaving the booking value of 12 as the unsupported figure."
+    }
   },
   {
     "id": "G03:index_rebalance_frequency",

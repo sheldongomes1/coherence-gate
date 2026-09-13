@@ -170,6 +170,38 @@ def cmd_feedback(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_triage(a: argparse.Namespace) -> int:
+    """Draft desk queries for a stored run's TRIAGE findings (eval runs skip triage to keep cost per
+    number honest; the showcase needs the queries). Rewrites findings.json / triage.json per document
+    and appends triage lines to the run's trace."""
+    import json
+    from .config import load_config
+    from .trace import Tracer
+    from .triage.agent import TriageAgent
+    from .types import BookingLookup, Finding, Lane
+    from .report.desk_view import render as render_desk
+    from .report.html import render
+    run = Path(a.run); cfg = load_config()
+    tracer = Tracer(run_id=run.name, path=run / "trace.jsonl")
+    agent = TriageAgent(cfg.triage, effort=cfg.extraction.claude_effort)
+    n = 0
+    for d in sorted(p for p in run.iterdir() if p.is_dir() and (p / "findings.json").exists()):
+        findings = [Finding.model_validate(f) for f in json.loads((d / "findings.json").read_text())]
+        todo = [f for f in findings if f.lane is Lane.TRIAGE and (f.triage is None or a.redo)]
+        if not todo:
+            continue
+        booking = BookingLookup.model_validate(json.loads((d / "booking.json").read_text()))
+        agent.triage(doc_id=d.name, document="", findings=todo, booking=booking, tracer=tracer)
+        n += len(todo)
+        (d / "findings.json").write_text(json.dumps([f.model_dump() for f in findings], indent=2, default=str))
+        (d / "triage.json").write_text(json.dumps([{**f.model_dump(), "triage": f.triage.model_dump() if f.triage else None}
+                                                   for f in findings if f.lane is Lane.TRIAGE], indent=2, default=str))
+        console.print(f"{d.name}: {len(todo)} desk quer{'y' if len(todo) == 1 else 'ies'} drafted")
+    render(run); render_desk(run)
+    console.print(f"{n} findings triaged in {run}; report and desk view re-rendered")
+    return 0
+
+
 def cmd_propose(a: argparse.Namespace) -> int:
     """CS8c: feedback -> proposals/ (never applied)."""
     from .feedback import propose_all
@@ -252,6 +284,8 @@ def main(argv: list[str] | None = None) -> int:
     fb.add_argument("--verdict", choices=["desk_accepted", "desk_rejected"]); fb.add_argument("--note", default="")
     fb.add_argument("--run", help="run directory the finding came from (default: latest under runs/)")
     fb.add_argument("--file", default="feedback/feedback.jsonl"); fb.add_argument("--list", action="store_true"); fb.set_defaults(fn=cmd_feedback)
+    tg = sub.add_parser("triage", help="draft desk queries for a stored run's open findings"); tg.add_argument("--run", required=True)
+    tg.add_argument("--redo", action="store_true"); tg.set_defaults(fn=cmd_triage)
     pp = sub.add_parser("propose", help="draft reviewable proposals from desk feedback (never applies anything)")
     pp.add_argument("--file", default="feedback/feedback.jsonl"); pp.add_argument("--out", default="proposals")
     pp.add_argument("--all", action="store_true", help="re-draft entries that already have a proposal"); pp.set_defaults(fn=cmd_propose)

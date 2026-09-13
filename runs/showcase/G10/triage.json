@@ -10,6 +10,13 @@
     "citations": [],
     "detail": "term sheet declares barrier_level_pct absent; booking has 70",
     "lane": "TRIAGE",
-    "triage": null
+    "triage": {
+      "classification": "DOCUMENT_LIKELY_WRONG",
+      "desk_query": "Term sheet G10 contains no knock-in barrier provision \u2014 no clause stating a barrier level as a percentage of initial level appears anywhere in the document, so the extraction is recorded as ABSENT. The booking record nonetheless carries barrier_level_pct = 70. Confirm whether this note is in fact barrier-protected at 70% and the term sheet we hold is an incomplete or superseded version (please supply the final/amended term sheet or the relevant knock-in clause), or whether the note has no barrier and the booking must be corrected to remove the 70 value.",
+      "cited_clause": "",
+      "booking_field": "barrier_level_pct",
+      "booking_value": "70",
+      "rationale": "A 70% knock-in is a core economic term that would not be omitted from a correct final term sheet, so the more likely defect is that the document on file is incomplete or superseded rather than the booking being fabricated."
+    }
   }
 ]

@@ -225,7 +225,14 @@
     ],
     "detail": "TS ['SX5E'] \u2260 booking ['SPX']",
     "lane": "TRIAGE",
-    "triage": null
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G08 states under Underlying(s): \"EURO STOXX 50 Index (SX5E)\", and the ticker SX5E is also cited in the body as \"EURO STOXX 50 Index (SX5E)\". The booking record field \"underlyings\" is set to ['SPX']. Please confirm whether the booking should be corrected to ['SX5E'], or identify the amendment or separate trade that supports an S&P 500 underlying. This is a critical-severity mismatch affecting payoff, valuation and risk, so a same-day reply is requested.",
+      "cited_clause": "Underlying(s) | EURO STOXX 50 Index (SX5E)",
+      "booking_field": "underlyings",
+      "booking_value": "['SPX']",
+      "rationale": "Both extractors agree on an unambiguous term sheet designation of SX5E with no supporting language for SPX, so the booking record is the likely error."
+    }
   },
   {
     "id": "G08:initial_level_pct",

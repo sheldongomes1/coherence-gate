@@ -309,7 +309,14 @@
     ],
     "detail": "TS 65 \u2260 booking 70",
     "lane": "TRIAGE",
-    "triage": null
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G01 states the knock-in barrier twice and consistently: \"Knock-in Level of 65 per cent. of the Initial Level.\" and \"European (Final Valuation Date only); 65 per cent. of the Initial Level\". The booking record carries barrier_level_pct = 70. Please confirm the correct barrier is 65 per cent and authorise amendment of the booking, or identify the executed document term that supports 70.",
+      "cited_clause": "Knock-in Level of 65 per cent. of the Initial Level.",
+      "booking_field": "barrier_level_pct",
+      "booking_value": "70",
+      "rationale": "Both extractors agree and two independent spans in the term sheet state 65 per cent, so the discrepancy most likely originates in the booking record."
+    }
   },
   {
     "id": "G01:coupon_rate_pct",

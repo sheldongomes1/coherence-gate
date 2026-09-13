@@ -477,7 +477,14 @@
     ],
     "detail": "TS 1037500 \u2260 booking 830000",
     "lane": "TRIAGE",
-    "triage": null
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "Term sheet G15 states: \"<td>Premium</td>\\n    <td>4.15% of the Notional Amount (USD 1,037,500)</td>\" \u2014 i.e. USD 1,037,500, implying a notional of USD 25,000,000. The booking record carries premium_amount = 830,000, which equals 4.15% of USD 20,000,000, suggesting the premium was struck off a different notional. Please confirm the booked notional and whether premium_amount should be amended to USD 1,037,500, or supply the amendment/pricing supplement supporting the USD 830,000 figure.",
+      "cited_clause": "<td>Premium</td>\n    <td>4.15% of the Notional Amount (USD 1,037,500)</td>",
+      "booking_field": "premium_amount",
+      "booking_value": "830000",
+      "rationale": "Both extractors agree on an unambiguous, internally consistent term sheet figure (4.15% stated alongside the USD amount), while the booking value corresponds to the same rate applied to a different notional, pointing to a booking-side error."
+    }
   },
   {
     "id": "G15:premium_payment_date",
@@ -798,7 +805,14 @@
     "citations": [],
     "detail": "violated on booking \u2014 premium_arithmetic: term sheet [4.15\u00d70.01 \u00d7 25000000 = 1.0375E+6 vs premium_amount 1.0375E+6]; booking [4.15\u00d70.01 \u00d7 25000000 = 1.0375E+6 vs premium_amount 8.3E+5]",
     "lane": "TRIAGE",
-    "triage": null
+    "triage": {
+      "classification": "BOOKING_LIKELY_WRONG",
+      "desk_query": "On G15 the premium arithmetic is internally consistent on the term sheet (4.15% x 25,000,000 = 1,037,500, matching the stated premium amount) but fails in the booking, where the field \"rel:premium_arithmetic\" carries premium_amount 830,000 against the same 4.15% rate and 25,000,000 notional. Note that 830,000 equals 4.15% of 20,000,000, so the booked premium appears to have been struck off a 20,000,000 notional. Please confirm whether the booked premium should be amended to 1,037,500 on the 25,000,000 notional, or whether the booked notional/rate inputs are the item requiring correction.",
+      "cited_clause": "",
+      "booking_field": "rel:premium_arithmetic",
+      "booking_value": "830000",
+      "rationale": "The deterministic rate x notional relation holds on the term sheet and fails only on the booking side, pointing to a booked premium (or notional) input error rather than a documentation defect."
+    }
   },
   {
     "id": "G15:ref:index_administrator",
