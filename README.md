@@ -25,7 +25,7 @@ stated.
 > `gcloud run deploy coherence-gate-demo --source .` (Dockerfile at the root; API keys from Secret Manager;
 > one instance so the demo state is coherent). The static bundle alone is `make site`.
 >
-> Status: **v0.2.0** (Phases 1 and 2 built end to end). Numbers live in [`BRIEF.md`](BRIEF.md)
+> Status: **v0.2.1** (Phases 1 and 2 built end to end; Sunday review pass: NOT_EVALUABLE disposition, fast relaunch, hardened live service). Numbers live in [`BRIEF.md`](BRIEF.md)
 > (generated from a run, never typed) and every iteration is in [`eval_log.md`](eval_log.md).
 > Phase plan and cut lines: [`docs/DESIGN.md`](docs/DESIGN.md).
 

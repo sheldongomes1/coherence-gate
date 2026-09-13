@@ -124,3 +124,14 @@ def test_verbose_enum_and_bool_forms_from_gemini():
     assert norm_bool("No memory feature") is False and norm_bool("Memory feature") is True
     with pytest.raises(NormalizeError):
         norm_bool("maybe")
+
+
+def test_list_literal_inside_string_unwraps_both_spellings():
+    """The output contract types the value map as strings, so a stepping schedule arrives as a list
+    written inside a string; JSON quotes and Python quotes must normalize identically (run 20260913-084633)."""
+    from coherence_gate.normalize import _unwrap_json_array
+    assert _unwrap_json_array('["100%", "95%", "90%"]') == ["100%", "95%", "90%"]
+    assert _unwrap_json_array("['100%', '95%', '90%']") == ["100%", "95%", "90%"]
+    assert _unwrap_json_array("[100, 95]") == ["100", "95"]
+    assert _unwrap_json_array("[{'a': 1}]") == "[{'a': 1}]"        # not a scalar list: left alone -> MALFORMED downstream
+    assert _unwrap_json_array("[not a list") == "[not a list"

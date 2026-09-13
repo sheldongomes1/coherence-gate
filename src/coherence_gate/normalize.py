@@ -16,6 +16,7 @@ Canonical forms:
 """
 from __future__ import annotations
 
+import ast
 import json
 import re
 from datetime import date, datetime
@@ -208,14 +209,22 @@ def norm_bool(v: Any) -> bool:
 
 
 def _unwrap_json_array(v: Any) -> Any:
-    """'["100%", "95%"]' (a JSON array written inside a string value) -> ["100%", "95%"]."""
+    """'["100%", "95%"]' (a JSON array written inside a string value) -> ["100%", "95%"].
+    Also the Python-literal spelling "['100%', '95%']": the value map is string-typed by the
+    output contract (ADR-24), and the models spell a list inside it both ways (JSON quotes in
+    four runs, single quotes in run 20260913-084633). Only lists of plain scalars unwrap; anything
+    else stays a string and fails the decimal parse as MALFORMED, never silently."""
     if isinstance(v, str) and v.lstrip().startswith("[") and v.rstrip().endswith("]"):
+        parsed: Any = None
         try:
             parsed = json.loads(v)
-            if isinstance(parsed, list):
-                return [str(x) for x in parsed]
         except json.JSONDecodeError:
-            pass
+            try:
+                parsed = ast.literal_eval(v.strip())
+            except (ValueError, SyntaxError):
+                parsed = None
+        if isinstance(parsed, list) and all(isinstance(x, (str, int, float)) for x in parsed):
+            return [str(x) for x in parsed]
     return v
 
 
