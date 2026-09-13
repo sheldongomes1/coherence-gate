@@ -147,8 +147,16 @@ def run_with_deadline(fn, seconds: float, *, what: str = "call"):
             done.set()
 
     t = threading.Thread(target=target, name=f"deadline:{what}", daemon=True)
+    t0 = time.monotonic()
     t.start()
     if not done.wait(seconds):
+        elapsed = time.monotonic() - t0
+        # A wait that returns long after its own deadline means the process was not running (host
+        # asleep, VM paused, CPU starved): say so, so the trace is not read as a provider stall
+        # (run 20260913-085915: both families "timed out" at 6,784 s against 540 s at the same instant).
+        if elapsed > 2 * seconds:
+            raise DeadlineExceeded(f"{what} abandoned: process was suspended (elapsed {elapsed:.0f}s vs deadline "
+                                   f"{seconds:.0f}s; host sleep or CPU starvation, not a provider stall)")
         raise DeadlineExceeded(f"{what} exceeded {seconds:.0f}s wall clock; call abandoned")
     if "error" in result:
         raise result["error"]
