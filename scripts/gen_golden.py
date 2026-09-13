@@ -509,16 +509,19 @@ INDICATIVE_FX_TO_USD = {"USD": 1.0, "CAD": 0.73, "EUR": 1.08}  # fixture rates, 
 
 def write_desk_fixtures() -> None:
     """Desk-view fixtures: indicative risk figures for the demo book, deterministic per trade id,
-    NOT computed by the gate and labelled as such on the page. Delta-equivalent USD = delta% ×
-    notional × indicative FX (a note's delta is negative from the desk's short-option position,
-    an option bought by the client is positive). Callable alone (`--fixtures-only`) so the PDFs
-    and the parse cache are untouched."""
+    NOT computed by the gate and labelled as such on the page. ONE convention: the delta of the
+    BOOKED POSITION from the desk's side. The desk sold the client a call and issued the note,
+    so both leave the desk short the index: negative delta. The hedge is the mirror image and is
+    not shown. Magnitudes are shaped, not priced: a sold at-the-money call on a 10%-vol-target
+    index sits around -45..-65% of notional; a barrier note around -25..-60%. Delta USD-equivalent
+    = delta% × notional × indicative FX. Callable alone (`--fixtures-only`) so the PDFs and the
+    parse cache are untouched."""
     import hashlib as _h
     fx = {}
     for p in DOCS + OPTIONS:
         seed = int(_h.sha256(p["trade_id"].encode()).hexdigest()[:8], 16)
         is_opt = p.get("product") == "otc_option"
-        delta_pct = (35 + seed % 45) if is_opt else -(20 + seed % 50)
+        delta_pct = -(45 + seed % 21) if is_opt else -(25 + seed % 36)
         delta_usd = round(delta_pct / 100 * p["notional"] * INDICATIVE_FX_TO_USD[p["currency"]])
         fx[p["trade_id"]] = {
             "doc_id": p["id"], "product_type": "otc_option" if is_opt else "note",
@@ -526,7 +529,7 @@ def write_desk_fixtures() -> None:
             "notional": f"{p['currency']} {p['notional']:,}", "notional_usd": round(p["notional"] * INDICATIVE_FX_TO_USD[p["currency"]]),
             "maturity": p["expiration_date"] if is_opt else p["maturity_date"],
             "delta_pct_notional": f"{delta_pct}%", "delta_usd": delta_usd,
-            "vega_usd_per_vol_pt": f"{'+' if is_opt else '-'}{(p['notional'] * (0.0004 + (seed % 7) * 0.0001)):,.0f}",
+            "vega_usd_per_vol_pt": f"-{(p['notional'] * (0.0004 + (seed % 7) * 0.0001)):,.0f}",  # short optionality on both products
             "fx_to_usd": INDICATIVE_FX_TO_USD[p["currency"]],
             "label": "indicative fixture — not computed by Coherence Gate",
         }

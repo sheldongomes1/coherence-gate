@@ -434,4 +434,7 @@ greeks).
 leads with the wrong number. Dropping cost entirely: loses the marginal-cost beat.
 
 **Consequences:** `scripts/gen_golden.py --fixtures-only` regenerates fixtures without
-touching PDFs (which would invalidate the parse cache).
+touching PDFs (which would invalidate the parse cache). Sign convention fixed on 2026-09-13
+after review: every row shows the delta of the booked position from the desk's side (sold call
+and issued note are both short the index, negative), never the hedge; the earlier fixtures mixed
+the two views.
