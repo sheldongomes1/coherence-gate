@@ -14,7 +14,11 @@ with an LLM-drafted desk query citing the clause and the booking field.
 catch rate on planted discrepancies and false-flag rate on clean fields, with its ceiling
 stated.
 
-> Status: **Phase 1 built end to end** (S0–S4). Numbers live in [`BRIEF.md`](BRIEF.md)
+> **Live demo (static, Cloud Run):** https://coherence-gate-demo-521865321554.us-central1.run.app/ — desk view
+> as the front page; run report, eval report, brief, model-risk summary and every source PDF, parsed text and
+> booking record are linked from it. Rebuilt with `make site && make deploy-site PROJECT=<gcp project> REGION=us-central1`.
+>
+> Status: **v0.2.0** (Phases 1 and 2 built end to end). Numbers live in [`BRIEF.md`](BRIEF.md)
 > (generated from a run, never typed) and every iteration is in [`eval_log.md`](eval_log.md).
 > Phase plan and cut lines: [`docs/DESIGN.md`](docs/DESIGN.md).
 
