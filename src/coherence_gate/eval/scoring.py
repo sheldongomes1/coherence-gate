@@ -50,7 +50,7 @@ class EvalResult:
     auto_clear_correctness: Rate
     agreement: Rate
     extraction_accuracy: dict[str, Rate]
-    cost_total: float          # model cost attributed to documents (extraction + triage where run)
+    cost_total: float          # model cost of the two readings per document (desk queries are reported separately)
     cost_per_doc: float
     cost_min: float
     cost_max: float
@@ -72,7 +72,9 @@ class EvalResult:
     # reading (API_ERROR / TIMEOUT / DEADLINE / REFUSAL). A billing or transport event lowers the accuracy number
     # exactly like a misread would; this is the line that says which one it was.
     never_completed: dict[str, dict] = field(default_factory=dict)
-    resumed: dict | None = None   # {"prior_run", "reused": [...], "re_extracted": [...]} when `cg eval --resume` was used
+    resumed: dict | None = None   # {"prior_run", "reused": [...], "re_extracted": [...], "prior_never_completed": {...}} for `cg eval --resume`
+    triage_cost: float = 0.0      # `triage:*` lines in the trace when this report was written (eval runs draft none; `cg triage --run` appends)
+    n_triage_calls: int = 0
 
     def summary(self) -> dict[str, Any]:
         r = lambda x: {"hit": x.hit, "n": x.n}  # noqa: E731
@@ -83,6 +85,7 @@ class EvalResult:
                 "agreement": r(self.agreement),
                 "extraction_accuracy": {k: r(v) for k, v in self.extraction_accuracy.items()},
                 "never_completed": self.never_completed, "resumed": self.resumed,
+                "triage_cost_usd": self.triage_cost, "n_triage_calls": self.n_triage_calls,
                 "cost_total_usd": self.cost_total, "cost_per_doc_usd": self.cost_per_doc,
                 "source": self.source, "field_accuracy": self.field_accuracy, "by_product": self.by_product,
                 "reference_lane": self.reference_lane, "not_evaluable": self.not_evaluable, "n_truth_absent": self.n_truth_absent,
@@ -151,7 +154,7 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
                 continue
             f = by_doc[doc].get(k)
             if f is not None and f.type is FindingType.NOT_EVALUABLE:
-                key = f.detail.split(":")[0].split(" — ")[0][:60]
+                key = f.detail.split(":")[0].split(" — ")[0][:140]
                 not_evaluable[key] = not_evaluable.get(key, 0) + 1
                 continue   # a check that was not performed is neither a clean field nor a flag
             n_clean += 1
@@ -206,8 +209,10 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
         if l["doc_id"] not in e["docs"]:
             e["docs"].append(l["doc_id"])
 
-    costs = [r.cost_usd for r in results.values()]
+    costs = [((r.extras.get("cost_breakdown") or {}).get("extraction", r.cost_usd)) for r in results.values()]
     total = round(sum(costs), 4)
+    tri_lines = [l for l in ctx.tracer.lines if l["step"].startswith("triage:") and l["doc_id"] in results]
+    triage_cost = round(sum(l["cost_usd"] for l in tri_lines), 4)
     ref_cost = round(sum(l["cost_usd"] for l in ctx.tracer.lines if l["doc_id"] == "REF"), 4)
     traced_total = round(sum(l["cost_usd"] for l in ctx.tracer.lines if l["run_id"] == ctx.run_id), 4)
     models = [{"family": p.family, "model": p.model, "pinned": p.pinned,
@@ -227,6 +232,7 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
         n_docs=len(results), planted_detail=planted_detail, false_flag_detail=ff_detail,
         auto_clear_violations=violations, models=models, source=ctx.source, field_accuracy=field_acc, by_product=by_product,
         reference_lane=reference_lane, not_evaluable=not_evaluable, n_truth_absent=n_truth_absent, never_completed=never,
+        triage_cost=triage_cost, n_triage_calls=len(tri_lines),
         stub=all(l.get("detail") and "stub" in str(l.get("detail")) for l in ctx.tracer.lines if l["step"].startswith("extract:")),
     )
 
@@ -274,7 +280,9 @@ def render_markdown(ev: EvalResult) -> str:
         lines += [f"**Resumed from `{rs['prior_run']}`.** {len(rs['reused'])} document(s) reused the extractions stored there "
                   f"(both families' calls completed; extractions attested to the document hash; deterministic steps re-run here): "
                   f"{', '.join(rs['reused']) or '—'}. {len(rs['re_extracted'])} document(s) extracted again because a call never "
-                  f"completed in the prior run: {', '.join(rs['re_extracted']) or '—'}. Per-document cost includes the reused "
+                  f"completed in the prior run: "
+                  + (', '.join(f"{d} ({', '.join(f'{fam}: {out}' for fam, out in (rs.get('prior_never_completed') or {}).get(d, {}).items()) or 'see prior trace'})" for d in rs['re_extracted']) or '—')
+                  + ". Per-document cost includes the reused "
                   f"extraction's cost; the trace of the prior run holds those calls.", ""]
     # 1. headline
     lines += ["## 1. Headline: did the gate catch what was planted, and did it flag what was clean?", "",
@@ -301,6 +309,10 @@ def render_markdown(ev: EvalResult) -> str:
         why = "0" if not nc else (f"{nc['calls']} on {', '.join(nc['docs'])}: " + ", ".join(f"{k} ×{v}" for k, v in nc["by_outcome"].items()))
         lines.append(f"| {fam} | {r.render()} | {r.n} | {why} |")
     lines.append("")
+    pn = (ev.resumed or {}).get("prior_never_completed") or {}
+    if pn:
+        lines += ["In the prior run, " + "; ".join(f"{fam} on {doc}: {out}" for doc, fams in pn.items() for fam, out in fams.items())
+                  + " never completed; those documents were extracted again in this run (the column above counts this run's calls only).", ""]
     if ev.never_completed:
         lines += ["A call that never completed makes every field of that document MALFORMED for that family, which lowers the accuracy "
                   "number exactly like a misread would. The last column says which it was, so a billing, quota or transport event is "
@@ -326,7 +338,7 @@ def render_markdown(ev: EvalResult) -> str:
                   f"| reference checks performed (documents with an Underlying Index section × mapped rules) | {rl['checks']} |",
                   f"| reference flags raised | {rl['flags']} |",
                   f"| flags on parameters the methodology defers or merely defaults (must be 0) | {GREEN if rl['deferred_false_flags'] == 0 else RED} {rl['deferred_false_flags']} |",
-                  f"| checks not evaluable (families disagreed on the rule or the claim) | {rl['not_evaluable']} |", "",
+                  f"| checks not evaluable (default or deferred methodology parameters, or the families disagreed on the rule; reasons listed in §1) | {rl['not_evaluable']} |", "",
                   "A parameter the methodology defers to the index-specific document (e.g. Volatility Target) is reported as "
                   "`deferred`, never as a flag; the term sheet's value is checked against the booking's static data instead.", ""]
     else:
@@ -335,14 +347,23 @@ def render_markdown(ev: EvalResult) -> str:
     lines += _sweep_section()
     # 7. cost
     lines += ["## 7. Cost", "", "| scope | USD |", "|---|---|",
-              f"| per document (both extractions + triage where run, traced tokens × pinned prices) | ${ev.cost_per_doc:.4f} (min ${ev.cost_min:.4f}, max ${ev.cost_max:.4f}) |",
+              f"| per document (the two readings, traced tokens × pinned prices; desk queries below) | ${ev.cost_per_doc:.4f} (min ${ev.cost_min:.4f}, max ${ev.cost_max:.4f}) |",
+              f"| desk queries drafted (`triage:*` trace lines when this report was written) | ${ev.triage_cost:.4f} for {ev.n_triage_calls} call(s)"
+              + (" — eval runs draft none; `cg triage --run` drafts them afterwards and appends its figure at the end of this file" if not ev.n_triage_calls else "") + " |",
               f"| per book of {n_book} documents (documents only) | ${ev.cost_total:.4f} |",
               f"| methodology (reference) extraction, once per methodology version, cached afterwards | ${ev.reference_cost:.4f} |",
               f"| everything traced under this run id | ${ev.cost_traced_total:.4f} |",
               "| parsing | not reported by the vendor API; parse latency is in the trace |", ""]
     # 8. models
-    lines += ["## 8. Models (pinned)", "", "| family | model | pinned | $/1M in | $/1M out |", "|---|---|---|---|---|"]
-    lines += [f"| {m['family']} | {m['model']} | {m['pinned']} | {m['price_in']} | {m['price_out']} |" for m in ev.models]
+    lines += ["## 8. Models (pinned)", "", "| family | role | model | pinned | $/1M in | $/1M out |", "|---|---|---|---|---|---|"]
+    roles = {"gemini": "extractor A", "claude": "extractor B; drafts desk queries (triage)"}
+    seen: set = set()
+    for m in ev.models:   # the config pins the triage model separately; when it is the same pin it is one row with two roles
+        key = (m["family"], m["model"], m["price_in"], m["price_out"])
+        if key in seen:
+            continue
+        seen.add(key)
+        lines.append(f"| {m['family']} | {roles.get(m['family'], '')} | {m['model']} | {m['pinned']} | {m['price_in']} | {m['price_out']} |")
     # 9. detail
     lines += ["", "## 9. Planted findings (mutants)", "", "| doc | field | expected | reported | strict | field-only | detail |", "|---|---|---|---|---|---|---|"]
     for p in ev.planted_detail:
@@ -360,7 +381,9 @@ def render_markdown(ev: EvalResult) -> str:
               f"- n = {ev.n_docs} synthetic documents, {n_planted} planted findings plus {ev.trap_resolved.n} normalizer trap, "
               f"{ev.false_flag_docs.n} clean controls. **Directional, not statistically significant.**",
               "- Documents are synthetic, generated from one parameter table through four layout families in one house style; phrasing is machine-uniform. Real desk paper has more layouts, scans, multi-page annexes and hand edits.",
-              "- One prompt per extractor family; no prompt ensemble. One run per number: no retries, no reruns, no best-of.",
+              "- One prompt per extractor family; no prompt ensemble. One run per number: no retries, no reruns, no best-of. "
+              "A resumed run (ADR-31, named in the header when it applies) re-extracts only the documents whose calls never "
+              "completed and reuses the other documents' stored answers exactly as they fell, wrong ones included.",
               "- The eval can only see error classes it plants. Unplanted classes (wrong observation-date count, swapped issuer/guarantor, a coupon barrier read as a knock-in) are invisible to it unless they happen to hit a planted field.",
               "- The triage agent sees only the finding, its citations and the booking field; it cannot exculpate a finding using an unflagged clause elsewhere in the document.",
               "- Parsing is single-sourced (one vendor, one mode) behind one interface; the local fallback exists but its parse tax is not measured here.",

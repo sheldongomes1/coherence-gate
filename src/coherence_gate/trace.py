@@ -88,9 +88,10 @@ class Tracer:
                       prompt_tokens=usage.prompt_tokens, output_tokens=usage.output_tokens,
                       latency_ms=latency, cost_usd=cost, detail=usage.detail)
 
-    def total_cost(self, doc_id: str | None = None, since: int = 0) -> float:
+    def total_cost(self, doc_id: str | None = None, since: int = 0, step_prefix: str | None = None) -> float:
         return round(sum(l["cost_usd"] for l in self.lines
-                         if (doc_id is None or l["doc_id"] == doc_id) and l.get("seq", 0) >= since), 6)
+                         if (doc_id is None or l["doc_id"] == doc_id) and l.get("seq", 0) >= since
+                         and (step_prefix is None or l["step"].startswith(step_prefix))), 6)
 
 
 _PROVIDER = {"gemini": "gcp.gemini", "claude": "anthropic"}

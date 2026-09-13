@@ -114,8 +114,11 @@ def norm_decimal(v: Any) -> Decimal:
     s = str(v).strip().lower()
     s = re.sub(r"\(.*?\)", "", s)                    # drop parentheticals like "(USD 2,500,000)"
     m_words = re.match(r"^(zero|one|two|three|four|five|six|seven|eight|nine|ten)\b", s)
-    if m_words:                                       # "Three Currency Business Days" -> 3
-        return Decimal(_NUMBER_WORDS[m_words.group(1)])
+    if m_words:                                       # "Three Currency Business Days" -> 3; "Ten million" -> 10,000,000
+        rest = s[m_words.end():].strip()
+        m_mult = re.match(r"^(k|mm|mn|m|million|bn|b|billion)\b", rest)
+        d = Decimal(_NUMBER_WORDS[m_words.group(1)])
+        return _plain(d * _MULT[m_mult.group(1)]) if m_mult else d
     s = re.sub(_CCY_WORDS, "", s)
     s = re.sub(r"\b(per\s+(annum|year|quarter|month|half[- ]year|period)|p\.a\.?|pa|annually|quarterly|monthly|semi-?annually|of\s+(the\s+)?initial\s+level)\b", "", s)
     s = s.replace(",", "").replace("%", "").replace("per cent", "").replace("percent", "").strip().rstrip(".")

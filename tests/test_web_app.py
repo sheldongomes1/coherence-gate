@@ -24,3 +24,6 @@ def test_fallback_serves_assets_only_and_stays_contained(tmp_path):
     assert c.get("/.secret").status_code == 404
     assert c.get("/page.html").status_code == 200
     assert c.get("/../pyproject.toml").status_code in (404, 302, 307)
+    assert c.get("/site/Dockerfile").status_code == 404          # the bundle path follows the same asset rules
+    assert c.get("/site/page.html").status_code == 200
+    assert c.get("/site/", follow_redirects=False).status_code == 302

@@ -155,7 +155,9 @@ def recheck_document(doc_id: str, ctx: RunContext, prior_dir: Path, trade_id: st
                    for f in ("gemini", "claude")}
     product_type = product_type or summary.get("product_type") or "note"
     schema = ctx.schemas[product_type]
-    prior_cost = float(summary.get("cost_usd") or 0.0) if carry_prior_cost else 0.0
+    # carry the prior EXTRACTION cost only (older summaries have no breakdown: their cost_usd is extraction-only,
+    # because eval runs draft no desk queries); triage drafted here is traced here
+    prior_cost = float((summary.get("cost_breakdown") or {}).get("extraction", summary.get("cost_usd") or 0.0)) if carry_prior_cost else 0.0
     ctx.tracer.step(doc_id=doc_id, step="load", outcome="REUSED_EXTRACTION",
                     detail={"source": summary.get("source", "txt"), "sha256": sha, "prior_run": str(prior_dir),
                             "prior_cost_usd": prior_cost if carry_prior_cost else None,
@@ -244,13 +246,18 @@ def _complete(doc_id: str, text: str, sha: str, product_type: str, schema: Schem
                 "document_sha256": sha, "booking_trade_id": tid,
                 "booking_terms_keys": schema.comparison_keys,
                 "booking_sha256": booking_hash(lookup.record, schema.comparison_keys) if lookup.found else None}
+    pass_cost = ctx.tracer.total_cost(doc_id, since=mark)
+    triage_cost = ctx.tracer.total_cost(doc_id, since=mark, step_prefix="triage:")
+    total_cost = round(pass_cost + extra_cost, 6)
+    # the reader wants two numbers, not one: what the two readings cost, and what the drafted desk queries cost
+    cost_breakdown = {"extraction": round(total_cost - triage_cost, 6), "triage": round(triage_cost, 6)}
     result = DocumentResult(doc_id=doc_id, sha256=sha, trade_id=tid,
                             extractions={str(k): v for k, v in extractions.items()},
                             normalized={str(k): v for k, v in norm.items()},
                             merged={k: m.model_dump() for k, m in merged.items()},
                             booking=lookup.model_dump(), findings=findings, document_lane=doc_lane,
-                            cost_usd=round(ctx.tracer.total_cost(doc_id, since=mark) + extra_cost, 6), source=ctx.source, parse_meta=parse_meta,
-                            product_type=product_type, extras={"attested_hashes": attested})
+                            cost_usd=total_cost, source=ctx.source, parse_meta=parse_meta,
+                            product_type=product_type, extras={"attested_hashes": attested, "cost_breakdown": cost_breakdown})
     persist(result, ctx)
     return result
 
@@ -278,5 +285,5 @@ def persist(r: DocumentResult, ctx: RunContext) -> None:
         "doc_id": r.doc_id, "sha256": r.sha256, "trade_id": r.trade_id, "document_lane": r.document_lane,
         "cost_usd": r.cost_usd, "n_auto_clear": len(auto), "n_triage": len(r.findings) - len(auto),
         "source": r.source, "parse": r.parse_meta, "product_type": r.product_type,
-        "attested_hashes": r.extras.get("attested_hashes")}, indent=2, default=str))
+        "attested_hashes": r.extras.get("attested_hashes"), "cost_breakdown": r.extras.get("cost_breakdown")}, indent=2, default=str))
     r.out_dir = d

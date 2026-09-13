@@ -36,7 +36,7 @@ GOLDEN = ROOT / "golden"
 @asynccontextmanager
 async def _lifespan(_: FastAPI):
     init_state()
-    threading.Thread(target=_worker, name="relaunch-worker", daemon=True).start()
+    _ensure_worker()
     threading.Thread(target=get_ctx, name="warm-context", daemon=True).start()  # first click never pays the reference load
     yield
 
@@ -44,7 +44,21 @@ async def _lifespan(_: FastAPI):
 app = FastAPI(lifespan=_lifespan, title="Coherence Gate demo")
 jobs: dict[str, dict] = {}
 lock = threading.Lock()
-_queue: "queue.Queue[str]" = queue.Queue()   # job ids, processed one at a time by the worker thread
+_queue: "queue.Queue[str]" = queue.Queue(maxsize=8)   # job ids, one worker; a full queue answers 429, it does not grow
+# Spend guard for a public, unauthenticated demo: re-checks are free (no model call unless a finding is new), so only
+# full re-reads (two provider calls per document) are budgeted, per rolling hour. Not auth (the demo is meant to be
+# driven by the audience); a ceiling on what one URL can make the account pay.
+FULL_REREADS_PER_HOUR = int(os.environ.get("CG_FULL_REREADS_PER_HOUR", "20"))
+_full_log: list[float] = []   # enqueue times of full re-reads, one per document
+_worker_thread: threading.Thread | None = None
+
+
+def _ensure_worker() -> None:
+    """The single worker is restarted if it ever died; otherwise a queued job would show 'working' forever."""
+    global _worker_thread
+    if _worker_thread is None or not _worker_thread.is_alive():
+        _worker_thread = threading.Thread(target=_worker, name="relaunch-worker", daemon=True)
+        _worker_thread.start()
 _ctx_cache: dict = {}   # the run context (extractors, parser, reference rules) is built once per process
 
 
@@ -81,6 +95,8 @@ def _worker() -> None:
         job_id = _queue.get()
         try:
             _run_docs(job_id, jobs[job_id]["docs"], jobs[job_id].get("mode") == "full")
+        except Exception as exc:  # noqa: BLE001 — the worker must outlive any job
+            jobs[job_id].update({"status": "error", "error": f"{type(exc).__name__}: {str(exc)[:300]}"})
         finally:
             _queue.task_done()
 
@@ -107,7 +123,8 @@ def _run_docs(job_id: str, doc_ids: list[str], full: bool = False) -> None:
                 run_document(GOLDEN / e["termsheet"], ctx, trade_id=None, pdf_path=GOLDEN / e["pdf"], product_type=e.get("product_type"))
             else:
                 try:
-                    recheck_document(doc, ctx, RUN, product_type=e.get("product_type"))
+                    with lock:   # seconds: a page render never pairs this trade's new findings with its old summary
+                        recheck_document(doc, ctx, RUN, product_type=e.get("product_type"))
                 except (FileNotFoundError, ValueError) as why:  # nothing reusable: full read, and say so
                     job["mode"] = f"full ({why})"
                     run_document(GOLDEN / e["termsheet"], ctx, trade_id=None, pdf_path=GOLDEN / e["pdf"], product_type=e.get("product_type"))
@@ -191,10 +208,24 @@ def api_relaunch(doc: str | None = None, scope: str = "stale", full: int = 0) ->
     docs = [d for d in docs if d not in _active_docs()]   # a trade already queued or running is not queued twice
     if not docs:
         return JSONResponse({"job": None, "message": "already queued or running"})
+    if full:
+        now = time.time()
+        _full_log[:] = [t for t in _full_log if now - t < 3600]
+        if len(_full_log) + len(docs) > FULL_REREADS_PER_HOUR:
+            return JSONResponse({"job": None, "message": f"full re-read budget reached ({FULL_REREADS_PER_HOUR} documents per hour on this demo); "
+                                                          "re-check (no model call) is unlimited"}, status_code=429)
+        _full_log.extend([now] * len(docs))
     job_id = uuid.uuid4().hex[:8]
+    for old in [k for k, j in jobs.items() if j["status"] in ("done", "error")][:-50] if len(jobs) > 200 else []:
+        jobs.pop(old, None)   # finished jobs are kept for the page's status polling, not forever
     jobs[job_id] = {"status": "queued", "docs": docs, "done": 0, "total": len(docs), "queued_at": time.time(),
                     "started": time.time(), "mode": "full" if full else "recheck"}
-    _queue.put(job_id)
+    _ensure_worker()
+    try:
+        _queue.put_nowait(job_id)
+    except queue.Full:
+        jobs.pop(job_id, None)
+        return JSONResponse({"job": None, "message": "the relaunch queue is full (8 jobs); try again in a minute"}, status_code=429)
     return JSONResponse({"job": job_id, "docs": docs, "mode": "full" if full else "recheck", "queue_position": _queue.qsize()})
 
 
@@ -274,8 +305,12 @@ def _site_index() -> RedirectResponse:
 
 # static mounts come AFTER the explicit routes above (a mount registered earlier would shadow them)
 app.mount("/golden", StaticFiles(directory=str(GOLDEN)), name="golden")
-if SITE.exists():
-    app.mount("/site", StaticFiles(directory=str(SITE), html=True), name="site")
+
+
+@app.get("/site")
+@app.get("/site/")
+def _site_root() -> RedirectResponse:
+    return RedirectResponse("/", status_code=302)   # the bundle's index is the frozen desk view; the live one is here
 
 
 SERVABLE = {".html", ".css", ".js", ".json", ".jsonl", ".md", ".txt", ".pdf", ".png", ".jpg", ".svg", ".ico", ".csv", ".webp", ".woff2"}
@@ -287,8 +322,9 @@ def fallback(path: str):
     web asset types (a Dockerfile or a dotfile that happens to sit in the bundle is not a page)."""
     for base in (RUN, SITE):
         root = base.resolve()
+        rel = path[5:] if base is SITE and path.startswith("site/") else path   # /site/x serves the bundle through the same rules
         try:
-            p = (root / path).resolve()
+            p = (root / rel).resolve()
         except (OSError, ValueError):
             continue
         if root in p.parents and p.is_file() and p.suffix.lower() in SERVABLE and not p.name.startswith("."):

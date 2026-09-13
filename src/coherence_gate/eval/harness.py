@@ -86,6 +86,23 @@ def completed_extractions(prior_run: Path) -> set[str]:
             and (prior_run / doc / "summary.json").exists()}
 
 
+def never_completed_in(prior_run: Path) -> dict[str, dict[str, str]]:
+    """doc -> {family: last outcome} for extraction calls in a prior run that never produced a reading."""
+    last: dict[tuple[str, str], str] = {}
+    trace = prior_run / "trace.jsonl"
+    if not trace.exists():
+        return {}
+    for line in trace.read_text().splitlines():
+        d = json.loads(line)
+        if d["step"].startswith("extract:") and d["doc_id"] != "REF":
+            last[(d["doc_id"], d["step"].split(":", 1)[1])] = d["outcome"]
+    out: dict[str, dict[str, str]] = {}
+    for (doc, fam), outcome in last.items():
+        if outcome not in COMPLETED:
+            out.setdefault(doc, {})[fam] = outcome
+    return out
+
+
 def run_eval(golden: Path, out_dir: Path, *, stub: bool, booking_transport: str = "direct",
              with_triage: bool = False, only: list[str] | None = None,
              source: str = "txt", parser_name: str = "mixedbread", reference: bool | None = None,
@@ -102,7 +119,7 @@ def run_eval(golden: Path, out_dir: Path, *, stub: bool, booking_transport: str 
     reusable = completed_extractions(Path(resume)) if resume else set()
     resumed: dict | None = None
     if resume:
-        resumed = {"prior_run": str(resume), "reused": [], "re_extracted": []}
+        resumed = {"prior_run": str(resume), "reused": [], "re_extracted": [], "prior_never_completed": never_completed_in(Path(resume))}
         ctx.tracer.step(doc_id="-", step="config", outcome="RESUME", detail={"prior_run": str(resume), "reusable": sorted(reusable)})
     results: dict[str, DocumentResult] = {}
     try:

@@ -199,6 +199,14 @@ def cmd_triage(a: argparse.Namespace) -> int:
                                                    for f in findings if f.lane is Lane.TRIAGE], indent=2, default=str))
         console.print(f"{d.name}: {len(todo)} desk quer{'y' if len(todo) == 1 else 'ies'} drafted")
     render(run); render_desk(run)
+    rep = run / "eval_report.md"
+    if rep.exists() and n:   # the eval report was written before these calls existed; the spend is appended, never edited in
+        from datetime import date
+        tc = tracer.total_cost(step_prefix="triage:")
+        with rep.open("a") as fh:
+            fh.write(f"\n**Desk queries drafted afterwards** (`cg triage --run`, {date.today().isoformat()}): {n} finding(s), "
+                     f"${tc:.4f} in `triage:*` trace lines. Total spend on this run = the per-document readings in §7 + this figure "
+                     f"(+ the methodology extraction once, when not cached); run_report.html shows the same sum.\n")
     console.print(f"{n} findings triaged in {run}; report and desk view re-rendered")
     return 0
 

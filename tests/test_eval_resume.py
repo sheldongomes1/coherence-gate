@@ -38,7 +38,8 @@ def test_resume_reuses_completed_and_reextracts_the_rest(tmp_path):
         fixed.append(json.dumps(d))
     trace.write_text("\n".join(fixed) + "\n")
     second = run_eval(golden, tmp_path / "runs", stub=True, only=["G11", "G10"], source="txt", reference=False, resume=prior)
-    assert second.resumed == {"prior_run": str(prior), "reused": ["G11"], "re_extracted": ["G10"]}
+    assert {k: second.resumed[k] for k in ("prior_run", "reused", "re_extracted")} == {"prior_run": str(prior), "reused": ["G11"], "re_extracted": ["G10"]}
+    assert second.resumed["prior_never_completed"] == {"G10": {"gemini": "API_ERROR", "claude": "API_ERROR"}}   # the prior failure is named
     steps = [(json.loads(l)["doc_id"], json.loads(l)["step"], json.loads(l)["outcome"]) for l in (second.run_dir / "trace.jsonl").read_text().splitlines()]
     assert ("G11", "load", "REUSED_EXTRACTION") in steps and ("G11", "extract:claude", "CACHED") in steps
     assert ("G10", "extract:claude", "API_ERROR") in steps          # extracted again (stub: still fails, honestly)

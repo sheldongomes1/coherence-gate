@@ -167,10 +167,14 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
     rows.sort(key=lambda r: (order[r["state"]], -(r["at_stake"] or 0), r["trade_id"]))
     trace = data["trace"]
     steps = [l["step"] for l in trace]
+    def split(step, who):   # calls to the tool vs calls that actually reached the vendor/provider (CACHED = reused artifact)
+        n = steps.count(step); real = sum(1 for l in trace if l["step"] == step and l["outcome"] != "CACHED")
+        return n, (f"{real} to the {who}, {n - real} reused attested {'parses' if step == 'parse' else 'extractions'}" if n != real else f"{n} to the {who}")
+    n_parse, parse_note = split("parse", "vendor"); n_g, g_note = split("extract:gemini", "provider"); n_c, c_note = split("extract:claude", "provider")
     tools = [
-        {"name": "parse", "kind": "vendor ML (Mixedbread) behind parse(pdf)", "calls": steps.count("parse"), "note": "cached artifacts count as calls to the tool, not to the vendor"},
-        {"name": "extract:gemini", "kind": "LLM, family A", "calls": steps.count("extract:gemini"), "note": "cites verbatim or declares absent"},
-        {"name": "extract:claude", "kind": "LLM, family B", "calls": steps.count("extract:claude"), "note": "independent of family A"},
+        {"name": "parse", "kind": "vendor ML (Mixedbread) behind parse(pdf)", "calls": n_parse, "note": parse_note},
+        {"name": "extract:gemini", "kind": "LLM, family A", "calls": n_g, "note": g_note + "; cites verbatim or declares absent"},
+        {"name": "extract:claude", "kind": "LLM, family B", "calls": n_c, "note": c_note + "; independent of family A"},
         {"name": "booking_lookup", "kind": "MCP tool (books & records)", "calls": steps.count("booking_lookup"), "note": "the only path to booking truth"},
         {"name": "compare + relations", "kind": "deterministic code", "calls": steps.count("compare"), "note": "match/no-match, tolerances, arithmetic"},
         {"name": "reference check", "kind": "deterministic code over the Versa methodology", "calls": steps.count("reference_check"), "note": "not run in this release" if steps.count("reference_check") == 0 else ""},

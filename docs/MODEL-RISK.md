@@ -114,7 +114,11 @@ judgment is versioned, not the model.
 - The demo service is intentionally unauthenticated (edit-booking, relaunch
   and reset endpoints are open on a public URL) because it holds only
   synthetic data and exists to be driven by the audience; a production
-  deployment sits behind the bank's identity layer. Booking truth reaches the
+  deployment sits behind the bank's identity layer. What the open endpoints
+  can make the account pay is bounded, not open: a re-check costs no model
+  call unless a finding is new, full re-reads are budgeted per rolling hour
+  (`CG_FULL_REREADS_PER_HOUR`, default 20 documents) and the job queue is
+  capped, so the spend surface of the public URL is a ceiling, not a faucet. Booking truth reaches the
   pipeline through the MCP tool in the eval runs and in the demo service
   alike; the in-process client behind the same interface exists for tests.
 - Sample sizes are demo-scale throughout; production onboarding requires a

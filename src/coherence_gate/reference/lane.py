@@ -8,9 +8,10 @@ nothing; the trace says CACHED when the cache was used.
 
 check_reference: for each methodology field that maps to a term-sheet claim (`claim`):
   binding=rule     -> compare; REFERENCE_INCONSISTENT if the claim contradicts the rule
-  binding=default  -> CLEAN, "methodology default; the index-specific document may override"
-  binding=deferred -> CLEAN, "deferred to the index-specific document; not checkable here"
-  rule not evaluable (families disagreed / malformed / absent) -> CLEAN with the reason
+  binding=default  -> NOT_EVALUABLE, "methodology default; the index-specific document may override" (ADR-30)
+  binding=deferred -> NOT_EVALUABLE, "deferred to the index-specific document; not checkable here" (ADR-30)
+  rule not evaluable (families disagreed / malformed / absent) -> NOT_EVALUABLE with the reason
+  A check that was not performed is neither a pass nor a flag: INFO lane, listed, never auto-cleared.
 The return-type rule is special: the claim (Type I, Excess Return) is checked against the
 methodology's type->treatment map. Findings use field "ref:<claim field>".
 """

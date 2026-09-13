@@ -27,17 +27,24 @@ def load_run(run_dir: Path) -> dict:
         docs.append({**summary, "findings": findings, "booking_transport": booking.get("transport", "?"),
                      "attested_hashes": summary.get("attested_hashes"),
                      "trace": [l for l in trace if l["doc_id"] == summary["doc_id"]]})
-    docs_cost = round(sum(d.get("cost_usd") or 0 for d in docs), 4)
+    # Two buckets, attributed by what a trace line IS, never by which folder the run sits in:
+    #   documents    = the two readings per document (summary cost_breakdown.extraction; older summaries carry
+    #                  extraction-only cost_usd because eval runs draft no desk queries)
+    #   desk_queries = every `triage:*` line for these documents, whether drafted during the run or afterwards
+    docs_cost = round(sum(((d.get("cost_breakdown") or {}).get("extraction", d.get("cost_usd")) or 0) for d in docs), 4)
     doc_ids = {d["doc_id"] for d in docs}
-    triage_cost = round(sum(l["cost_usd"] for l in trace if l["step"].startswith("triage:") and l["doc_id"] in doc_ids), 4)
-    # per-document summaries already include triage lines traced under the run's own id; add only later desk-query drafting
-    run_ids = {l["run_id"] for l in trace}
-    own = run_dir.name
-    later_triage = round(sum(l["cost_usd"] for l in trace if l["step"].startswith("triage:") and l["doc_id"] in doc_ids and l["run_id"] != own), 4)
+    desk_queries = round(sum(l["cost_usd"] for l in trace if l["step"].startswith("triage:") and l["doc_id"] in doc_ids), 4)
     ref_cost = round(sum(l["cost_usd"] for l in trace if l["doc_id"] == "REF"), 4)
-    cost = {"documents": docs_cost, "later_desk_queries": later_triage, "methodology_once": ref_cost,
-            "total": round(docs_cost + later_triage + ref_cost, 4), "n_docs": len(docs), "runs_in_trace": len(run_ids)}
-    return {"run_id": run_dir.name, "docs": docs, "trace": trace, "cost": cost}
+    run_ids = {l["run_id"] for l in trace}
+    cost = {"documents": docs_cost, "desk_queries": desk_queries, "methodology_once": ref_cost,
+            "total": round(docs_cost + desk_queries + ref_cost, 4), "n_docs": len(docs), "runs_in_trace": len(run_ids),
+            "n_desk_queries": sum(1 for l in trace if l["step"].startswith("triage:") and l["doc_id"] in doc_ids)}
+    # the run's identity is what the trace says it is, not the directory it was copied to
+    run_id = next((l["run_id"] for l in trace if l["step"] == "config" and l.get("run_id")), run_dir.name)
+    model_lines = [l for l in trace if l.get("model")]
+    calls = {"provider": sum(1 for l in model_lines if l["outcome"] != "CACHED"),
+             "reused": sum(1 for l in model_lines if l["outcome"] == "CACHED")}
+    return {"run_id": run_id, "docs": docs, "trace": trace, "cost": cost, "calls": calls}
 
 
 def render(run_dir: Path, out: Path | None = None) -> Path:
@@ -68,7 +75,7 @@ def render(run_dir: Path, out: Path | None = None) -> Path:
         n_auto_docs=sum(d["document_lane"] == "AUTO_CLEAR" for d in docs),
         n_auto_fields=sum(f["lane"] == "AUTO_CLEAR" for f in all_f), n_fields=len(all_f),
         n_triage=sum(f["lane"] == "TRIAGE" for f in all_f),
-        n_model_calls=sum(1 for l in data["trace"] if l.get("model")),
+        n_model_calls=data["calls"]["provider"], n_cached_calls=data["calls"]["reused"],
     )
     out = out or Path(run_dir) / "run_report.html"
     out.write_text(html)

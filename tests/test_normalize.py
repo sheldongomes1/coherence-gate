@@ -135,3 +135,12 @@ def test_list_literal_inside_string_unwraps_both_spellings():
     assert _unwrap_json_array("[100, 95]") == ["100", "95"]
     assert _unwrap_json_array("[{'a': 1}]") == "[{'a': 1}]"        # not a scalar list: left alone -> MALFORMED downstream
     assert _unwrap_json_array("[not a list") == "[not a list"
+
+
+def test_number_words_take_a_multiplier():
+    from decimal import Decimal
+    from coherence_gate.normalize import norm_decimal
+    assert norm_decimal("Three Currency Business Days") == Decimal("3")
+    assert norm_decimal("Ten million") == Decimal("10000000")
+    assert norm_decimal("one million USD") == Decimal("1000000")
+    assert norm_decimal("two bn") == Decimal("2000000000")

@@ -54,10 +54,10 @@
 {% for t in tools %}<tr><td class="mono">{{ t.name }}</td><td>{{ t.kind }}</td><td class="num">{{ t.calls }}</td><td>{{ t.note }}</td></tr>{% endfor %}
 </tbody></table></div>
 {% if live %}<p class="sub"><form method="post" action="/api/reset" style="display:inline" onsubmit="return confirm('Reset the demo bookings and results to the showcase state?')"><button class="btn mini sec" type="submit">Reset demo to showcase state</button></form> <span class="ind">restores the original bookings and results; use after a demo</span></p>{% endif %}
-<p class="sub">Cost of this check: <b>${{ '%.2f'|format(cost) }}</b> = documents ${{ '%.2f'|format(costb.documents) }} for {{ rows|length }} ({{ '$%.3f'|format(costb.documents / (rows|length if rows|length else 1)) }} each, both extractions and any desk query){% if costb.later_desk_queries %} + desk queries drafted afterwards ${{ '%.2f'|format(costb.later_desk_queries) }}{% endif %}{% if costb.methodology_once %} + the methodology extracted once ${{ '%.2f'|format(costb.methodology_once) }} (cached for every later check){% endif %}; traced tokens × list prices. The marginal cost per additional position is flat. Models extract and explain; code decides. Full evidence per position in <a href="run_report.html">run_report.html</a>; quality numbers in eval_report.md.</p>
+<p class="sub">Cost of this check: <b>${{ '%.2f'|format(cost) }}</b> = documents ${{ '%.2f'|format(costb.documents) }} for {{ rows|length }} ({{ '$%.3f'|format(costb.documents / (rows|length if rows|length else 1)) }} each, both readings){% if costb.desk_queries %} + {{ costb.n_desk_queries }} desk queries drafted ${{ '%.2f'|format(costb.desk_queries) }}{% endif %}{% if costb.methodology_once %} + the methodology extracted once ${{ '%.2f'|format(costb.methodology_once) }} (cached for every later check){% endif %}; traced tokens × list prices. The marginal cost per additional position is flat. Models extract and explain; code decides. Full evidence per position in <a href="run_report.html">run_report.html</a>; quality numbers in eval_report.md.</p>
 </details>
 
-<div id="backdrop" role="dialog" aria-modal="true"><div id="modal"><button class="close" aria-label="close">×</button><div id="modal-body"></div></div></div>
+<div id="backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div id="modal"><button class="close" aria-label="close">×</button><div id="modal-body"></div></div></div>
 <script id="evidence" type="application/json">{{ evidence_json|safe }}</script>
 <script>
 (function(){
@@ -75,7 +75,7 @@
     var d = data[doc]; if (!d) return;
     var bad = d.findings.filter(function(f){ return f.type !== 'CLEAN' && f.type !== 'NOT_EVALUABLE'; }), ok = d.findings.filter(function(f){ return f.type === 'CLEAN'; }), ne = d.findings.filter(function(f){ return f.type === 'NOT_EVALUABLE'; });
     var head = '<tr><th>field</th><th>type</th><th>sev</th><th>documented</th><th>booked</th><th>consequence · citations (both families)</th></tr>';
-    var html = '<h2>' + esc(d.trade_id) + ' <span class="st st-' + (d.lane === 'AUTO_CLEAR' ? 'ATTESTED' : 'MISMATCH') + '">' + esc(d.lane) + '</span></h2>'
+    var html = '<h2 id="modal-title">' + esc(d.trade_id) + ' <span class="st st-' + (d.lane === 'AUTO_CLEAR' ? 'ATTESTED' : 'MISMATCH') + '">' + esc(d.lane) + '</span></h2>'
       + '<div class="sub">' + esc(d.product) + ' · source ' + esc(d.source || 'txt') + (d.parse ? ' · parse job ' + esc(d.parse) : '') + ' · <a href="run_report.html#' + esc(doc) + '">full run report ↗</a></div>'
       + '<div class="sub" style="margin-top:4px"><b>Grounding:</b> ' + Object.keys(d.links || {}).map(function(k){ return '<a href="' + esc(d.links[k]) + '" target="_blank">' + esc(k) + ' ↗</a>'; }).join(' · ')
       + (d.attested && d.attested.document_sha256 ? '<span class="ind"> · attested to document sha ' + esc(String(d.attested.document_sha256).slice(0,12)) + ' and deal-terms hash ' + esc(String(d.attested.booking_sha256 || '').slice(0,12)) + ' (' + ((d.attested.booking_terms_keys || []).length || '?') + ' booking fields that affect the terms of the deal; fixings and marks excluded)</span>' : '') + '</div>';

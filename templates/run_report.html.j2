@@ -14,12 +14,12 @@
  .mono{font-family:var(--mono);font-size:12px}.wrap{overflow-x:auto}details summary{cursor:pointer;color:var(--muted)}
 </style></head><body>
 <h1>Coherence Gate — run {{ run_id }}</h1>
-<div class="sub">term sheet vs booking · {{ docs|length }} document(s) · models {{ models|join(', ') }} · cost ${{ '%.2f'|format(cost.total) }} = documents ${{ '%.2f'|format(cost.documents) }} (${{ '%.3f'|format(cost.documents / (docs|length if docs|length else 1)) }} each){% if cost.later_desk_queries %} + desk queries drafted later ${{ '%.2f'|format(cost.later_desk_queries) }}{% endif %}{% if cost.methodology_once %} + methodology extraction once ${{ '%.2f'|format(cost.methodology_once) }}{% endif %}</div>
+<div class="sub">term sheet vs booking · {{ docs|length }} document(s) · models {{ models|join(', ') }} · cost ${{ '%.2f'|format(cost.total) }} = documents ${{ '%.2f'|format(cost.documents) }} (${{ '%.3f'|format(cost.documents / (docs|length if docs|length else 1)) }} each, both readings){% if cost.desk_queries %} + {{ cost.n_desk_queries }} desk queries drafted ${{ '%.2f'|format(cost.desk_queries) }}{% endif %}{% if cost.methodology_once %} + methodology extraction once ${{ '%.2f'|format(cost.methodology_once) }}{% endif %}</div>
 <div class="kpis">
  <div class="kpi"><b>{{ n_auto_docs }}/{{ docs|length }}</b><span>documents auto-cleared (zero human touch)</span></div>
  <div class="kpi"><b>{{ n_auto_fields }}/{{ n_fields }}</b><span>fields auto-cleared</span></div>
  <div class="kpi"><b>{{ n_triage }}</b><span>findings in triage</span></div>
- <div class="kpi"><b>{{ n_model_calls }}</b><span>model calls traced</span></div>
+ <div class="kpi"><b>{{ n_model_calls }}</b><span>model calls to the providers{% if n_cached_calls %} (+{{ n_cached_calls }} reused attested extractions){% endif %}</span></div>
 </div>
 <p class="sub">Models extract and explain; code decides. Every field is cited to its source span or explicitly declared absent. A field auto-clears only when both families agree <em>and</em> the comparator passes. Documents are ordered as on the desk view (requiring attention first, largest exposure first); within a document, findings requiring attention are listed first and clean fields are collapsed.</p>
 <div class="wrap"><table><thead><tr><th>document</th><th>trade</th><th>trust</th><th>findings requiring attention</th><th>lead consequence</th></tr></thead><tbody>

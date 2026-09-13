@@ -39,3 +39,11 @@ def test_tracer_cost_is_per_pass_and_window_is_bounded(tmp_path):
     for i in range(10):
         t.step(doc_id="G02", step="x", outcome="OK")
     assert len(t.lines) == 3 and sum(1 for _ in open(tmp_path / "trace.jsonl")) == 12  # memory bounded, file complete
+
+
+def test_cost_breakdown_separates_readings_from_desk_queries(tmp_path):
+    from coherence_gate.trace import Tracer
+    t = Tracer(run_id="t", path=tmp_path / "trace.jsonl")
+    t.step(doc_id="G01", step="extract:claude", outcome="OK", cost_usd=0.5)
+    t.step(doc_id="G01", step="triage:coupon", outcome="OK", cost_usd=0.2)
+    assert t.total_cost("G01") == 0.7 and t.total_cost("G01", step_prefix="triage:") == 0.2
