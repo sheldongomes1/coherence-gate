@@ -121,7 +121,9 @@ def _fixture(doc_id: str, trade_id: str, fixtures: dict) -> dict:
     return fx
 
 
-def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None) -> Path:
+def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None, golden_href: str | None = None) -> Path:
+    """`golden_href`: where the golden files sit relative to the page (default: computed from the run dir;
+    the assembled static site passes 'golden')."""
     data = load_run(run_dir)
     if store_dir is None:  # a run made against a rehearsal store records it in the config line
         for l in data["trace"]:
@@ -181,6 +183,8 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
     import os
     golden = ROOT / "golden"
     def rel(p: Path) -> str:
+        if golden_href is not None:
+            return golden_href + "/" + os.path.relpath(p, golden.resolve())
         return os.path.relpath(p, Path(run_dir).resolve())
     evidence = {}
     for d in data["docs"]:

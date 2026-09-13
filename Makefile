@@ -68,3 +68,10 @@ check:           ## make check DOC=path/to/doc.pdf [TRADE=id]
 
 eval-diff:       ## make eval-diff A=runs/<baseline> B=runs/<candidate>
 	$(PY) scripts/eval_diff.py $(A)/summary.json $(B)/summary.json > eval_diff.md && echo wrote eval_diff.md
+
+site:            ## assemble a self-contained static site (desk view = index.html) in site/
+	$(PY) scripts/build_site.py
+
+deploy-site:     ## Cloud Run static site (nginx). make deploy-site PROJECT=... REGION=us-central1
+	@test -d site || $(MAKE) site
+	gcloud run deploy coherence-gate-demo --source site --project $(PROJECT) --region $(REGION) --allow-unauthenticated --quiet
