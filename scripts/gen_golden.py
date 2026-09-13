@@ -497,25 +497,45 @@ def main() -> None:
     # Desk-view fixtures: indicative risk figures for the demo book, deterministic per trade id,
     # NOT computed by the gate and labelled as such on the page (V2-CHANGES CS5).
     import hashlib as _h
-    fx = {}
-    for p in DOCS + OPTIONS:
-        seed = int(_h.sha256(p["trade_id"].encode()).hexdigest()[:8], 16)
-        is_opt = p.get("product") == "otc_option"
-        fx[p["trade_id"]] = {
-            "doc_id": p["id"], "product_type": "otc_option" if is_opt else "note",
-            "underlying": " / ".join(p["underlyings"]),
-            "notional": f"{p['currency']} {p['notional']:,}",
-            "maturity": p["expiration_date"] if is_opt else p["maturity_date"],
-            "delta_pct_notional": f"{(35 + seed % 45) if is_opt else -(20 + seed % 50)}%",
-            "vega_usd_per_vol_pt": f"{'+' if is_opt else '-'}{(p['notional'] * (0.0004 + (seed % 7) * 0.0001)):,.0f}",
-            "label": "indicative fixture — not computed by Coherence Gate",
-        }
-    (GOLDEN / "desk_fixtures.json").write_text(json.dumps(fx, indent=2) + "\n")
+    write_desk_fixtures()
     alldocs = DOCS + OPTIONS
     words = [len((GOLDEN / "termsheets" / f"{p['id']}.txt").read_text().split()) for p in alldocs]
     print(f"wrote {len(alldocs)} docs (html+pdf+txt) -> {GOLDEN}; words min/max {min(words)}/{max(words)}; pages {pages}; "
           f"planted {sum(len(p['planted']) for p in alldocs)}; products {sorted({p.get('product', 'note') for p in alldocs})}")
 
 
+INDICATIVE_FX_TO_USD = {"USD": 1.0, "CAD": 0.73, "EUR": 1.08}  # fixture rates, labelled indicative on the page
+
+
+def write_desk_fixtures() -> None:
+    """Desk-view fixtures: indicative risk figures for the demo book, deterministic per trade id,
+    NOT computed by the gate and labelled as such on the page. Delta-equivalent USD = delta% ×
+    notional × indicative FX (a note's delta is negative from the desk's short-option position,
+    an option bought by the client is positive). Callable alone (`--fixtures-only`) so the PDFs
+    and the parse cache are untouched."""
+    import hashlib as _h
+    fx = {}
+    for p in DOCS + OPTIONS:
+        seed = int(_h.sha256(p["trade_id"].encode()).hexdigest()[:8], 16)
+        is_opt = p.get("product") == "otc_option"
+        delta_pct = (35 + seed % 45) if is_opt else -(20 + seed % 50)
+        delta_usd = round(delta_pct / 100 * p["notional"] * INDICATIVE_FX_TO_USD[p["currency"]])
+        fx[p["trade_id"]] = {
+            "doc_id": p["id"], "product_type": "otc_option" if is_opt else "note",
+            "underlying": " / ".join(p["underlyings"]),
+            "notional": f"{p['currency']} {p['notional']:,}", "notional_usd": round(p["notional"] * INDICATIVE_FX_TO_USD[p["currency"]]),
+            "maturity": p["expiration_date"] if is_opt else p["maturity_date"],
+            "delta_pct_notional": f"{delta_pct}%", "delta_usd": delta_usd,
+            "vega_usd_per_vol_pt": f"{'+' if is_opt else '-'}{(p['notional'] * (0.0004 + (seed % 7) * 0.0001)):,.0f}",
+            "fx_to_usd": INDICATIVE_FX_TO_USD[p["currency"]],
+            "label": "indicative fixture — not computed by Coherence Gate",
+        }
+    (GOLDEN / "desk_fixtures.json").write_text(json.dumps(fx, indent=2) + "\n")
+
+
 if __name__ == "__main__":
-    main()
+    import sys
+    if "--fixtures-only" in sys.argv:
+        write_desk_fixtures(); print("wrote desk_fixtures.json only")
+    else:
+        main()

@@ -76,6 +76,14 @@ def trust_state(findings: list[dict]) -> tuple[str, str]:
     return "ATTESTED", f"booking attested against term sheet — {n} fields, both families agree"
 
 
+def _musd(v) -> str:
+    """USD 96.3mm style, sign kept; '—' when unknown."""
+    if v is None:
+        return "—"
+    a = abs(float(v)); sign = "-" if float(v) < 0 else ""
+    return f"{sign}USD {a/1e6:,.1f}mm" if a >= 1e6 else f"{sign}USD {a:,.0f}"
+
+
 def _fixture(doc_id: str, trade_id: str, fixtures: dict) -> dict:
     fx = fixtures.get(trade_id) or fixtures.get(doc_id) or {}
     return fx
@@ -107,10 +115,12 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
         if stale:
             state, why = "STALE", stale
         fx = _fixture(d["doc_id"], d["trade_id"] or "", fixtures)
+        dusd = fx.get("delta_usd")
         rows.append({"doc_id": d["doc_id"], "trade_id": d["trade_id"] or d["doc_id"], "state": state, "why": why,
                      "product": d.get("product_type", "note"), "underlying": fx.get("underlying", "—"),
-                     "notional": fx.get("notional", "—"), "maturity": fx.get("maturity", "—"),
-                     "delta": fx.get("delta_pct_notional", "—"), "vega": fx.get("vega_usd_per_vol_pt", "—")})
+                     "notional": fx.get("notional", "—"), "notional_usd": fx.get("notional_usd", 0), "maturity": fx.get("maturity", "—"),
+                     "delta": fx.get("delta_pct_notional", "—"), "delta_usd": dusd, "delta_usd_fmt": _musd(dusd),
+                     "vega": fx.get("vega_usd_per_vol_pt", "—")})
     order = {"MISMATCH": 0, "STALE": 1, "DISAGREEMENT": 2, "ATTESTED": 3}
     rows.sort(key=lambda r: (order[r["state"]], r["trade_id"]))
     trace = data["trace"]
@@ -124,11 +134,18 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
         {"name": "reference check", "kind": "deterministic code over the Versa methodology", "calls": steps.count("reference_check"), "note": "not run in this release" if steps.count("reference_check") == 0 else ""},
         {"name": "triage", "kind": "LLM, drafts desk queries", "calls": sum(1 for s_ in steps if s_.startswith("triage:")), "note": "only for non-clean findings"},
     ]
+    def gross(sel):
+        return sum(abs(r["delta_usd"] or 0) for r in rows if sel(r))
+    exposure = {"total": gross(lambda r: True), "attention": gross(lambda r: r["state"] in ("MISMATCH", "DISAGREEMENT")),
+                "stale": gross(lambda r: r["state"] == "STALE"), "attested": gross(lambda r: r["state"] == "ATTESTED"),
+                "notional_total": sum(r["notional_usd"] or 0 for r in rows)}
     env = Environment(loader=FileSystemLoader(str(TEMPLATES)), autoescape=True)
+    env.filters["musd"] = _musd
     html = env.get_template("desk_view.html.j2").render(
         book=book, run_id=data["run_id"], ts=datetime.now().strftime("%Y-%m-%d %H:%M"), rows=rows,
         n_attested=sum(r["state"] == "ATTESTED" for r in rows), n_attention=sum(r["state"] in ("MISMATCH", "DISAGREEMENT") for r in rows),
-        n_stale=sum(r["state"] == "STALE" for r in rows), cost=sum(l["cost_usd"] for l in trace), tools=tools)
+        n_stale=sum(r["state"] == "STALE" for r in rows), cost=sum(l["cost_usd"] for l in trace), tools=tools,
+        exposure=exposure)
     out = out or Path(run_dir) / "desk_view.html"
     out.write_text(html)
     return out

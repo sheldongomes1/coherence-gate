@@ -413,3 +413,25 @@ reader for a cosmetic gain). Wiring a real OTLP exporter (auth on the critical p
 out by the plan).
 
 **Consequences:** Trace lines are ~40% larger. `trace_view` is unchanged.
+
+## ADR-26: The desk view leads with delta-equivalent exposure under check, not with cost
+
+**Date:** 2026-09-13
+**Status:** Accepted (amends CS5 / ADR-22)
+
+**Context:** The header line "$2.44 to check the book" read as trivial against a desk that
+manages billions; a trader's page should say what is at stake, not what the check cost.
+
+**Decision:** The header states gross delta-equivalent exposure (indicative fixtures: delta %
+× notional × indicative FX to USD) for the whole book, for attested positions, and for the
+positions that require attention ("the red figure is delta exposure resting on positions whose
+booking does not match the document"). A per-row USD-equivalent delta column is added. Cost
+moves to the behind-the-scenes panel as total and per document, with the flat-marginal-cost
+sentence. All risk figures stay labelled as fixtures not computed by the gate (GOAL.md: no
+greeks).
+
+**Alternatives considered:** Cost in context ("$2.44 to check USD 154mm of notional"): still
+leads with the wrong number. Dropping cost entirely: loses the marginal-cost beat.
+
+**Consequences:** `scripts/gen_golden.py --fixtures-only` regenerates fixtures without
+touching PDFs (which would invalidate the parse cache).
