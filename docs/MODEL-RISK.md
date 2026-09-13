@@ -73,9 +73,11 @@ by the extraction step. Models read and explain; code decides.
   down to review-all.
 - False-flag rate tracked weekly; desk-rejection of drafted queries feeds an
   error register (desk trust dies from false positives faster than misses).
-- Attestation freshness: attestations are hashed to (parsed document,
-  booking record); any amendment invalidates to STALE and queues re-check —
-  trust is continuous, not one-shot.
+- Attestation freshness: attestations are hashed to (parsed document, the
+  booking fields that affect the terms of the deal); fixings, marks, accruals
+  and lifecycle flags are outside the hash and never invalidate; an amendment
+  to a term invalidates to STALE and queues re-check — trust is continuous,
+  not one-shot.
 - Drift alarm: cross-family agreement rate trended; a sustained drop signals
   model or document-population drift before accuracy visibly degrades.
 - Desk dispositions feed a proposal queue for golden-set and judgment

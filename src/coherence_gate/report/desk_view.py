@@ -240,7 +240,7 @@ def _stale_reason(run_dir: Path, d: dict, store_dir: Path | None = None) -> str 
         res = store.lookup(store_dir or (ROOT / "golden" / "bookings"), tid)
         keys = att.get("booking_terms_keys")  # older runs attested to the whole record
         if not res["found"] or booking_hash(res["record"], keys) != att["booking_sha256"]:
-            moved.append("booking terms")
+            moved.append("deal terms in the booking")
     if not moved:
         return None
     return f"attestation invalidated — {' and '.join(moved)} changed since last check; re-check queued"

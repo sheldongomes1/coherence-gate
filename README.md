@@ -60,7 +60,8 @@ document; `uv run cg eval --stub` runs the harness with no model calls (the Phas
    **3b. Change the booking yourself** (any field in `golden/bookings/<trade>.json`) and run
    `make check DOC=golden/pdf/G14.pdf`: the generic pipeline catches the edit class or, if it
    does not, that is a finding for the honest ceiling. Regenerate the desk view and the row is
-   STALE until the re-check attests it again.
+   STALE until the re-check attests it again. The attestation is a hash of the booking fields
+   that affect the terms of the deal, so intraday fixings and marks never disturb it.
 4. **The refused-ambiguity moment**: an all-numeric date like 03/04/2026 becomes a finding, not a
    guess (ADR-14).
 5. **`eval_report.md`**: strict catch rate with the field-level row beneath, false flags at equal

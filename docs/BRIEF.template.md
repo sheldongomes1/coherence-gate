@@ -66,8 +66,9 @@ never a blank).
 
 **A booking-time gate, not an overnight batch:** `cg check` runs the whole pipeline on one
 document when the trade is born or amended, when catching it is cheapest; an attestation is
-bound to the document and booking hashes and expires the moment either is amended (STALE),
-so silence is earned continuously. A model deprecation is a rerun and a diff (`eval_diff.md`),
+bound to a hash of the document and a hash of the booking fields that affect the terms of the
+deal, so a fixing or a mark never disturbs it and an amendment to a term expires it (STALE);
+silence is earned continuously. A model deprecation is a rerun and a diff (`eval_diff.md`),
 not a quarter of rework. Feedback from the desk becomes proposed golden-set additions and
 judgment changes, human-approved, admitted through the same eval gate, visible in a diff; the
 model itself never learns silently.

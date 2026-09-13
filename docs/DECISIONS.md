@@ -470,14 +470,15 @@ within each trust state) is kept.
 lifecycle flags, version counters). Hashing the whole record would flip every attested row to
 STALE within hours and make the state meaningless.
 
-**Decision:** The attestation hash covers only the projection of the booking onto the
-schema's comparison keys (the terms the document governs), sorted and canonicalised; the key
-list is stored with the attestation so the page recomputes the same projection later. A
-fixing does not touch a governed term and cannot invalidate the row; an amendment to a
-governed term (barrier, coupon memory, participation…) does. Where the booking system
-versions trade *terms* separately from events, bind to that terms-version id instead of a
-hash. An event that genuinely changes a term (an autocall trigger shortening maturity) is a
-term change and should invalidate, which is correct.
+**Decision:** The attestation is a hash, and the hash is computed over the booking fields
+that affect the terms of the deal (the schema's comparison keys), sorted and canonicalised;
+the field list is stored with the attestation so the page recomputes the same hash later. A
+fixing, mark, accrual or lifecycle flag does not touch a term and cannot invalidate the row;
+an amendment to a term (barrier, coupon memory, participation…) does. An event that genuinely
+changes a term (an autocall trigger shortening maturity) is a term change and should
+invalidate, which is correct. Where a booking platform versions trade terms separately from
+events, its terms-version id is an acceptable substitute for the hash; the hash is the
+platform-independent form and the one shipped.
 
 **Alternatives considered:** Whole-record hash (fails under intraday updates). Ignoring
 booking changes entirely (defeats STALE). Time-based expiry (a timer is not evidence).
