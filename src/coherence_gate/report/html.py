@@ -31,8 +31,21 @@ def load_run(run_dir: Path) -> dict:
 
 
 def render(run_dir: Path, out: Path | None = None) -> Path:
+    from .desk_view import LEAD_RANK, RED_TYPES, AMBER_TYPES, trust_state
     data = load_run(run_dir)
     docs = data["docs"]
+    fx_path = ROOT / "golden" / "desk_fixtures.json"
+    fixtures = json.loads(fx_path.read_text()) if fx_path.exists() else {}
+    state_order = {"MISMATCH": 0, "STALE": 1, "DISAGREEMENT": 2, "ATTESTED": 3}
+    for d in docs:
+        d["trust"], d["trust_why"] = trust_state(d["findings"])
+        fx = fixtures.get(d["trade_id"] or "", {})
+        d["exposure"] = abs(fx.get("delta_usd") or 0)
+        for f in d["findings"]:
+            f["attention"] = f["type"] in RED_TYPES or f["type"] in AMBER_TYPES
+        d["findings"].sort(key=lambda f: (not f["attention"], f["severity"] != "critical", LEAD_RANK.get(f["field"], 50), f["field"]))
+        d["n_attention"] = sum(f["attention"] for f in d["findings"])
+    docs.sort(key=lambda d: (state_order.get(d["trust"], 9), -d["exposure"], d["doc_id"]))
     all_f = [f for d in docs for f in d["findings"]]
     models = sorted({l["model"] for l in data["trace"] if l.get("model")})
     env = Environment(loader=FileSystemLoader(str(TEMPLATES)), autoescape=True)
