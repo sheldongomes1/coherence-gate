@@ -3,9 +3,9 @@
   "sha256": "ccaea4926367f6e1da2d915ff247495c76805fdeb83a74d28fcfb8b75765cb04",
   "trade_id": "SN-2026-0103",
   "document_lane": "TRIAGE",
-  "cost_usd": 0.245948,
-  "n_auto_clear": 30,
-  "n_triage": 2,
+  "cost_usd": 0.123297,
+  "n_auto_clear": 27,
+  "n_triage": 5,
   "source": "pdf",
   "parse": {
     "vendor": "mixedbread",
@@ -31,7 +31,6 @@
     "document_path": "golden/parsed/G03.md",
     "document_sha256": "ccaea4926367f6e1da2d915ff247495c76805fdeb83a74d28fcfb8b75765cb04",
     "booking_trade_id": "SN-2026-0103",
-    "booking_sha256": "a91de5b87ead1206a9b238f99d29d30bd8267b75af76bd32aeca7fc4b5502a45",
     "booking_terms_keys": [
       "trade_id",
       "issuer",
@@ -59,6 +58,7 @@
       "index_rebalance_frequency",
       "index_deduction_factor_pct",
       "index_transaction_cost_rate_pct"
-    ]
+    ],
+    "booking_sha256": "a91de5b87ead1206a9b238f99d29d30bd8267b75af76bd32aeca7fc4b5502a45"
   }
 }

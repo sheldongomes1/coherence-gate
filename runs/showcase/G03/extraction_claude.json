@@ -178,7 +178,7 @@
       "status": "EXTRACTED",
       "value": "true",
       "citation": {
-        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is\n\nnot satisfied, that Coupon is not lost.",
+        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
         "char_range": [
           3415,
           3552
@@ -291,7 +291,7 @@
       "status": "EXTRACTED",
       "value": "10% per annum",
       "citation": {
-        "text_span": "Volatility Target</td>\n    <td>10% per annum",
+        "text_span": "Volatility Target 10% per annum",
         "char_range": [
           2014,
           2058

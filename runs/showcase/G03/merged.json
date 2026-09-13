@@ -13,9 +13,9 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0103",
         "citation": {
-          "text_span": "with reference SN-2026-0103 in an aggregate Notional Amount of CAD 8,000,000.",
+          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes (the \"Notes\") with reference SN-2026-0103 in an aggregate Notional Amount of CAD 8,000,000.",
           "char_range": [
-            441,
+            353,
             518
           ]
         },
@@ -56,10 +56,10 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
+          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes (the \"Notes\") with reference SN-2026-0103",
           "char_range": [
             353,
-            426
+            468
           ]
         },
         "note": null
@@ -97,7 +97,7 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "8000000",
+        "value": "CAD 8,000,000",
         "citation": {
           "text_span": "in an aggregate Notional Amount of CAD 8,000,000.",
           "char_range": [
@@ -183,12 +183,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "2026-03-03",
+        "value": "3 March 2026",
         "citation": {
-          "text_span": "The Trade Date is 3 March 2026",
+          "text_span": "The Trade Date is 3 March 2026, the Issue Date is 10 March 2026 and the Scheduled Maturity Date is 12 March 2029",
           "char_range": [
             696,
-            726
+            808
           ]
         },
         "note": null
@@ -226,12 +226,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "2026-03-10",
+        "value": "10 March 2026",
         "citation": {
-          "text_span": "the Issue Date is 10 March 2026",
+          "text_span": "the Issue Date is 10 March 2026 and the Scheduled Maturity Date is 12 March 2029",
           "char_range": [
             728,
-            759
+            808
           ]
         },
         "note": null
@@ -269,12 +269,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "2029-03-12",
+        "value": "12 March 2029",
         "citation": {
-          "text_span": "the Scheduled Maturity Date is 12 March 2029",
+          "text_span": "the Scheduled Maturity Date is 12 March 2029, in each case subject to the Business Day Convention set out below.",
           "char_range": [
             764,
-            808
+            876
           ]
         },
         "note": null
@@ -319,13 +319,13 @@
       "source": {
         "status": "EXTRACTED",
         "value": [
-          "SPTSX60",
-          "BVERSA10"
+          "SPTSX60 Index",
+          "BVERSA10 Index"
         ],
         "citation": {
-          "text_span": "S&P/TSX 60 Index (Bloomberg: SPTSX60 Index) and the Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index).",
+          "text_span": "linked to the performance of the worst performing of the S&P/TSX 60 Index (Bloomberg: SPTSX60 Index) and the Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index).",
           "char_range": [
-            590,
+            533,
             695
           ]
         },
@@ -372,10 +372,10 @@
         "status": "EXTRACTED",
         "value": "100%",
         "citation": {
-          "text_span": "The Initial Level of the Underlying is 100% of its official closing level on the Trade Date",
+          "text_span": "The Initial Level of the Underlying is 100% of its official closing level on the Trade Date, as published by the Index Administrator.",
           "char_range": [
             877,
-            968
+            1010
           ]
         },
         "note": null
@@ -415,10 +415,10 @@
         "status": "EXTRACTED",
         "value": "european",
         "citation": {
-          "text_span": "observed on the Final Valuation Date only (European observation)",
+          "text_span": "the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 70% of the Initial Level.",
           "char_range": [
-            4115,
-            4179
+            4071,
+            4228
           ]
         },
         "note": null
@@ -458,9 +458,9 @@
         "status": "EXTRACTED",
         "value": "70%",
         "citation": {
-          "text_span": "Knock-in Level of 70% of the Initial Level.",
+          "text_span": "observed on the Final Valuation Date only (European observation) at a Knock-in Level of 70% of the Initial Level.",
           "char_range": [
-            4185,
+            4115,
             4228
           ]
         },
@@ -501,10 +501,10 @@
         "status": "EXTRACTED",
         "value": "6.8%",
         "citation": {
-          "text_span": "conditional Coupon of 6.8% per annum",
+          "text_span": "The Notes pay a conditional Coupon of 6.8% per annum, payable quarterly",
           "char_range": [
-            3201,
-            3237
+            3185,
+            3256
           ]
         },
         "note": null
@@ -544,10 +544,10 @@
         "status": "EXTRACTED",
         "value": "quarterly",
         "citation": {
-          "text_span": "payable quarterly, payable quarterly in arrears",
+          "text_span": "payable quarterly, payable quarterly in arrears, on each Coupon Payment Date on which the Coupon Condition is satisfied.",
           "char_range": [
             3239,
-            3286
+            3359
           ]
         },
         "note": null
@@ -605,7 +605,7 @@
         "status": "EXTRACTED",
         "value": "true",
         "citation": {
-          "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is\n\nnot satisfied, that Coupon is not lost.",
+          "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
           "char_range": [
             3415,
             3552
@@ -639,10 +639,10 @@
       "source": {
         "status": "EXTRACTED",
         "value": [
-          "2027-03-03",
-          "2027-09-03",
-          "2028-03-03",
-          "2028-09-05"
+          "3 March 2027",
+          "3 September 2027",
+          "3 March 2028",
+          "5 September 2028"
         ],
         "citation": {
           "text_span": "Autocall Observation Dates: 3 March 2027, 3 September 2027, 3 March 2028, 5 September 2028.",
@@ -698,10 +698,10 @@
         "status": "EXTRACTED",
         "value": "100%",
         "citation": {
-          "text_span": "at or above 100% of the Initial Level",
+          "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level, the Notes redeem early at 100% of the Notional Amount plus the Coupon then due.",
           "char_range": [
-            3843,
-            3880
+            3768,
+            3961
           ]
         },
         "note": null
@@ -739,11 +739,11 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "ACT/360",
+        "value": "Actual/360",
         "citation": {
-          "text_span": "Actual/360 day count basis.",
+          "text_span": "Coupon amounts accrue on a Actual/360 day count basis.",
           "char_range": [
-            3387,
+            3360,
             3414
           ]
         },
@@ -825,11 +825,11 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "mod_following",
+        "value": "Modified Following",
         "citation": {
-          "text_span": "Modified Following Business Day Convention.",
+          "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
           "char_range": [
-            4545,
+            4495,
             4588
           ]
         },
@@ -870,10 +870,10 @@
         "status": "EXTRACTED",
         "value": "Bloomberg Index Services Limited",
         "citation": {
-          "text_span": "Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator",
+          "text_span": "The Underlying is a rules-based, volatility-targeting index administered by Bloomberg Index Services Limited (\"BISL\")",
           "char_range": [
-            1678,
-            1800
+            1040,
+            1157
           ]
         },
         "note": null
@@ -913,10 +913,10 @@
         "status": "EXTRACTED",
         "value": "type_i",
         "citation": {
-          "text_span": "Excess Return (Type I under the Index Methodology)",
+          "text_span": "Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
           "char_range": [
             1859,
-            1909
+            1985
           ]
         },
         "note": null
@@ -954,12 +954,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "excess_return",
+        "value": "Excess Return",
         "citation": {
-          "text_span": "Excess Return (Type I under the Index Methodology)",
+          "text_span": "Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
           "char_range": [
             1859,
-            1909
+            1985
           ]
         },
         "note": null
@@ -997,7 +997,7 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "10%",
+        "value": "10% per annum",
         "citation": {
           "text_span": "10% per annum",
           "char_range": [
@@ -1017,7 +1017,7 @@
         "status": "EXTRACTED",
         "value": "10% per annum",
         "citation": {
-          "text_span": "Volatility Target</td>\n    <td>10% per annum",
+          "text_span": "Volatility Target 10% per annum",
           "char_range": [
             2014,
             2058
@@ -1083,7 +1083,7 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "0.50%",
+        "value": "0.50% per annum",
         "citation": {
           "text_span": "0.50% per annum, deducted daily from the Index Value",
           "char_range": [

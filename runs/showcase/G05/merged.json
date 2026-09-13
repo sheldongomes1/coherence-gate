@@ -13,10 +13,10 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0105",
         "citation": {
-          "text_span": "with reference SN-2026-0105",
+          "text_span": "Reference SN-2026-0105",
           "char_range": [
-            368,
-            395
+            207,
+            229
           ]
         },
         "note": null
@@ -31,10 +31,10 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0105",
         "citation": {
-          "text_span": "will issue notes (the \"Notes\") with reference SN-2026-0105",
+          "text_span": "Reference SN-2026-0105",
           "char_range": [
-            337,
-            395
+            207,
+            229
           ]
         },
         "note": null
@@ -56,10 +56,10 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
+          "text_span": "Northbridge Capital Markets (Canada) Inc.",
           "char_range": [
             280,
-            336
+            321
           ]
         },
         "note": null
@@ -74,10 +74,10 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
+          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes (the \"Notes\")",
           "char_range": [
             280,
-            353
+            367
           ]
         },
         "note": null
@@ -97,11 +97,11 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "10,000,000 USD",
+        "value": "10000000",
         "citation": {
-          "text_span": "in an aggregate Notional Amount of 10,000,000 USD",
+          "text_span": "aggregate Notional Amount of 10,000,000 USD",
           "char_range": [
-            396,
+            402,
             445
           ]
         },
@@ -142,10 +142,10 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "Cash settlement in USD.",
+          "text_span": "aggregate Notional Amount of 10,000,000 USD",
           "char_range": [
-            1616,
-            1639
+            402,
+            445
           ]
         },
         "note": null
@@ -183,12 +183,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "February 17, 2026",
+        "value": "2026-02-17",
         "citation": {
-          "text_span": "The Trade Date is February 17, 2026",
+          "text_span": "The Trade Date is February 17, 2026;",
           "char_range": [
             518,
-            553
+            554
           ]
         },
         "note": null
@@ -226,12 +226,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "February 24, 2026",
+        "value": "2026-02-24",
         "citation": {
-          "text_span": "the Issue Date is February 24, 2026",
+          "text_span": "the Issue Date is February 24, 2026;",
           "char_range": [
             555,
-            590
+            591
           ]
         },
         "note": null
@@ -269,12 +269,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "February 24, 2028",
+        "value": "2028-02-24",
         "citation": {
-          "text_span": "the Scheduled Maturity Date is February 24, 2028",
+          "text_span": "the Scheduled Maturity Date is February 24, 2028,",
           "char_range": [
             592,
-            640
+            641
           ]
         },
         "note": null
@@ -317,13 +317,13 @@
       "source": {
         "status": "EXTRACTED",
         "value": [
-          "SPX Index"
+          "SPX"
         ],
         "citation": {
-          "text_span": "The Underlying is the S&P 500 Index (Bloomberg: SPX Index)",
+          "text_span": "S&P 500 Index (Bloomberg: SPX Index)",
           "char_range": [
-            1669,
-            1727
+            480,
+            516
           ]
         },
         "note": null
@@ -342,10 +342,10 @@
           "SPX"
         ],
         "citation": {
-          "text_span": "The Underlying is the S&P 500 Index (Bloomberg: SPX Index)",
+          "text_span": "linked to the performance of the S&P 500 Index (Bloomberg: SPX Index)",
           "char_range": [
-            1669,
-            1727
+            447,
+            516
           ]
         },
         "note": null
@@ -365,12 +365,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "100 per cent.",
+        "value": "100",
         "citation": {
-          "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date",
+          "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.",
           "char_range": [
             777,
-            878
+            879
           ]
         },
         "note": null
@@ -482,11 +482,11 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "5.25 per cent.",
+        "value": "5.25",
         "citation": {
-          "text_span": "conditional Coupon of 5.25 per cent. per annum",
+          "text_span": "5.25 per cent. per annum",
           "char_range": [
-            911,
+            933,
             957
           ]
         },
@@ -525,12 +525,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "annually",
+        "value": "annual",
         "citation": {
-          "text_span": "payable annually, payable annually in arrears",
+          "text_span": "payable annually",
           "char_range": [
             959,
-            1004
+            975
           ]
         },
         "note": null
@@ -675,10 +675,10 @@
         "status": "EXTRACTED",
         "value": "30/360",
         "citation": {
-          "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+          "text_span": "30/360 day count basis",
           "char_range": [
-            1078,
-            1128
+            1105,
+            1127
           ]
         },
         "note": null
@@ -716,7 +716,7 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Cash",
+        "value": "cash",
         "citation": {
           "text_span": "Cash settlement in USD.",
           "char_range": [
@@ -759,12 +759,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Modified Following",
+        "value": "mod_following",
         "citation": {
-          "text_span": "subject to adjustment in accordance with the Modified Following Business Day Convention (Business Days: Toronto, New York and London).",
+          "text_span": "Modified Following Business Day Convention",
           "char_range": [
-            642,
-            776
+            687,
+            729
           ]
         },
         "note": null
@@ -777,7 +777,7 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Modified Following",
+        "value": "mod_following",
         "citation": {
           "text_span": "subject to adjustment in accordance with the Modified Following Business Day Convention",
           "char_range": [

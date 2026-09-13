@@ -3,7 +3,7 @@
   "sha256": "9d11d74ed53800ca5c75ea7cae77967e59d962ff97e8cc6da6a79c664d58c023",
   "trade_id": "SN-2026-0107",
   "document_lane": "TRIAGE",
-  "cost_usd": 0.157258,
+  "cost_usd": 0.146342,
   "n_auto_clear": 25,
   "n_triage": 1,
   "source": "pdf",
@@ -31,7 +31,6 @@
     "document_path": "golden/parsed/G07.md",
     "document_sha256": "9d11d74ed53800ca5c75ea7cae77967e59d962ff97e8cc6da6a79c664d58c023",
     "booking_trade_id": "SN-2026-0107",
-    "booking_sha256": "63f4a6c8d2ce3b937c62a92cd8e327a0fbea695971cc650bf0925874457f4fda",
     "booking_terms_keys": [
       "trade_id",
       "issuer",
@@ -59,6 +58,7 @@
       "index_rebalance_frequency",
       "index_deduction_factor_pct",
       "index_transaction_cost_rate_pct"
-    ]
+    ],
+    "booking_sha256": "63f4a6c8d2ce3b937c62a92cd8e327a0fbea695971cc650bf0925874457f4fda"
   }
 }

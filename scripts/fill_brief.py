@@ -7,6 +7,16 @@ from pathlib import Path
 run = Path(sys.argv[1])
 s = json.loads((run / "summary.json").read_text())
 
+def run_label(s: dict) -> str:
+    """Run id, plus the resume note when the run is a composite (ADR-31): the reader must see it."""
+    rs = s.get("resumed")
+    if not rs:
+        return s["run_id"]
+    prior = rs["prior_run"].rstrip("/").split("/")[-1]
+    return (f"{s['run_id']}, resumed from {prior}: {len(rs['reused'])} documents re-checked from their hash-attested "
+            f"extractions, {len(rs['re_extracted'])} ({', '.join(rs['re_extracted'])}) extracted again")
+
+
 
 def r(k: str) -> str:
     return f"{s[k]['hit']}/{s[k]['n']}"
@@ -37,7 +47,9 @@ _traps = sum(len(d.get("traps", [])) for d in _docs)
 _clean = sum(1 for d in _docs if d.get("clean_control"))
 vals = {
     "n_planted": str(_planted), "n_traps": str(_traps), "n_clean": str(_clean),
-    "cost_ref": f"${s.get('reference_cost_usd', 0):.2f}", "cost_traced": f"${s.get('cost_traced_total_usd', 0):.2f}",
+    "cost_ref": f"${s.get('reference_cost_usd', 0):.2f}",
+    "cost_traced": (f"${s.get('cost_traced_total_usd', 0):.2f} traced in this run, the reused extractions in the prior run's trace"
+                    if s.get("resumed") else f"${s.get('cost_traced_total_usd', 0):.2f} traced in total"),
     "catch_strict": r("catch_strict"),
     "false_flags": r("false_flag_fields"),
     "clean_docs": f"{s['false_flag_docs']['n'] - s['false_flag_docs']['hit']}/{s['false_flag_docs']['n']}",
@@ -48,7 +60,7 @@ vals = {
     "cost_book": f"${s['cost_total_usd']:.2f}",
     "n_docs": str(s["n_docs"]),
     "parse_tax": _parse_tax(run),
-    "run_id": s["run_id"],
+    "run_id": run_label(s),
 }
 tpl = Path("docs/BRIEF.template.md").read_text()
 out = tpl.format(**vals)

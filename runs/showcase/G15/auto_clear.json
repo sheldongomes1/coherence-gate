@@ -16,9 +16,9 @@
         ]
       },
       {
-        "text_span": "Reference OP-2026-0121 \u00b7 Dated 20 July 2026",
+        "text_span": "European Cash-Settled Call Option on the Bloomberg Versa 10 Index \u00b7 Reference OP-2026-0121 \u00b7 Dated 20 July 2026",
         "char_range": [
-          216,
+          148,
           259
         ]
       }
@@ -93,10 +93,10 @@
     "booking_value": "european",
     "citations": [
       {
-        "text_span": "European / Call",
+        "text_span": "European-style, cash-settled call option",
         "char_range": [
-          3218,
-          3233
+          432,
+          472
         ]
       },
       {
@@ -121,10 +121,10 @@
     "booking_value": "call",
     "citations": [
       {
-        "text_span": "European / Call",
+        "text_span": "European-style, cash-settled call option",
         "char_range": [
-          3218,
-          3233
+          432,
+          472
         ]
       },
       {
@@ -188,7 +188,7 @@
         ]
       },
       {
-        "text_span": "<td>Notional Amount</td>\n    <td>USD 25,000,000</td>",
+        "text_span": "Notional Amount USD 25,000,000",
         "char_range": [
           3366,
           3418
@@ -216,7 +216,7 @@
         ]
       },
       {
-        "text_span": "<td>Notional Amount</td>\n    <td>USD 25,000,000</td>",
+        "text_span": "Notional Amount USD 25,000,000",
         "char_range": [
           3366,
           3418
@@ -237,14 +237,14 @@
     "booking_value": "2026-07-20",
     "citations": [
       {
-        "text_span": "Trade Date</td>\n    <td>20 July 2026",
+        "text_span": "Trade Date 20 July 2026",
         "char_range": [
           3442,
           3478
         ]
       },
       {
-        "text_span": "<td>Trade Date</td>\n    <td>20 July 2026</td>",
+        "text_span": "Trade Date 20 July 2026",
         "char_range": [
           3438,
           3483
@@ -265,14 +265,14 @@
     "booking_value": "2026-07-22",
     "citations": [
       {
-        "text_span": "Effective Date</td>\n    <td>22 July 2026",
+        "text_span": "Effective Date 22 July 2026",
         "char_range": [
           3507,
           3547
         ]
       },
       {
-        "text_span": "<td>Effective Date</td>\n    <td>22 July 2026</td>",
+        "text_span": "Effective Date 22 July 2026",
         "char_range": [
           3503,
           3552
@@ -293,14 +293,14 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "Strike Level</td>\n    <td>100% of the Initial Index Level",
+        "text_span": "100% of the Initial Index Level",
         "char_range": [
-          3736,
+          3762,
           3793
         ]
       },
       {
-        "text_span": "<td>Strike Level</td>\n    <td>100% of the Initial Index Level</td>",
+        "text_span": "Strike Level 100% of the Initial Index Level",
         "char_range": [
           3732,
           3798
@@ -321,14 +321,14 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "Participation Rate</td>\n    <td>100%",
+        "text_span": "Participation Rate 100%",
         "char_range": [
           3822,
           3858
         ]
       },
       {
-        "text_span": "<td>Participation Rate</td>\n    <td>100%</td>",
+        "text_span": "Participation Rate 100%",
         "char_range": [
           3818,
           3863
@@ -349,14 +349,14 @@
     "booking_value": "2028-07-20",
     "citations": [
       {
-        "text_span": "Valuation Date</td>\n    <td>20 July 2028",
+        "text_span": "Valuation Date 20 July 2028",
         "char_range": [
           3887,
           3927
         ]
       },
       {
-        "text_span": "<td>Valuation Date</td>\n    <td>20 July 2028 (point-to-point observation; no averaging)</td>",
+        "text_span": "Valuation Date 20 July 2028 (point-to-point observation; no averaging)",
         "char_range": [
           3883,
           3975
@@ -377,14 +377,14 @@
     "booking_value": "2028-07-20",
     "citations": [
       {
-        "text_span": "Expiration Date</td>\n    <td>20 July 2028",
+        "text_span": "Expiration Date 20 July 2028",
         "char_range": [
           3999,
           4040
         ]
       },
       {
-        "text_span": "<td>Expiration Date</td>\n    <td>20 July 2028</td>",
+        "text_span": "Expiration Date 20 July 2028",
         "char_range": [
           3995,
           4045
@@ -405,14 +405,14 @@
     "booking_value": true,
     "citations": [
       {
-        "text_span": "Automatic Exercise</td>\n    <td>Applicable",
+        "text_span": "Automatic Exercise Applicable",
         "char_range": [
           4069,
           4111
         ]
       },
       {
-        "text_span": "<td>Automatic Exercise</td>\n    <td>Applicable</td>",
+        "text_span": "Automatic Exercise Applicable",
         "char_range": [
           4065,
           4116
@@ -433,14 +433,14 @@
     "booking_value": "4.15",
     "citations": [
       {
-        "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
+        "text_span": "4.15% of the Notional Amount",
         "char_range": [
           4161,
-          4205
+          4189
         ]
       },
       {
-        "text_span": "<td>Premium</td>\n    <td>4.15% of the Notional Amount (USD 1,037,500)</td>",
+        "text_span": "Premium 4.15% of the Notional Amount (USD 1,037,500)",
         "char_range": [
           4136,
           4210
@@ -461,14 +461,14 @@
     "booking_value": "2026-07-22",
     "citations": [
       {
-        "text_span": "Premium Payment Date</td>\n    <td>22 July 2026",
+        "text_span": "Premium Payment Date 22 July 2026",
         "char_range": [
           4234,
           4280
         ]
       },
       {
-        "text_span": "<td>Premium Payment Date</td>\n    <td>22 July 2026</td>",
+        "text_span": "Premium Payment Date 22 July 2026",
         "char_range": [
           4230,
           4285
@@ -496,7 +496,7 @@
         ]
       },
       {
-        "text_span": "<td>Cash Settlement Payment Date</td>\n    <td>Three Currency Business Days following the Valuation Date</td>",
+        "text_span": "Cash Settlement Payment Date Three Currency Business Days following the Valuation Date",
         "char_range": [
           4305,
           4413
@@ -517,14 +517,14 @@
     "booking_value": "USD",
     "citations": [
       {
-        "text_span": "Settlement Currency</td>\n    <td>USD",
+        "text_span": "Settlement Currency USD",
         "char_range": [
           4437,
           4473
         ]
       },
       {
-        "text_span": "<td>Settlement Currency</td>\n    <td>USD</td>",
+        "text_span": "Settlement Currency USD",
         "char_range": [
           4433,
           4478
@@ -601,10 +601,10 @@
     "booking_value": "type_i",
     "citations": [
       {
-        "text_span": "Excess Return (Type I under the Index Methodology)",
+        "text_span": "Type I under the Index Methodology",
         "char_range": [
-          2101,
-          2151
+          2116,
+          2150
         ]
       },
       {
@@ -636,10 +636,10 @@
         ]
       },
       {
-        "text_span": "Excess Return (Type I under the Index Methodology)",
+        "text_span": "Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
         "char_range": [
           2101,
-          2151
+          2227
         ]
       }
     ],
@@ -657,14 +657,14 @@
     "booking_value": "10",
     "citations": [
       {
-        "text_span": "Volatility Target</td>\n    <td>10% per annum",
+        "text_span": "10% per annum",
         "char_range": [
-          2256,
+          2287,
           2300
         ]
       },
       {
-        "text_span": "<td>Volatility Target</td>\n    <td>10% per annum</td>",
+        "text_span": "Volatility Target 10% per annum",
         "char_range": [
           2252,
           2305
@@ -685,14 +685,14 @@
     "booking_value": "daily",
     "citations": [
       {
-        "text_span": "Rebalancing</td>\n    <td>Each Index Business Day",
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
         "char_range": [
-          2748,
-          2796
+          2773,
+          2838
         ]
       },
       {
-        "text_span": "<td>Rebalancing</td>\n    <td>Each Index Business Day, in accordance with the Index Methodology</td>",
+        "text_span": "Rebalancing Each Index Business Day, in accordance with the Index Methodology",
         "char_range": [
           2744,
           2843
@@ -713,14 +713,14 @@
     "booking_value": "0.5",
     "citations": [
       {
-        "text_span": "Deduction Factor</td>\n    <td>0.50% per annum",
+        "text_span": "0.50% per annum",
         "char_range": [
-          2867,
+          2897,
           2912
         ]
       },
       {
-        "text_span": "<td>Deduction Factor</td>\n    <td>0.50% per annum, deducted daily from the Index Value</td>",
+        "text_span": "Deduction Factor 0.50% per annum, deducted daily from the Index Value",
         "char_range": [
           2863,
           2954
@@ -741,14 +741,14 @@
     "booking_value": "0.02",
     "citations": [
       {
-        "text_span": "Transaction Cost Rate</td>\n    <td>0.02%",
+        "text_span": "0.02% on changes in Underlying Index units",
         "char_range": [
-          2978,
-          3018
+          3013,
+          3055
         ]
       },
       {
-        "text_span": "<td>Transaction Cost Rate</td>\n    <td>0.02% on changes in Underlying Index units, as provided in the Index Methodology</td>",
+        "text_span": "Transaction Cost Rate 0.02% on changes in Underlying Index units, as provided in the Index Methodology",
         "char_range": [
           2974,
           3098
@@ -797,14 +797,14 @@
     "booking_value": "daily",
     "citations": [
       {
-        "text_span": "Rebalancing</td>\n    <td>Each Index Business Day",
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
         "char_range": [
-          2748,
-          2796
+          2773,
+          2838
         ]
       },
       {
-        "text_span": "<td>Rebalancing</td>\n    <td>Each Index Business Day, in accordance with the Index Methodology</td>",
+        "text_span": "Rebalancing Each Index Business Day, in accordance with the Index Methodology",
         "char_range": [
           2744,
           2843
@@ -812,90 +812,6 @@
       }
     ],
     "detail": "claim daily agrees with the methodology rule rebalance_frequency = daily",
-    "lane": "AUTO_CLEAR",
-    "triage": null
-  },
-  {
-    "id": "G15:ref:index_vol_target_pct",
-    "doc_id": "G15",
-    "field": "ref:index_vol_target_pct",
-    "type": "CLEAN",
-    "severity": "critical",
-    "ts_value": "10",
-    "booking_value": null,
-    "citations": [
-      {
-        "text_span": "Volatility Target</td>\n    <td>10% per annum",
-        "char_range": [
-          2256,
-          2300
-        ]
-      },
-      {
-        "text_span": "<td>Volatility Target</td>\n    <td>10% per annum</td>",
-        "char_range": [
-          2252,
-          2305
-        ]
-      }
-    ],
-    "detail": "deferred: the methodology defines volatility_target_pct but fixes no value (index-specific document); not checkable here",
-    "lane": "AUTO_CLEAR",
-    "triage": null
-  },
-  {
-    "id": "G15:ref:index_deduction_factor_pct",
-    "doc_id": "G15",
-    "field": "ref:index_deduction_factor_pct",
-    "type": "CLEAN",
-    "severity": "minor",
-    "ts_value": "0.5",
-    "booking_value": "0",
-    "citations": [
-      {
-        "text_span": "Deduction Factor</td>\n    <td>0.50% per annum",
-        "char_range": [
-          2867,
-          2912
-        ]
-      },
-      {
-        "text_span": "<td>Deduction Factor</td>\n    <td>0.50% per annum, deducted daily from the Index Value</td>",
-        "char_range": [
-          2863,
-          2954
-        ]
-      }
-    ],
-    "detail": "methodology default 0; the index-specific document may override \u2014 informational, not checked",
-    "lane": "AUTO_CLEAR",
-    "triage": null
-  },
-  {
-    "id": "G15:ref:index_transaction_cost_rate_pct",
-    "doc_id": "G15",
-    "field": "ref:index_transaction_cost_rate_pct",
-    "type": "CLEAN",
-    "severity": "minor",
-    "ts_value": "0.02",
-    "booking_value": "0",
-    "citations": [
-      {
-        "text_span": "Transaction Cost Rate</td>\n    <td>0.02%",
-        "char_range": [
-          2978,
-          3018
-        ]
-      },
-      {
-        "text_span": "<td>Transaction Cost Rate</td>\n    <td>0.02% on changes in Underlying Index units, as provided in the Index Methodology</td>",
-        "char_range": [
-          2974,
-          3098
-        ]
-      }
-    ],
-    "detail": "methodology default 0; the index-specific document may override \u2014 informational, not checked",
     "lane": "AUTO_CLEAR",
     "triage": null
   },
@@ -916,10 +832,10 @@
         ]
       },
       {
-        "text_span": "Excess Return (Type I under the Index Methodology)",
+        "text_span": "Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
         "char_range": [
           2101,
-          2151
+          2227
         ]
       }
     ],

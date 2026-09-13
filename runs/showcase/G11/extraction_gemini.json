@@ -7,10 +7,10 @@
       "status": "EXTRACTED",
       "value": "SN-2026-0111",
       "citation": {
-        "text_span": "Worst-of Autocallable Contingent Coupon Notes with Memory linked to S&P 500 Index and S&P/TSX 60 Index · Reference SN-2026-0111 · Dated 26 May 2026",
+        "text_span": "Reference SN-2026-0111",
         "char_range": [
-          157,
-          304
+          262,
+          284
         ]
       },
       "note": null
@@ -19,10 +19,10 @@
       "status": "EXTRACTED",
       "value": "Northbridge Capital Markets (Canada) Inc.",
       "citation": {
-        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
         "char_range": [
           340,
-          413
+          396
         ]
       },
       "note": null
@@ -31,10 +31,10 @@
       "status": "EXTRACTED",
       "value": "USD 4,500,000",
       "citation": {
-        "text_span": "in an aggregate Notional Amount of USD 4,500,000.",
+        "text_span": "aggregate Notional Amount of USD 4,500,000",
         "char_range": [
-          456,
-          505
+          462,
+          504
         ]
       },
       "note": null
@@ -43,10 +43,10 @@
       "status": "EXTRACTED",
       "value": "USD",
       "citation": {
-        "text_span": "in an aggregate Notional Amount of USD 4,500,000.",
+        "text_span": "aggregate Notional Amount of USD 4,500,000",
         "char_range": [
-          456,
-          505
+          462,
+          504
         ]
       },
       "note": null
@@ -106,10 +106,10 @@
       "status": "EXTRACTED",
       "value": "100%",
       "citation": {
-        "text_span": "The Initial Level of the Underlying is 100% of its official closing level on the Trade Date.",
+        "text_span": "The Initial Level of the Underlying is 100% of its official closing level on the Trade Date",
         "char_range": [
           843,
-          935
+          934
         ]
       },
       "note": null
@@ -118,9 +118,9 @@
       "status": "EXTRACTED",
       "value": "european",
       "citation": {
-        "text_span": "Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)",
+        "text_span": "knock-in barrier observed on the Final Valuation Date only (European observation)",
         "char_range": [
-          2206,
+          2249,
           2330
         ]
       },
@@ -130,10 +130,10 @@
       "status": "EXTRACTED",
       "value": "60%",
       "citation": {
-        "text_span": "Knock-in Level of 60% of the Initial Level.",
+        "text_span": "Knock-in Level of 60% of the Initial Level",
         "char_range": [
           2336,
-          2379
+          2378
         ]
       },
       "note": null
@@ -193,10 +193,10 @@
         "26 November 2027"
       ],
       "citation": {
-        "text_span": "Autocall Observation Dates: 26 May 2027, 26 November 2027.",
+        "text_span": "Autocall Observation Dates: 26 May 2027, 26 November 2027",
         "char_range": [
           2146,
-          2204
+          2203
         ]
       },
       "note": null
@@ -205,9 +205,9 @@
       "status": "EXTRACTED",
       "value": "100%",
       "citation": {
-        "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+        "text_span": "closing level of the Underlying is at or above 100% of the Initial Level",
         "char_range": [
-          1952,
+          1992,
           2064
         ]
       },
@@ -217,10 +217,10 @@
       "status": "EXTRACTED",
       "value": "30/360",
       "citation": {
-        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "text_span": "Coupon amounts accrue on a 30/360 day count basis",
         "char_range": [
           1549,
-          1599
+          1598
         ]
       },
       "note": null
@@ -229,10 +229,10 @@
       "status": "EXTRACTED",
       "value": "cash",
       "citation": {
-        "text_span": "Settlement at maturity or upon automatic early redemption is in cash, in USD.",
+        "text_span": "Settlement at maturity or upon automatic early redemption is in cash, in USD",
         "char_range": [
           2568,
-          2645
+          2644
         ]
       },
       "note": null
@@ -241,10 +241,10 @@
       "status": "EXTRACTED",
       "value": "Modified Following",
       "citation": {
-        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention",
         "char_range": [
           2646,
-          2739
+          2738
         ]
       },
       "note": null
@@ -292,5 +292,5 @@
       "note": null
     }
   },
-  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"SN-2026-0111\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"USD 4,500,000\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"26 May 2026\",\n    \"issue_date\": \"2 June 2026\",\n    \"maturity_date\": \"2 June 2028\",\n    \"underlyings\": [\n      \"SPX Index\",\n      \"SPTSX60 Index\"\n    ],\n    \"initial_level_pct\": \"100%\",\n    \"barrier_type\": \"european\",\n    \"barrier_level_pct\": \"60%\",\n    \"coupon_rate_pct\": \"8.4%\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"quarterly\",\n    \"coupon_memory\": \"true\",\n    \"autocall_observation_dates\": [\n      \"26 May 2027\",\n      \"26 November 2027\"\n    ],\n    \"autocall_level_pct\": \"100%\",\n    \"day_count\": \"30/360\",\n    \"settlement\": \"cash\",\n    \"business_day_convention\": \"Modified Following\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"citation\": {\n    \"trade_id\": \"Worst-of Autocallable Contingent Coupon Notes with Memory linked to S&P 500 Index and S&P/TSX 60 Index · Reference SN-2026-0111 · Dated 26 May 2026\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc. (the \\\"Issuer\\\") will issue notes\",\n    \"notional\": \"in an aggregate Notional Amount of USD 4,500,000.\",\n    \"currency\": \"in an aggregate Notional Amount of USD 4,500,000.\",\n    \"trade_date\": \"The Trade Date is 26 May 2026\",\n    \"issue_date\": \"the Issue Date is 2 June 2026\",\n    \"maturity_date\": \"the Scheduled Maturity Date is 2 June 2028\",\n    \"underlyings\": \"S&P 500 Index (Bloomberg: SPX Index) and the S&P/TSX 60 Index (Bloomberg: SPTSX60 Index)\",\n    \"initial_level_pct\": \"The Initial Level of the Underlying is 100% of its official closing level on the Trade Date.\",\n    \"barrier_type\": \"Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)\",\n    \"barrier_level_pct\": \"Knock-in Level of 60% of the Initial Level.\",\n    \"coupon_rate_pct\": \"The Notes pay a conditional Coupon of 8.4% per annum\",\n    \"coupon_rate_basis\": \"The Notes pay a conditional Coupon of 8.4% per annum\",\n    \"coupon_frequency\": \"payable quarterly, payable quarterly in arrears\",\n    \"coupon_memory\": \"Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.\",\n    \"autocall_observation_dates\": \"Autocall Observation Dates: 26 May 2027, 26 November 2027.\",\n    \"autocall_level_pct\": \"if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level\",\n    \"day_count\": \"Coupon amounts accrue on a 30/360 day count basis.\",\n    \"settlement\": \"Settlement at maturity or upon automatic early redemption is in cash, in USD.\",\n    \"business_day_convention\": \"Payment dates are adjusted in accordance with the Modified Following Business Day Convention.\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"absent\": [\n    \"index_administrator\",\n    \"index_return_type\",\n    \"index_return_treatment\",\n    \"index_vol_target_pct\",\n    \"index_rebalance_frequency\",\n    \"index_deduction_factor_pct\",\n    \"index_transaction_cost_rate_pct\"\n  ]\n}"
+  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"SN-2026-0111\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"USD 4,500,000\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"26 May 2026\",\n    \"issue_date\": \"2 June 2026\",\n    \"maturity_date\": \"2 June 2028\",\n    \"underlyings\": [\n      \"SPX Index\",\n      \"SPTSX60 Index\"\n    ],\n    \"initial_level_pct\": \"100%\",\n    \"barrier_type\": \"european\",\n    \"barrier_level_pct\": \"60%\",\n    \"coupon_rate_pct\": \"8.4%\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"quarterly\",\n    \"coupon_memory\": \"true\",\n    \"autocall_observation_dates\": [\n      \"26 May 2027\",\n      \"26 November 2027\"\n    ],\n    \"autocall_level_pct\": \"100%\",\n    \"day_count\": \"30/360\",\n    \"settlement\": \"cash\",\n    \"business_day_convention\": \"Modified Following\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"citation\": {\n    \"trade_id\": \"Reference SN-2026-0111\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc. (the \\\"Issuer\\\")\",\n    \"notional\": \"aggregate Notional Amount of USD 4,500,000\",\n    \"currency\": \"aggregate Notional Amount of USD 4,500,000\",\n    \"trade_date\": \"The Trade Date is 26 May 2026\",\n    \"issue_date\": \"the Issue Date is 2 June 2026\",\n    \"maturity_date\": \"the Scheduled Maturity Date is 2 June 2028\",\n    \"underlyings\": \"S&P 500 Index (Bloomberg: SPX Index) and the S&P/TSX 60 Index (Bloomberg: SPTSX60 Index)\",\n    \"initial_level_pct\": \"The Initial Level of the Underlying is 100% of its official closing level on the Trade Date\",\n    \"barrier_type\": \"knock-in barrier observed on the Final Valuation Date only (European observation)\",\n    \"barrier_level_pct\": \"Knock-in Level of 60% of the Initial Level\",\n    \"coupon_rate_pct\": \"The Notes pay a conditional Coupon of 8.4% per annum\",\n    \"coupon_rate_basis\": \"The Notes pay a conditional Coupon of 8.4% per annum\",\n    \"coupon_frequency\": \"payable quarterly, payable quarterly in arrears\",\n    \"coupon_memory\": \"Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.\",\n    \"autocall_observation_dates\": \"Autocall Observation Dates: 26 May 2027, 26 November 2027\",\n    \"autocall_level_pct\": \"closing level of the Underlying is at or above 100% of the Initial Level\",\n    \"day_count\": \"Coupon amounts accrue on a 30/360 day count basis\",\n    \"settlement\": \"Settlement at maturity or upon automatic early redemption is in cash, in USD\",\n    \"business_day_convention\": \"Payment dates are adjusted in accordance with the Modified Following Business Day Convention\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"absent\": [\n    \"index_administrator\",\n    \"index_return_type\",\n    \"index_return_treatment\",\n    \"index_vol_target_pct\",\n    \"index_rebalance_frequency\",\n    \"index_deduction_factor_pct\",\n    \"index_transaction_cost_rate_pct\"\n  ]\n}"
 }

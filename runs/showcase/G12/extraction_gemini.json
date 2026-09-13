@@ -7,9 +7,9 @@
       "status": "EXTRACTED",
       "value": "SN-2026-0112",
       "citation": {
-        "text_span": "with reference SN-2026-0112",
+        "text_span": "notes (the \"Notes\") with reference SN-2026-0112",
         "char_range": [
-          408,
+          388,
           435
         ]
       },
@@ -19,10 +19,10 @@
       "status": "EXTRACTED",
       "value": "Northbridge Capital Markets (Canada) Inc.",
       "citation": {
-        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
         "char_range": [
           320,
-          376
+          393
         ]
       },
       "note": null
@@ -31,10 +31,10 @@
       "status": "EXTRACTED",
       "value": "USD 7,500,000",
       "citation": {
-        "text_span": "in an aggregate Notional Amount of USD 7,500,000.",
+        "text_span": "aggregate Notional Amount of USD 7,500,000",
         "char_range": [
-          436,
-          485
+          442,
+          484
         ]
       },
       "note": null
@@ -43,10 +43,10 @@
       "status": "EXTRACTED",
       "value": "USD",
       "citation": {
-        "text_span": "in an aggregate Notional Amount of USD 7,500,000.",
+        "text_span": "aggregate Notional Amount of USD 7,500,000",
         "char_range": [
-          436,
-          485
+          442,
+          484
         ]
       },
       "note": null
@@ -93,10 +93,10 @@
         "BVERSA10 Index"
       ],
       "citation": {
-        "text_span": "Bloomberg: BVERSA10 Index",
+        "text_span": "Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index)",
         "char_range": [
-          559,
-          584
+          533,
+          585
         ]
       },
       "note": null
@@ -129,10 +129,10 @@
       "status": "EXTRACTED",
       "value": "60%",
       "citation": {
-        "text_span": "Knock-in Level of 60% of the Initial Level.",
+        "text_span": "Knock-in Level of 60% of the Initial Level",
         "char_range": [
           4186,
-          4229
+          4228
         ]
       },
       "note": null
@@ -165,10 +165,10 @@
       "status": "EXTRACTED",
       "value": "quarterly",
       "citation": {
-        "text_span": "payable quarterly, payable quarterly in arrears",
+        "text_span": "payable quarterly",
         "char_range": [
           3144,
-          3191
+          3161
         ]
       },
       "note": null
@@ -177,10 +177,10 @@
       "status": "EXTRACTED",
       "value": "true",
       "citation": {
-        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
+        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.",
         "char_range": [
           3392,
-          3528
+          3669
         ]
       },
       "note": null
@@ -208,9 +208,9 @@
       "status": "EXTRACTED",
       "value": "100%",
       "citation": {
-        "text_span": "is at or above 100% of the Initial Level",
+        "text_span": "at or above 100% of the Initial Level",
         "char_range": [
-          3817,
+          3820,
           3857
         ]
       },
@@ -244,9 +244,9 @@
       "status": "EXTRACTED",
       "value": "Modified Following",
       "citation": {
-        "text_span": "Modified Following Business Day Convention.",
+        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
         "char_range": [
-          4546,
+          4496,
           4589
         ]
       },
@@ -256,10 +256,10 @@
       "status": "EXTRACTED",
       "value": "Bloomberg Index Services Limited",
       "citation": {
-        "text_span": "Bloomberg Index Services Limited",
+        "text_span": "Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator",
         "char_range": [
-          1020,
-          1052
+          1582,
+          1704
         ]
       },
       "note": null
@@ -337,5 +337,5 @@
       "note": null
     }
   },
-  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"SN-2026-0112\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"USD 7,500,000\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"8 May 2026\",\n    \"issue_date\": \"15 May 2026\",\n    \"maturity_date\": \"17 May 2030\",\n    \"underlyings\": [\"BVERSA10 Index\"],\n    \"initial_level_pct\": \"100%\",\n    \"barrier_type\": \"european\",\n    \"barrier_level_pct\": \"60%\",\n    \"coupon_rate_pct\": \"8.25%\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"quarterly\",\n    \"coupon_memory\": \"true\",\n    \"autocall_observation_dates\": [\n      \"10 May 2027\",\n      \"8 November 2027\",\n      \"8 May 2028\",\n      \"8 November 2028\",\n      \"8 May 2029\",\n      \"8 November 2029\"\n    ],\n    \"autocall_level_pct\": \"100%\",\n    \"day_count\": \"30/360\",\n    \"settlement\": \"cash\",\n    \"business_day_convention\": \"Modified Following\",\n    \"index_administrator\": \"Bloomberg Index Services Limited\",\n    \"index_return_type\": \"type_i\",\n    \"index_return_treatment\": \"Excess Return\",\n    \"index_vol_target_pct\": \"10%\",\n    \"index_rebalance_frequency\": \"daily\",\n    \"index_deduction_factor_pct\": \"0.50%\",\n    \"index_transaction_cost_rate_pct\": \"0.02%\"\n  },\n  \"citation\": {\n    \"trade_id\": \"with reference SN-2026-0112\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc. (the \\\"Issuer\\\")\",\n    \"notional\": \"in an aggregate Notional Amount of USD 7,500,000.\",\n    \"currency\": \"in an aggregate Notional Amount of USD 7,500,000.\",\n    \"trade_date\": \"The Trade Date is 8 May 2026\",\n    \"issue_date\": \"the Issue Date is 15 May 2026\",\n    \"maturity_date\": \"the Scheduled Maturity Date is 17 May 2030\",\n    \"underlyings\": \"Bloomberg: BVERSA10 Index\",\n    \"initial_level_pct\": \"The Initial Level of the Underlying is 100% of its official closing level on the Trade Date\",\n    \"barrier_type\": \"observed on the Final Valuation Date only (European observation)\",\n    \"barrier_level_pct\": \"Knock-in Level of 60% of the Initial Level.\",\n    \"coupon_rate_pct\": \"The Notes pay a conditional Coupon of 8.25% per annum\",\n    \"coupon_rate_basis\": \"The Notes pay a conditional Coupon of 8.25% per annum\",\n    \"coupon_frequency\": \"payable quarterly, payable quarterly in arrears\",\n    \"coupon_memory\": \"Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.\",\n    \"autocall_observation_dates\": \"Autocall Observation Dates: 10 May 2027, 8 November 2027, 8 May 2028, 8 November 2028, 8 May 2029, 8 November 2029.\",\n    \"autocall_level_pct\": \"is at or above 100% of the Initial Level\",\n    \"day_count\": \"Coupon amounts accrue on a 30/360 day count basis.\",\n    \"settlement\": \"Settlement at maturity or upon automatic early redemption is in cash, in USD.\",\n    \"business_day_convention\": \"Modified Following Business Day Convention.\",\n    \"index_administrator\": \"Bloomberg Index Services Limited\",\n    \"index_return_type\": \"Excess Return (Type I under the Index Methodology)\",\n    \"index_return_treatment\": \"Excess Return (Type I under the Index Methodology)\",\n    \"index_vol_target_pct\": \"10% per annum\",\n    \"index_rebalance_frequency\": \"Each Index Business Day, in accordance with the Index Methodology\",\n    \"index_deduction_factor_pct\": \"0.50% per annum, deducted daily from the Index Value\",\n    \"index_transaction_cost_rate_pct\": \"0.02% on changes in Underlying Index units, as provided in the Index Methodology\"\n  },\n  \"absent\": []\n}"
+  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"SN-2026-0112\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"USD 7,500,000\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"8 May 2026\",\n    \"issue_date\": \"15 May 2026\",\n    \"maturity_date\": \"17 May 2030\",\n    \"underlyings\": [\"BVERSA10 Index\"],\n    \"initial_level_pct\": \"100%\",\n    \"barrier_type\": \"european\",\n    \"barrier_level_pct\": \"60%\",\n    \"coupon_rate_pct\": \"8.25%\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"quarterly\",\n    \"coupon_memory\": \"true\",\n    \"autocall_observation_dates\": [\n      \"10 May 2027\",\n      \"8 November 2027\",\n      \"8 May 2028\",\n      \"8 November 2028\",\n      \"8 May 2029\",\n      \"8 November 2029\"\n    ],\n    \"autocall_level_pct\": \"100%\",\n    \"day_count\": \"30/360\",\n    \"settlement\": \"cash\",\n    \"business_day_convention\": \"Modified Following\",\n    \"index_administrator\": \"Bloomberg Index Services Limited\",\n    \"index_return_type\": \"type_i\",\n    \"index_return_treatment\": \"Excess Return\",\n    \"index_vol_target_pct\": \"10%\",\n    \"index_rebalance_frequency\": \"daily\",\n    \"index_deduction_factor_pct\": \"0.50%\",\n    \"index_transaction_cost_rate_pct\": \"0.02%\"\n  },\n  \"citation\": {\n    \"trade_id\": \"notes (the \\\"Notes\\\") with reference SN-2026-0112\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc. (the \\\"Issuer\\\") will issue notes\",\n    \"notional\": \"aggregate Notional Amount of USD 7,500,000\",\n    \"currency\": \"aggregate Notional Amount of USD 7,500,000\",\n    \"trade_date\": \"The Trade Date is 8 May 2026\",\n    \"issue_date\": \"the Issue Date is 15 May 2026\",\n    \"maturity_date\": \"the Scheduled Maturity Date is 17 May 2030\",\n    \"underlyings\": \"Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index)\",\n    \"initial_level_pct\": \"The Initial Level of the Underlying is 100% of its official closing level on the Trade Date\",\n    \"barrier_type\": \"observed on the Final Valuation Date only (European observation)\",\n    \"barrier_level_pct\": \"Knock-in Level of 60% of the Initial Level\",\n    \"coupon_rate_pct\": \"The Notes pay a conditional Coupon of 8.25% per annum\",\n    \"coupon_rate_basis\": \"The Notes pay a conditional Coupon of 8.25% per annum\",\n    \"coupon_frequency\": \"payable quarterly\",\n    \"coupon_memory\": \"Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.\",\n    \"autocall_observation_dates\": \"Autocall Observation Dates: 10 May 2027, 8 November 2027, 8 May 2028, 8 November 2028, 8 May 2029, 8 November 2029.\",\n    \"autocall_level_pct\": \"at or above 100% of the Initial Level\",\n    \"day_count\": \"Coupon amounts accrue on a 30/360 day count basis.\",\n    \"settlement\": \"Settlement at maturity or upon automatic early redemption is in cash, in USD.\",\n    \"business_day_convention\": \"Payment dates are adjusted in accordance with the Modified Following Business Day Convention.\",\n    \"index_administrator\": \"Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator\",\n    \"index_return_type\": \"Excess Return (Type I under the Index Methodology)\",\n    \"index_return_treatment\": \"Excess Return (Type I under the Index Methodology)\",\n    \"index_vol_target_pct\": \"10% per annum\",\n    \"index_rebalance_frequency\": \"Each Index Business Day, in accordance with the Index Methodology\",\n    \"index_deduction_factor_pct\": \"0.50% per annum, deducted daily from the Index Value\",\n    \"index_transaction_cost_rate_pct\": \"0.02% on changes in Underlying Index units, as provided in the Index Methodology\"\n  },\n  \"absent\": []\n}"
 }

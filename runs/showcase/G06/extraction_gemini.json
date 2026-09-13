@@ -115,7 +115,7 @@
     },
     "barrier_type": {
       "status": "EXTRACTED",
-      "value": "European",
+      "value": "european",
       "citation": {
         "text_span": "European (Final Valuation Date only)",
         "char_range": [
@@ -163,7 +163,7 @@
     },
     "coupon_frequency": {
       "status": "EXTRACTED",
-      "value": "Quarterly",
+      "value": "quarterly",
       "citation": {
         "text_span": "Quarterly",
         "char_range": [
@@ -175,7 +175,7 @@
     },
     "coupon_memory": {
       "status": "EXTRACTED",
-      "value": "Not applicable",
+      "value": "false",
       "citation": {
         "text_span": "Not applicable",
         "char_range": [
@@ -226,7 +226,7 @@
     },
     "settlement": {
       "status": "EXTRACTED",
-      "value": "Cash",
+      "value": "cash",
       "citation": {
         "text_span": "Cash",
         "char_range": [
@@ -291,5 +291,5 @@
       "note": null
     }
   },
-  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"SN-2026-0106\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"USD 4,000,000.00\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"2026-07-07\",\n    \"issue_date\": \"2026-07-14\",\n    \"maturity_date\": \"2029-07-16\",\n    \"underlyings\": [\n      \"SPTSX60\"\n    ],\n    \"initial_level_pct\": \"100.00%\",\n    \"barrier_type\": \"European\",\n    \"barrier_level_pct\": \"65.00%\",\n    \"coupon_rate_pct\": \"6.50%\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"Quarterly\",\n    \"coupon_memory\": \"Not applicable\",\n    \"autocall_observation_dates\": [\n      \"2027-07-07\",\n      \"2028-07-07\"\n    ],\n    \"autocall_level_pct\": \"100.00%\",\n    \"day_count\": \"Actual/360\",\n    \"settlement\": \"Cash\",\n    \"business_day_convention\": \"Modified Following\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"citation\": {\n    \"trade_id\": \"SN-2026-0106\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"USD 4,000,000.00\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"2026-07-07\",\n    \"issue_date\": \"2026-07-14\",\n    \"maturity_date\": \"2029-07-16\",\n    \"underlyings\": \"S&P/TSX 60 Index (SPTSX60)\",\n    \"initial_level_pct\": \"100.00% of the official closing level on the Trade Date\",\n    \"barrier_type\": \"European (Final Valuation Date only)\",\n    \"barrier_level_pct\": \"65.00% of the Initial Level\",\n    \"coupon_rate_pct\": \"6.50% per annum, payable quarterly\",\n    \"coupon_rate_basis\": \"6.50% per annum, payable quarterly\",\n    \"coupon_frequency\": \"Quarterly\",\n    \"coupon_memory\": \"Not applicable\",\n    \"autocall_observation_dates\": \"2027-07-07, 2028-07-07\",\n    \"autocall_level_pct\": \"100.00% of the Initial Level\",\n    \"day_count\": \"Actual/360\",\n    \"settlement\": \"Cash\",\n    \"business_day_convention\": \"Modified Following\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"absent\": [\n    \"index_administrator\",\n    \"index_return_type\",\n    \"index_return_treatment\",\n    \"index_vol_target_pct\",\n    \"index_rebalance_frequency\",\n    \"index_deduction_factor_pct\",\n    \"index_transaction_cost_rate_pct\"\n  ]\n}"
+  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"SN-2026-0106\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"USD 4,000,000.00\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"2026-07-07\",\n    \"issue_date\": \"2026-07-14\",\n    \"maturity_date\": \"2029-07-16\",\n    \"underlyings\": [\n      \"SPTSX60\"\n    ],\n    \"initial_level_pct\": \"100.00%\",\n    \"barrier_type\": \"european\",\n    \"barrier_level_pct\": \"65.00%\",\n    \"coupon_rate_pct\": \"6.50%\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"quarterly\",\n    \"coupon_memory\": \"false\",\n    \"autocall_observation_dates\": [\n      \"2027-07-07\",\n      \"2028-07-07\"\n    ],\n    \"autocall_level_pct\": \"100.00%\",\n    \"day_count\": \"Actual/360\",\n    \"settlement\": \"cash\",\n    \"business_day_convention\": \"Modified Following\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"citation\": {\n    \"trade_id\": \"SN-2026-0106\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"USD 4,000,000.00\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"2026-07-07\",\n    \"issue_date\": \"2026-07-14\",\n    \"maturity_date\": \"2029-07-16\",\n    \"underlyings\": \"S&P/TSX 60 Index (SPTSX60)\",\n    \"initial_level_pct\": \"100.00% of the official closing level on the Trade Date\",\n    \"barrier_type\": \"European (Final Valuation Date only)\",\n    \"barrier_level_pct\": \"65.00% of the Initial Level\",\n    \"coupon_rate_pct\": \"6.50% per annum, payable quarterly\",\n    \"coupon_rate_basis\": \"6.50% per annum, payable quarterly\",\n    \"coupon_frequency\": \"Quarterly\",\n    \"coupon_memory\": \"Not applicable\",\n    \"autocall_observation_dates\": \"2027-07-07, 2028-07-07\",\n    \"autocall_level_pct\": \"100.00% of the Initial Level\",\n    \"day_count\": \"Actual/360\",\n    \"settlement\": \"Cash\",\n    \"business_day_convention\": \"Modified Following\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"absent\": [\n    \"index_administrator\",\n    \"index_return_type\",\n    \"index_return_treatment\",\n    \"index_vol_target_pct\",\n    \"index_rebalance_frequency\",\n    \"index_deduction_factor_pct\",\n    \"index_transaction_cost_rate_pct\"\n  ]\n}"
 }

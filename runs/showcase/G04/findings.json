@@ -9,14 +9,14 @@
     "booking_value": "SN-2026-0104",
     "citations": [
       {
-        "text_span": "SN-2026-0104",
+        "text_span": "Re: SN-2026-0104 \u2014 Worst-of Autocallable Contingent Coupon Notes with Memory linked to S&P 500 Index and EURO STOXX 50 Index",
         "char_range": [
-          216,
-          228
+          212,
+          336
         ]
       },
       {
-        "text_span": "Trade Reference | SN-2026-0104",
+        "text_span": "Trade Reference SN-2026-0104",
         "char_range": [
           2306,
           2347
@@ -37,14 +37,14 @@
     "booking_value": "Northbridge Capital Markets (Canada) Inc.",
     "citations": [
       {
-        "text_span": "Northbridge Capital Markets (Canada) Inc.",
+        "text_span": "Northbridge Capital Markets (Canada) Inc. will issue Notes in a total Notional Amount of USD 2.5 million (USD 2,500,000)",
         "char_range": [
           440,
-          481
+          560
         ]
       },
       {
-        "text_span": "Issuer | Northbridge Capital Markets (Canada) Inc.",
+        "text_span": "Issuer Northbridge Capital Markets (Canada) Inc.",
         "char_range": [
           2376,
           2437
@@ -65,14 +65,14 @@
     "booking_value": "2500000",
     "citations": [
       {
-        "text_span": "USD 2.5 million (USD 2,500,000)",
+        "text_span": "total Notional Amount of USD 2.5 million (USD 2,500,000)",
         "char_range": [
-          529,
+          504,
           560
         ]
       },
       {
-        "text_span": "Notional Amount | USD 2.5 million (USD 2,500,000)",
+        "text_span": "Notional Amount USD 2.5 million (USD 2,500,000)",
         "char_range": [
           2466,
           2526
@@ -93,14 +93,14 @@
     "booking_value": "USD",
     "citations": [
       {
-        "text_span": "USD",
+        "text_span": "All payments are made in USD",
         "char_range": [
-          529,
-          532
+          1989,
+          2017
         ]
       },
       {
-        "text_span": "Currency | USD",
+        "text_span": "Currency USD",
         "char_range": [
           2555,
           2580
@@ -121,14 +121,14 @@
     "booking_value": "2026-06-09",
     "citations": [
       {
-        "text_span": "09-Jun-2026",
+        "text_span": "The Notes were traded on 09-Jun-2026",
         "char_range": [
-          182,
-          193
+          612,
+          648
         ]
       },
       {
-        "text_span": "Trade Date | 09-Jun-2026",
+        "text_span": "Trade Date 09-Jun-2026",
         "char_range": [
           2609,
           2644
@@ -149,14 +149,14 @@
     "booking_value": "2026-06-16",
     "citations": [
       {
-        "text_span": "16-Jun-2026",
+        "text_span": "will be issued on 16-Jun-2026",
         "char_range": [
-          668,
+          650,
           679
         ]
       },
       {
-        "text_span": "Issue Date | 16-Jun-2026",
+        "text_span": "Issue Date 16-Jun-2026",
         "char_range": [
           2673,
           2708
@@ -177,14 +177,14 @@
     "booking_value": "2028-06-16",
     "citations": [
       {
-        "text_span": "16-Jun-2028",
+        "text_span": "mature on 16-Jun-2028",
         "char_range": [
-          694,
+          684,
           705
         ]
       },
       {
-        "text_span": "Maturity Date | 16-Jun-2028",
+        "text_span": "Maturity Date 16-Jun-2028",
         "char_range": [
           2737,
           2775
@@ -211,14 +211,14 @@
     ],
     "citations": [
       {
-        "text_span": "S&P 500 Index (SPX); EURO STOXX 50 Index (SX5E)",
+        "text_span": "S&P 500 Index (Bloomberg: SPX Index) and the EURO STOXX 50 Index (Bloomberg: SX5E Index)",
         "char_range": [
-          2831,
-          2882
+          759,
+          847
         ]
       },
       {
-        "text_span": "Underlying(s) | S&P 500 Index (SPX); EURO STOXX 50 Index (SX5E)",
+        "text_span": "Underlying(s) S&P 500 Index (SPX); EURO STOXX 50 Index (SX5E)",
         "char_range": [
           2804,
           2882
@@ -246,7 +246,7 @@
         ]
       },
       {
-        "text_span": "Initial Level | 100% of the official closing level on the Trade Date",
+        "text_span": "Initial Level 100% of the official closing level on the Trade Date",
         "char_range": [
           2911,
           2990
@@ -274,7 +274,7 @@
         ]
       },
       {
-        "text_span": "Knock-in Type | European (Final Valuation Date only)",
+        "text_span": "Knock-in Type European (Final Valuation Date only)",
         "char_range": [
           3509,
           3572
@@ -295,14 +295,14 @@
     "booking_value": "60",
     "citations": [
       {
-        "text_span": "60% of the Initial Level",
+        "text_span": "Knock-in Level of 60% of the Initial Level",
         "char_range": [
-          1793,
+          1775,
           1817
         ]
       },
       {
-        "text_span": "Knock-in Level | 60% of the Initial Level",
+        "text_span": "Knock-in Level 60% of the Initial Level",
         "char_range": [
           3601,
           3653
@@ -330,7 +330,7 @@
         ]
       },
       {
-        "text_span": "Coupon | 10.2% per annum, payable quarterly",
+        "text_span": "Coupon 10.2% per annum, payable quarterly",
         "char_range": [
           3019,
           3073
@@ -351,14 +351,14 @@
     "booking_value": "quarterly",
     "citations": [
       {
-        "text_span": "Quarterly",
+        "text_span": "payable quarterly",
         "char_range": [
-          3150,
-          3159
+          905,
+          922
         ]
       },
       {
-        "text_span": "Coupon Frequency | Quarterly",
+        "text_span": "Coupon Frequency Quarterly",
         "char_range": [
           3120,
           3159
@@ -379,14 +379,14 @@
     "booking_value": false,
     "citations": [
       {
-        "text_span": "Applicable",
+        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
         "char_range": [
-          3215,
-          3225
+          1077,
+          1213
         ]
       },
       {
-        "text_span": "Coupon Memory | Applicable",
+        "text_span": "Coupon Memory Applicable",
         "char_range": [
           3188,
           3225
@@ -397,11 +397,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G04 states \"Coupon Memory Applicable\", indicating that unpaid coupons accrue and are recoverable at a later observation date. The booking record carries coupon_memory = False, which would pay only coupons observed in-period with no catch-up. Please confirm the memory feature applies as documented and authorise correction of coupon_memory to True, or advise the basis on which the booking was flagged False.",
-      "cited_clause": "Coupon Memory Applicable",
+      "desk_query": "Term sheet G04 states: \"Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.\" and separately flags \"Coupon Memory Applicable\". The booking record carries coupon_memory = False, which would treat missed coupons as permanently forgone rather than recoverable at a later observation. Please confirm the memory/catch-up feature applies as documented and authorise correction of coupon_memory to True, or identify the amendment or side letter that disapplies it.",
+      "cited_clause": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
       "booking_field": "coupon_memory",
       "booking_value": "False",
-      "rationale": "Both extractors agree on an unambiguous, explicit term sheet designation of the memory feature, so the booking flag is the likely error."
+      "rationale": "Both extractors agree and the term sheet states the memory feature twice in unambiguous terms, so the booking flag is the likely error."
     }
   },
   {
@@ -422,14 +422,14 @@
     ],
     "citations": [
       {
-        "text_span": "09-Jun-2027, 09-Dec-2027, 09-Jun-2028",
+        "text_span": "Autocall Observation Dates: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.",
         "char_range": [
-          1605,
-          1642
+          1577,
+          1643
         ]
       },
       {
-        "text_span": "Autocall Observation Dates | 09-Jun-2027, 09-Dec-2027, 09-Jun-2028",
+        "text_span": "Autocall Observation Dates 09-Jun-2027, 09-Dec-2027, 09-Jun-2028",
         "char_range": [
           3321,
           3398
@@ -457,7 +457,7 @@
         ]
       },
       {
-        "text_span": "Autocall Level | 100% of the Initial Level",
+        "text_span": "Autocall Level 100% of the Initial Level",
         "char_range": [
           3427,
           3480
@@ -478,14 +478,14 @@
     "booking_value": "30/360",
     "citations": [
       {
-        "text_span": "30/360",
+        "text_span": "30/360 day count basis",
         "char_range": [
           1053,
-          1059
+          1075
         ]
       },
       {
-        "text_span": "Day Count Fraction | 30/360",
+        "text_span": "Day Count Fraction 30/360",
         "char_range": [
           3254,
           3292
@@ -506,14 +506,14 @@
     "booking_value": "cash",
     "citations": [
       {
-        "text_span": "Cash",
+        "text_span": "cash settlement",
         "char_range": [
-          3706,
-          3710
+          2021,
+          2036
         ]
       },
       {
-        "text_span": "Settlement | Cash",
+        "text_span": "Settlement Cash",
         "char_range": [
           3682,
           3710
@@ -534,14 +534,14 @@
     "booking_value": "following",
     "citations": [
       {
-        "text_span": "Following",
+        "text_span": "Following convention",
         "char_range": [
           2066,
-          2075
+          2086
         ]
       },
       {
-        "text_span": "Business Day Convention | Following",
+        "text_span": "Business Day Convention Following",
         "char_range": [
           3739,
           3785

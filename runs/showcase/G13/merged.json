@@ -13,10 +13,10 @@
         "status": "EXTRACTED",
         "value": "OP-2026-0114",
         "citation": {
-          "text_span": "Reference OP-2026-0114",
+          "text_span": "European Cash-Settled Call Option on the Bloomberg Versa 10 Index \u00b7 Reference OP-2026-0114 \u00b7 Dated 8 May 2026",
           "char_range": [
-            216,
-            238
+            148,
+            257
           ]
         },
         "note": null
@@ -31,9 +31,9 @@
         "status": "EXTRACTED",
         "value": "OP-2026-0114",
         "citation": {
-          "text_span": "Reference OP-2026-0114 \u00b7 Dated 8 May 2026",
+          "text_span": "European Cash-Settled Call Option on the Bloomberg Versa 10 Index \u00b7 Reference OP-2026-0114 \u00b7 Dated 8 May 2026",
           "char_range": [
-            216,
+            148,
             257
           ]
         },
@@ -74,10 +74,10 @@
         "status": "EXTRACTED",
         "value": "Lakeshore Life Insurance Company",
         "citation": {
-          "text_span": "Lakeshore Life Insurance Company (\"Party B\", the Buyer)",
+          "text_span": "Lakeshore Life Insurance Company (Party B)",
           "char_range": [
-            372,
-            427
+            3240,
+            3282
           ]
         },
         "note": null
@@ -117,10 +117,10 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Northbridge Capital Markets (Canada) Inc. (\"Party A\", the Seller)",
+          "text_span": "Northbridge Capital Markets (Canada) Inc. (Party A)",
           "char_range": [
-            293,
-            358
+            3292,
+            3343
           ]
         },
         "note": null
@@ -142,10 +142,10 @@
         "status": "EXTRACTED",
         "value": "european",
         "citation": {
-          "text_span": "European-style, cash-settled call option",
+          "text_span": "European / Call",
           "char_range": [
-            430,
-            470
+            3216,
+            3231
           ]
         },
         "note": null
@@ -185,10 +185,10 @@
         "status": "EXTRACTED",
         "value": "call",
         "citation": {
-          "text_span": "European-style, cash-settled call option",
+          "text_span": "European / Call",
           "char_range": [
-            430,
-            470
+            3216,
+            3231
           ]
         },
         "note": null
@@ -234,10 +234,10 @@
           "BVERSA10"
         ],
         "citation": {
-          "text_span": "Bloomberg: BVERSA10 Index",
+          "text_span": "Bloomberg Versa 10 Index \u2014 BVERSA10 Index",
           "char_range": [
-            524,
-            549
+            1815,
+            1856
           ]
         },
         "note": null
@@ -279,12 +279,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "25,000,000",
+        "value": "USD 25,000,000",
         "citation": {
-          "text_span": "Notional Amount\tUSD 25,000,000",
+          "text_span": "USD 25,000,000",
           "char_range": [
-            3368,
-            3411
+            3393,
+            3416
           ]
         },
         "note": null
@@ -299,9 +299,9 @@
         "status": "EXTRACTED",
         "value": "USD 25,000,000",
         "citation": {
-          "text_span": "<td>Notional Amount</td>\n    <td>USD 25,000,000</td>",
+          "text_span": "USD 25,000,000",
           "char_range": [
-            3364,
+            3393,
             3416
           ]
         },
@@ -324,10 +324,10 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "Notional Amount\tUSD 25,000,000",
+          "text_span": "USD 25,000,000",
           "char_range": [
-            3368,
-            3411
+            3393,
+            3416
           ]
         },
         "note": null
@@ -342,9 +342,9 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "<td>Notional Amount</td>\n    <td>USD 25,000,000</td>",
+          "text_span": "USD 25,000,000",
           "char_range": [
-            3364,
+            3393,
             3416
           ]
         },
@@ -365,12 +365,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "2026-05-08",
+        "value": "8 May 2026",
         "citation": {
-          "text_span": "Trade Date\t8 May 2026",
+          "text_span": "8 May 2026",
           "char_range": [
-            3440,
-            3474
+            3460,
+            3479
           ]
         },
         "note": null
@@ -383,9 +383,9 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "8 May 2026",
+        "value": "2026-05-08",
         "citation": {
-          "text_span": "<td>Trade Date</td>\n    <td>8 May 2026</td>",
+          "text_span": "Trade Date 8 May 2026",
           "char_range": [
             3436,
             3479
@@ -408,12 +408,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "2026-05-12",
+        "value": "12 May 2026",
         "citation": {
-          "text_span": "Effective Date\t12 May 2026",
+          "text_span": "12 May 2026",
           "char_range": [
-            3503,
-            3542
+            3527,
+            3547
           ]
         },
         "note": null
@@ -426,9 +426,9 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "12 May 2026",
+        "value": "2026-05-12",
         "citation": {
-          "text_span": "<td>Effective Date</td>\n    <td>12 May 2026</td>",
+          "text_span": "Effective Date 12 May 2026",
           "char_range": [
             3499,
             3547
@@ -453,9 +453,9 @@
         "status": "EXTRACTED",
         "value": "100%",
         "citation": {
-          "text_span": "Strike Level\t100% of the Initial Index Level",
+          "text_span": "100% of the Initial Index Level",
           "char_range": [
-            3731,
+            3757,
             3788
           ]
         },
@@ -471,7 +471,7 @@
         "status": "EXTRACTED",
         "value": "100%",
         "citation": {
-          "text_span": "<td>Strike Level</td>\n    <td>100% of the Initial Index Level</td>",
+          "text_span": "Strike Level 100% of the Initial Index Level",
           "char_range": [
             3727,
             3793
@@ -496,10 +496,10 @@
         "status": "EXTRACTED",
         "value": "100%",
         "citation": {
-          "text_span": "Participation Rate\t100%",
+          "text_span": "100%",
           "char_range": [
-            3817,
-            3853
+            3845,
+            3858
           ]
         },
         "note": null
@@ -514,7 +514,7 @@
         "status": "EXTRACTED",
         "value": "100%",
         "citation": {
-          "text_span": "<td>Participation Rate</td>\n    <td>100%</td>",
+          "text_span": "Participation Rate 100%",
           "char_range": [
             3813,
             3858
@@ -537,12 +537,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "2028-05-08",
+        "value": "8 May 2028",
         "citation": {
-          "text_span": "Valuation Date\t8 May 2028",
+          "text_span": "8 May 2028 (point-to-point observation; no averaging)",
           "char_range": [
-            3882,
-            3920
+            3910,
+            3963
           ]
         },
         "note": null
@@ -555,9 +555,9 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "8 May 2028",
+        "value": "2028-05-08",
         "citation": {
-          "text_span": "<td>Valuation Date</td>\n    <td>8 May 2028 (point-to-point observation; no averaging)</td>",
+          "text_span": "Valuation Date 8 May 2028 (point-to-point observation; no averaging)",
           "char_range": [
             3878,
             3968
@@ -580,12 +580,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "2028-05-08",
+        "value": "8 May 2028",
         "citation": {
-          "text_span": "Expiration Date\t8 May 2028",
+          "text_span": "8 May 2028",
           "char_range": [
-            3992,
-            4031
+            4017,
+            4036
           ]
         },
         "note": null
@@ -598,9 +598,9 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "8 May 2028",
+        "value": "2028-05-08",
         "citation": {
-          "text_span": "<td>Expiration Date</td>\n    <td>8 May 2028</td>",
+          "text_span": "Expiration Date 8 May 2028",
           "char_range": [
             3988,
             4036
@@ -625,10 +625,10 @@
         "status": "EXTRACTED",
         "value": "true",
         "citation": {
-          "text_span": "Automatic Exercise\tApplicable",
+          "text_span": "Applicable",
           "char_range": [
-            4060,
-            4102
+            4088,
+            4107
           ]
         },
         "note": null
@@ -641,9 +641,9 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Applicable",
+        "value": "true",
         "citation": {
-          "text_span": "<td>Automatic Exercise</td>\n    <td>Applicable</td>",
+          "text_span": "Automatic Exercise Applicable",
           "char_range": [
             4056,
             4107
@@ -668,9 +668,9 @@
         "status": "EXTRACTED",
         "value": "4.15%",
         "citation": {
-          "text_span": "Premium\t4.15% of the Notional Amount (USD 1,037,500)",
+          "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
           "char_range": [
-            4131,
+            4152,
             4196
           ]
         },
@@ -686,10 +686,10 @@
         "status": "EXTRACTED",
         "value": "4.15%",
         "citation": {
-          "text_span": "<td>Premium</td>\n    <td>4.15% of the Notional Amount (USD 1,037,500)</td>",
+          "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
           "char_range": [
-            4127,
-            4201
+            4152,
+            4196
           ]
         },
         "note": null
@@ -709,11 +709,11 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "1,037,500",
+        "value": "USD 1,037,500",
         "citation": {
-          "text_span": "Premium\t4.15% of the Notional Amount (USD 1,037,500)",
+          "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
           "char_range": [
-            4131,
+            4152,
             4196
           ]
         },
@@ -729,10 +729,10 @@
         "status": "EXTRACTED",
         "value": "USD 1,037,500",
         "citation": {
-          "text_span": "<td>Premium</td>\n    <td>4.15% of the Notional Amount (USD 1,037,500)</td>",
+          "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
           "char_range": [
-            4127,
-            4201
+            4152,
+            4196
           ]
         },
         "note": null
@@ -752,12 +752,12 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "2026-05-12",
+        "value": "12 May 2026",
         "citation": {
-          "text_span": "Premium Payment Date\t12 May 2026",
+          "text_span": "12 May 2026",
           "char_range": [
-            4225,
-            4270
+            3527,
+            3547
           ]
         },
         "note": null
@@ -770,9 +770,9 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "12 May 2026",
+        "value": "2026-05-12",
         "citation": {
-          "text_span": "<td>Premium Payment Date</td>\n    <td>12 May 2026</td>",
+          "text_span": "Premium Payment Date 12 May 2026",
           "char_range": [
             4221,
             4275
@@ -813,7 +813,7 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Three",
+        "value": "3",
         "citation": {
           "text_span": "Three Currency Business Days following the Valuation Date",
           "char_range": [
@@ -840,10 +840,10 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "Settlement Currency\tUSD",
+          "text_span": "USD",
           "char_range": [
-            4427,
-            4463
+            3144,
+            3156
           ]
         },
         "note": null
@@ -858,7 +858,7 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "<td>Settlement Currency</td>\n    <td>USD</td>",
+          "text_span": "Settlement Currency USD",
           "char_range": [
             4423,
             4468
@@ -969,10 +969,10 @@
         "status": "EXTRACTED",
         "value": "type_i",
         "citation": {
-          "text_span": "Excess Return (Type I under the Index Methodology)",
+          "text_span": "Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
           "char_range": [
             2099,
-            2149
+            2225
           ]
         },
         "note": null
@@ -1012,10 +1012,10 @@
         "status": "EXTRACTED",
         "value": "excess_return",
         "citation": {
-          "text_span": "Return Treatment\tExcess Return",
+          "text_span": "Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
           "char_range": [
-            2069,
-            2112
+            2099,
+            2225
           ]
         },
         "note": null
@@ -1053,11 +1053,11 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "10%",
+        "value": "10% per annum",
         "citation": {
-          "text_span": "Volatility Target\t10% per annum",
+          "text_span": "10% per annum",
           "char_range": [
-            2254,
+            2285,
             2298
           ]
         },
@@ -1073,7 +1073,7 @@
         "status": "EXTRACTED",
         "value": "10% per annum",
         "citation": {
-          "text_span": "<td>Volatility Target</td>\n    <td>10% per annum</td>",
+          "text_span": "Volatility Target 10% per annum",
           "char_range": [
             2250,
             2303
@@ -1098,9 +1098,9 @@
         "status": "EXTRACTED",
         "value": "daily",
         "citation": {
-          "text_span": "Rebalancing\tEach Index Business Day, in accordance with the Index Methodology",
+          "text_span": "Each Index Business Day, in accordance with the Index Methodology",
           "char_range": [
-            2746,
+            2771,
             2836
           ]
         },
@@ -1139,11 +1139,11 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "0.50%",
+        "value": "0.50% per annum",
         "citation": {
-          "text_span": "Deduction Factor\t0.50% per annum, deducted daily from the Index Value",
+          "text_span": "0.50% per annum, deducted daily from the Index Value",
           "char_range": [
-            2865,
+            2895,
             2947
           ]
         },
@@ -1184,9 +1184,9 @@
         "status": "EXTRACTED",
         "value": "0.02%",
         "citation": {
-          "text_span": "Transaction Cost Rate\t0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+          "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
           "char_range": [
-            2976,
+            3011,
             3091
           ]
         },

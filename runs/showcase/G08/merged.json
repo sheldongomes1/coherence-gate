@@ -15,8 +15,8 @@
         "citation": {
           "text_span": "SN-2026-0108",
           "char_range": [
-            216,
-            228
+            2194,
+            2215
           ]
         },
         "note": null
@@ -31,7 +31,7 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0108",
         "citation": {
-          "text_span": "Trade Reference | SN-2026-0108",
+          "text_span": "Trade Reference SN-2026-0108",
           "char_range": [
             2169,
             2210
@@ -58,8 +58,8 @@
         "citation": {
           "text_span": "Northbridge Capital Markets (Canada) Inc.",
           "char_range": [
-            401,
-            442
+            2255,
+            2305
           ]
         },
         "note": null
@@ -74,7 +74,7 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Issuer | Northbridge Capital Markets (Canada) Inc.",
+          "text_span": "Issuer Northbridge Capital Markets (Canada) Inc.",
           "char_range": [
             2239,
             2300
@@ -101,8 +101,8 @@
         "citation": {
           "text_span": "USD 7.5 million (USD 7,500,000)",
           "char_range": [
-            490,
-            521
+            2354,
+            2394
           ]
         },
         "note": null
@@ -117,7 +117,7 @@
         "status": "EXTRACTED",
         "value": "USD 7.5 million (USD 7,500,000)",
         "citation": {
-          "text_span": "Notional Amount | USD 7.5 million (USD 7,500,000)",
+          "text_span": "Notional Amount USD 7.5 million (USD 7,500,000)",
           "char_range": [
             2329,
             2389
@@ -144,8 +144,8 @@
         "citation": {
           "text_span": "USD",
           "char_range": [
-            490,
-            493
+            2436,
+            2448
           ]
         },
         "note": null
@@ -160,7 +160,7 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "Currency | USD",
+          "text_span": "Currency USD",
           "char_range": [
             2418,
             2443
@@ -187,8 +187,8 @@
         "citation": {
           "text_span": "11-Aug-2026",
           "char_range": [
-            182,
-            193
+            2492,
+            2512
           ]
         },
         "note": null
@@ -203,7 +203,7 @@
         "status": "EXTRACTED",
         "value": "11-Aug-2026",
         "citation": {
-          "text_span": "Trade Date | 11-Aug-2026",
+          "text_span": "Trade Date 11-Aug-2026",
           "char_range": [
             2472,
             2507
@@ -230,8 +230,8 @@
         "citation": {
           "text_span": "18-Aug-2026",
           "char_range": [
-            629,
-            640
+            2556,
+            2576
           ]
         },
         "note": null
@@ -246,7 +246,7 @@
         "status": "EXTRACTED",
         "value": "18-Aug-2026",
         "citation": {
-          "text_span": "Issue Date | 18-Aug-2026",
+          "text_span": "Issue Date 18-Aug-2026",
           "char_range": [
             2536,
             2571
@@ -273,8 +273,8 @@
         "citation": {
           "text_span": "18-Aug-2028",
           "char_range": [
-            655,
-            666
+            2623,
+            2643
           ]
         },
         "note": null
@@ -289,7 +289,7 @@
         "status": "EXTRACTED",
         "value": "18-Aug-2028",
         "citation": {
-          "text_span": "Maturity Date | 18-Aug-2028",
+          "text_span": "Maturity Date 18-Aug-2028",
           "char_range": [
             2600,
             2638
@@ -322,8 +322,8 @@
         "citation": {
           "text_span": "EURO STOXX 50 Index (SX5E)",
           "char_range": [
-            2694,
-            2720
+            2690,
+            2725
           ]
         },
         "note": null
@@ -342,7 +342,7 @@
           "SX5E"
         ],
         "citation": {
-          "text_span": "Underlying(s) | EURO STOXX 50 Index (SX5E)",
+          "text_span": "Underlying(s) EURO STOXX 50 Index (SX5E)",
           "char_range": [
             2667,
             2720
@@ -369,8 +369,8 @@
         "citation": {
           "text_span": "100% of the official closing level on the Trade Date",
           "char_range": [
-            2776,
-            2828
+            2772,
+            2833
           ]
         },
         "note": null
@@ -385,7 +385,7 @@
         "status": "EXTRACTED",
         "value": "100%",
         "citation": {
-          "text_span": "Initial Level | 100% of the official closing level on the Trade Date",
+          "text_span": "Initial Level 100% of the official closing level on the Trade Date",
           "char_range": [
             2749,
             2828
@@ -412,8 +412,8 @@
         "citation": {
           "text_span": "American (continuous observation)",
           "char_range": [
-            3377,
-            3410
+            3373,
+            3415
           ]
         },
         "note": null
@@ -428,7 +428,7 @@
         "status": "EXTRACTED",
         "value": "American (continuous observation)",
         "citation": {
-          "text_span": "Knock-in Type | American (continuous observation)",
+          "text_span": "Knock-in Type American (continuous observation)",
           "char_range": [
             3350,
             3410
@@ -455,8 +455,8 @@
         "citation": {
           "text_span": "60% of the Initial Level",
           "char_range": [
-            1647,
-            1671
+            3463,
+            3496
           ]
         },
         "note": null
@@ -471,7 +471,7 @@
         "status": "EXTRACTED",
         "value": "60%",
         "citation": {
-          "text_span": "Knock-in Level | 60% of the Initial Level",
+          "text_span": "Knock-in Level 60% of the Initial Level",
           "char_range": [
             3439,
             3491
@@ -498,8 +498,8 @@
         "citation": {
           "text_span": "9.75% per annum, payable quarterly",
           "char_range": [
-            780,
-            814
+            2873,
+            2916
           ]
         },
         "note": null
@@ -514,7 +514,7 @@
         "status": "EXTRACTED",
         "value": "9.75%",
         "citation": {
-          "text_span": "Coupon | 9.75% per annum, payable quarterly",
+          "text_span": "Coupon 9.75% per annum, payable quarterly",
           "char_range": [
             2857,
             2911
@@ -541,8 +541,8 @@
         "citation": {
           "text_span": "Quarterly",
           "char_range": [
-            2970,
-            2979
+            2966,
+            2984
           ]
         },
         "note": null
@@ -557,7 +557,7 @@
         "status": "EXTRACTED",
         "value": "Quarterly",
         "citation": {
-          "text_span": "Coupon Frequency | Quarterly",
+          "text_span": "Coupon Frequency Quarterly",
           "char_range": [
             2940,
             2979
@@ -584,8 +584,8 @@
         "citation": {
           "text_span": "Not applicable",
           "char_range": [
-            3053,
-            3067
+            3049,
+            3072
           ]
         },
         "note": null
@@ -600,7 +600,7 @@
         "status": "EXTRACTED",
         "value": "Not applicable",
         "citation": {
-          "text_span": "Coupon Memory | Not applicable",
+          "text_span": "Coupon Memory Not applicable",
           "char_range": [
             3026,
             3067
@@ -636,8 +636,8 @@
         "citation": {
           "text_span": "11-Aug-2027, 11-Feb-2028",
           "char_range": [
-            1414,
-            1438
+            3211,
+            3244
           ]
         },
         "note": null
@@ -658,7 +658,7 @@
           "11-Feb-2028"
         ],
         "citation": {
-          "text_span": "Autocall Observation Dates | 11-Aug-2027, 11-Feb-2028",
+          "text_span": "Autocall Observation Dates 11-Aug-2027, 11-Feb-2028",
           "char_range": [
             3175,
             3239
@@ -685,8 +685,8 @@
         "citation": {
           "text_span": "100% of the Initial Level",
           "char_range": [
-            1279,
-            1304
+            3292,
+            3326
           ]
         },
         "note": null
@@ -701,7 +701,7 @@
         "status": "EXTRACTED",
         "value": "100%",
         "citation": {
-          "text_span": "Autocall Level | 100% of the Initial Level",
+          "text_span": "Autocall Level 100% of the Initial Level",
           "char_range": [
             3268,
             3321
@@ -728,8 +728,8 @@
         "citation": {
           "text_span": "Actual/365 (Fixed)",
           "char_range": [
-            945,
-            963
+            3124,
+            3151
           ]
         },
         "note": null
@@ -744,7 +744,7 @@
         "status": "EXTRACTED",
         "value": "Actual/365 (Fixed)",
         "citation": {
-          "text_span": "Day Count Fraction | Actual/365 (Fixed)",
+          "text_span": "Day Count Fraction Actual/365 (Fixed)",
           "char_range": [
             3096,
             3146
@@ -771,8 +771,8 @@
         "citation": {
           "text_span": "Cash",
           "char_range": [
-            3544,
-            3548
+            3540,
+            3553
           ]
         },
         "note": null
@@ -787,7 +787,7 @@
         "status": "EXTRACTED",
         "value": "Cash",
         "citation": {
-          "text_span": "Settlement | Cash",
+          "text_span": "Settlement Cash",
           "char_range": [
             3520,
             3548
@@ -814,8 +814,8 @@
         "citation": {
           "text_span": "Modified Following",
           "char_range": [
-            1920,
-            1938
+            3610,
+            3637
           ]
         },
         "note": null
@@ -830,7 +830,7 @@
         "status": "EXTRACTED",
         "value": "Modified Following",
         "citation": {
-          "text_span": "Business Day Convention | Modified Following",
+          "text_span": "Business Day Convention Modified Following",
           "char_range": [
             3577,
             3632

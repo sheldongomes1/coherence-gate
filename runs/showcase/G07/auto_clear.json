@@ -93,10 +93,10 @@
     "booking_value": "EUR",
     "citations": [
       {
-        "text_span": "in an aggregate Notional Amount of EUR 6,000,000.",
+        "text_span": "Settlement at maturity or upon automatic early redemption is in cash, in EUR.",
         "char_range": [
-          436,
-          485
+          2519,
+          2596
         ]
       },
       {
@@ -265,10 +265,10 @@
     "booking_value": "european",
     "citations": [
       {
-        "text_span": "Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation) at a Knock-in Level of 55% of the Initial Level.",
+        "text_span": "observed on the Final Valuation Date only (European observation)",
         "char_range": [
-          2157,
-          2330
+          2217,
+          2281
         ]
       },
       {
@@ -321,10 +321,10 @@
     "booking_value": "8",
     "citations": [
       {
-        "text_span": "The Notes pay a conditional Coupon of 8% per annum, payable annually",
+        "text_span": "The Notes pay a conditional Coupon of 8% per annum",
         "char_range": [
           1228,
-          1296
+          1278
         ]
       },
       {
@@ -349,10 +349,10 @@
     "booking_value": "annual",
     "citations": [
       {
-        "text_span": "payable annually, payable annually in arrears",
+        "text_span": "payable annually",
         "char_range": [
           1280,
-          1325
+          1296
         ]
       },
       {
@@ -377,10 +377,10 @@
     "booking_value": true,
     "citations": [
       {
-        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.",
+        "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
         "char_range": [
           1450,
-          1726
+          1586
         ]
       },
       {
@@ -497,10 +497,10 @@
     "booking_value": "following",
     "citations": [
       {
-        "text_span": "Payment dates are adjusted in accordance with the Following Business Day Convention.",
+        "text_span": "Following Business Day Convention",
         "char_range": [
-          2597,
-          2681
+          2647,
+          2680
         ]
       },
       {

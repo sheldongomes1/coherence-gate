@@ -7,7 +7,7 @@
       "status": "EXTRACTED",
       "value": "SN-2026-0108",
       "citation": {
-        "text_span": "Trade Reference | SN-2026-0108",
+        "text_span": "Trade Reference SN-2026-0108",
         "char_range": [
           2169,
           2210
@@ -19,7 +19,7 @@
       "status": "EXTRACTED",
       "value": "Northbridge Capital Markets (Canada) Inc.",
       "citation": {
-        "text_span": "Issuer | Northbridge Capital Markets (Canada) Inc.",
+        "text_span": "Issuer Northbridge Capital Markets (Canada) Inc.",
         "char_range": [
           2239,
           2300
@@ -31,7 +31,7 @@
       "status": "EXTRACTED",
       "value": "USD 7.5 million (USD 7,500,000)",
       "citation": {
-        "text_span": "Notional Amount | USD 7.5 million (USD 7,500,000)",
+        "text_span": "Notional Amount USD 7.5 million (USD 7,500,000)",
         "char_range": [
           2329,
           2389
@@ -43,7 +43,7 @@
       "status": "EXTRACTED",
       "value": "USD",
       "citation": {
-        "text_span": "Currency | USD",
+        "text_span": "Currency USD",
         "char_range": [
           2418,
           2443
@@ -55,7 +55,7 @@
       "status": "EXTRACTED",
       "value": "11-Aug-2026",
       "citation": {
-        "text_span": "Trade Date | 11-Aug-2026",
+        "text_span": "Trade Date 11-Aug-2026",
         "char_range": [
           2472,
           2507
@@ -67,7 +67,7 @@
       "status": "EXTRACTED",
       "value": "18-Aug-2026",
       "citation": {
-        "text_span": "Issue Date | 18-Aug-2026",
+        "text_span": "Issue Date 18-Aug-2026",
         "char_range": [
           2536,
           2571
@@ -79,7 +79,7 @@
       "status": "EXTRACTED",
       "value": "18-Aug-2028",
       "citation": {
-        "text_span": "Maturity Date | 18-Aug-2028",
+        "text_span": "Maturity Date 18-Aug-2028",
         "char_range": [
           2600,
           2638
@@ -93,7 +93,7 @@
         "SX5E"
       ],
       "citation": {
-        "text_span": "Underlying(s) | EURO STOXX 50 Index (SX5E)",
+        "text_span": "Underlying(s) EURO STOXX 50 Index (SX5E)",
         "char_range": [
           2667,
           2720
@@ -105,7 +105,7 @@
       "status": "EXTRACTED",
       "value": "100%",
       "citation": {
-        "text_span": "Initial Level | 100% of the official closing level on the Trade Date",
+        "text_span": "Initial Level 100% of the official closing level on the Trade Date",
         "char_range": [
           2749,
           2828
@@ -117,7 +117,7 @@
       "status": "EXTRACTED",
       "value": "American (continuous observation)",
       "citation": {
-        "text_span": "Knock-in Type | American (continuous observation)",
+        "text_span": "Knock-in Type American (continuous observation)",
         "char_range": [
           3350,
           3410
@@ -129,7 +129,7 @@
       "status": "EXTRACTED",
       "value": "60%",
       "citation": {
-        "text_span": "Knock-in Level | 60% of the Initial Level",
+        "text_span": "Knock-in Level 60% of the Initial Level",
         "char_range": [
           3439,
           3491
@@ -141,7 +141,7 @@
       "status": "EXTRACTED",
       "value": "9.75%",
       "citation": {
-        "text_span": "Coupon | 9.75% per annum, payable quarterly",
+        "text_span": "Coupon 9.75% per annum, payable quarterly",
         "char_range": [
           2857,
           2911
@@ -165,7 +165,7 @@
       "status": "EXTRACTED",
       "value": "Quarterly",
       "citation": {
-        "text_span": "Coupon Frequency | Quarterly",
+        "text_span": "Coupon Frequency Quarterly",
         "char_range": [
           2940,
           2979
@@ -177,7 +177,7 @@
       "status": "EXTRACTED",
       "value": "Not applicable",
       "citation": {
-        "text_span": "Coupon Memory | Not applicable",
+        "text_span": "Coupon Memory Not applicable",
         "char_range": [
           3026,
           3067
@@ -192,7 +192,7 @@
         "11-Feb-2028"
       ],
       "citation": {
-        "text_span": "Autocall Observation Dates | 11-Aug-2027, 11-Feb-2028",
+        "text_span": "Autocall Observation Dates 11-Aug-2027, 11-Feb-2028",
         "char_range": [
           3175,
           3239
@@ -204,7 +204,7 @@
       "status": "EXTRACTED",
       "value": "100%",
       "citation": {
-        "text_span": "Autocall Level | 100% of the Initial Level",
+        "text_span": "Autocall Level 100% of the Initial Level",
         "char_range": [
           3268,
           3321
@@ -216,7 +216,7 @@
       "status": "EXTRACTED",
       "value": "Actual/365 (Fixed)",
       "citation": {
-        "text_span": "Day Count Fraction | Actual/365 (Fixed)",
+        "text_span": "Day Count Fraction Actual/365 (Fixed)",
         "char_range": [
           3096,
           3146
@@ -228,7 +228,7 @@
       "status": "EXTRACTED",
       "value": "Cash",
       "citation": {
-        "text_span": "Settlement | Cash",
+        "text_span": "Settlement Cash",
         "char_range": [
           3520,
           3548
@@ -240,7 +240,7 @@
       "status": "EXTRACTED",
       "value": "Modified Following",
       "citation": {
-        "text_span": "Business Day Convention | Modified Following",
+        "text_span": "Business Day Convention Modified Following",
         "char_range": [
           3577,
           3632

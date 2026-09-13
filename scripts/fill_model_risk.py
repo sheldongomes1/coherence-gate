@@ -8,6 +8,16 @@ from pathlib import Path
 
 run = Path(sys.argv[1]); tag = sys.argv[2] if len(sys.argv) > 2 else "v0.2.0"
 s = json.loads((run / "summary.json").read_text())
+
+def run_label(s: dict) -> str:
+    """Run id, plus the resume note when the run is a composite (ADR-31): the reader must see it."""
+    rs = s.get("resumed")
+    if not rs:
+        return s["run_id"]
+    prior = rs["prior_run"].rstrip("/").split("/")[-1]
+    return (f"{s['run_id']}, resumed from {prior}: {len(rs['reused'])} documents re-checked from their hash-attested "
+            f"extractions, {len(rs['re_extracted'])} ({', '.join(rs['re_extracted'])}) extracted again")
+
 manifest = json.loads(Path("golden/manifest.json").read_text())
 docs = manifest["documents"]
 n_planted = sum(len(d["planted"]) for d in docs)
@@ -23,7 +33,7 @@ if pt.exists():
 r = lambda k: f"{s[k]['hit']}/{s[k]['n']}"  # noqa: E731
 tpl = Path("docs/MODEL-RISK.md").read_text()
 rep = {
-    "[vX.Y]": tag, "[id]": s["run_id"], "date [ ]": f"date {date.today().isoformat()}",
+    "[vX.Y]": tag, "[id]": run_label(s), "date [ ]": f"date {date.today().isoformat()}",
     "[N] documents ([n_pdf] PDF / [n_txt] text)": f"{s['n_docs']} documents ({s['n_docs'] if s.get('source') == 'pdf' else 0} parsed PDF / {s['n_docs'] if s.get('source') != 'pdf' else 0} text; every document exists in both forms)",
     "[M] planted": f"{n_planted} planted", "[k] finding types": f"{len(types)} finding types ({', '.join(types)})",
     "[c] clean controls": f"{clean} clean controls",

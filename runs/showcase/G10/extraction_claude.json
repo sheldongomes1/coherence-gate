@@ -93,7 +93,7 @@
         "SPX"
       ],
       "citation": {
-        "text_span": "Underlying(s) S&amp;P 500 Index (SPX)",
+        "text_span": "Underlying(s) S&P 500 Index (SPX)",
         "char_range": [
           777,
           827
@@ -157,7 +157,7 @@
     },
     "coupon_frequency": {
       "status": "EXTRACTED",
-      "value": "quarterly",
+      "value": "Quarterly",
       "citation": {
         "text_span": "Coupon Frequency Quarterly",
         "char_range": [
@@ -169,7 +169,7 @@
     },
     "coupon_memory": {
       "status": "EXTRACTED",
-      "value": "true",
+      "value": "Applicable",
       "citation": {
         "text_span": "Coupon Memory Applicable",
         "char_range": [
@@ -221,7 +221,7 @@
     },
     "settlement": {
       "status": "EXTRACTED",
-      "value": "cash",
+      "value": "Cash",
       "citation": {
         "text_span": "Settlement Cash",
         "char_range": [
@@ -233,7 +233,7 @@
     },
     "business_day_convention": {
       "status": "EXTRACTED",
-      "value": "following",
+      "value": "Following",
       "citation": {
         "text_span": "Business Day Convention Following",
         "char_range": [
@@ -286,5 +286,5 @@
       "note": null
     }
   },
-  "raw_text": "{\"value\":{\"trade_id\":\"SN-2026-0110\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"USD 3,500,000.00\",\"currency\":\"USD\",\"trade_date\":\"2026-09-01\",\"issue_date\":\"2026-09-08\",\"maturity_date\":\"2029-09-10\",\"underlyings\":[\"SPX\"],\"initial_level_pct\":\"100.00%\",\"barrier_type\":\"european\",\"barrier_level_pct\":\"\",\"coupon_rate_pct\":\"7.25%\",\"coupon_rate_basis\":\"per_annum\",\"coupon_frequency\":\"quarterly\",\"coupon_memory\":\"true\",\"autocall_observation_dates\":[\"2027-09-01\",\"2028-03-01\",\"2028-09-01\"],\"autocall_level_pct\":\"100.00%\",\"day_count\":\"30/360\",\"settlement\":\"cash\",\"business_day_convention\":\"following\",\"index_administrator\":\"\",\"index_return_type\":\"\",\"index_return_treatment\":\"\",\"index_vol_target_pct\":\"\",\"index_rebalance_frequency\":\"\",\"index_deduction_factor_pct\":\"\",\"index_transaction_cost_rate_pct\":\"\"},\"citation\":{\"trade_id\":\"Trade Reference SN-2026-0110\",\"issuer\":\"Issuer Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"Notional Amount USD 3,500,000.00\",\"currency\":\"Currency USD\",\"trade_date\":\"Trade Date 2026-09-01\",\"issue_date\":\"Issue Date 2026-09-08\",\"maturity_date\":\"Maturity Date 2029-09-10\",\"underlyings\":\"Underlying(s) S&amp;P 500 Index (SPX)\",\"initial_level_pct\":\"Initial Level 100.00% of the official closing level on the Trade Date\",\"barrier_type\":\"Knock-in Type European (Final Valuation Date only)\",\"barrier_level_pct\":\"\",\"coupon_rate_pct\":\"Coupon 7.25% per annum, payable quarterly\",\"coupon_rate_basis\":\"7.25% per annum, payable quarterly\",\"coupon_frequency\":\"Coupon Frequency Quarterly\",\"coupon_memory\":\"Coupon Memory Applicable\",\"autocall_observation_dates\":\"Autocall Observation Dates 2027-09-01, 2028-03-01, 2028-09-01\",\"autocall_level_pct\":\"Autocall Level 100.00% of the Initial Level\",\"day_count\":\"Day Count Fraction 30/360\",\"settlement\":\"Settlement Cash\",\"business_day_convention\":\"Business Day Convention Following\",\"index_administrator\":\"\",\"index_return_type\":\"\",\"index_return_treatment\":\"\",\"index_vol_target_pct\":\"\",\"index_rebalance_frequency\":\"\",\"index_deduction_factor_pct\":\"\",\"index_transaction_cost_rate_pct\":\"\"},\"absent\":[\"barrier_level_pct\",\"index_administrator\",\"index_return_type\",\"index_return_treatment\",\"index_vol_target_pct\",\"index_rebalance_frequency\",\"index_deduction_factor_pct\",\"index_transaction_cost_rate_pct\"]}"
+  "raw_text": "{\"value\":{\"trade_id\":\"SN-2026-0110\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"USD 3,500,000.00\",\"currency\":\"USD\",\"trade_date\":\"2026-09-01\",\"issue_date\":\"2026-09-08\",\"maturity_date\":\"2029-09-10\",\"underlyings\":[\"SPX\"],\"initial_level_pct\":\"100.00%\",\"barrier_type\":\"european\",\"barrier_level_pct\":\"\",\"coupon_rate_pct\":\"7.25%\",\"coupon_rate_basis\":\"per_annum\",\"coupon_frequency\":\"Quarterly\",\"coupon_memory\":\"Applicable\",\"autocall_observation_dates\":[\"2027-09-01\",\"2028-03-01\",\"2028-09-01\"],\"autocall_level_pct\":\"100.00%\",\"day_count\":\"30/360\",\"settlement\":\"Cash\",\"business_day_convention\":\"Following\",\"index_administrator\":\"\",\"index_return_type\":\"\",\"index_return_treatment\":\"\",\"index_vol_target_pct\":\"\",\"index_rebalance_frequency\":\"\",\"index_deduction_factor_pct\":\"\",\"index_transaction_cost_rate_pct\":\"\"},\"citation\":{\"trade_id\":\"Trade Reference SN-2026-0110\",\"issuer\":\"Issuer Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"Notional Amount USD 3,500,000.00\",\"currency\":\"Currency USD\",\"trade_date\":\"Trade Date 2026-09-01\",\"issue_date\":\"Issue Date 2026-09-08\",\"maturity_date\":\"Maturity Date 2029-09-10\",\"underlyings\":\"Underlying(s) S&amp;P 500 Index (SPX)\",\"initial_level_pct\":\"Initial Level 100.00% of the official closing level on the Trade Date\",\"barrier_type\":\"Knock-in Type European (Final Valuation Date only)\",\"barrier_level_pct\":\"\",\"coupon_rate_pct\":\"Coupon 7.25% per annum, payable quarterly\",\"coupon_rate_basis\":\"7.25% per annum, payable quarterly\",\"coupon_frequency\":\"Coupon Frequency Quarterly\",\"coupon_memory\":\"Coupon Memory Applicable\",\"autocall_observation_dates\":\"Autocall Observation Dates 2027-09-01, 2028-03-01, 2028-09-01\",\"autocall_level_pct\":\"Autocall Level 100.00% of the Initial Level\",\"day_count\":\"Day Count Fraction 30/360\",\"settlement\":\"Settlement Cash\",\"business_day_convention\":\"Business Day Convention Following\",\"index_administrator\":\"\",\"index_return_type\":\"\",\"index_return_treatment\":\"\",\"index_vol_target_pct\":\"\",\"index_rebalance_frequency\":\"\",\"index_deduction_factor_pct\":\"\",\"index_transaction_cost_rate_pct\":\"\"},\"absent\":[\"barrier_level_pct\",\"index_administrator\",\"index_return_type\",\"index_return_treatment\",\"index_vol_target_pct\",\"index_rebalance_frequency\",\"index_deduction_factor_pct\",\"index_transaction_cost_rate_pct\"]}"
 }

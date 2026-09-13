@@ -3,9 +3,9 @@
   "sha256": "70314f0c90b3f51603934436738e3e860a5e51ceb629226f0882e988a8b19128",
   "trade_id": "OP-2026-0114",
   "document_lane": "AUTO_CLEAR",
-  "cost_usd": 0.089372,
-  "n_auto_clear": 35,
-  "n_triage": 0,
+  "cost_usd": 0.149448,
+  "n_auto_clear": 32,
+  "n_triage": 3,
   "source": "pdf",
   "parse": {
     "vendor": "mixedbread",
@@ -31,7 +31,6 @@
     "document_path": "golden/parsed/G13.md",
     "document_sha256": "70314f0c90b3f51603934436738e3e860a5e51ceb629226f0882e988a8b19128",
     "booking_trade_id": "OP-2026-0114",
-    "booking_sha256": "9691dd89390e3d220f4d9810d42809ffab9e4d2b08ea65223f14428620a762da",
     "booking_terms_keys": [
       "trade_id",
       "buyer",
@@ -61,6 +60,7 @@
       "index_rebalance_frequency",
       "index_deduction_factor_pct",
       "index_transaction_cost_rate_pct"
-    ]
+    ],
+    "booking_sha256": "9691dd89390e3d220f4d9810d42809ffab9e4d2b08ea65223f14428620a762da"
   }
 }

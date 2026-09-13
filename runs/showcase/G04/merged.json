@@ -13,10 +13,10 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0104",
         "citation": {
-          "text_span": "SN-2026-0104",
+          "text_span": "Re: SN-2026-0104 \u2014 Worst-of Autocallable Contingent Coupon Notes with Memory linked to S&P 500 Index and EURO STOXX 50 Index",
           "char_range": [
-            216,
-            228
+            212,
+            336
           ]
         },
         "note": null
@@ -31,7 +31,7 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0104",
         "citation": {
-          "text_span": "Trade Reference | SN-2026-0104",
+          "text_span": "Trade Reference SN-2026-0104",
           "char_range": [
             2306,
             2347
@@ -56,10 +56,10 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Northbridge Capital Markets (Canada) Inc.",
+          "text_span": "Northbridge Capital Markets (Canada) Inc. will issue Notes in a total Notional Amount of USD 2.5 million (USD 2,500,000)",
           "char_range": [
             440,
-            481
+            560
           ]
         },
         "note": null
@@ -74,7 +74,7 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Issuer | Northbridge Capital Markets (Canada) Inc.",
+          "text_span": "Issuer Northbridge Capital Markets (Canada) Inc.",
           "char_range": [
             2376,
             2437
@@ -99,9 +99,9 @@
         "status": "EXTRACTED",
         "value": "2500000",
         "citation": {
-          "text_span": "USD 2.5 million (USD 2,500,000)",
+          "text_span": "total Notional Amount of USD 2.5 million (USD 2,500,000)",
           "char_range": [
-            529,
+            504,
             560
           ]
         },
@@ -117,7 +117,7 @@
         "status": "EXTRACTED",
         "value": "USD 2.5 million (USD 2,500,000)",
         "citation": {
-          "text_span": "Notional Amount | USD 2.5 million (USD 2,500,000)",
+          "text_span": "Notional Amount USD 2.5 million (USD 2,500,000)",
           "char_range": [
             2466,
             2526
@@ -142,10 +142,10 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "USD",
+          "text_span": "All payments are made in USD",
           "char_range": [
-            529,
-            532
+            1989,
+            2017
           ]
         },
         "note": null
@@ -160,7 +160,7 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "Currency | USD",
+          "text_span": "Currency USD",
           "char_range": [
             2555,
             2580
@@ -185,10 +185,10 @@
         "status": "EXTRACTED",
         "value": "2026-06-09",
         "citation": {
-          "text_span": "09-Jun-2026",
+          "text_span": "The Notes were traded on 09-Jun-2026",
           "char_range": [
-            182,
-            193
+            612,
+            648
           ]
         },
         "note": null
@@ -203,7 +203,7 @@
         "status": "EXTRACTED",
         "value": "09-Jun-2026",
         "citation": {
-          "text_span": "Trade Date | 09-Jun-2026",
+          "text_span": "Trade Date 09-Jun-2026",
           "char_range": [
             2609,
             2644
@@ -228,9 +228,9 @@
         "status": "EXTRACTED",
         "value": "2026-06-16",
         "citation": {
-          "text_span": "16-Jun-2026",
+          "text_span": "will be issued on 16-Jun-2026",
           "char_range": [
-            668,
+            650,
             679
           ]
         },
@@ -246,7 +246,7 @@
         "status": "EXTRACTED",
         "value": "16-Jun-2026",
         "citation": {
-          "text_span": "Issue Date | 16-Jun-2026",
+          "text_span": "Issue Date 16-Jun-2026",
           "char_range": [
             2673,
             2708
@@ -271,9 +271,9 @@
         "status": "EXTRACTED",
         "value": "2028-06-16",
         "citation": {
-          "text_span": "16-Jun-2028",
+          "text_span": "mature on 16-Jun-2028",
           "char_range": [
-            694,
+            684,
             705
           ]
         },
@@ -289,7 +289,7 @@
         "status": "EXTRACTED",
         "value": "16-Jun-2028",
         "citation": {
-          "text_span": "Maturity Date | 16-Jun-2028",
+          "text_span": "Maturity Date 16-Jun-2028",
           "char_range": [
             2737,
             2775
@@ -323,10 +323,10 @@
           "SX5E"
         ],
         "citation": {
-          "text_span": "S&P 500 Index (SPX); EURO STOXX 50 Index (SX5E)",
+          "text_span": "S&P 500 Index (Bloomberg: SPX Index) and the EURO STOXX 50 Index (Bloomberg: SX5E Index)",
           "char_range": [
-            2831,
-            2882
+            759,
+            847
           ]
         },
         "note": null
@@ -347,7 +347,7 @@
           "SX5E"
         ],
         "citation": {
-          "text_span": "Underlying(s) | S&P 500 Index (SPX); EURO STOXX 50 Index (SX5E)",
+          "text_span": "Underlying(s) S&P 500 Index (SPX); EURO STOXX 50 Index (SX5E)",
           "char_range": [
             2804,
             2882
@@ -390,7 +390,7 @@
         "status": "EXTRACTED",
         "value": "100% of the official closing level on the Trade Date",
         "citation": {
-          "text_span": "Initial Level | 100% of the official closing level on the Trade Date",
+          "text_span": "Initial Level 100% of the official closing level on the Trade Date",
           "char_range": [
             2911,
             2990
@@ -433,7 +433,7 @@
         "status": "EXTRACTED",
         "value": "European (Final Valuation Date only)",
         "citation": {
-          "text_span": "Knock-in Type | European (Final Valuation Date only)",
+          "text_span": "Knock-in Type European (Final Valuation Date only)",
           "char_range": [
             3509,
             3572
@@ -458,9 +458,9 @@
         "status": "EXTRACTED",
         "value": "60%",
         "citation": {
-          "text_span": "60% of the Initial Level",
+          "text_span": "Knock-in Level of 60% of the Initial Level",
           "char_range": [
-            1793,
+            1775,
             1817
           ]
         },
@@ -476,7 +476,7 @@
         "status": "EXTRACTED",
         "value": "60% of the Initial Level",
         "citation": {
-          "text_span": "Knock-in Level | 60% of the Initial Level",
+          "text_span": "Knock-in Level 60% of the Initial Level",
           "char_range": [
             3601,
             3653
@@ -517,9 +517,9 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "10.2%",
+        "value": "10.2% per annum",
         "citation": {
-          "text_span": "Coupon | 10.2% per annum, payable quarterly",
+          "text_span": "Coupon 10.2% per annum, payable quarterly",
           "char_range": [
             3019,
             3073
@@ -544,10 +544,10 @@
         "status": "EXTRACTED",
         "value": "quarterly",
         "citation": {
-          "text_span": "Quarterly",
+          "text_span": "payable quarterly",
           "char_range": [
-            3150,
-            3159
+            905,
+            922
           ]
         },
         "note": null
@@ -562,7 +562,7 @@
         "status": "EXTRACTED",
         "value": "Quarterly",
         "citation": {
-          "text_span": "Coupon Frequency | Quarterly",
+          "text_span": "Coupon Frequency Quarterly",
           "char_range": [
             3120,
             3159
@@ -587,10 +587,10 @@
         "status": "EXTRACTED",
         "value": "true",
         "citation": {
-          "text_span": "Applicable",
+          "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
           "char_range": [
-            3215,
-            3225
+            1077,
+            1213
           ]
         },
         "note": null
@@ -605,7 +605,7 @@
         "status": "EXTRACTED",
         "value": "Applicable",
         "citation": {
-          "text_span": "Coupon Memory | Applicable",
+          "text_span": "Coupon Memory Applicable",
           "char_range": [
             3188,
             3225
@@ -642,10 +642,10 @@
           "2028-06-09"
         ],
         "citation": {
-          "text_span": "09-Jun-2027, 09-Dec-2027, 09-Jun-2028",
+          "text_span": "Autocall Observation Dates: 09-Jun-2027, 09-Dec-2027, 09-Jun-2028.",
           "char_range": [
-            1605,
-            1642
+            1577,
+            1643
           ]
         },
         "note": null
@@ -668,7 +668,7 @@
           "09-Jun-2028"
         ],
         "citation": {
-          "text_span": "Autocall Observation Dates | 09-Jun-2027, 09-Dec-2027, 09-Jun-2028",
+          "text_span": "Autocall Observation Dates 09-Jun-2027, 09-Dec-2027, 09-Jun-2028",
           "char_range": [
             3321,
             3398
@@ -711,7 +711,7 @@
         "status": "EXTRACTED",
         "value": "100% of the Initial Level",
         "citation": {
-          "text_span": "Autocall Level | 100% of the Initial Level",
+          "text_span": "Autocall Level 100% of the Initial Level",
           "char_range": [
             3427,
             3480
@@ -736,10 +736,10 @@
         "status": "EXTRACTED",
         "value": "30/360",
         "citation": {
-          "text_span": "30/360",
+          "text_span": "30/360 day count basis",
           "char_range": [
             1053,
-            1059
+            1075
           ]
         },
         "note": null
@@ -754,7 +754,7 @@
         "status": "EXTRACTED",
         "value": "30/360",
         "citation": {
-          "text_span": "Day Count Fraction | 30/360",
+          "text_span": "Day Count Fraction 30/360",
           "char_range": [
             3254,
             3292
@@ -779,10 +779,10 @@
         "status": "EXTRACTED",
         "value": "cash",
         "citation": {
-          "text_span": "Cash",
+          "text_span": "cash settlement",
           "char_range": [
-            3706,
-            3710
+            2021,
+            2036
           ]
         },
         "note": null
@@ -797,7 +797,7 @@
         "status": "EXTRACTED",
         "value": "Cash",
         "citation": {
-          "text_span": "Settlement | Cash",
+          "text_span": "Settlement Cash",
           "char_range": [
             3682,
             3710
@@ -822,10 +822,10 @@
         "status": "EXTRACTED",
         "value": "following",
         "citation": {
-          "text_span": "Following",
+          "text_span": "Following convention",
           "char_range": [
             2066,
-            2075
+            2086
           ]
         },
         "note": null
@@ -840,7 +840,7 @@
         "status": "EXTRACTED",
         "value": "Following",
         "citation": {
-          "text_span": "Business Day Convention | Following",
+          "text_span": "Business Day Convention Following",
           "char_range": [
             3739,
             3785

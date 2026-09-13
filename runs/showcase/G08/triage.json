@@ -15,12 +15,12 @@
       {
         "text_span": "EURO STOXX 50 Index (SX5E)",
         "char_range": [
-          2694,
-          2720
+          2690,
+          2725
         ]
       },
       {
-        "text_span": "Underlying(s) | EURO STOXX 50 Index (SX5E)",
+        "text_span": "Underlying(s) EURO STOXX 50 Index (SX5E)",
         "char_range": [
           2667,
           2720
@@ -31,11 +31,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G08 states under Underlying(s): \"EURO STOXX 50 Index (SX5E)\", with no reference to any US index. The booking record field \"underlyings\" is set to ['SPX']. Please confirm the trade references the EURO STOXX 50 Index (SX5E) and rebook the underlying accordingly, or provide the amendment/confirmation supporting SPX. This drives payoff, fixings and risk, so a same-day reply is required.",
+      "desk_query": "Term sheet G08 states under Underlying(s): \"EURO STOXX 50 Index (SX5E)\", with no reference to any US index. The booking record field \"underlyings\" is set to ['SPX']. Please confirm the note references SX5E and correct the booking, or provide the amendment/supplement supporting SPX as the underlying. This is a critical mismatch affecting valuation, risk and lifecycle events, so please reply before the next fixing.",
       "cited_clause": "Underlying(s) EURO STOXX 50 Index (SX5E)",
       "booking_field": "underlyings",
       "booking_value": "['SPX']",
-      "rationale": "Both extractors agree on an unambiguous term sheet designation of SX5E, so the divergent SPX in the booking record is the likely error."
+      "rationale": "Both extractors agree on an unambiguous term sheet clause naming SX5E, so the divergent booking of SPX is the likely error."
     }
   }
 ]

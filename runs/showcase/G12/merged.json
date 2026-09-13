@@ -13,9 +13,9 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0112",
         "citation": {
-          "text_span": "with reference SN-2026-0112",
+          "text_span": "notes (the \"Notes\") with reference SN-2026-0112",
           "char_range": [
-            408,
+            388,
             435
           ]
         },
@@ -31,10 +31,10 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0112",
         "citation": {
-          "text_span": "with reference SN-2026-0112",
+          "text_span": "Reference SN-2026-0112 \u00b7 Dated 8 May 2026",
           "char_range": [
-            408,
-            435
+            243,
+            284
           ]
         },
         "note": null
@@ -56,10 +56,10 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
+          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
           "char_range": [
             320,
-            376
+            393
           ]
         },
         "note": null
@@ -74,10 +74,10 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
+          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes (the \"Notes\")",
           "char_range": [
             320,
-            393
+            407
           ]
         },
         "note": null
@@ -99,10 +99,10 @@
         "status": "EXTRACTED",
         "value": "USD 7,500,000",
         "citation": {
-          "text_span": "in an aggregate Notional Amount of USD 7,500,000.",
+          "text_span": "aggregate Notional Amount of USD 7,500,000",
           "char_range": [
-            436,
-            485
+            442,
+            484
           ]
         },
         "note": null
@@ -142,10 +142,10 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "in an aggregate Notional Amount of USD 7,500,000.",
+          "text_span": "aggregate Notional Amount of USD 7,500,000",
           "char_range": [
-            436,
-            485
+            442,
+            484
           ]
         },
         "note": null
@@ -160,10 +160,10 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "in an aggregate Notional Amount of USD 7,500,000",
+          "text_span": "Settlement at maturity or upon automatic early redemption is in cash, in USD.",
           "char_range": [
-            436,
-            484
+            4418,
+            4495
           ]
         },
         "note": null
@@ -320,10 +320,10 @@
           "BVERSA10 Index"
         ],
         "citation": {
-          "text_span": "Bloomberg: BVERSA10 Index",
+          "text_span": "Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index)",
           "char_range": [
-            559,
-            584
+            533,
+            585
           ]
         },
         "note": null
@@ -339,13 +339,13 @@
       "source": {
         "status": "EXTRACTED",
         "value": [
-          "BVERSA10 Index"
+          "BVERSA10"
         ],
         "citation": {
-          "text_span": "Bloomberg Versa 10 Index \u2014 BVERSA10 Index",
+          "text_span": "The Notes are linked to the performance of the Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index) (the \"Underlying\").",
           "char_range": [
-            1479,
-            1520
+            486,
+            605
           ]
         },
         "note": null
@@ -453,10 +453,10 @@
         "status": "EXTRACTED",
         "value": "60%",
         "citation": {
-          "text_span": "Knock-in Level of 60% of the Initial Level.",
+          "text_span": "Knock-in Level of 60% of the Initial Level",
           "char_range": [
             4186,
-            4229
+            4228
           ]
         },
         "note": null
@@ -539,10 +539,10 @@
         "status": "EXTRACTED",
         "value": "quarterly",
         "citation": {
-          "text_span": "payable quarterly, payable quarterly in arrears",
+          "text_span": "payable quarterly",
           "char_range": [
             3144,
-            3191
+            3161
           ]
         },
         "note": null
@@ -582,10 +582,10 @@
         "status": "EXTRACTED",
         "value": "true",
         "citation": {
-          "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost.",
+          "text_span": "Memory feature: if a Coupon is not paid on a Coupon Payment Date because the Coupon Condition is not satisfied, that Coupon is not lost. It will be paid, together with the Coupon then due, on the first subsequent Coupon Payment Date on which the Coupon Condition is satisfied.",
           "char_range": [
             3392,
-            3528
+            3669
           ]
         },
         "note": null
@@ -703,9 +703,9 @@
         "status": "EXTRACTED",
         "value": "100%",
         "citation": {
-          "text_span": "is at or above 100% of the Initial Level",
+          "text_span": "at or above 100% of the Initial Level",
           "char_range": [
-            3817,
+            3820,
             3857
           ]
         },
@@ -832,9 +832,9 @@
         "status": "EXTRACTED",
         "value": "Modified Following",
         "citation": {
-          "text_span": "Modified Following Business Day Convention.",
+          "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
           "char_range": [
-            4546,
+            4496,
             4589
           ]
         },
@@ -848,7 +848,7 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "Modified Following",
+        "value": "mod_following",
         "citation": {
           "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
           "char_range": [
@@ -875,10 +875,10 @@
         "status": "EXTRACTED",
         "value": "Bloomberg Index Services Limited",
         "citation": {
-          "text_span": "Bloomberg Index Services Limited",
+          "text_span": "Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator",
           "char_range": [
-            1020,
-            1052
+            1582,
+            1704
           ]
         },
         "note": null
@@ -1022,7 +1022,7 @@
         "status": "EXTRACTED",
         "value": "10% per annum",
         "citation": {
-          "text_span": "Volatility Target</td>\n    <td>10% per annum",
+          "text_span": "Volatility Target 10% per annum",
           "char_range": [
             1918,
             1962

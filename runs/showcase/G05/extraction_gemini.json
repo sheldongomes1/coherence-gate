@@ -7,10 +7,10 @@
       "status": "EXTRACTED",
       "value": "SN-2026-0105",
       "citation": {
-        "text_span": "with reference SN-2026-0105",
+        "text_span": "Reference SN-2026-0105",
         "char_range": [
-          368,
-          395
+          207,
+          229
         ]
       },
       "note": null
@@ -19,21 +19,21 @@
       "status": "EXTRACTED",
       "value": "Northbridge Capital Markets (Canada) Inc.",
       "citation": {
-        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
+        "text_span": "Northbridge Capital Markets (Canada) Inc.",
         "char_range": [
           280,
-          336
+          321
         ]
       },
       "note": null
     },
     "notional": {
       "status": "EXTRACTED",
-      "value": "10,000,000 USD",
+      "value": "10000000",
       "citation": {
-        "text_span": "in an aggregate Notional Amount of 10,000,000 USD",
+        "text_span": "aggregate Notional Amount of 10,000,000 USD",
         "char_range": [
-          396,
+          402,
           445
         ]
       },
@@ -43,46 +43,46 @@
       "status": "EXTRACTED",
       "value": "USD",
       "citation": {
-        "text_span": "Cash settlement in USD.",
+        "text_span": "aggregate Notional Amount of 10,000,000 USD",
         "char_range": [
-          1616,
-          1639
+          402,
+          445
         ]
       },
       "note": null
     },
     "trade_date": {
       "status": "EXTRACTED",
-      "value": "February 17, 2026",
+      "value": "2026-02-17",
       "citation": {
-        "text_span": "The Trade Date is February 17, 2026",
+        "text_span": "The Trade Date is February 17, 2026;",
         "char_range": [
           518,
-          553
+          554
         ]
       },
       "note": null
     },
     "issue_date": {
       "status": "EXTRACTED",
-      "value": "February 24, 2026",
+      "value": "2026-02-24",
       "citation": {
-        "text_span": "the Issue Date is February 24, 2026",
+        "text_span": "the Issue Date is February 24, 2026;",
         "char_range": [
           555,
-          590
+          591
         ]
       },
       "note": null
     },
     "maturity_date": {
       "status": "EXTRACTED",
-      "value": "February 24, 2028",
+      "value": "2028-02-24",
       "citation": {
-        "text_span": "the Scheduled Maturity Date is February 24, 2028",
+        "text_span": "the Scheduled Maturity Date is February 24, 2028,",
         "char_range": [
           592,
-          640
+          641
         ]
       },
       "note": null
@@ -90,25 +90,25 @@
     "underlyings": {
       "status": "EXTRACTED",
       "value": [
-        "SPX Index"
+        "SPX"
       ],
       "citation": {
-        "text_span": "The Underlying is the S&P 500 Index (Bloomberg: SPX Index)",
+        "text_span": "S&P 500 Index (Bloomberg: SPX Index)",
         "char_range": [
-          1669,
-          1727
+          480,
+          516
         ]
       },
       "note": null
     },
     "initial_level_pct": {
       "status": "EXTRACTED",
-      "value": "100 per cent.",
+      "value": "100",
       "citation": {
-        "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date",
+        "text_span": "The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.",
         "char_range": [
           777,
-          878
+          879
         ]
       },
       "note": null
@@ -133,11 +133,11 @@
     },
     "coupon_rate_pct": {
       "status": "EXTRACTED",
-      "value": "5.25 per cent.",
+      "value": "5.25",
       "citation": {
-        "text_span": "conditional Coupon of 5.25 per cent. per annum",
+        "text_span": "5.25 per cent. per annum",
         "char_range": [
-          911,
+          933,
           957
         ]
       },
@@ -147,9 +147,9 @@
       "status": "EXTRACTED",
       "value": "per_annum",
       "citation": {
-        "text_span": "conditional Coupon of 5.25 per cent. per annum",
+        "text_span": "5.25 per cent. per annum",
         "char_range": [
-          911,
+          933,
           957
         ]
       },
@@ -157,12 +157,12 @@
     },
     "coupon_frequency": {
       "status": "EXTRACTED",
-      "value": "annually",
+      "value": "annual",
       "citation": {
-        "text_span": "payable annually, payable annually in arrears",
+        "text_span": "payable annually",
         "char_range": [
           959,
-          1004
+          975
         ]
       },
       "note": null
@@ -195,17 +195,17 @@
       "status": "EXTRACTED",
       "value": "30/360",
       "citation": {
-        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "text_span": "30/360 day count basis",
         "char_range": [
-          1078,
-          1128
+          1105,
+          1127
         ]
       },
       "note": null
     },
     "settlement": {
       "status": "EXTRACTED",
-      "value": "Cash",
+      "value": "cash",
       "citation": {
         "text_span": "Cash settlement in USD.",
         "char_range": [
@@ -217,12 +217,12 @@
     },
     "business_day_convention": {
       "status": "EXTRACTED",
-      "value": "Modified Following",
+      "value": "mod_following",
       "citation": {
-        "text_span": "subject to adjustment in accordance with the Modified Following Business Day Convention (Business Days: Toronto, New York and London).",
+        "text_span": "Modified Following Business Day Convention",
         "char_range": [
-          642,
-          776
+          687,
+          729
         ]
       },
       "note": null
@@ -270,5 +270,5 @@
       "note": null
     }
   },
-  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"SN-2026-0105\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"10,000,000 USD\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"February 17, 2026\",\n    \"issue_date\": \"February 24, 2026\",\n    \"maturity_date\": \"February 24, 2028\",\n    \"underlyings\": [\"SPX Index\"],\n    \"initial_level_pct\": \"100 per cent.\",\n    \"barrier_type\": \"none\",\n    \"barrier_level_pct\": \"\",\n    \"coupon_rate_pct\": \"5.25 per cent.\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"annually\",\n    \"coupon_memory\": \"false\",\n    \"autocall_observation_dates\": [],\n    \"autocall_level_pct\": \"\",\n    \"day_count\": \"30/360\",\n    \"settlement\": \"Cash\",\n    \"business_day_convention\": \"Modified Following\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"citation\": {\n    \"trade_id\": \"with reference SN-2026-0105\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc. (the \\\"Issuer\\\")\",\n    \"notional\": \"in an aggregate Notional Amount of 10,000,000 USD\",\n    \"currency\": \"Cash settlement in USD.\",\n    \"trade_date\": \"The Trade Date is February 17, 2026\",\n    \"issue_date\": \"the Issue Date is February 24, 2026\",\n    \"maturity_date\": \"the Scheduled Maturity Date is February 24, 2028\",\n    \"underlyings\": \"The Underlying is the S&P 500 Index (Bloomberg: SPX Index)\",\n    \"initial_level_pct\": \"The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date\",\n    \"barrier_type\": \"the Notes are not subject to a knock-in barrier.\",\n    \"barrier_level_pct\": \"\",\n    \"coupon_rate_pct\": \"conditional Coupon of 5.25 per cent. per annum\",\n    \"coupon_rate_basis\": \"conditional Coupon of 5.25 per cent. per annum\",\n    \"coupon_frequency\": \"payable annually, payable annually in arrears\",\n    \"coupon_memory\": \"No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.\",\n    \"autocall_observation_dates\": \"\",\n    \"autocall_level_pct\": \"\",\n    \"day_count\": \"Coupon amounts accrue on a 30/360 day count basis.\",\n    \"settlement\": \"Cash settlement in USD.\",\n    \"business_day_convention\": \"subject to adjustment in accordance with the Modified Following Business Day Convention (Business Days: Toronto, New York and London).\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"absent\": [\n    \"barrier_level_pct\",\n    \"autocall_observation_dates\",\n    \"autocall_level_pct\",\n    \"index_administrator\",\n    \"index_return_type\",\n    \"index_return_treatment\",\n    \"index_vol_target_pct\",\n    \"index_rebalance_frequency\",\n    \"index_deduction_factor_pct\",\n    \"index_transaction_cost_rate_pct\"\n  ]\n}"
+  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"SN-2026-0105\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"10000000\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"2026-02-17\",\n    \"issue_date\": \"2026-02-24\",\n    \"maturity_date\": \"2028-02-24\",\n    \"underlyings\": [\"SPX\"],\n    \"initial_level_pct\": \"100\",\n    \"barrier_type\": \"none\",\n    \"barrier_level_pct\": \"\",\n    \"coupon_rate_pct\": \"5.25\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"annual\",\n    \"coupon_memory\": \"false\",\n    \"autocall_observation_dates\": [],\n    \"autocall_level_pct\": \"\",\n    \"day_count\": \"30/360\",\n    \"settlement\": \"cash\",\n    \"business_day_convention\": \"mod_following\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"citation\": {\n    \"trade_id\": \"Reference SN-2026-0105\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"aggregate Notional Amount of 10,000,000 USD\",\n    \"currency\": \"aggregate Notional Amount of 10,000,000 USD\",\n    \"trade_date\": \"The Trade Date is February 17, 2026;\",\n    \"issue_date\": \"the Issue Date is February 24, 2026;\",\n    \"maturity_date\": \"the Scheduled Maturity Date is February 24, 2028,\",\n    \"underlyings\": \"S&P 500 Index (Bloomberg: SPX Index)\",\n    \"initial_level_pct\": \"The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.\",\n    \"barrier_type\": \"the Notes are not subject to a knock-in barrier.\",\n    \"barrier_level_pct\": \"\",\n    \"coupon_rate_pct\": \"5.25 per cent. per annum\",\n    \"coupon_rate_basis\": \"5.25 per cent. per annum\",\n    \"coupon_frequency\": \"payable annually\",\n    \"coupon_memory\": \"No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.\",\n    \"autocall_observation_dates\": \"\",\n    \"autocall_level_pct\": \"\",\n    \"day_count\": \"30/360 day count basis\",\n    \"settlement\": \"Cash settlement in USD.\",\n    \"business_day_convention\": \"Modified Following Business Day Convention\",\n    \"index_administrator\": \"\",\n    \"index_return_type\": \"\",\n    \"index_return_treatment\": \"\",\n    \"index_vol_target_pct\": \"\",\n    \"index_rebalance_frequency\": \"\",\n    \"index_deduction_factor_pct\": \"\",\n    \"index_transaction_cost_rate_pct\": \"\"\n  },\n  \"absent\": [\n    \"barrier_level_pct\",\n    \"autocall_observation_dates\",\n    \"autocall_level_pct\",\n    \"index_administrator\",\n    \"index_return_type\",\n    \"index_return_treatment\",\n    \"index_vol_target_pct\",\n    \"index_rebalance_frequency\",\n    \"index_deduction_factor_pct\",\n    \"index_transaction_cost_rate_pct\"\n  ]\n}"
 }

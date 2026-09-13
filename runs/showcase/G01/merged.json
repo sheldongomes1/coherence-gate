@@ -142,10 +142,10 @@
         "status": "EXTRACTED",
         "value": "USD",
         "citation": {
-          "text_span": "Cash settlement in USD.",
+          "text_span": "5,000,000 USD",
           "char_range": [
-            2062,
-            2085
+            441,
+            454
           ]
         },
         "note": null
@@ -185,10 +185,10 @@
         "status": "EXTRACTED",
         "value": "April 14, 2026",
         "citation": {
-          "text_span": "The Trade Date is April 14, 2026;",
+          "text_span": "The Trade Date is April 14, 2026",
           "char_range": [
             527,
-            560
+            559
           ]
         },
         "note": null
@@ -228,10 +228,10 @@
         "status": "EXTRACTED",
         "value": "April 21, 2026",
         "citation": {
-          "text_span": "the Issue Date is April 21, 2026;",
+          "text_span": "the Issue Date is April 21, 2026",
           "char_range": [
             561,
-            594
+            593
           ]
         },
         "note": null
@@ -317,13 +317,13 @@
       "source": {
         "status": "EXTRACTED",
         "value": [
-          "SPX Index"
+          "SPX"
         ],
         "citation": {
-          "text_span": "Bloomberg: SPX Index",
+          "text_span": "(Bloomberg: SPX Index)",
           "char_range": [
-            504,
-            524
+            503,
+            525
           ]
         },
         "note": null
@@ -410,10 +410,10 @@
         "status": "EXTRACTED",
         "value": "European",
         "citation": {
-          "text_span": "observed on the Final Valuation Date only (European observation)",
+          "text_span": "European (Final Valuation Date only)",
           "char_range": [
-            1751,
-            1815
+            2864,
+            2900
           ]
         },
         "note": null
@@ -453,10 +453,10 @@
         "status": "EXTRACTED",
         "value": "65 per cent.",
         "citation": {
-          "text_span": "Knock-in Level of 65 per cent. of the Initial Level.",
+          "text_span": "Knock-in Level of 65 per cent. of the Initial Level",
           "char_range": [
             1821,
-            1873
+            1872
           ]
         },
         "note": null
@@ -539,10 +539,10 @@
         "status": "EXTRACTED",
         "value": "quarterly",
         "citation": {
-          "text_span": "payable quarterly, payable quarterly in arrears",
+          "text_span": "payable quarterly",
           "char_range": [
             958,
-            1005
+            975
           ]
         },
         "note": null
@@ -557,10 +557,10 @@
         "status": "EXTRACTED",
         "value": "quarterly",
         "citation": {
-          "text_span": "payable quarterly in arrears",
+          "text_span": "payable quarterly in arrears, on each Coupon Payment Date",
           "char_range": [
             977,
-            1005
+            1034
           ]
         },
         "note": null
@@ -693,9 +693,9 @@
         "status": "EXTRACTED",
         "value": "100 per cent.",
         "citation": {
-          "text_span": "100 per cent. of the Initial Level",
+          "text_span": "at or above 100 per cent. of the Initial Level",
           "char_range": [
-            1462,
+            1450,
             1496
           ]
         },
@@ -736,10 +736,10 @@
         "status": "EXTRACTED",
         "value": "30/360",
         "citation": {
-          "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+          "text_span": "30/360 day count basis",
           "char_range": [
-            1079,
-            1129
+            1106,
+            1128
           ]
         },
         "note": null

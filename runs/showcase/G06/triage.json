@@ -16,7 +16,7 @@
         ]
       },
       {
-        "text_span": "Currency</td>\n    <td>USD",
+        "text_span": "Currency USD",
         "char_range": [
           522,
           547
@@ -27,11 +27,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G06 states \"Currency USD\" for the notional, but the booking record carries currency = CAD. Both extractors agree on the term sheet value, and no CAD reference appears in the cited spans. Please confirm the note is denominated in USD and correct the booking, or identify the clause supporting a CAD denomination (e.g. a quanto or settlement-currency provision) if the CAD booking is intentional.",
+      "desk_query": "Term sheet G06 states \"Currency USD\" for the notional, with both extractors agreeing on USD. The booking record carries currency = CAD. Please confirm whether the notional currency should be USD per the term sheet and the booking corrected, or whether a separate amendment/confirmation supports CAD. If CAD is intended, provide the document reference so we can align the record.",
       "cited_clause": "Currency USD",
       "booking_field": "currency",
       "booking_value": "CAD",
-      "rationale": "The term sheet is explicit and both extractors concur on USD, so the divergent CAD booking is the more likely error."
+      "rationale": "Both extractors independently agree on an unambiguous term sheet currency of USD, so the divergent CAD booking is the more likely error."
     }
   }
 ]

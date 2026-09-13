@@ -31,10 +31,10 @@
         "status": "EXTRACTED",
         "value": "SN-2026-0109",
         "citation": {
-          "text_span": "will issue notes (the \"Notes\") with reference SN-2026-0109",
+          "text_span": "Reference SN-2026-0109 \u00b7 Dated April 28, 2026",
           "char_range": [
-            358,
-            416
+            231,
+            276
           ]
         },
         "note": null
@@ -56,10 +56,10 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Northbridge Capital Markets (Canada) Inc.",
+          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
           "char_range": [
             301,
-            342
+            357
           ]
         },
         "note": null
@@ -74,10 +74,10 @@
         "status": "EXTRACTED",
         "value": "Northbridge Capital Markets (Canada) Inc.",
         "citation": {
-          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
+          "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes (the \"Notes\")",
           "char_range": [
             301,
-            374
+            388
           ]
         },
         "note": null
@@ -99,9 +99,9 @@
         "status": "EXTRACTED",
         "value": "5000000",
         "citation": {
-          "text_span": "Notional Amount of 5,000,000 CAD",
+          "text_span": "aggregate Notional Amount of 5,000,000 CAD",
           "char_range": [
-            433,
+            423,
             465
           ]
         },
@@ -142,9 +142,9 @@
         "status": "EXTRACTED",
         "value": "CAD",
         "citation": {
-          "text_span": "Notional Amount of 5,000,000 CAD",
+          "text_span": "aggregate Notional Amount of 5,000,000 CAD",
           "char_range": [
-            433,
+            423,
             465
           ]
         },
@@ -203,10 +203,10 @@
         "status": "EXTRACTED",
         "value": "April 28, 2026",
         "citation": {
-          "text_span": "The Trade Date is April 28, 2026;",
+          "text_span": "The Trade Date is April 28, 2026; the Issue Date is May 5, 2026; the Scheduled Maturity Date is May 7, 2029",
           "char_range": [
             573,
-            606
+            680
           ]
         },
         "note": null
@@ -246,10 +246,10 @@
         "status": "EXTRACTED",
         "value": "May 5, 2026",
         "citation": {
-          "text_span": "the Issue Date is May 5, 2026;",
+          "text_span": "The Trade Date is April 28, 2026; the Issue Date is May 5, 2026; the Scheduled Maturity Date is May 7, 2029",
           "char_range": [
-            607,
-            637
+            573,
+            680
           ]
         },
         "note": null
@@ -289,10 +289,10 @@
         "status": "EXTRACTED",
         "value": "May 7, 2029",
         "citation": {
-          "text_span": "the Scheduled Maturity Date is May 7, 2029",
+          "text_span": "April 28, 2026 / May 5, 2026 / May 7, 2029",
           "char_range": [
-            638,
-            680
+            4635,
+            4677
           ]
         },
         "note": null
@@ -317,7 +317,7 @@
       "source": {
         "status": "EXTRACTED",
         "value": [
-          "BVERSA10 Index"
+          "BVERSA10"
         ],
         "citation": {
           "text_span": "Bloomberg: BVERSA10 Index",
@@ -342,9 +342,9 @@
           "BVERSA10"
         ],
         "citation": {
-          "text_span": "the Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index) (the \"Underlying\")",
+          "text_span": "linked to the performance of the Bloomberg Versa 10 Index (Bloomberg: BVERSA10 Index) (the \"Underlying\")",
           "char_range": [
-            496,
+            467,
             571
           ]
         },
@@ -410,9 +410,9 @@
         "status": "EXTRACTED",
         "value": "european",
         "citation": {
-          "text_span": "observed on the Final Valuation Date only (European observation)",
+          "text_span": "knock-in barrier observed on the Final Valuation Date only (European observation)",
           "char_range": [
-            1800,
+            1783,
             1864
           ]
         },
@@ -693,9 +693,9 @@
         "status": "EXTRACTED",
         "value": "100",
         "citation": {
-          "text_span": "closing level of the Underlying is at or above 100 per cent. of the Initial Level",
+          "text_span": "at or above 100 per cent. of the Initial Level",
           "char_range": [
-            1464,
+            1499,
             1545
           ]
         },
@@ -711,10 +711,10 @@
         "status": "EXTRACTED",
         "value": "100 per cent.",
         "citation": {
-          "text_span": "Autocall Level\n    100 per cent. of the Initial Level",
+          "text_span": "100 per cent. of the Initial Level",
           "char_range": [
-            4841,
-            4903
+            1511,
+            1545
           ]
         },
         "note": null
@@ -754,7 +754,7 @@
         "status": "EXTRACTED",
         "value": "30/360",
         "citation": {
-          "text_span": "Day Count\n    30/360",
+          "text_span": "Day Count 30/360",
           "char_range": [
             5054,
             5083
@@ -865,10 +865,10 @@
         "status": "EXTRACTED",
         "value": "Bloomberg Index Services Limited",
         "citation": {
-          "text_span": "Bloomberg Index Services Limited",
+          "text_span": "administered by Bloomberg Index Services Limited (\"BISL\")",
           "char_range": [
-            2240,
-            2272
+            2224,
+            2281
           ]
         },
         "note": null
@@ -908,10 +908,10 @@
         "status": "EXTRACTED",
         "value": "type_i",
         "citation": {
-          "text_span": "Type I under the Index Methodology",
+          "text_span": "Total Return (Type I under the Index Methodology)",
           "char_range": [
-            3048,
-            3082
+            3034,
+            3083
           ]
         },
         "note": null
@@ -992,7 +992,7 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "10",
+        "value": "10%",
         "citation": {
           "text_span": "10% per annum",
           "char_range": [
@@ -1012,9 +1012,9 @@
         "status": "EXTRACTED",
         "value": "10%",
         "citation": {
-          "text_span": "Volatility Target\n    10% per annum",
+          "text_span": "Volatility Target 10% per annum",
           "char_range": [
-            3196,
+            3188,
             3249
           ]
         },
@@ -1078,7 +1078,7 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "0.50",
+        "value": "0.50%",
         "citation": {
           "text_span": "0.50% per annum, deducted daily from the Index Value",
           "char_range": [
@@ -1121,7 +1121,7 @@
       "malformed": null,
       "source": {
         "status": "EXTRACTED",
-        "value": "0.02",
+        "value": "0.02%",
         "citation": {
           "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
           "char_range": [

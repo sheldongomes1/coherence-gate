@@ -93,10 +93,10 @@
     "booking_value": "USD",
     "citations": [
       {
-        "text_span": "Cash settlement in USD.",
+        "text_span": "5,000,000 USD",
         "char_range": [
-          2062,
-          2085
+          441,
+          454
         ]
       },
       {
@@ -121,10 +121,10 @@
     "booking_value": "2026-04-14",
     "citations": [
       {
-        "text_span": "The Trade Date is April 14, 2026;",
+        "text_span": "The Trade Date is April 14, 2026",
         "char_range": [
           527,
-          560
+          559
         ]
       },
       {
@@ -149,10 +149,10 @@
     "booking_value": "2026-04-21",
     "citations": [
       {
-        "text_span": "the Issue Date is April 21, 2026;",
+        "text_span": "the Issue Date is April 21, 2026",
         "char_range": [
           561,
-          594
+          593
         ]
       },
       {
@@ -209,10 +209,10 @@
     ],
     "citations": [
       {
-        "text_span": "Bloomberg: SPX Index",
+        "text_span": "(Bloomberg: SPX Index)",
         "char_range": [
-          504,
-          524
+          503,
+          525
         ]
       },
       {
@@ -265,10 +265,10 @@
     "booking_value": "european",
     "citations": [
       {
-        "text_span": "observed on the Final Valuation Date only (European observation)",
+        "text_span": "European (Final Valuation Date only)",
         "char_range": [
-          1751,
-          1815
+          2864,
+          2900
         ]
       },
       {
@@ -293,10 +293,10 @@
     "booking_value": "70",
     "citations": [
       {
-        "text_span": "Knock-in Level of 65 per cent. of the Initial Level.",
+        "text_span": "Knock-in Level of 65 per cent. of the Initial Level",
         "char_range": [
           1821,
-          1873
+          1872
         ]
       },
       {
@@ -311,11 +311,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G01 states \"Knock-in Level of 65 per cent. of the Initial Level.\" and further specifies \"European (Final Valuation Date only); 65 per cent. of the Initial Level\", while the booking record carries barrier_level_pct = 70. Both extractors agree on 65 from two independent spans, so the booking appears to be off by five points. Please confirm the knock-in barrier is 65% of Initial Level and correct barrier_level_pct in the booking, or provide the amendment or pricing supplement that supports 70%.",
-      "cited_clause": "Knock-in Level of 65 per cent. of the Initial Level.",
+      "desk_query": "Term sheet G01 states \"Knock-in Level of 65 per cent. of the Initial Level\", corroborated by a second span reading \"European (Final Valuation Date only); 65 per cent. of the Initial Level\". The booking record carries barrier_level_pct = 70, a 5-point discrepancy on a critical risk term. Please confirm the correct knock-in barrier is 65 per cent and authorise amendment of the booking, or identify the executed document that supports 70.",
+      "cited_clause": "Knock-in Level of 65 per cent. of the Initial Level",
       "booking_field": "barrier_level_pct",
       "booking_value": "70",
-      "rationale": "Two consistent, unambiguous term sheet spans both state 65%, so the discrepancy most likely originates in the booking record rather than the document."
+      "rationale": "Both extractors agree on 65 with two consistent, unambiguous verbatim spans, so the term sheet is internally coherent and the divergent booking value is the likely error."
     }
   },
   {
@@ -356,17 +356,17 @@
     "booking_value": "quarterly",
     "citations": [
       {
-        "text_span": "payable quarterly, payable quarterly in arrears",
+        "text_span": "payable quarterly",
         "char_range": [
           958,
-          1005
+          975
         ]
       },
       {
-        "text_span": "payable quarterly in arrears",
+        "text_span": "payable quarterly in arrears, on each Coupon Payment Date",
         "char_range": [
           977,
-          1005
+          1034
         ]
       }
     ],
@@ -450,9 +450,9 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "100 per cent. of the Initial Level",
+        "text_span": "at or above 100 per cent. of the Initial Level",
         "char_range": [
-          1462,
+          1450,
           1496
         ]
       },
@@ -478,10 +478,10 @@
     "booking_value": "30/360",
     "citations": [
       {
-        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "text_span": "30/360 day count basis",
         "char_range": [
-          1079,
-          1129
+          1106,
+          1128
         ]
       },
       {

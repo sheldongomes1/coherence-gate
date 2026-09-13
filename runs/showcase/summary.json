@@ -1,5 +1,5 @@
 {
-  "run_id": "20260912-191532",
+  "run_id": "20260913-113753",
   "stub": false,
   "n_docs": 15,
   "catch_strict": {
@@ -12,7 +12,7 @@
   },
   "false_flag_fields": {
     "hit": 0,
-    "n": 417
+    "n": 399
   },
   "false_flag_docs": {
     "hit": 0,
@@ -40,8 +40,31 @@
       "n": 396
     }
   },
-  "cost_total_usd": 2.2075,
-  "cost_per_doc_usd": 0.1472,
+  "never_completed": {},
+  "resumed": {
+    "prior_run": "runs/20260913-105614",
+    "reused": [
+      "G01",
+      "G02",
+      "G03",
+      "G04",
+      "G05",
+      "G07",
+      "G08",
+      "G09",
+      "G10",
+      "G11",
+      "G12",
+      "G13",
+      "G14",
+      "G15"
+    ],
+    "re_extracted": [
+      "G06"
+    ]
+  },
+  "cost_total_usd": 2.5077,
+  "cost_per_doc_usd": 0.1672,
   "source": "pdf",
   "field_accuracy": {
     "gemini": {
@@ -842,29 +865,36 @@
     }
   },
   "by_product": {
-    "otc_option": {
-      "docs": 3,
-      "planted": 5,
-      "catch": 5,
-      "clean_fields": 100,
-      "false_flags": 0
-    },
     "note": {
       "docs": 12,
       "planted": 12,
       "catch": 12,
-      "clean_fields": 317,
+      "clean_fields": 308,
+      "false_flags": 0
+    },
+    "otc_option": {
+      "docs": 3,
+      "planted": 5,
+      "catch": 5,
+      "clean_fields": 91,
       "false_flags": 0
     }
   },
   "reference_lane": {
     "ran": true,
     "catch": "2/2",
-    "checks": 36,
+    "checks": 18,
     "flags": 2,
     "deferred_false_flags": 0,
-    "not_evaluable": 0
+    "not_evaluable": 18
   },
+  "not_evaluable": {
+    "deferred": 6,
+    "methodology default 0; the index-specific document may overr": 12
+  },
+  "n_truth_absent": 67,
+  "reference_cost_usd": 0.0,
+  "cost_traced_total_usd": 0.1249,
   "planted_detail": [
     {
       "doc": "G01",
@@ -1017,7 +1047,7 @@
       "reported": "RELATION_VIOLATION",
       "strict": true,
       "field_only": true,
-      "detail": "violated on booking \u2014 premium_arithmetic: term sheet [4.15\u00d70.01 \u00d7 25000000 = 1.0375E+6 vs premium_amount 1.0375E+6]; booking [4.15\u00d70.01 \u00d7 25000000 = 1.0375E+6 vs premium_amount 8.3E+5]"
+      "detail": "violated on booking \u2014 premium_arithmetic: term sheet [4.15\u00d70.01 \u00d7 25000000 = 1,037,500 vs premium_amount 1,037,500]; booking [4.15\u00d70.01 \u00d7 25000000 = 1,037,500 vs premium_amount 830,000]"
     }
   ],
   "false_flag_detail": []

@@ -19,10 +19,10 @@
       "status": "EXTRACTED",
       "value": "Lakeshore Life Insurance Company",
       "citation": {
-        "text_span": "Lakeshore Life Insurance Company (\"Party B\", the Buyer)",
+        "text_span": "Lakeshore Life Insurance Company (Party B)",
         "char_range": [
-          374,
-          429
+          3238,
+          3280
         ]
       },
       "note": null
@@ -31,10 +31,10 @@
       "status": "EXTRACTED",
       "value": "Northbridge Capital Markets (Canada) Inc.",
       "citation": {
-        "text_span": "Northbridge Capital Markets (Canada) Inc. (\"Party A\", the Seller)",
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (Party A)",
         "char_range": [
-          295,
-          360
+          3290,
+          3341
         ]
       },
       "note": null
@@ -43,10 +43,10 @@
       "status": "EXTRACTED",
       "value": "european",
       "citation": {
-        "text_span": "European-style, cash-settled call option",
+        "text_span": "European / Call",
         "char_range": [
-          432,
-          472
+          3214,
+          3229
         ]
       },
       "note": null
@@ -55,10 +55,10 @@
       "status": "EXTRACTED",
       "value": "call",
       "citation": {
-        "text_span": "European-style, cash-settled call option",
+        "text_span": "European / Call",
         "char_range": [
-          432,
-          472
+          3214,
+          3229
         ]
       },
       "note": null
@@ -79,12 +79,12 @@
     },
     "notional": {
       "status": "EXTRACTED",
-      "value": "USD 40,000,000",
+      "value": "40,000,000",
       "citation": {
         "text_span": "USD 40,000,000",
         "char_range": [
-          3395,
-          3409
+          3391,
+          3414
         ]
       },
       "note": null
@@ -95,32 +95,32 @@
       "citation": {
         "text_span": "USD 40,000,000",
         "char_range": [
-          3395,
-          3409
+          3391,
+          3414
         ]
       },
       "note": null
     },
     "trade_date": {
       "status": "EXTRACTED",
-      "value": "15 June 2026",
+      "value": "2026-06-15",
       "citation": {
         "text_span": "15 June 2026",
         "char_range": [
-          247,
-          259
+          3458,
+          3479
         ]
       },
       "note": null
     },
     "effective_date": {
       "status": "EXTRACTED",
-      "value": "17 June 2026",
+      "value": "2026-06-17",
       "citation": {
         "text_span": "17 June 2026",
         "char_range": [
-          3531,
-          3543
+          3527,
+          3548
         ]
       },
       "note": null
@@ -143,32 +143,32 @@
       "citation": {
         "text_span": "100%",
         "char_range": [
-          3758,
-          3762
+          3846,
+          3859
         ]
       },
       "note": null
     },
     "valuation_date": {
       "status": "EXTRACTED",
-      "value": "15 June 2027",
+      "value": "2027-06-15",
       "citation": {
-        "text_span": "15 June 2027",
+        "text_span": "15 June 2027 (point-to-point observation; no averaging)",
         "char_range": [
           3911,
-          3923
+          3966
         ]
       },
       "note": null
     },
     "expiration_date": {
       "status": "EXTRACTED",
-      "value": "15 June 2027",
+      "value": "2027-06-15",
       "citation": {
         "text_span": "15 June 2027",
         "char_range": [
-          3911,
-          3923
+          4020,
+          4041
         ]
       },
       "note": null
@@ -179,8 +179,8 @@
       "citation": {
         "text_span": "Applicable",
         "char_range": [
-          4097,
-          4107
+          4093,
+          4112
         ]
       },
       "note": null
@@ -199,24 +199,24 @@
     },
     "premium_amount": {
       "status": "EXTRACTED",
-      "value": "USD 1,440,000",
+      "value": "1,440,000",
       "citation": {
-        "text_span": "USD 1,440,000",
+        "text_span": "3.6% of the Notional Amount (USD 1,440,000)",
         "char_range": [
-          4186,
-          4199
+          4157,
+          4200
         ]
       },
       "note": null
     },
     "premium_payment_date": {
       "status": "EXTRACTED",
-      "value": "17 June 2026",
+      "value": "2026-06-17",
       "citation": {
         "text_span": "17 June 2026",
         "char_range": [
-          3531,
-          3543
+          3527,
+          3548
         ]
       },
       "note": null
@@ -237,10 +237,10 @@
       "status": "EXTRACTED",
       "value": "USD",
       "citation": {
-        "text_span": "Settlement Currency",
+        "text_span": "USD",
         "char_range": [
-          4432,
-          4451
+          3142,
+          3154
         ]
       },
       "note": null
@@ -295,7 +295,7 @@
     },
     "index_vol_target_pct": {
       "status": "EXTRACTED",
-      "value": "10% per annum",
+      "value": "10%",
       "citation": {
         "text_span": "10% per annum",
         "char_range": [
@@ -319,7 +319,7 @@
     },
     "index_deduction_factor_pct": {
       "status": "EXTRACTED",
-      "value": "0.50% per annum",
+      "value": "0.50%",
       "citation": {
         "text_span": "0.50% per annum, deducted daily from the Index Value",
         "char_range": [
@@ -342,5 +342,5 @@
       "note": null
     }
   },
-  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"OP-2026-0117\",\n    \"buyer\": \"Lakeshore Life Insurance Company\",\n    \"seller\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"option_style\": \"european\",\n    \"option_type\": \"call\",\n    \"underlyings\": [\n      \"BVERSA10\"\n    ],\n    \"notional\": \"USD 40,000,000\",\n    \"currency\": \"USD\",\n    \"trade_date\": \"15 June 2026\",\n    \"effective_date\": \"17 June 2026\",\n    \"strike_level_pct\": \"100%\",\n    \"participation_rate_pct\": \"100%\",\n    \"valuation_date\": \"15 June 2027\",\n    \"expiration_date\": \"15 June 2027\",\n    \"automatic_exercise\": \"true\",\n    \"premium_pct\": \"3.6%\",\n    \"premium_amount\": \"USD 1,440,000\",\n    \"premium_payment_date\": \"17 June 2026\",\n    \"cash_settlement_days\": \"3\",\n    \"settlement_currency\": \"USD\",\n    \"calculation_agent\": \"Party A\",\n    \"index_administrator\": \"Bloomberg Index Services Limited\",\n    \"index_return_type\": \"type_i\",\n    \"index_return_treatment\": \"excess_return\",\n    \"index_vol_target_pct\": \"10% per annum\",\n    \"index_rebalance_frequency\": \"monthly\",\n    \"index_deduction_factor_pct\": \"0.50% per annum\",\n    \"index_transaction_cost_rate_pct\": \"0.02%\"\n  },\n  \"citation\": {\n    \"trade_id\": \"Reference OP-2026-0117\",\n    \"buyer\": \"Lakeshore Life Insurance Company (\\\"Party B\\\", the Buyer)\",\n    \"seller\": \"Northbridge Capital Markets (Canada) Inc. (\\\"Party A\\\", the Seller)\",\n    \"option_style\": \"European-style, cash-settled call option\",\n    \"option_type\": \"European-style, cash-settled call option\",\n    \"underlyings\": \"Bloomberg Versa 10 Index — BVERSA10 Index\",\n    \"notional\": \"USD 40,000,000\",\n    \"currency\": \"USD 40,000,000\",\n    \"trade_date\": \"15 June 2026\",\n    \"effective_date\": \"17 June 2026\",\n    \"strike_level_pct\": \"100% of the Initial Index Level\",\n    \"participation_rate_pct\": \"100%\",\n    \"valuation_date\": \"15 June 2027\",\n    \"expiration_date\": \"15 June 2027\",\n    \"automatic_exercise\": \"Applicable\",\n    \"premium_pct\": \"3.6% of the Notional Amount (USD 1,440,000)\",\n    \"premium_amount\": \"USD 1,440,000\",\n    \"premium_payment_date\": \"17 June 2026\",\n    \"cash_settlement_days\": \"Three Currency Business Days following the Valuation Date\",\n    \"settlement_currency\": \"Settlement Currency\",\n    \"calculation_agent\": \"Calculation Agent: Party A.\",\n    \"index_administrator\": \"Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator\",\n    \"index_return_type\": \"Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process\",\n    \"index_return_treatment\": \"Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process\",\n    \"index_vol_target_pct\": \"10% per annum\",\n    \"index_rebalance_frequency\": \"Each calendar month, in accordance with the Index Methodology\",\n    \"index_deduction_factor_pct\": \"0.50% per annum, deducted daily from the Index Value\",\n    \"index_transaction_cost_rate_pct\": \"0.02% on changes in Underlying Index units, as provided in the Index Methodology\"\n  },\n  \"absent\": []\n}"
+  "raw_text": "{\"value\":{\"trade_id\":\"OP-2026-0117\",\"buyer\":\"Lakeshore Life Insurance Company\",\"seller\":\"Northbridge Capital Markets (Canada) Inc.\",\"option_style\":\"european\",\"option_type\":\"call\",\"underlyings\":[\"BVERSA10\"],\"notional\":\"40,000,000\",\"currency\":\"USD\",\"trade_date\":\"2026-06-15\",\"effective_date\":\"2026-06-17\",\"strike_level_pct\":\"100%\",\"participation_rate_pct\":\"100%\",\"valuation_date\":\"2027-06-15\",\"expiration_date\":\"2027-06-15\",\"automatic_exercise\":\"true\",\"premium_pct\":\"3.6%\",\"premium_amount\":\"1,440,000\",\"premium_payment_date\":\"2026-06-17\",\"cash_settlement_days\":\"3\",\"settlement_currency\":\"USD\",\"calculation_agent\":\"Party A\",\"index_administrator\":\"Bloomberg Index Services Limited\",\"index_return_type\":\"type_i\",\"index_return_treatment\":\"excess_return\",\"index_vol_target_pct\":\"10%\",\"index_rebalance_frequency\":\"monthly\",\"index_deduction_factor_pct\":\"0.50%\",\"index_transaction_cost_rate_pct\":\"0.02%\"},\"citation\":{\"trade_id\":\"Reference OP-2026-0117\",\"buyer\":\"Lakeshore Life Insurance Company (Party B)\",\"seller\":\"Northbridge Capital Markets (Canada) Inc. (Party A)\",\"option_style\":\"European / Call\",\"option_type\":\"European / Call\",\"underlyings\":\"Bloomberg Versa 10 Index — BVERSA10 Index\",\"notional\":\"<td>USD 40,000,000</td>\",\"currency\":\"<td>USD 40,000,000</td>\",\"trade_date\":\"<td>15 June 2026</td>\",\"effective_date\":\"<td>17 June 2026</td>\",\"strike_level_pct\":\"100% of the Initial Index Level\",\"participation_rate_pct\":\"<td>100%</td>\",\"valuation_date\":\"15 June 2027 (point-to-point observation; no averaging)\",\"expiration_date\":\"<td>15 June 2027</td>\",\"automatic_exercise\":\"<td>Applicable</td>\",\"premium_pct\":\"3.6% of the Notional Amount (USD 1,440,000)\",\"premium_amount\":\"3.6% of the Notional Amount (USD 1,440,000)\",\"premium_payment_date\":\"<td>17 June 2026</td>\",\"cash_settlement_days\":\"Three Currency Business Days following the Valuation Date\",\"settlement_currency\":\"<td>USD</td>\",\"calculation_agent\":\"Calculation Agent: Party A.\",\"index_administrator\":\"Bloomberg Index Services Limited, authorised and regulated by the Financial Conduct Authority as a benchmark administrator\",\"index_return_type\":\"Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process\",\"index_return_treatment\":\"Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process\",\"index_vol_target_pct\":\"10% per annum\",\"index_rebalance_frequency\":\"Each calendar month, in accordance with the Index Methodology\",\"index_deduction_factor_pct\":\"0.50% per annum, deducted daily from the Index Value\",\"index_transaction_cost_rate_pct\":\"0.02% on changes in Underlying Index units, as provided in the Index Methodology\"},\"absent\":[]}"
 }

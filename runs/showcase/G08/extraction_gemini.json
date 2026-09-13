@@ -9,8 +9,8 @@
       "citation": {
         "text_span": "SN-2026-0108",
         "char_range": [
-          216,
-          228
+          2194,
+          2215
         ]
       },
       "note": null
@@ -21,8 +21,8 @@
       "citation": {
         "text_span": "Northbridge Capital Markets (Canada) Inc.",
         "char_range": [
-          401,
-          442
+          2255,
+          2305
         ]
       },
       "note": null
@@ -33,8 +33,8 @@
       "citation": {
         "text_span": "USD 7.5 million (USD 7,500,000)",
         "char_range": [
-          490,
-          521
+          2354,
+          2394
         ]
       },
       "note": null
@@ -45,8 +45,8 @@
       "citation": {
         "text_span": "USD",
         "char_range": [
-          490,
-          493
+          2436,
+          2448
         ]
       },
       "note": null
@@ -57,8 +57,8 @@
       "citation": {
         "text_span": "11-Aug-2026",
         "char_range": [
-          182,
-          193
+          2492,
+          2512
         ]
       },
       "note": null
@@ -69,8 +69,8 @@
       "citation": {
         "text_span": "18-Aug-2026",
         "char_range": [
-          629,
-          640
+          2556,
+          2576
         ]
       },
       "note": null
@@ -81,8 +81,8 @@
       "citation": {
         "text_span": "18-Aug-2028",
         "char_range": [
-          655,
-          666
+          2623,
+          2643
         ]
       },
       "note": null
@@ -95,8 +95,8 @@
       "citation": {
         "text_span": "EURO STOXX 50 Index (SX5E)",
         "char_range": [
-          2694,
-          2720
+          2690,
+          2725
         ]
       },
       "note": null
@@ -107,8 +107,8 @@
       "citation": {
         "text_span": "100% of the official closing level on the Trade Date",
         "char_range": [
-          2776,
-          2828
+          2772,
+          2833
         ]
       },
       "note": null
@@ -119,8 +119,8 @@
       "citation": {
         "text_span": "American (continuous observation)",
         "char_range": [
-          3377,
-          3410
+          3373,
+          3415
         ]
       },
       "note": null
@@ -131,8 +131,8 @@
       "citation": {
         "text_span": "60% of the Initial Level",
         "char_range": [
-          1647,
-          1671
+          3463,
+          3496
         ]
       },
       "note": null
@@ -143,8 +143,8 @@
       "citation": {
         "text_span": "9.75% per annum, payable quarterly",
         "char_range": [
-          780,
-          814
+          2873,
+          2916
         ]
       },
       "note": null
@@ -155,8 +155,8 @@
       "citation": {
         "text_span": "9.75% per annum, payable quarterly",
         "char_range": [
-          780,
-          814
+          2873,
+          2916
         ]
       },
       "note": null
@@ -167,8 +167,8 @@
       "citation": {
         "text_span": "Quarterly",
         "char_range": [
-          2970,
-          2979
+          2966,
+          2984
         ]
       },
       "note": null
@@ -179,8 +179,8 @@
       "citation": {
         "text_span": "Not applicable",
         "char_range": [
-          3053,
-          3067
+          3049,
+          3072
         ]
       },
       "note": null
@@ -194,8 +194,8 @@
       "citation": {
         "text_span": "11-Aug-2027, 11-Feb-2028",
         "char_range": [
-          1414,
-          1438
+          3211,
+          3244
         ]
       },
       "note": null
@@ -206,8 +206,8 @@
       "citation": {
         "text_span": "100% of the Initial Level",
         "char_range": [
-          1279,
-          1304
+          3292,
+          3326
         ]
       },
       "note": null
@@ -218,8 +218,8 @@
       "citation": {
         "text_span": "Actual/365 (Fixed)",
         "char_range": [
-          945,
-          963
+          3124,
+          3151
         ]
       },
       "note": null
@@ -230,8 +230,8 @@
       "citation": {
         "text_span": "Cash",
         "char_range": [
-          3544,
-          3548
+          3540,
+          3553
         ]
       },
       "note": null
@@ -242,8 +242,8 @@
       "citation": {
         "text_span": "Modified Following",
         "char_range": [
-          1920,
-          1938
+          3610,
+          3637
         ]
       },
       "note": null
@@ -291,5 +291,5 @@
       "note": null
     }
   },
-  "raw_text": "{\"value\":{\"trade_id\":\"SN-2026-0108\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"USD 7.5 million (USD 7,500,000)\",\"currency\":\"USD\",\"trade_date\":\"11-Aug-2026\",\"issue_date\":\"18-Aug-2026\",\"maturity_date\":\"18-Aug-2028\",\"underlyings\":[\"SX5E\"],\"initial_level_pct\":\"100%\",\"barrier_type\":\"American (continuous observation)\",\"barrier_level_pct\":\"60%\",\"coupon_rate_pct\":\"9.75%\",\"coupon_rate_basis\":\"per_annum\",\"coupon_frequency\":\"Quarterly\",\"coupon_memory\":\"Not applicable\",\"autocall_observation_dates\":[\"11-Aug-2027\",\"11-Feb-2028\"],\"autocall_level_pct\":\"100%\",\"day_count\":\"Actual/365 (Fixed)\",\"settlement\":\"Cash\",\"business_day_convention\":\"Modified Following\",\"index_administrator\":\"\",\"index_return_type\":\"\",\"index_return_treatment\":\"\",\"index_vol_target_pct\":\"\",\"index_rebalance_frequency\":\"\",\"index_deduction_factor_pct\":\"\",\"index_transaction_cost_rate_pct\":\"\"},\"citation\":{\"trade_id\":\"SN-2026-0108\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"USD 7.5 million (USD 7,500,000)\",\"currency\":\"USD\",\"trade_date\":\"11-Aug-2026\",\"issue_date\":\"18-Aug-2026\",\"maturity_date\":\"18-Aug-2028\",\"underlyings\":\"EURO STOXX 50 Index (SX5E)\",\"initial_level_pct\":\"100% of the official closing level on the Trade Date\",\"barrier_type\":\"American (continuous observation)\",\"barrier_level_pct\":\"60% of the Initial Level\",\"coupon_rate_pct\":\"9.75% per annum, payable quarterly\",\"coupon_rate_basis\":\"9.75% per annum, payable quarterly\",\"coupon_frequency\":\"Quarterly\",\"coupon_memory\":\"Not applicable\",\"autocall_observation_dates\":\"11-Aug-2027, 11-Feb-2028\",\"autocall_level_pct\":\"100% of the Initial Level\",\"day_count\":\"Actual/365 (Fixed)\",\"settlement\":\"Cash\",\"business_day_convention\":\"Modified Following\",\"index_administrator\":\"\",\"index_return_type\":\"\",\"index_return_treatment\":\"\",\"index_vol_target_pct\":\"\",\"index_rebalance_frequency\":\"\",\"index_deduction_factor_pct\":\"\",\"index_transaction_cost_rate_pct\":\"\"},\"absent\":[\"index_administrator\",\"index_return_type\",\"index_return_treatment\",\"index_vol_target_pct\",\"index_rebalance_frequency\",\"index_deduction_factor_pct\",\"index_transaction_cost_rate_pct\"]}"
+  "raw_text": "{\"value\":{\"trade_id\":\"SN-2026-0108\",\"issuer\":\"Northbridge Capital Markets (Canada) Inc.\",\"notional\":\"USD 7.5 million (USD 7,500,000)\",\"currency\":\"USD\",\"trade_date\":\"11-Aug-2026\",\"issue_date\":\"18-Aug-2026\",\"maturity_date\":\"18-Aug-2028\",\"underlyings\":[\"SX5E\"],\"initial_level_pct\":\"100%\",\"barrier_type\":\"American (continuous observation)\",\"barrier_level_pct\":\"60%\",\"coupon_rate_pct\":\"9.75%\",\"coupon_rate_basis\":\"per_annum\",\"coupon_frequency\":\"Quarterly\",\"coupon_memory\":\"Not applicable\",\"autocall_observation_dates\":[\"11-Aug-2027\",\"11-Feb-2028\"],\"autocall_level_pct\":\"100%\",\"day_count\":\"Actual/365 (Fixed)\",\"settlement\":\"Cash\",\"business_day_convention\":\"Modified Following\",\"index_administrator\":\"\",\"index_return_type\":\"\",\"index_return_treatment\":\"\",\"index_vol_target_pct\":\"\",\"index_rebalance_frequency\":\"\",\"index_deduction_factor_pct\":\"\",\"index_transaction_cost_rate_pct\":\"\"},\"citation\":{\"trade_id\":\"<td>SN-2026-0108</td>\",\"issuer\":\"<td>Northbridge Capital Markets (Canada) Inc.</td>\",\"notional\":\"<td>USD 7.5 million (USD 7,500,000)</td>\",\"currency\":\"<td>USD</td>\",\"trade_date\":\"<td>11-Aug-2026</td>\",\"issue_date\":\"<td>18-Aug-2026</td>\",\"maturity_date\":\"<td>18-Aug-2028</td>\",\"underlyings\":\"<td>EURO STOXX 50 Index (SX5E)</td>\",\"initial_level_pct\":\"<td>100% of the official closing level on the Trade Date</td>\",\"barrier_type\":\"<td>American (continuous observation)</td>\",\"barrier_level_pct\":\"<td>60% of the Initial Level</td>\",\"coupon_rate_pct\":\"<td>9.75% per annum, payable quarterly</td>\",\"coupon_rate_basis\":\"<td>9.75% per annum, payable quarterly</td>\",\"coupon_frequency\":\"<td>Quarterly</td>\",\"coupon_memory\":\"<td>Not applicable</td>\",\"autocall_observation_dates\":\"<td>11-Aug-2027, 11-Feb-2028</td>\",\"autocall_level_pct\":\"<td>100% of the Initial Level</td>\",\"day_count\":\"<td>Actual/365 (Fixed)</td>\",\"settlement\":\"<td>Cash</td>\",\"business_day_convention\":\"<td>Modified Following</td>\",\"index_administrator\":\"\",\"index_return_type\":\"\",\"index_return_treatment\":\"\",\"index_vol_target_pct\":\"\",\"index_rebalance_frequency\":\"\",\"index_deduction_factor_pct\":\"\",\"index_transaction_cost_rate_pct\":\"\"},\"absent\":[\"index_administrator\",\"index_return_type\",\"index_return_treatment\",\"index_vol_target_pct\",\"index_rebalance_frequency\",\"index_deduction_factor_pct\",\"index_transaction_cost_rate_pct\"]}"
 }

@@ -9,10 +9,10 @@
     "booking_value": "SN-2026-0111",
     "citations": [
       {
-        "text_span": "Worst-of Autocallable Contingent Coupon Notes with Memory linked to S&P 500 Index and S&P/TSX 60 Index \u00b7 Reference SN-2026-0111 \u00b7 Dated 26 May 2026",
+        "text_span": "Reference SN-2026-0111",
         "char_range": [
-          157,
-          304
+          262,
+          284
         ]
       },
       {
@@ -37,10 +37,10 @@
     "booking_value": "Northbridge Capital Markets (Canada) Inc.",
     "citations": [
       {
-        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\") will issue notes",
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
         "char_range": [
           340,
-          413
+          396
         ]
       },
       {
@@ -65,10 +65,10 @@
     "booking_value": "4500000",
     "citations": [
       {
-        "text_span": "in an aggregate Notional Amount of USD 4,500,000.",
+        "text_span": "aggregate Notional Amount of USD 4,500,000",
         "char_range": [
-          456,
-          505
+          462,
+          504
         ]
       },
       {
@@ -93,10 +93,10 @@
     "booking_value": "USD",
     "citations": [
       {
-        "text_span": "in an aggregate Notional Amount of USD 4,500,000.",
+        "text_span": "aggregate Notional Amount of USD 4,500,000",
         "char_range": [
-          456,
-          505
+          462,
+          504
         ]
       },
       {
@@ -239,10 +239,10 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "The Initial Level of the Underlying is 100% of its official closing level on the Trade Date.",
+        "text_span": "The Initial Level of the Underlying is 100% of its official closing level on the Trade Date",
         "char_range": [
           843,
-          935
+          934
         ]
       },
       {
@@ -267,9 +267,9 @@
     "booking_value": "european",
     "citations": [
       {
-        "text_span": "Knock-in Event: the Notes are subject to a knock-in barrier observed on the Final Valuation Date only (European observation)",
+        "text_span": "knock-in barrier observed on the Final Valuation Date only (European observation)",
         "char_range": [
-          2206,
+          2249,
           2330
         ]
       },
@@ -295,10 +295,10 @@
     "booking_value": "60",
     "citations": [
       {
-        "text_span": "Knock-in Level of 60% of the Initial Level.",
+        "text_span": "Knock-in Level of 60% of the Initial Level",
         "char_range": [
           2336,
-          2379
+          2378
         ]
       },
       {
@@ -413,10 +413,10 @@
     ],
     "citations": [
       {
-        "text_span": "Autocall Observation Dates: 26 May 2027, 26 November 2027.",
+        "text_span": "Autocall Observation Dates: 26 May 2027, 26 November 2027",
         "char_range": [
           2146,
-          2204
+          2203
         ]
       },
       {
@@ -441,9 +441,9 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "if on any Autocall Observation Date the closing level of the Underlying is at or above 100% of the Initial Level",
+        "text_span": "closing level of the Underlying is at or above 100% of the Initial Level",
         "char_range": [
-          1952,
+          1992,
           2064
         ]
       },
@@ -469,10 +469,10 @@
     "booking_value": "30/360",
     "citations": [
       {
-        "text_span": "Coupon amounts accrue on a 30/360 day count basis.",
+        "text_span": "Coupon amounts accrue on a 30/360 day count basis",
         "char_range": [
           1549,
-          1599
+          1598
         ]
       },
       {
@@ -497,10 +497,10 @@
     "booking_value": "cash",
     "citations": [
       {
-        "text_span": "Settlement at maturity or upon automatic early redemption is in cash, in USD.",
+        "text_span": "Settlement at maturity or upon automatic early redemption is in cash, in USD",
         "char_range": [
           2568,
-          2645
+          2644
         ]
       },
       {
@@ -525,10 +525,10 @@
     "booking_value": "mod_following",
     "citations": [
       {
-        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention.",
+        "text_span": "Payment dates are adjusted in accordance with the Modified Following Business Day Convention",
         "char_range": [
           2646,
-          2739
+          2738
         ]
       },
       {

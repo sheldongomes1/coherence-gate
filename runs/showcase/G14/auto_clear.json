@@ -37,10 +37,10 @@
     "booking_value": "Lakeshore Life Insurance Company",
     "citations": [
       {
-        "text_span": "Lakeshore Life Insurance Company (\"Party B\", the Buyer)",
+        "text_span": "Lakeshore Life Insurance Company (Party B)",
         "char_range": [
-          374,
-          429
+          3238,
+          3280
         ]
       },
       {
@@ -65,10 +65,10 @@
     "booking_value": "Northbridge Capital Markets (Canada) Inc.",
     "citations": [
       {
-        "text_span": "Northbridge Capital Markets (Canada) Inc. (\"Party A\", the Seller)",
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (Party A)",
         "char_range": [
-          295,
-          360
+          3290,
+          3341
         ]
       },
       {
@@ -93,10 +93,10 @@
     "booking_value": "european",
     "citations": [
       {
-        "text_span": "European-style, cash-settled call option",
+        "text_span": "European / Call",
         "char_range": [
-          432,
-          472
+          3214,
+          3229
         ]
       },
       {
@@ -121,10 +121,10 @@
     "booking_value": "call",
     "citations": [
       {
-        "text_span": "European-style, cash-settled call option",
+        "text_span": "European / Call",
         "char_range": [
-          432,
-          472
+          3214,
+          3229
         ]
       },
       {
@@ -183,12 +183,12 @@
       {
         "text_span": "USD 40,000,000",
         "char_range": [
-          3395,
-          3409
+          3391,
+          3414
         ]
       },
       {
-        "text_span": "<td>Notional Amount</td>\n    <td>USD 40,000,000</td>",
+        "text_span": "Notional Amount USD 40,000,000",
         "char_range": [
           3362,
           3414
@@ -211,12 +211,12 @@
       {
         "text_span": "USD 40,000,000",
         "char_range": [
-          3395,
-          3409
+          3391,
+          3414
         ]
       },
       {
-        "text_span": "<td>Notional Amount</td>\n    <td>USD 40,000,000</td>",
+        "text_span": "Notional Amount USD 40,000,000",
         "char_range": [
           3362,
           3414
@@ -239,12 +239,12 @@
       {
         "text_span": "15 June 2026",
         "char_range": [
-          247,
-          259
+          3458,
+          3479
         ]
       },
       {
-        "text_span": "<td>Trade Date</td>\n    <td>15 June 2026</td>",
+        "text_span": "Trade Date 15 June 2026",
         "char_range": [
           3434,
           3479
@@ -267,12 +267,12 @@
       {
         "text_span": "17 June 2026",
         "char_range": [
-          3531,
-          3543
+          3527,
+          3548
         ]
       },
       {
-        "text_span": "<td>Effective Date</td>\n    <td>17 June 2026</td>",
+        "text_span": "Effective Date 17 June 2026",
         "char_range": [
           3499,
           3548
@@ -300,7 +300,7 @@
         ]
       },
       {
-        "text_span": "<td>Strike Level</td>\n    <td>100% of the Initial Index Level</td>",
+        "text_span": "Strike Level 100% of the Initial Index Level",
         "char_range": [
           3728,
           3794
@@ -321,14 +321,14 @@
     "booking_value": "2027-06-15",
     "citations": [
       {
-        "text_span": "15 June 2027",
+        "text_span": "15 June 2027 (point-to-point observation; no averaging)",
         "char_range": [
           3911,
-          3923
+          3966
         ]
       },
       {
-        "text_span": "<td>Valuation Date</td>\n    <td>15 June 2027 (point-to-point observation; no averaging)</td>",
+        "text_span": "Valuation Date 15 June 2027 (point-to-point observation; no averaging)",
         "char_range": [
           3879,
           3971
@@ -351,12 +351,12 @@
       {
         "text_span": "15 June 2027",
         "char_range": [
-          3911,
-          3923
+          4020,
+          4041
         ]
       },
       {
-        "text_span": "<td>Expiration Date</td>\n    <td>15 June 2027</td>",
+        "text_span": "Expiration Date 15 June 2027",
         "char_range": [
           3991,
           4041
@@ -379,12 +379,12 @@
       {
         "text_span": "Applicable",
         "char_range": [
-          4097,
-          4107
+          4093,
+          4112
         ]
       },
       {
-        "text_span": "<td>Automatic Exercise</td>\n    <td>Applicable</td>",
+        "text_span": "Automatic Exercise Applicable",
         "char_range": [
           4061,
           4112
@@ -412,7 +412,7 @@
         ]
       },
       {
-        "text_span": "<td>Premium</td>\n    <td>3.6% of the Notional Amount (USD 1,440,000)</td>",
+        "text_span": "Premium 3.6% of the Notional Amount (USD 1,440,000)",
         "char_range": [
           4132,
           4205
@@ -433,17 +433,17 @@
     "booking_value": "1440000",
     "citations": [
       {
-        "text_span": "USD 1,440,000",
+        "text_span": "3.6% of the Notional Amount (USD 1,440,000)",
         "char_range": [
-          4186,
-          4199
+          4157,
+          4200
         ]
       },
       {
-        "text_span": "<td>Premium</td>\n    <td>3.6% of the Notional Amount (USD 1,440,000)</td>",
+        "text_span": "3.6% of the Notional Amount (USD 1,440,000)",
         "char_range": [
-          4132,
-          4205
+          4157,
+          4200
         ]
       }
     ],
@@ -463,12 +463,12 @@
       {
         "text_span": "17 June 2026",
         "char_range": [
-          3531,
-          3543
+          3527,
+          3548
         ]
       },
       {
-        "text_span": "<td>Premium Payment Date</td>\n    <td>17 June 2026</td>",
+        "text_span": "Premium Payment Date 17 June 2026",
         "char_range": [
           4225,
           4280
@@ -517,14 +517,14 @@
     "booking_value": "USD",
     "citations": [
       {
-        "text_span": "Settlement Currency",
+        "text_span": "USD",
         "char_range": [
-          4432,
-          4451
+          3142,
+          3154
         ]
       },
       {
-        "text_span": "<td>Settlement Currency</td>\n    <td>USD</td>",
+        "text_span": "Settlement Currency USD",
         "char_range": [
           4428,
           4473
@@ -664,7 +664,7 @@
         ]
       },
       {
-        "text_span": "<td>Volatility Target</td>\n    <td>10% per annum</td>",
+        "text_span": "Volatility Target 10% per annum",
         "char_range": [
           2252,
           2305
@@ -692,7 +692,7 @@
         ]
       },
       {
-        "text_span": "<td>Deduction Factor</td>\n    <td>0.50% per annum, deducted daily from the Index Value</td>",
+        "text_span": "Deduction Factor 0.50% per annum, deducted daily from the Index Value",
         "char_range": [
           2859,
           2950
@@ -720,7 +720,7 @@
         ]
       },
       {
-        "text_span": "<td>Transaction Cost Rate</td>\n    <td>0.02% on changes in Underlying Index units, as provided in the Index Methodology</td>",
+        "text_span": "Transaction Cost Rate 0.02% on changes in Underlying Index units, as provided in the Index Methodology",
         "char_range": [
           2970,
           3094
@@ -739,8 +739,51 @@
     "severity": "critical",
     "ts_value": "1440000",
     "booking_value": "1440000",
-    "citations": [],
-    "detail": "premium_arithmetic: term sheet [3.6\u00d70.01 \u00d7 40000000 = 1.44E+6 vs premium_amount 1.44E+6]; booking [3.6\u00d70.01 \u00d7 40000000 = 1.44E+6 vs premium_amount 1.44E+6]",
+    "citations": [
+      {
+        "text_span": "3.6% of the Notional Amount (USD 1,440,000)",
+        "char_range": [
+          4157,
+          4200
+        ]
+      },
+      {
+        "text_span": "Premium 3.6% of the Notional Amount (USD 1,440,000)",
+        "char_range": [
+          4132,
+          4205
+        ]
+      },
+      {
+        "text_span": "USD 40,000,000",
+        "char_range": [
+          3391,
+          3414
+        ]
+      },
+      {
+        "text_span": "Notional Amount USD 40,000,000",
+        "char_range": [
+          3362,
+          3414
+        ]
+      },
+      {
+        "text_span": "3.6% of the Notional Amount (USD 1,440,000)",
+        "char_range": [
+          4157,
+          4200
+        ]
+      },
+      {
+        "text_span": "3.6% of the Notional Amount (USD 1,440,000)",
+        "char_range": [
+          4157,
+          4200
+        ]
+      }
+    ],
+    "detail": "premium_arithmetic: term sheet [3.6\u00d70.01 \u00d7 40000000 = 1,440,000 vs premium_amount 1,440,000]; booking [3.6\u00d70.01 \u00d7 40000000 = 1,440,000 vs premium_amount 1,440,000]",
     "lane": "AUTO_CLEAR",
     "triage": null
   },
@@ -769,90 +812,6 @@
       }
     ],
     "detail": "claim Bloomberg Index Services Limited agrees with the methodology rule administrator = Bloomberg Index Services Limited",
-    "lane": "AUTO_CLEAR",
-    "triage": null
-  },
-  {
-    "id": "G14:ref:index_vol_target_pct",
-    "doc_id": "G14",
-    "field": "ref:index_vol_target_pct",
-    "type": "CLEAN",
-    "severity": "critical",
-    "ts_value": "10",
-    "booking_value": null,
-    "citations": [
-      {
-        "text_span": "10% per annum",
-        "char_range": [
-          2287,
-          2300
-        ]
-      },
-      {
-        "text_span": "<td>Volatility Target</td>\n    <td>10% per annum</td>",
-        "char_range": [
-          2252,
-          2305
-        ]
-      }
-    ],
-    "detail": "deferred: the methodology defines volatility_target_pct but fixes no value (index-specific document); not checkable here",
-    "lane": "AUTO_CLEAR",
-    "triage": null
-  },
-  {
-    "id": "G14:ref:index_deduction_factor_pct",
-    "doc_id": "G14",
-    "field": "ref:index_deduction_factor_pct",
-    "type": "CLEAN",
-    "severity": "minor",
-    "ts_value": "0.5",
-    "booking_value": "0",
-    "citations": [
-      {
-        "text_span": "0.50% per annum, deducted daily from the Index Value",
-        "char_range": [
-          2893,
-          2945
-        ]
-      },
-      {
-        "text_span": "<td>Deduction Factor</td>\n    <td>0.50% per annum, deducted daily from the Index Value</td>",
-        "char_range": [
-          2859,
-          2950
-        ]
-      }
-    ],
-    "detail": "methodology default 0; the index-specific document may override \u2014 informational, not checked",
-    "lane": "AUTO_CLEAR",
-    "triage": null
-  },
-  {
-    "id": "G14:ref:index_transaction_cost_rate_pct",
-    "doc_id": "G14",
-    "field": "ref:index_transaction_cost_rate_pct",
-    "type": "CLEAN",
-    "severity": "minor",
-    "ts_value": "0.02",
-    "booking_value": "0",
-    "citations": [
-      {
-        "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
-        "char_range": [
-          3009,
-          3089
-        ]
-      },
-      {
-        "text_span": "<td>Transaction Cost Rate</td>\n    <td>0.02% on changes in Underlying Index units, as provided in the Index Methodology</td>",
-        "char_range": [
-          2970,
-          3094
-        ]
-      }
-    ],
-    "detail": "methodology default 0; the index-specific document may override \u2014 informational, not checked",
     "lane": "AUTO_CLEAR",
     "triage": null
   },

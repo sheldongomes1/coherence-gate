@@ -9,7 +9,7 @@
     "booking_value": "SN-2026-0110",
     "citations": [
       {
-        "text_span": "<td>SN-2026-0110</td>",
+        "text_span": "SN-2026-0110",
         "char_range": [
           322,
           343
@@ -37,7 +37,7 @@
     "booking_value": "Northbridge Capital Markets (Canada) Inc.",
     "citations": [
       {
-        "text_span": "<td>Northbridge Capital Markets (Canada) Inc.</td>",
+        "text_span": "Northbridge Capital Markets (Canada) Inc.",
         "char_range": [
           383,
           433
@@ -65,7 +65,7 @@
     "booking_value": "3500000",
     "citations": [
       {
-        "text_span": "<td>USD 3,500,000.00</td>",
+        "text_span": "USD 3,500,000.00",
         "char_range": [
           482,
           507
@@ -93,7 +93,7 @@
     "booking_value": "USD",
     "citations": [
       {
-        "text_span": "<td>USD</td>",
+        "text_span": "USD",
         "char_range": [
           549,
           561
@@ -121,7 +121,7 @@
     "booking_value": "2026-09-01",
     "citations": [
       {
-        "text_span": "<td>2026-09-01</td>",
+        "text_span": "2026-09-01",
         "char_range": [
           605,
           624
@@ -149,7 +149,7 @@
     "booking_value": "2026-09-08",
     "citations": [
       {
-        "text_span": "<td>2026-09-08</td>",
+        "text_span": "2026-09-08",
         "char_range": [
           668,
           687
@@ -177,7 +177,7 @@
     "booking_value": "2029-09-10",
     "citations": [
       {
-        "text_span": "<td>2029-09-10</td>",
+        "text_span": "2029-09-10",
         "char_range": [
           734,
           753
@@ -209,14 +209,14 @@
     ],
     "citations": [
       {
-        "text_span": "<td>S&amp;P 500 Index (SPX)</td>",
+        "text_span": "S&P 500 Index (SPX)",
         "char_range": [
-          800,
-          832
+          804,
+          827
         ]
       },
       {
-        "text_span": "Underlying(s) S&amp;P 500 Index (SPX)",
+        "text_span": "Underlying(s) S&P 500 Index (SPX)",
         "char_range": [
           777,
           827
@@ -237,7 +237,7 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "<td>100.00% of the official closing level on the Trade Date</td>",
+        "text_span": "100.00% of the official closing level on the Trade Date",
         "char_range": [
           879,
           943
@@ -265,7 +265,7 @@
     "booking_value": "european",
     "citations": [
       {
-        "text_span": "<td>European (Final Valuation Date only)</td>",
+        "text_span": "European (Final Valuation Date only)",
         "char_range": [
           1462,
           1507
@@ -296,11 +296,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "DOCUMENT_LIKELY_WRONG",
-      "desk_query": "Term sheet G10 contains no knock-in barrier clause \u2014 no percentage of initial level is stated anywhere in the document \u2014 yet the booking record carries barrier_level_pct = 70. Please confirm whether this note is in fact barriered at 70% of initial and the term sheet is missing or superseded by a later version/supplement containing that clause, or whether the note has no knock-in feature and the booking field was populated in error. If a barrier applies, provide the executed document and section reference stating the 70% level and the observation basis (continuous vs. final-valuation-date observation).",
+      "desk_query": "Term sheet G10 contains no knock-in barrier provision \u2014 no barrier level, observation basis, or contingent protection language appears anywhere in the document. The booking record nevertheless carries barrier_level_pct = 70. Please confirm whether this note is in fact a barrier product and, if so, identify the governing document or supplement that sets the 70% knock-in level; if no such provision exists, confirm the booking field should be cleared.",
       "cited_clause": "",
       "booking_field": "barrier_level_pct",
       "booking_value": "70",
-      "rationale": "A specific, non-default 70% value in the booking is unlikely to be invented, so the more probable cause is that the term sheet on file is incomplete or an outdated version lacking the barrier clause."
+      "rationale": "A 70% barrier is an economically material term that a desk would not book without a source, so the more likely explanation is that the term sheet provided is incomplete or superseded rather than that the booking invented the level."
     }
   },
   {
@@ -313,7 +313,7 @@
     "booking_value": "7.25",
     "citations": [
       {
-        "text_span": "<td>7.25% per annum, payable quarterly</td>",
+        "text_span": "7.25% per annum, payable quarterly",
         "char_range": [
           983,
           1026
@@ -341,7 +341,7 @@
     "booking_value": "quarterly",
     "citations": [
       {
-        "text_span": "<td>Quarterly</td>",
+        "text_span": "Quarterly",
         "char_range": [
           1076,
           1094
@@ -369,7 +369,7 @@
     "booking_value": true,
     "citations": [
       {
-        "text_span": "<td>Applicable</td>",
+        "text_span": "Applicable",
         "char_range": [
           1141,
           1160
@@ -405,7 +405,7 @@
     ],
     "citations": [
       {
-        "text_span": "<td>2027-09-01, 2028-03-01, 2028-09-01</td>",
+        "text_span": "2027-09-01, 2028-03-01, 2028-09-01",
         "char_range": [
           1287,
           1330
@@ -433,7 +433,7 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "<td>100.00% of the Initial Level</td>",
+        "text_span": "100.00% of the Initial Level",
         "char_range": [
           1378,
           1415
@@ -461,7 +461,7 @@
     "booking_value": "30/360",
     "citations": [
       {
-        "text_span": "<td>30/360</td>",
+        "text_span": "30/360",
         "char_range": [
           1212,
           1227
@@ -489,7 +489,7 @@
     "booking_value": "cash",
     "citations": [
       {
-        "text_span": "<td>Cash</td>",
+        "text_span": "Cash",
         "char_range": [
           1551,
           1564
@@ -517,7 +517,7 @@
     "booking_value": "following",
     "citations": [
       {
-        "text_span": "<td>Following</td>",
+        "text_span": "Following",
         "char_range": [
           1621,
           1639

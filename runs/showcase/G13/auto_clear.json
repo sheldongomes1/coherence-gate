@@ -9,16 +9,16 @@
     "booking_value": "OP-2026-0114",
     "citations": [
       {
-        "text_span": "Reference OP-2026-0114",
+        "text_span": "European Cash-Settled Call Option on the Bloomberg Versa 10 Index \u00b7 Reference OP-2026-0114 \u00b7 Dated 8 May 2026",
         "char_range": [
-          216,
-          238
+          148,
+          257
         ]
       },
       {
-        "text_span": "Reference OP-2026-0114 \u00b7 Dated 8 May 2026",
+        "text_span": "European Cash-Settled Call Option on the Bloomberg Versa 10 Index \u00b7 Reference OP-2026-0114 \u00b7 Dated 8 May 2026",
         "char_range": [
-          216,
+          148,
           257
         ]
       }
@@ -44,10 +44,10 @@
         ]
       },
       {
-        "text_span": "Lakeshore Life Insurance Company (\"Party B\", the Buyer)",
+        "text_span": "Lakeshore Life Insurance Company (Party B)",
         "char_range": [
-          372,
-          427
+          3240,
+          3282
         ]
       }
     ],
@@ -72,10 +72,10 @@
         ]
       },
       {
-        "text_span": "Northbridge Capital Markets (Canada) Inc. (\"Party A\", the Seller)",
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (Party A)",
         "char_range": [
-          293,
-          358
+          3292,
+          3343
         ]
       }
     ],
@@ -93,10 +93,10 @@
     "booking_value": "european",
     "citations": [
       {
-        "text_span": "European-style, cash-settled call option",
+        "text_span": "European / Call",
         "char_range": [
-          430,
-          470
+          3216,
+          3231
         ]
       },
       {
@@ -121,10 +121,10 @@
     "booking_value": "call",
     "citations": [
       {
-        "text_span": "European-style, cash-settled call option",
+        "text_span": "European / Call",
         "char_range": [
-          430,
-          470
+          3216,
+          3231
         ]
       },
       {
@@ -153,10 +153,10 @@
     ],
     "citations": [
       {
-        "text_span": "Bloomberg: BVERSA10 Index",
+        "text_span": "Bloomberg Versa 10 Index \u2014 BVERSA10 Index",
         "char_range": [
-          524,
-          549
+          1815,
+          1856
         ]
       },
       {
@@ -181,16 +181,16 @@
     "booking_value": "25000000",
     "citations": [
       {
-        "text_span": "Notional Amount\tUSD 25,000,000",
+        "text_span": "USD 25,000,000",
         "char_range": [
-          3368,
-          3411
+          3393,
+          3416
         ]
       },
       {
-        "text_span": "<td>Notional Amount</td>\n    <td>USD 25,000,000</td>",
+        "text_span": "USD 25,000,000",
         "char_range": [
-          3364,
+          3393,
           3416
         ]
       }
@@ -209,16 +209,16 @@
     "booking_value": "USD",
     "citations": [
       {
-        "text_span": "Notional Amount\tUSD 25,000,000",
+        "text_span": "USD 25,000,000",
         "char_range": [
-          3368,
-          3411
+          3393,
+          3416
         ]
       },
       {
-        "text_span": "<td>Notional Amount</td>\n    <td>USD 25,000,000</td>",
+        "text_span": "USD 25,000,000",
         "char_range": [
-          3364,
+          3393,
           3416
         ]
       }
@@ -237,14 +237,14 @@
     "booking_value": "2026-05-08",
     "citations": [
       {
-        "text_span": "Trade Date\t8 May 2026",
+        "text_span": "8 May 2026",
         "char_range": [
-          3440,
-          3474
+          3460,
+          3479
         ]
       },
       {
-        "text_span": "<td>Trade Date</td>\n    <td>8 May 2026</td>",
+        "text_span": "Trade Date 8 May 2026",
         "char_range": [
           3436,
           3479
@@ -265,14 +265,14 @@
     "booking_value": "2026-05-12",
     "citations": [
       {
-        "text_span": "Effective Date\t12 May 2026",
+        "text_span": "12 May 2026",
         "char_range": [
-          3503,
-          3542
+          3527,
+          3547
         ]
       },
       {
-        "text_span": "<td>Effective Date</td>\n    <td>12 May 2026</td>",
+        "text_span": "Effective Date 12 May 2026",
         "char_range": [
           3499,
           3547
@@ -293,14 +293,14 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "Strike Level\t100% of the Initial Index Level",
+        "text_span": "100% of the Initial Index Level",
         "char_range": [
-          3731,
+          3757,
           3788
         ]
       },
       {
-        "text_span": "<td>Strike Level</td>\n    <td>100% of the Initial Index Level</td>",
+        "text_span": "Strike Level 100% of the Initial Index Level",
         "char_range": [
           3727,
           3793
@@ -321,14 +321,14 @@
     "booking_value": "100",
     "citations": [
       {
-        "text_span": "Participation Rate\t100%",
+        "text_span": "100%",
         "char_range": [
-          3817,
-          3853
+          3845,
+          3858
         ]
       },
       {
-        "text_span": "<td>Participation Rate</td>\n    <td>100%</td>",
+        "text_span": "Participation Rate 100%",
         "char_range": [
           3813,
           3858
@@ -349,14 +349,14 @@
     "booking_value": "2028-05-08",
     "citations": [
       {
-        "text_span": "Valuation Date\t8 May 2028",
+        "text_span": "8 May 2028 (point-to-point observation; no averaging)",
         "char_range": [
-          3882,
-          3920
+          3910,
+          3963
         ]
       },
       {
-        "text_span": "<td>Valuation Date</td>\n    <td>8 May 2028 (point-to-point observation; no averaging)</td>",
+        "text_span": "Valuation Date 8 May 2028 (point-to-point observation; no averaging)",
         "char_range": [
           3878,
           3968
@@ -377,14 +377,14 @@
     "booking_value": "2028-05-08",
     "citations": [
       {
-        "text_span": "Expiration Date\t8 May 2028",
+        "text_span": "8 May 2028",
         "char_range": [
-          3992,
-          4031
+          4017,
+          4036
         ]
       },
       {
-        "text_span": "<td>Expiration Date</td>\n    <td>8 May 2028</td>",
+        "text_span": "Expiration Date 8 May 2028",
         "char_range": [
           3988,
           4036
@@ -405,14 +405,14 @@
     "booking_value": true,
     "citations": [
       {
-        "text_span": "Automatic Exercise\tApplicable",
+        "text_span": "Applicable",
         "char_range": [
-          4060,
-          4102
+          4088,
+          4107
         ]
       },
       {
-        "text_span": "<td>Automatic Exercise</td>\n    <td>Applicable</td>",
+        "text_span": "Automatic Exercise Applicable",
         "char_range": [
           4056,
           4107
@@ -433,17 +433,17 @@
     "booking_value": "4.15",
     "citations": [
       {
-        "text_span": "Premium\t4.15% of the Notional Amount (USD 1,037,500)",
+        "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
         "char_range": [
-          4131,
+          4152,
           4196
         ]
       },
       {
-        "text_span": "<td>Premium</td>\n    <td>4.15% of the Notional Amount (USD 1,037,500)</td>",
+        "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
         "char_range": [
-          4127,
-          4201
+          4152,
+          4196
         ]
       }
     ],
@@ -461,17 +461,17 @@
     "booking_value": "1037500",
     "citations": [
       {
-        "text_span": "Premium\t4.15% of the Notional Amount (USD 1,037,500)",
+        "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
         "char_range": [
-          4131,
+          4152,
           4196
         ]
       },
       {
-        "text_span": "<td>Premium</td>\n    <td>4.15% of the Notional Amount (USD 1,037,500)</td>",
+        "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
         "char_range": [
-          4127,
-          4201
+          4152,
+          4196
         ]
       }
     ],
@@ -489,14 +489,14 @@
     "booking_value": "2026-05-12",
     "citations": [
       {
-        "text_span": "Premium Payment Date\t12 May 2026",
+        "text_span": "12 May 2026",
         "char_range": [
-          4225,
-          4270
+          3527,
+          3547
         ]
       },
       {
-        "text_span": "<td>Premium Payment Date</td>\n    <td>12 May 2026</td>",
+        "text_span": "Premium Payment Date 12 May 2026",
         "char_range": [
           4221,
           4275
@@ -545,14 +545,14 @@
     "booking_value": "USD",
     "citations": [
       {
-        "text_span": "Settlement Currency\tUSD",
+        "text_span": "USD",
         "char_range": [
-          4427,
-          4463
+          3144,
+          3156
         ]
       },
       {
-        "text_span": "<td>Settlement Currency</td>\n    <td>USD</td>",
+        "text_span": "Settlement Currency USD",
         "char_range": [
           4423,
           4468
@@ -629,10 +629,10 @@
     "booking_value": "type_i",
     "citations": [
       {
-        "text_span": "Excess Return (Type I under the Index Methodology)",
+        "text_span": "Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
         "char_range": [
           2099,
-          2149
+          2225
         ]
       },
       {
@@ -657,10 +657,10 @@
     "booking_value": "excess_return",
     "citations": [
       {
-        "text_span": "Return Treatment\tExcess Return",
+        "text_span": "Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
         "char_range": [
-          2069,
-          2112
+          2099,
+          2225
         ]
       },
       {
@@ -685,14 +685,14 @@
     "booking_value": "10",
     "citations": [
       {
-        "text_span": "Volatility Target\t10% per annum",
+        "text_span": "10% per annum",
         "char_range": [
-          2254,
+          2285,
           2298
         ]
       },
       {
-        "text_span": "<td>Volatility Target</td>\n    <td>10% per annum</td>",
+        "text_span": "Volatility Target 10% per annum",
         "char_range": [
           2250,
           2303
@@ -713,9 +713,9 @@
     "booking_value": "daily",
     "citations": [
       {
-        "text_span": "Rebalancing\tEach Index Business Day, in accordance with the Index Methodology",
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
         "char_range": [
-          2746,
+          2771,
           2836
         ]
       },
@@ -741,9 +741,9 @@
     "booking_value": "0.5",
     "citations": [
       {
-        "text_span": "Deduction Factor\t0.50% per annum, deducted daily from the Index Value",
+        "text_span": "0.50% per annum, deducted daily from the Index Value",
         "char_range": [
-          2865,
+          2895,
           2947
         ]
       },
@@ -769,9 +769,9 @@
     "booking_value": "0.02",
     "citations": [
       {
-        "text_span": "Transaction Cost Rate\t0.02% on changes in Underlying Index units, as provided in the Index Methodology",
+        "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
         "char_range": [
-          2976,
+          3011,
           3091
         ]
       },
@@ -795,8 +795,51 @@
     "severity": "critical",
     "ts_value": "1037500",
     "booking_value": "1037500",
-    "citations": [],
-    "detail": "premium_arithmetic: term sheet [4.15\u00d70.01 \u00d7 25000000 = 1.0375E+6 vs premium_amount 1.0375E+6]; booking [4.15\u00d70.01 \u00d7 25000000 = 1.0375E+6 vs premium_amount 1.0375E+6]",
+    "citations": [
+      {
+        "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
+        "char_range": [
+          4152,
+          4196
+        ]
+      },
+      {
+        "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
+        "char_range": [
+          4152,
+          4196
+        ]
+      },
+      {
+        "text_span": "USD 25,000,000",
+        "char_range": [
+          3393,
+          3416
+        ]
+      },
+      {
+        "text_span": "USD 25,000,000",
+        "char_range": [
+          3393,
+          3416
+        ]
+      },
+      {
+        "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
+        "char_range": [
+          4152,
+          4196
+        ]
+      },
+      {
+        "text_span": "4.15% of the Notional Amount (USD 1,037,500)",
+        "char_range": [
+          4152,
+          4196
+        ]
+      }
+    ],
+    "detail": "premium_arithmetic: term sheet [4.15\u00d70.01 \u00d7 25000000 = 1,037,500 vs premium_amount 1,037,500]; booking [4.15\u00d70.01 \u00d7 25000000 = 1,037,500 vs premium_amount 1,037,500]",
     "lane": "AUTO_CLEAR",
     "triage": null
   },
@@ -838,9 +881,9 @@
     "booking_value": "daily",
     "citations": [
       {
-        "text_span": "Rebalancing\tEach Index Business Day, in accordance with the Index Methodology",
+        "text_span": "Each Index Business Day, in accordance with the Index Methodology",
         "char_range": [
-          2746,
+          2771,
           2836
         ]
       },
@@ -857,90 +900,6 @@
     "triage": null
   },
   {
-    "id": "G13:ref:index_vol_target_pct",
-    "doc_id": "G13",
-    "field": "ref:index_vol_target_pct",
-    "type": "CLEAN",
-    "severity": "critical",
-    "ts_value": "10",
-    "booking_value": null,
-    "citations": [
-      {
-        "text_span": "Volatility Target\t10% per annum",
-        "char_range": [
-          2254,
-          2298
-        ]
-      },
-      {
-        "text_span": "<td>Volatility Target</td>\n    <td>10% per annum</td>",
-        "char_range": [
-          2250,
-          2303
-        ]
-      }
-    ],
-    "detail": "deferred: the methodology defines volatility_target_pct but fixes no value (index-specific document); not checkable here",
-    "lane": "AUTO_CLEAR",
-    "triage": null
-  },
-  {
-    "id": "G13:ref:index_deduction_factor_pct",
-    "doc_id": "G13",
-    "field": "ref:index_deduction_factor_pct",
-    "type": "CLEAN",
-    "severity": "minor",
-    "ts_value": "0.5",
-    "booking_value": "0",
-    "citations": [
-      {
-        "text_span": "Deduction Factor\t0.50% per annum, deducted daily from the Index Value",
-        "char_range": [
-          2865,
-          2947
-        ]
-      },
-      {
-        "text_span": "0.50% per annum, deducted daily from the Index Value",
-        "char_range": [
-          2895,
-          2947
-        ]
-      }
-    ],
-    "detail": "methodology default 0; the index-specific document may override \u2014 informational, not checked",
-    "lane": "AUTO_CLEAR",
-    "triage": null
-  },
-  {
-    "id": "G13:ref:index_transaction_cost_rate_pct",
-    "doc_id": "G13",
-    "field": "ref:index_transaction_cost_rate_pct",
-    "type": "CLEAN",
-    "severity": "minor",
-    "ts_value": "0.02",
-    "booking_value": "0",
-    "citations": [
-      {
-        "text_span": "Transaction Cost Rate\t0.02% on changes in Underlying Index units, as provided in the Index Methodology",
-        "char_range": [
-          2976,
-          3091
-        ]
-      },
-      {
-        "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
-        "char_range": [
-          3011,
-          3091
-        ]
-      }
-    ],
-    "detail": "methodology default 0; the index-specific document may override \u2014 informational, not checked",
-    "lane": "AUTO_CLEAR",
-    "triage": null
-  },
-  {
     "id": "G13:ref:index_return_treatment",
     "doc_id": "G13",
     "field": "ref:index_return_treatment",
@@ -950,10 +909,10 @@
     "booking_value": "excess_return",
     "citations": [
       {
-        "text_span": "Return Treatment\tExcess Return",
+        "text_span": "Excess Return (Type I under the Index Methodology): no cash return or financing cost accrues in the volatility control process",
         "char_range": [
-          2069,
-          2112
+          2099,
+          2225
         ]
       },
       {

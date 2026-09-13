@@ -16,7 +16,7 @@
         ]
       },
       {
-        "text_span": "Trade Reference</td>\n    <td>SN-2026-0106",
+        "text_span": "Trade Reference SN-2026-0106",
         "char_range": [
           288,
           329
@@ -44,7 +44,7 @@
         ]
       },
       {
-        "text_span": "Issuer</td>\n    <td>Northbridge Capital Markets (Canada) Inc.",
+        "text_span": "Issuer Northbridge Capital Markets (Canada) Inc.",
         "char_range": [
           358,
           419
@@ -72,7 +72,7 @@
         ]
       },
       {
-        "text_span": "Notional Amount</td>\n    <td>USD 4,000,000.00",
+        "text_span": "Notional Amount USD 4,000,000.00",
         "char_range": [
           448,
           493
@@ -100,7 +100,7 @@
         ]
       },
       {
-        "text_span": "Trade Date</td>\n    <td>2026-07-07",
+        "text_span": "Trade Date 2026-07-07",
         "char_range": [
           576,
           610
@@ -128,7 +128,7 @@
         ]
       },
       {
-        "text_span": "Issue Date</td>\n    <td>2026-07-14",
+        "text_span": "Issue Date 2026-07-14",
         "char_range": [
           639,
           673
@@ -156,7 +156,7 @@
         ]
       },
       {
-        "text_span": "Maturity Date</td>\n    <td>2029-07-16",
+        "text_span": "Maturity Date 2029-07-16",
         "char_range": [
           702,
           739
@@ -188,7 +188,7 @@
         ]
       },
       {
-        "text_span": "Underlying(s)</td>\n    <td>S&amp;P/TSX 60 Index (SPTSX60)",
+        "text_span": "Underlying(s) S&P/TSX 60 Index (SPTSX60)",
         "char_range": [
           768,
           825
@@ -216,7 +216,7 @@
         ]
       },
       {
-        "text_span": "Initial Level</td>\n    <td>100.00% of the official closing level on the Trade Date",
+        "text_span": "Initial Level 100.00% of the official closing level on the Trade Date",
         "char_range": [
           854,
           936
@@ -244,7 +244,7 @@
         ]
       },
       {
-        "text_span": "Knock-in Type</td>\n    <td>European (Final Valuation Date only)",
+        "text_span": "Knock-in Type European (Final Valuation Date only)",
         "char_range": [
           1433,
           1496
@@ -272,7 +272,7 @@
         ]
       },
       {
-        "text_span": "Knock-in Level</td>\n    <td>65.00% of the Initial Level",
+        "text_span": "Knock-in Level 65.00% of the Initial Level",
         "char_range": [
           1525,
           1580
@@ -300,7 +300,7 @@
         ]
       },
       {
-        "text_span": "Coupon</td>\n    <td>6.50% per annum, payable quarterly",
+        "text_span": "Coupon 6.50% per annum, payable quarterly",
         "char_range": [
           965,
           1019
@@ -328,7 +328,7 @@
         ]
       },
       {
-        "text_span": "Coupon Frequency</td>\n    <td>Quarterly",
+        "text_span": "Coupon Frequency Quarterly",
         "char_range": [
           1048,
           1087
@@ -390,7 +390,7 @@
         ]
       },
       {
-        "text_span": "Autocall Observation Dates</td>\n    <td>2027-07-07, 2028-07-07",
+        "text_span": "Autocall Observation Dates 2027-07-07, 2028-07-07",
         "char_range": [
           1257,
           1319
@@ -418,7 +418,7 @@
         ]
       },
       {
-        "text_span": "Autocall Level</td>\n    <td>100.00% of the Initial Level",
+        "text_span": "Autocall Level 100.00% of the Initial Level",
         "char_range": [
           1348,
           1404
@@ -446,7 +446,7 @@
         ]
       },
       {
-        "text_span": "Day Count Fraction</td>\n    <td>Actual/360",
+        "text_span": "Day Count Fraction Actual/360",
         "char_range": [
           1186,
           1228
@@ -474,7 +474,7 @@
         ]
       },
       {
-        "text_span": "Settlement</td>\n    <td>Cash",
+        "text_span": "Settlement Cash",
         "char_range": [
           1609,
           1637
@@ -502,7 +502,7 @@
         ]
       },
       {
-        "text_span": "Business Day Convention</td>\n    <td>Modified Following",
+        "text_span": "Business Day Convention Modified Following",
         "char_range": [
           1666,
           1721

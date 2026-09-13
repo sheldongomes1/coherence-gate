@@ -19,10 +19,10 @@
       "status": "EXTRACTED",
       "value": "Northbridge Capital Markets (Canada) Inc.",
       "citation": {
-        "text_span": "Northbridge Capital Markets (Canada) Inc.",
+        "text_span": "Northbridge Capital Markets (Canada) Inc. (the \"Issuer\")",
         "char_range": [
           301,
-          342
+          357
         ]
       },
       "note": null
@@ -31,9 +31,9 @@
       "status": "EXTRACTED",
       "value": "5000000",
       "citation": {
-        "text_span": "Notional Amount of 5,000,000 CAD",
+        "text_span": "aggregate Notional Amount of 5,000,000 CAD",
         "char_range": [
-          433,
+          423,
           465
         ]
       },
@@ -43,9 +43,9 @@
       "status": "EXTRACTED",
       "value": "CAD",
       "citation": {
-        "text_span": "Notional Amount of 5,000,000 CAD",
+        "text_span": "aggregate Notional Amount of 5,000,000 CAD",
         "char_range": [
-          433,
+          423,
           465
         ]
       },
@@ -90,7 +90,7 @@
     "underlyings": {
       "status": "EXTRACTED",
       "value": [
-        "BVERSA10 Index"
+        "BVERSA10"
       ],
       "citation": {
         "text_span": "Bloomberg: BVERSA10 Index",
@@ -117,9 +117,9 @@
       "status": "EXTRACTED",
       "value": "european",
       "citation": {
-        "text_span": "observed on the Final Valuation Date only (European observation)",
+        "text_span": "knock-in barrier observed on the Final Valuation Date only (European observation)",
         "char_range": [
-          1800,
+          1783,
           1864
         ]
       },
@@ -206,9 +206,9 @@
       "status": "EXTRACTED",
       "value": "100",
       "citation": {
-        "text_span": "closing level of the Underlying is at or above 100 per cent. of the Initial Level",
+        "text_span": "at or above 100 per cent. of the Initial Level",
         "char_range": [
-          1464,
+          1499,
           1545
         ]
       },
@@ -254,10 +254,10 @@
       "status": "EXTRACTED",
       "value": "Bloomberg Index Services Limited",
       "citation": {
-        "text_span": "Bloomberg Index Services Limited",
+        "text_span": "administered by Bloomberg Index Services Limited (\"BISL\")",
         "char_range": [
-          2240,
-          2272
+          2224,
+          2281
         ]
       },
       "note": null
@@ -266,10 +266,10 @@
       "status": "EXTRACTED",
       "value": "type_i",
       "citation": {
-        "text_span": "Type I under the Index Methodology",
+        "text_span": "Total Return (Type I under the Index Methodology)",
         "char_range": [
-          3048,
-          3082
+          3034,
+          3083
         ]
       },
       "note": null
@@ -288,7 +288,7 @@
     },
     "index_vol_target_pct": {
       "status": "EXTRACTED",
-      "value": "10",
+      "value": "10%",
       "citation": {
         "text_span": "10% per annum",
         "char_range": [
@@ -312,7 +312,7 @@
     },
     "index_deduction_factor_pct": {
       "status": "EXTRACTED",
-      "value": "0.50",
+      "value": "0.50%",
       "citation": {
         "text_span": "0.50% per annum, deducted daily from the Index Value",
         "char_range": [
@@ -324,7 +324,7 @@
     },
     "index_transaction_cost_rate_pct": {
       "status": "EXTRACTED",
-      "value": "0.02",
+      "value": "0.02%",
       "citation": {
         "text_span": "0.02% on changes in Underlying Index units, as provided in the Index Methodology",
         "char_range": [
@@ -335,5 +335,5 @@
       "note": null
     }
   },
-  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"SN-2026-0109\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"5000000\",\n    \"currency\": \"CAD\",\n    \"trade_date\": \"2026-04-28\",\n    \"issue_date\": \"2026-05-05\",\n    \"maturity_date\": \"2029-05-07\",\n    \"underlyings\": [\"BVERSA10 Index\"],\n    \"initial_level_pct\": \"100\",\n    \"barrier_type\": \"european\",\n    \"barrier_level_pct\": \"70\",\n    \"coupon_rate_pct\": \"8.25%\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"quarterly\",\n    \"coupon_memory\": \"false\",\n    \"autocall_observation_dates\": [\n      \"2027-04-28\",\n      \"2027-10-28\",\n      \"2028-04-28\",\n      \"2028-10-30\"\n    ],\n    \"autocall_level_pct\": \"100\",\n    \"day_count\": \"30/360\",\n    \"settlement\": \"cash\",\n    \"business_day_convention\": \"mod_following\",\n    \"index_administrator\": \"Bloomberg Index Services Limited\",\n    \"index_return_type\": \"type_i\",\n    \"index_return_treatment\": \"total_return\",\n    \"index_vol_target_pct\": \"10\",\n    \"index_rebalance_frequency\": \"daily\",\n    \"index_deduction_factor_pct\": \"0.50\",\n    \"index_transaction_cost_rate_pct\": \"0.02\"\n  },\n  \"citation\": {\n    \"trade_id\": \"Reference SN-2026-0109\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"Notional Amount of 5,000,000 CAD\",\n    \"currency\": \"Notional Amount of 5,000,000 CAD\",\n    \"trade_date\": \"The Trade Date is April 28, 2026\",\n    \"issue_date\": \"the Issue Date is May 5, 2026\",\n    \"maturity_date\": \"the Scheduled Maturity Date is May 7, 2029\",\n    \"underlyings\": \"Bloomberg: BVERSA10 Index\",\n    \"initial_level_pct\": \"The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.\",\n    \"barrier_type\": \"observed on the Final Valuation Date only (European observation)\",\n    \"barrier_level_pct\": \"Knock-in Level of 70 per cent. of the Initial Level.\",\n    \"coupon_rate_pct\": \"equivalent to 8.25% per annum\",\n    \"coupon_rate_basis\": \"equivalent to 8.25% per annum\",\n    \"coupon_frequency\": \"payable quarterly in arrears\",\n    \"coupon_memory\": \"No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.\",\n    \"autocall_observation_dates\": \"Autocall Observation Dates: April 28, 2027, October 28, 2027, April 28, 2028, October 30, 2028.\",\n    \"autocall_level_pct\": \"closing level of the Underlying is at or above 100 per cent. of the Initial Level\",\n    \"day_count\": \"Coupon amounts accrue on a 30/360 day count basis.\",\n    \"settlement\": \"Cash settlement in CAD.\",\n    \"business_day_convention\": \"Modified Following Business Day Convention\",\n    \"index_administrator\": \"Bloomberg Index Services Limited\",\n    \"index_return_type\": \"Type I under the Index Methodology\",\n    \"index_return_treatment\": \"Total Return (Type I under the Index Methodology)\",\n    \"index_vol_target_pct\": \"10% per annum\",\n    \"index_rebalance_frequency\": \"Each Index Business Day, in accordance with the Index Methodology\",\n    \"index_deduction_factor_pct\": \"0.50% per annum, deducted daily from the Index Value\",\n    \"index_transaction_cost_rate_pct\": \"0.02% on changes in Underlying Index units, as provided in the Index Methodology\"\n  },\n  \"absent\": []\n}"
+  "raw_text": "{\n  \"value\": {\n    \"trade_id\": \"SN-2026-0109\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc.\",\n    \"notional\": \"5000000\",\n    \"currency\": \"CAD\",\n    \"trade_date\": \"2026-04-28\",\n    \"issue_date\": \"2026-05-05\",\n    \"maturity_date\": \"2029-05-07\",\n    \"underlyings\": [\n      \"BVERSA10\"\n    ],\n    \"initial_level_pct\": \"100\",\n    \"barrier_type\": \"european\",\n    \"barrier_level_pct\": \"70\",\n    \"coupon_rate_pct\": \"8.25%\",\n    \"coupon_rate_basis\": \"per_annum\",\n    \"coupon_frequency\": \"quarterly\",\n    \"coupon_memory\": \"false\",\n    \"autocall_observation_dates\": [\n      \"2027-04-28\",\n      \"2027-10-28\",\n      \"2028-04-28\",\n      \"2028-10-30\"\n    ],\n    \"autocall_level_pct\": \"100\",\n    \"day_count\": \"30/360\",\n    \"settlement\": \"cash\",\n    \"business_day_convention\": \"mod_following\",\n    \"index_administrator\": \"Bloomberg Index Services Limited\",\n    \"index_return_type\": \"type_i\",\n    \"index_return_treatment\": \"total_return\",\n    \"index_vol_target_pct\": \"10%\",\n    \"index_rebalance_frequency\": \"daily\",\n    \"index_deduction_factor_pct\": \"0.50%\",\n    \"index_transaction_cost_rate_pct\": \"0.02%\"\n  },\n  \"citation\": {\n    \"trade_id\": \"Reference SN-2026-0109\",\n    \"issuer\": \"Northbridge Capital Markets (Canada) Inc. (the \\\"Issuer\\\")\",\n    \"notional\": \"aggregate Notional Amount of 5,000,000 CAD\",\n    \"currency\": \"aggregate Notional Amount of 5,000,000 CAD\",\n    \"trade_date\": \"The Trade Date is April 28, 2026\",\n    \"issue_date\": \"the Issue Date is May 5, 2026\",\n    \"maturity_date\": \"the Scheduled Maturity Date is May 7, 2029\",\n    \"underlyings\": \"Bloomberg: BVERSA10 Index\",\n    \"initial_level_pct\": \"The Initial Level of each Underlying is 100 per cent. of its official closing level on the Trade Date.\",\n    \"barrier_type\": \"knock-in barrier observed on the Final Valuation Date only (European observation)\",\n    \"barrier_level_pct\": \"Knock-in Level of 70 per cent. of the Initial Level.\",\n    \"coupon_rate_pct\": \"equivalent to 8.25% per annum\",\n    \"coupon_rate_basis\": \"equivalent to 8.25% per annum\",\n    \"coupon_frequency\": \"payable quarterly in arrears\",\n    \"coupon_memory\": \"No memory feature: a Coupon that is not paid because the Coupon Condition is not satisfied on the relevant Coupon Observation Date is forfeited and will not be paid at a later date.\",\n    \"autocall_observation_dates\": \"Autocall Observation Dates: April 28, 2027, October 28, 2027, April 28, 2028, October 30, 2028.\",\n    \"autocall_level_pct\": \"at or above 100 per cent. of the Initial Level\",\n    \"day_count\": \"Coupon amounts accrue on a 30/360 day count basis.\",\n    \"settlement\": \"Cash settlement in CAD.\",\n    \"business_day_convention\": \"Modified Following Business Day Convention\",\n    \"index_administrator\": \"administered by Bloomberg Index Services Limited (\\\"BISL\\\")\",\n    \"index_return_type\": \"Total Return (Type I under the Index Methodology)\",\n    \"index_return_treatment\": \"Total Return (Type I under the Index Methodology)\",\n    \"index_vol_target_pct\": \"10% per annum\",\n    \"index_rebalance_frequency\": \"Each Index Business Day, in accordance with the Index Methodology\",\n    \"index_deduction_factor_pct\": \"0.50% per annum, deducted daily from the Index Value\",\n    \"index_transaction_cost_rate_pct\": \"0.02% on changes in Underlying Index units, as provided in the Index Methodology\"\n  },\n  \"absent\": []\n}"
 }
