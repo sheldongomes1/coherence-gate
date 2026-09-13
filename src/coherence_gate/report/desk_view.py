@@ -43,7 +43,32 @@ CONSEQUENCE = {
 
 
 def _fmt(v) -> str:
-    return "ABSENT" if v is None else str(v)
+    """Desk-readable value: lists joined, big numbers with separators, ABSENT for None."""
+    if v is None:
+        return "ABSENT"
+    if isinstance(v, (list, tuple)):
+        return ", ".join(_fmt(x) for x in v)
+    if isinstance(v, str) and v.startswith("[") and v.endswith("]"):
+        try:
+            import ast
+            parsed = ast.literal_eval(v)
+            if isinstance(parsed, (list, tuple)):
+                return ", ".join(_fmt(x) for x in parsed)
+        except (ValueError, SyntaxError):
+            pass
+    try:
+        from decimal import Decimal
+        d = Decimal(str(v))
+        if abs(d) >= 1000 and d == d.to_integral():
+            return f"{int(d):,}"
+    except Exception:  # noqa: BLE001
+        pass
+    return str(v)
+
+
+def _clean_cite(text: str) -> str:
+    from ..extract.schema_guard import display_span
+    return display_span(text or "")
 
 
 def consequence(f: dict) -> str:
@@ -66,7 +91,11 @@ def trust_state(findings: list[dict]) -> tuple[str, str]:
     reds = [f for f in findings if f["type"] in RED_TYPES]
     ambers = [f for f in findings if f["type"] in AMBER_TYPES]
     if reds:
-        crit = sorted(reds, key=lambda f: (f["severity"] != "critical", f["field"]))[0]
+        lead = ["participation_rate_pct", "notional", "currency", "premium_amount", "rel:premium_arithmetic", "barrier_level_pct",
+                "coupon_rate_pct", "coupon_memory", "underlyings", "strike_level_pct", "autocall_level_pct", "autocall_observation_dates",
+                "day_count", "maturity_date", "expiration_date", "valuation_date"]
+        rank = {k: i for i, k in enumerate(lead)}
+        crit = sorted(reds, key=lambda f: (f["severity"] != "critical", rank.get(f["field"], 50), f["field"]))[0]
         extra = f" (+{len(reds) - 1} more)" if len(reds) > 1 else ""
         return "MISMATCH", consequence(crit) + extra
     if ambers:
@@ -148,7 +177,7 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
     for d in data["docs"]:
         fs = [{"field": f["field"], "type": f["type"], "severity": f["severity"], "lane": f["lane"],
                "ts": _fmt(f.get("ts_value")), "bk": _fmt(f.get("booking_value")), "detail": f.get("detail", ""),
-               "citations": [c["text_span"] for c in f.get("citations", [])],
+               "citations": [_clean_cite(c["text_span"]) for c in f.get("citations", [])],
                "consequence": consequence(f) if f["type"] in RED_TYPES else "",
                "triage": (f.get("triage") or {}).get("desk_query"), "classification": (f.get("triage") or {}).get("classification")}
               for f in d["findings"]]

@@ -72,6 +72,13 @@ def locate(span: str, document: str) -> tuple[int, int] | None:
     return (idx[m.start()], idx[m.end() - 1] + 1)
 
 
+def display_span(text: str) -> str:
+    """Human-readable form of a matched slice of the artifact: tags and entities removed,
+    pipes/whitespace collapsed. char_range still points at the raw artifact bytes."""
+    view, _ = _view(text)
+    return re.sub(r"\s+", " ", view).strip()
+
+
 def _shape_ok(base_type: str, value: Any) -> bool:
     if base_type.startswith("list"):
         return isinstance(value, (list, str))          # a comma string is normalized later
@@ -152,5 +159,5 @@ def guard(data: Any, document: str, schema: Schema) -> tuple[dict[str, FieldExtr
             violations.append(f"{spec.name}: span-not-found")
             continue
         out[spec.name] = FieldExtraction(status=Status.EXTRACTED, value=value,
-                                         citation=Citation(text_span=span, char_range=rng), note=note)
+                                         citation=Citation(text_span=display_span(document[rng[0]:rng[1]]), char_range=rng), note=note)
     return out, violations

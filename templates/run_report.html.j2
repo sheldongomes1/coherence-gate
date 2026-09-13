@@ -29,7 +29,7 @@
 {% for f in d.findings %}
 <tr><td class="mono">{{ f.field }}</td><td class="t-{{ f.type }}">{{ f.type }}</td><td class="sev-{{ f.severity }}">{{ f.severity }}</td><td><span class="lane-{{ f.lane }}">{{ f.lane }}</span></td>
 <td class="mono">{{ 'ABSENT' if f.ts_value is none else f.ts_value }}</td><td class="mono">{{ 'ABSENT' if f.booking_value is none else f.booking_value }}</td>
-<td>{% for c in f.citations %}<div class="cite">“{{ c.text_span }}” <span class="sub">[{{ c.char_range[0] }}–{{ c.char_range[1] }}]</span></div>{% endfor %}{% if f.type != 'CLEAN' %}<div class="sub">{{ f.detail }}</div>{% endif %}</td></tr>
+<td>{% for c in f.citations %}<div class="cite">“{{ c.text_span|cite }}” <span class="sub">[{{ c.char_range[0] }}–{{ c.char_range[1] }}]</span></div>{% endfor %}{% if f.type != 'CLEAN' %}<div class="sub">{{ f.detail }}</div>{% endif %}</td></tr>
 {% endfor %}</tbody></table></div>
 {% set tq = d.findings|selectattr('triage')|list %}{% if tq %}
 <h3>Desk queries (drafted by the triage agent; verdicts above were decided by code)</h3>

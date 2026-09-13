@@ -36,6 +36,8 @@ def render(run_dir: Path, out: Path | None = None) -> Path:
     all_f = [f for d in docs for f in d["findings"]]
     models = sorted({l["model"] for l in data["trace"] if l.get("model")})
     env = Environment(loader=FileSystemLoader(str(TEMPLATES)), autoescape=True)
+    from ..extract.schema_guard import display_span
+    env.filters["cite"] = lambda t: display_span(t or "")
     html = env.get_template("run_report.html.j2").render(
         run_id=data["run_id"], docs=docs, models=models,
         total_cost=sum(l["cost_usd"] for l in data["trace"]),
