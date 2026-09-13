@@ -238,8 +238,9 @@ def _stale_reason(run_dir: Path, d: dict, store_dir: Path | None = None) -> str 
     tid = att.get("booking_trade_id")
     if tid and att.get("booking_sha256"):
         res = store.lookup(store_dir or (ROOT / "golden" / "bookings"), tid)
-        if not res["found"] or booking_hash(res["record"]) != att["booking_sha256"]:
-            moved.append("booking")
+        keys = att.get("booking_terms_keys")  # older runs attested to the whole record
+        if not res["found"] or booking_hash(res["record"], keys) != att["booking_sha256"]:
+            moved.append("booking terms")
     if not moved:
         return None
-    return f"attestation invalidated — {' and '.join(moved)} {'changed' if len(moved) == 1 else 'both changed'} since last check; re-check queued"
+    return f"attestation invalidated — {' and '.join(moved)} changed since last check; re-check queued"

@@ -54,11 +54,18 @@ class DocumentResult:
     extras: dict = field(default_factory=dict)
 
 
-def booking_hash(record: dict | None) -> str | None:
-    """Canonical hash of a booking record (sorted keys, compact JSON) so two stores agree."""
+def booking_hash(record: dict | None, keys: list[str] | None = None) -> str | None:
+    """Canonical hash of the booking's TERMS: the projection of the record onto the schema's
+    comparison keys (the fields the document governs), sorted, compact JSON.
+
+    Why a projection: a live booking changes hundreds of times a day (fixings, MTM, accruals,
+    lifecycle flags). None of that changes what the term sheet promised, so none of it may
+    invalidate an attestation. Only a change to a compared term does. With a booking system
+    that versions trade terms separately from events, bind to that terms-version id instead."""
     if record is None:
         return None
-    return hashlib.sha256(json.dumps(record, sort_keys=True, separators=(",", ":"), default=str).encode()).hexdigest()
+    proj = {k: record[k] for k in (keys or list(record)) if k in record} if keys else dict(record)
+    return hashlib.sha256(json.dumps(proj, sort_keys=True, separators=(",", ":"), default=str).encode()).hexdigest()
 
 
 def _wholesale_failures(extractions: dict[Family, Extraction]) -> dict[Family, str]:
@@ -172,7 +179,8 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
     # desk_view recomputes both at page time; if either moved, the row is STALE.
     attested = {"document_path": str((ctx.parsed_dir / f"{doc_id}.md") if (ctx.source == "pdf" and parse_meta and parse_meta.get("vendor") != "none") else doc_path),
                 "document_sha256": sha, "booking_trade_id": tid,
-                "booking_sha256": booking_hash(lookup.record) if lookup.found else None}
+                "booking_terms_keys": schema.comparison_keys,
+                "booking_sha256": booking_hash(lookup.record, schema.comparison_keys) if lookup.found else None}
     result = DocumentResult(doc_id=doc_id, sha256=sha, trade_id=tid,
                             extractions={str(k): v for k, v in extractions.items()},
                             normalized={str(k): v for k, v in norm.items()},

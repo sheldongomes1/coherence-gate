@@ -34,3 +34,21 @@ def test_build_context_honours_bookings_dir(tmp_path):
     ctx = build_context(ROOT / "golden", tmp_path / "runs", stub=True, bookings_dir=store)
     assert Path(ctx.booking.store_dir) == store
     ctx.booking.close()
+
+
+def test_fixings_do_not_invalidate_attestation_but_term_changes_do(tmp_path):
+    """Hundreds of intraday updates (fixings, MTM, accruals) touch the booking record; none of them
+    is a term the document governs, so none may flip an attested row to STALE."""
+    store = tmp_path / "bookings"; shutil.copytree(ROOT / "golden" / "bookings", store)
+    ctx = build_context(ROOT / "golden", tmp_path / "runs", stub=True)
+    from coherence_gate.booking.client import DirectBookingClient
+    ctx.booking = DirectBookingClient(store)
+    run_document(ROOT / "golden" / "termsheets" / "G12.txt", ctx, trade_id="SN-2026-0112")
+    d = load_run(ctx.out_dir)["docs"][0]
+    b = store / "SN-2026-0112.json"; rec = json.loads(b.read_text())
+    rec.update({"last_fixing": {"date": "2026-09-13", "level": 1043.2}, "mtm_usd": 7_612_004.55, "accrued_coupon": 12345.6,
+                "lifecycle": ["coupon_paid_2026-08-15"], "version": 418})
+    b.write_text(json.dumps(rec))
+    assert _stale_reason(ctx.out_dir, d, store) is None          # fixings and MTM: still attested
+    rec["coupon_memory"] = False; b.write_text(json.dumps(rec))
+    assert "booking terms" in _stale_reason(ctx.out_dir, d, store)  # a governed term changed: STALE
