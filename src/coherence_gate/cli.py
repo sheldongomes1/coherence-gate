@@ -21,7 +21,8 @@ def _latest(run_root: Path) -> Path:
 def cmd_eval(a: argparse.Namespace) -> int:
     from .eval.harness import run_eval
     ev = run_eval(Path(a.golden), Path(a.out), stub=a.stub, booking_transport=a.booking, with_triage=a.triage,
-                  only=a.only, source=a.source, parser_name=a.parser, reference=(False if a.no_reference else None))
+                  only=a.only, source=a.source, parser_name=a.parser, reference=(False if a.no_reference else None),
+                  resume=Path(a.resume) if a.resume else None)
     console.print(f"[bold]run {ev.run_id}[/] → {ev.run_dir}/eval_report.md")
     t = Table("metric", "result")
     for r in (ev.catch_strict, ev.catch_field_only, ev.false_flag_fields, ev.false_flag_docs, ev.trap_resolved,
@@ -271,7 +272,9 @@ def main(argv: list[str] | None = None) -> int:
         sp.add_argument("--no-reference", action="store_true", help="skip the Versa reference lane")
         sp.add_argument("--bookings", help="booking store directory (default golden/bookings); use a copy to rehearse edits")
 
-    e = sub.add_parser("eval"); common(e); e.add_argument("--only", nargs="*"); e.set_defaults(fn=cmd_eval)
+    e = sub.add_parser("eval"); common(e); e.add_argument("--only", nargs="*")
+    e.add_argument("--resume", help="prior run dir: reuse the stored extractions of documents whose calls completed there; extract the rest again")
+    e.set_defaults(fn=cmd_eval)
     r = sub.add_parser("run"); common(r); r.add_argument("termsheet"); r.add_argument("--trade-id"); r.set_defaults(fn=cmd_run)
     t = sub.add_parser("trace"); t.add_argument("--latest", nargs="?", const="runs"); t.add_argument("--run"); t.set_defaults(fn=cmd_trace)
     ck = sub.add_parser("check", help="live check: one document (pdf or txt) against its booking"); common(ck)

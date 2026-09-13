@@ -133,7 +133,7 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
 
 
 def recheck_document(doc_id: str, ctx: RunContext, prior_dir: Path, trade_id: str | None = None,
-                     product_type: str | None = None) -> DocumentResult:
+                     product_type: str | None = None, carry_prior_cost: bool = False) -> DocumentResult:
     """Re-check a document against the CURRENT booking WITHOUT re-extracting: the stored extractions
     of both families are attested to the document's hash, and the document has not changed, so
     only the deterministic steps (normalize, merge, compare, relations, reference, lanes) run
@@ -155,21 +155,26 @@ def recheck_document(doc_id: str, ctx: RunContext, prior_dir: Path, trade_id: st
                    for f in ("gemini", "claude")}
     product_type = product_type or summary.get("product_type") or "note"
     schema = ctx.schemas[product_type]
+    prior_cost = float(summary.get("cost_usd") or 0.0) if carry_prior_cost else 0.0
     ctx.tracer.step(doc_id=doc_id, step="load", outcome="REUSED_EXTRACTION",
-                    detail={"source": summary.get("source", "txt"), "sha256": sha, "reason": "document unchanged; extractions attested to this hash"})
+                    detail={"source": summary.get("source", "txt"), "sha256": sha, "prior_run": str(prior_dir),
+                            "prior_cost_usd": prior_cost if carry_prior_cost else None,
+                            "reason": "document unchanged; extractions attested to this hash"})
     for fam, e in extractions.items():
         ctx.tracer.step(doc_id=doc_id, step=f"extract:{fam}", outcome="CACHED", model=e.model, model_version=e.model_version)
     prior_findings = {(f["field"], f["type"], str(f.get("ts_value")), str(f.get("booking_value"))): f
                       for f in json.loads((prior / "findings.json").read_text())} if (prior / "findings.json").exists() else {}
     return _complete(doc_id, text, sha, product_type, schema, extractions, summary.get("parse"), doc_path, ctx, trade_id,
-                     prior_findings=prior_findings, mark=mark)
+                     prior_findings=prior_findings, mark=mark, extra_cost=prior_cost)
 
 
 def _complete(doc_id: str, text: str, sha: str, product_type: str, schema: Schema, extractions: dict[Family, Extraction],
               parse_meta: dict | None, doc_path: Path, ctx: RunContext, trade_id: str | None,
-              prior_findings: dict | None = None, mark: int = 0) -> DocumentResult:
+              prior_findings: dict | None = None, mark: int = 0, extra_cost: float = 0.0) -> DocumentResult:
     """Everything after extraction: deterministic steps, triage, persist. `mark` is the tracer
-    position where this pass started, so the persisted cost is this pass's cost only."""
+    position where this pass started, so the persisted cost is this pass's cost only; `extra_cost`
+    is the cost of the reused extraction when an eval resumes (the number the reader wants is what
+    this result cost, wherever the calls ran)."""
 
     # 2. normalize (code), 3. merge (code)
     norm = {fam: normalize.normalize_extraction(ext, schema) for fam, ext in extractions.items()}
@@ -244,7 +249,7 @@ def _complete(doc_id: str, text: str, sha: str, product_type: str, schema: Schem
                             normalized={str(k): v for k, v in norm.items()},
                             merged={k: m.model_dump() for k, m in merged.items()},
                             booking=lookup.model_dump(), findings=findings, document_lane=doc_lane,
-                            cost_usd=ctx.tracer.total_cost(doc_id, since=mark), source=ctx.source, parse_meta=parse_meta,
+                            cost_usd=round(ctx.tracer.total_cost(doc_id, since=mark) + extra_cost, 6), source=ctx.source, parse_meta=parse_meta,
                             product_type=product_type, extras={"attested_hashes": attested})
     persist(result, ctx)
     return result

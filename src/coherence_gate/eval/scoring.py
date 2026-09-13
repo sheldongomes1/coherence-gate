@@ -72,6 +72,7 @@ class EvalResult:
     # reading (API_ERROR / TIMEOUT / DEADLINE / REFUSAL). A billing or transport event lowers the accuracy number
     # exactly like a misread would; this is the line that says which one it was.
     never_completed: dict[str, dict] = field(default_factory=dict)
+    resumed: dict | None = None   # {"prior_run", "reused": [...], "re_extracted": [...]} when `cg eval --resume` was used
 
     def summary(self) -> dict[str, Any]:
         r = lambda x: {"hit": x.hit, "n": x.n}  # noqa: E731
@@ -81,7 +82,7 @@ class EvalResult:
                 "trap_resolved": r(self.trap_resolved), "auto_clear_correctness": r(self.auto_clear_correctness),
                 "agreement": r(self.agreement),
                 "extraction_accuracy": {k: r(v) for k, v in self.extraction_accuracy.items()},
-                "never_completed": self.never_completed,
+                "never_completed": self.never_completed, "resumed": self.resumed,
                 "cost_total_usd": self.cost_total, "cost_per_doc_usd": self.cost_per_doc,
                 "source": self.source, "field_accuracy": self.field_accuracy, "by_product": self.by_product,
                 "reference_lane": self.reference_lane, "not_evaluable": self.not_evaluable, "n_truth_absent": self.n_truth_absent,
@@ -268,6 +269,13 @@ def render_markdown(ev: EvalResult) -> str:
              + f" — source: {ev.source}", "",
              "Every number below is a count over a stated n, from this one run, with no retries. Red means the claim it "
              "supports does not hold on this run.", ""]
+    if ev.resumed:
+        rs = ev.resumed
+        lines += [f"**Resumed from `{rs['prior_run']}`.** {len(rs['reused'])} document(s) reused the extractions stored there "
+                  f"(both families' calls completed; extractions attested to the document hash; deterministic steps re-run here): "
+                  f"{', '.join(rs['reused']) or '—'}. {len(rs['re_extracted'])} document(s) extracted again because a call never "
+                  f"completed in the prior run: {', '.join(rs['re_extracted']) or '—'}. Per-document cost includes the reused "
+                  f"extraction's cost; the trace of the prior run holds those calls.", ""]
     # 1. headline
     lines += ["## 1. Headline: did the gate catch what was planted, and did it flag what was clean?", "",
               "| metric | result | n |", "|---|---|---|",

@@ -555,3 +555,16 @@ check counted as attested). Treat as TRIAGE (a human queue full of checks nobody
 now what it says. If the methodology cannot be loaded, every index claim becomes
 `NOT_EVALUABLE` with the reason and the trace says `reference_check: UNAVAILABLE`, instead of
 the lane silently disappearing.
+
+## ADR-31: An eval can resume; it reuses only extractions whose calls completed, and says so
+
+**Date:** 2026-09-13
+**Status:** Accepted (checkpoint taken without the user: three release runs in a row were lost to the environment, not the code, with the deadline hours away; logged as a skip with reason)
+
+**Context:** The v0.2.1 release run failed three times in one morning for reasons outside the pipeline: an exhausted Anthropic credit balance (HTTP 400 on the last two documents), then twice a host that went to sleep mid-call (both families TIMEOUT at the same instant, 6,784 s and 1,541 s against a 540 s deadline). Each restart repeated 40 minutes and about $2 of calls that had already produced attested extractions. SKILL.md's "one pass, no retries, scored as it fell" is about not re-rolling the dice on a model answer; it says nothing about re-paying for answers that already exist.
+
+**Decision:** `cg eval --resume <prior run>`. A document is reused only when the prior trace shows that the LAST extraction call of EACH family completed (OK, MALFORMED or CACHED) and its summary exists; it is then re-checked through the ADR-29 path (stored extractions attested to the document hash, deterministic steps re-run, triage only for new findings), with the prior extraction cost carried into this run's per-document cost. Any document with a TIMEOUT, API_ERROR, REFUSAL or suspended-process outcome is extracted again in full. The report header names the prior run, the reused documents and the re-extracted ones; the trace records RESUME, REUSED_EXTRACTION and RESUME_FALLBACK events.
+
+**Alternatives considered:** (a) Keep restarting from zero: honest but three restarts cost a morning and proved nothing new. (b) Retry the failed call inside the run: rejected, it re-rolls the model on the same document within one scored pass (ADR-10 / SKILL.md). (c) Splice the missing documents into the old run's report by hand: rejected, an unreproducible number. (d) Run the eval off the laptop (Cloud Run job): right for later, but new plumbing on the release path at 11:30 on deadline day.
+
+**Consequences:** A stall costs one document, not the run. A resumed run is a composite and is labelled as one; the eval_log line for a release must say "resumed from X" when it applies. A MALFORMED reading is deliberately reusable: it is the model's answer and must count against it. The web service's relaunch is unchanged (it never carries prior cost, because its summaries are the same file being overwritten).
