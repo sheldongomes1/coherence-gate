@@ -33,6 +33,7 @@ GOLDEN = ROOT / "golden"
 app = FastAPI(title="Coherence Gate demo")
 jobs: dict[str, dict] = {}
 lock = threading.Lock()
+_ctx_cache: dict = {}   # the run context (extractors, parser, reference rules) is built once per process
 
 
 def init_state(reset: bool = False) -> None:
@@ -71,8 +72,11 @@ def _run_docs(job_id: str, doc_ids: list[str], full: bool = False) -> None:
     man = _manifest()
     job = jobs[job_id]
     try:
-        ctx = build_context(GOLDEN, STATE / "runs", stub=False, booking_transport="direct", with_triage=True,
-                            source="pdf", parser_name="mixedbread", reference=True, bookings_dir=STORE)
+        if "ctx" not in _ctx_cache:  # reference rules (methodology parse + both extractions) load once, then are reused
+            c = build_context(GOLDEN, STATE / "runs", stub=False, booking_transport="direct", with_triage=True,
+                              source="pdf", parser_name="mixedbread", reference=True, bookings_dir=STORE)
+            _ctx_cache["ctx"] = c
+        ctx = _ctx_cache["ctx"]
         ctx.out_dir = RUN  # results replace the trade's folder inside the current run
         ctx.tracer.path = RUN / "trace.jsonl"
         for i, doc in enumerate(doc_ids, 1):
@@ -88,7 +92,6 @@ def _run_docs(job_id: str, doc_ids: list[str], full: bool = False) -> None:
                         job["mode"] = f"full ({why})"
                         run_document(GOLDEN / e["termsheet"], ctx, trade_id=None, pdf_path=GOLDEN / e["pdf"], product_type=e.get("product_type"))
             job["done"] = i
-        ctx.booking.close()
         with lock:
             render_pages()
         job.update({"status": "done", "finished": time.time()})
