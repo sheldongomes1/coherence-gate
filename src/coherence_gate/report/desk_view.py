@@ -42,6 +42,13 @@ CONSEQUENCE = {
 }
 
 
+# Which finding leads a row / the modal: economic terms first, then dates, then index claims.
+LEAD_RANK = {k: i for i, k in enumerate([
+    "participation_rate_pct", "notional", "currency", "premium_amount", "rel:premium_arithmetic", "barrier_level_pct",
+    "coupon_rate_pct", "coupon_memory", "underlyings", "strike_level_pct", "autocall_level_pct", "autocall_observation_dates",
+    "day_count", "maturity_date", "expiration_date", "valuation_date"])}
+
+
 def _fmt(v) -> str:
     """Desk-readable value: lists joined, big numbers with separators, ABSENT for None."""
     if v is None:
@@ -91,11 +98,7 @@ def trust_state(findings: list[dict]) -> tuple[str, str]:
     reds = [f for f in findings if f["type"] in RED_TYPES]
     ambers = [f for f in findings if f["type"] in AMBER_TYPES]
     if reds:
-        lead = ["participation_rate_pct", "notional", "currency", "premium_amount", "rel:premium_arithmetic", "barrier_level_pct",
-                "coupon_rate_pct", "coupon_memory", "underlyings", "strike_level_pct", "autocall_level_pct", "autocall_observation_dates",
-                "day_count", "maturity_date", "expiration_date", "valuation_date"]
-        rank = {k: i for i, k in enumerate(lead)}
-        crit = sorted(reds, key=lambda f: (f["severity"] != "critical", rank.get(f["field"], 50), f["field"]))[0]
+        crit = sorted(reds, key=lambda f: (f["severity"] != "critical", LEAD_RANK.get(f["field"], 50), f["field"]))[0]
         extra = f" (+{len(reds) - 1} more)" if len(reds) > 1 else ""
         return "MISMATCH", consequence(crit) + extra
     if ambers:
@@ -183,7 +186,7 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
               for f in d["findings"]]
         order = {t: i for i, t in enumerate(["MISMATCH", "TS_ABSENT", "BOOKING_ABSENT", "RELATION_VIOLATION", "REFERENCE_INCONSISTENT",
                                               "EXTRACTOR_DISAGREEMENT", "MALFORMED_EXTRACTION", "CLEAN"])}
-        fs.sort(key=lambda f: (order.get(f["type"], 9), f["severity"] != "critical", f["field"]))
+        fs.sort(key=lambda f: (f["type"] == "CLEAN", f["severity"] != "critical", LEAD_RANK.get(f["field"], 50), order.get(f["type"], 9), f["field"]))
         evidence[d["doc_id"]] = {"trade_id": d["trade_id"], "lane": d["document_lane"], "product": d.get("product_type", "note"),
                                  "source": d.get("source"), "parse": (d.get("parse") or {}).get("job_id"), "findings": fs}
     env = Environment(loader=FileSystemLoader(str(TEMPLATES)), autoescape=True)

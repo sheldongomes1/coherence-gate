@@ -27,11 +27,11 @@
     "lane": "TRIAGE",
     "triage": {
       "classification": "BOOKING_LIKELY_WRONG",
-      "desk_query": "Term sheet G04 states \"Coupon Memory | Applicable\", but the booking record carries coupon_memory = False. Both extractors agree the term sheet specifies a memory/catch-up feature, so unpaid coupons should accrue and be recoverable at a later observation date. Please confirm the booking should be amended to coupon_memory = True, or identify the clause that suppresses the memory feature. This is a critical mismatch affecting coupon payment amounts and requires resolution before the next observation date.",
+      "desk_query": "Term sheet G04 states \"Coupon Memory | Applicable\", but the booking record carries coupon_memory = False. Both extractors agree the term sheet specifies a memory/catch-up feature, so unpaid coupons should accrue and be recoverable at a later observation date. Please confirm the memory feature applies and amend the booking to coupon_memory = True, or identify the clause that disapplies it.",
       "cited_clause": "Coupon Memory | Applicable",
       "booking_field": "coupon_memory",
       "booking_value": "False",
-      "rationale": "Both extractors independently cite an explicit, unambiguous \"Applicable\" designation for Coupon Memory in the term sheet, so the booking flag is the likely error."
+      "rationale": "The term sheet language is explicit and unambiguous with both extractors in agreement, so the booking record is the likely source of error."
     }
   }
 ]
