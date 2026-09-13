@@ -76,3 +76,10 @@
 - Lesson: any change to the output contract is a model-facing change and gets the ten-token probe before anything expensive. The fix (two maps + an explicit `absent` list) is arguably a better contract than the one it replaced.
 - Fix / rework: ADR-24; the smoke test is now the first line of the release chain, not an optional step.
 - Post angle: "The most expensive bug of the weekend was a checklist item I skipped because the last change 'was just fields'."
+
+## 2026-09-12 — The desk's tolerance hid a real edit class within the hour
+- Situation: CS8c cycle. The desk rejected the G02 autocall-date finding ("that's the business-day-adjusted date"); the drafted proposal suggested a 1–3 day tolerance; I applied a 3-day tolerance in its own commit to measure it.
+- What broke / what we assumed: before the eval even finished, the live rehearsal shifted a booked autocall date by one day on a clean document and the gate said CLEAN. The deterministic fixture test went red on the planted G02 case for the same reason.
+- Lesson: a tolerance is a decision to stop looking. The eval is the only thing that can price it, and here the price was a planted miss plus a live miss. The proposal's own predicted effect ("catch rate should not move") was wrong, and the system could show that in a diff instead of an argument.
+- Fix / rework: HOLD (revert in its own commit), proposal stays on file with the diff attached. The desk's underlying point (booked dates are adjusted, term-sheet dates are not) becomes a golden candidate: a document pair where the adjustment is *stated*, so the comparator can check it instead of tolerating it.
+- Post angle: "The desk asked for a tolerance. The eval showed what it would cost. We kept the finding."
