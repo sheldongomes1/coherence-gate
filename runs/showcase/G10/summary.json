@@ -31,6 +31,34 @@
     "document_path": "golden/parsed/G10.md",
     "document_sha256": "ce678f37ff18c2e83d0998ce11381a97b8ca3c91dc931604f4ed63502760f633",
     "booking_trade_id": "SN-2026-0110",
-    "booking_sha256": "ee6b9caf062cd5f2bed7fdd2d18592e4c52ca045ccd72a8cb247bd0406f0d13f"
+    "booking_sha256": "ee6b9caf062cd5f2bed7fdd2d18592e4c52ca045ccd72a8cb247bd0406f0d13f",
+    "booking_terms_keys": [
+      "trade_id",
+      "issuer",
+      "notional",
+      "currency",
+      "trade_date",
+      "issue_date",
+      "maturity_date",
+      "underlyings",
+      "initial_level_pct",
+      "barrier_type",
+      "barrier_level_pct",
+      "coupon_rate_pct",
+      "coupon_frequency",
+      "coupon_memory",
+      "autocall_observation_dates",
+      "autocall_level_pct",
+      "day_count",
+      "settlement",
+      "business_day_convention",
+      "index_administrator",
+      "index_return_type",
+      "index_return_treatment",
+      "index_vol_target_pct",
+      "index_rebalance_frequency",
+      "index_deduction_factor_pct",
+      "index_transaction_cost_rate_pct"
+    ]
   }
 }

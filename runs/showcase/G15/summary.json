@@ -31,6 +31,36 @@
     "document_path": "golden/parsed/G15.md",
     "document_sha256": "0ccd61c6f01cb333c32e9cadd1d10d82217c809682fd0f58af49ce59500c8eff",
     "booking_trade_id": "OP-2026-0121",
-    "booking_sha256": "2b14b49b83b3b27b0d5549eaf406f8cc8e7604703b5efd08992cd6d9837febcd"
+    "booking_sha256": "2b14b49b83b3b27b0d5549eaf406f8cc8e7604703b5efd08992cd6d9837febcd",
+    "booking_terms_keys": [
+      "trade_id",
+      "buyer",
+      "seller",
+      "option_style",
+      "option_type",
+      "underlyings",
+      "notional",
+      "currency",
+      "trade_date",
+      "effective_date",
+      "strike_level_pct",
+      "participation_rate_pct",
+      "valuation_date",
+      "expiration_date",
+      "automatic_exercise",
+      "premium_pct",
+      "premium_amount",
+      "premium_payment_date",
+      "cash_settlement_days",
+      "settlement_currency",
+      "calculation_agent",
+      "index_administrator",
+      "index_return_type",
+      "index_return_treatment",
+      "index_vol_target_pct",
+      "index_rebalance_frequency",
+      "index_deduction_factor_pct",
+      "index_transaction_cost_rate_pct"
+    ]
   }
 }

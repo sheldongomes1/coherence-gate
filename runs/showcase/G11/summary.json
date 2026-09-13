@@ -31,6 +31,34 @@
     "document_path": "golden/parsed/G11.md",
     "document_sha256": "dc3382d5c56f116a4ccc33f69c2894f0b18f4c27bee44f9e76d19dd98bcfb1ba",
     "booking_trade_id": "SN-2026-0111",
-    "booking_sha256": "6a0a1a818db16da6805f237c49fe371ece398db765209c6d183e1cad192083d5"
+    "booking_sha256": "6a0a1a818db16da6805f237c49fe371ece398db765209c6d183e1cad192083d5",
+    "booking_terms_keys": [
+      "trade_id",
+      "issuer",
+      "notional",
+      "currency",
+      "trade_date",
+      "issue_date",
+      "maturity_date",
+      "underlyings",
+      "initial_level_pct",
+      "barrier_type",
+      "barrier_level_pct",
+      "coupon_rate_pct",
+      "coupon_frequency",
+      "coupon_memory",
+      "autocall_observation_dates",
+      "autocall_level_pct",
+      "day_count",
+      "settlement",
+      "business_day_convention",
+      "index_administrator",
+      "index_return_type",
+      "index_return_treatment",
+      "index_vol_target_pct",
+      "index_rebalance_frequency",
+      "index_deduction_factor_pct",
+      "index_transaction_cost_rate_pct"
+    ]
   }
 }
