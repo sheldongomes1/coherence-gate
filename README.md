@@ -28,9 +28,9 @@ stated.
 git clone https://github.com/sheldongomes1/coherence-gate && cd coherence-gate
 make setup                 # uv venv + deps; writes .env from .env.example
 # fill GOOGLE_API_KEY and ANTHROPIC_API_KEY in .env
-make test                  # deterministic core: 50+ unit tests, no API calls, ~2 s
-make demo                  # the 5-minute walkthrough (3 documents, triage on, ~3 min, ~$0.40)
-make eval                  # all 12 golden docs -> runs/<ts>/eval_report.md (~10 min, ~$1.40)
+make test                  # deterministic core: 75 unit tests, no API calls, ~3 s
+make demo                  # the three-document walkthrough (triage on, ~3 min, ~$0.40); v2 demo script below
+make eval                  # all 15 golden docs (parsed PDFs, reference lane) -> runs/<ts>/eval_report.md (~12 min, ~$2.20)
 make trace                 # every model call of the latest run: model, version, tokens, latency, cost
 make report RUN=...        # re-render run_report.html; make brief RUN=runs/<ts> regenerates BRIEF.md
 make models                # list live model ids on both APIs (verify the pins in config/models.yaml)
