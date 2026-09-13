@@ -62,7 +62,9 @@
     var bad = d.findings.filter(function(f){ return f.type !== 'CLEAN'; }), ok = d.findings.filter(function(f){ return f.type === 'CLEAN'; });
     var head = '<tr><th>field</th><th>type</th><th>sev</th><th>documented</th><th>booked</th><th>consequence · citations (both families)</th></tr>';
     var html = '<h2>' + esc(d.trade_id) + ' <span class="st st-' + (d.lane === 'AUTO_CLEAR' ? 'ATTESTED' : 'MISMATCH') + '">' + esc(d.lane) + '</span></h2>'
-      + '<div class="sub">' + esc(d.product) + ' · source ' + esc(d.source || 'txt') + (d.parse ? ' · parse job ' + esc(d.parse) : '') + ' · <a href="run_report.html#' + esc(doc) + '">full run report ↗</a></div>';
+      + '<div class="sub">' + esc(d.product) + ' · source ' + esc(d.source || 'txt') + (d.parse ? ' · parse job ' + esc(d.parse) : '') + ' · <a href="run_report.html#' + esc(doc) + '">full run report ↗</a></div>'
+      + '<div class="sub" style="margin-top:4px"><b>Grounding:</b> ' + Object.keys(d.links || {}).map(function(k){ return '<a href="' + esc(d.links[k]) + '" target="_blank">' + esc(k) + ' ↗</a>'; }).join(' · ')
+      + (d.attested && d.attested.document_sha256 ? '<span class="ind"> · attested to document sha ' + esc(String(d.attested.document_sha256).slice(0,12)) + ' and booking sha ' + esc(String(d.attested.booking_sha256 || '').slice(0,12)) + '</span>' : '') + '</div>';
     if (bad.length) {
       html += '<h3 style="margin:12px 0 6px;font-size:14px">' + bad.length + ' finding' + (bad.length > 1 ? 's' : '') + ' requiring attention</h3><div class="wrap"><table><thead>' + head + '</thead><tbody>' + bad.map(row).join('') + '</tbody></table></div>';
       var qs = bad.filter(function(f){ return f.triage; });

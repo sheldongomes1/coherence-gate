@@ -176,8 +176,27 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
                 "stale": gross(lambda r: r["state"] == "STALE"), "attested": gross(lambda r: r["state"] == "ATTESTED"),
                 "notional_total": sum(r["notional_usd"] or 0 for r in rows)}
     # Evidence for the modal: per document, non-clean findings first, then clean ones (collapsed on the page).
+    # Grounding links: the source PDF, the parsed text the gate actually read, the booking as read by
+    # this run, and the booking store's current record (relative to the run directory).
+    import os
+    golden = ROOT / "golden"
+    def rel(p: Path) -> str:
+        return os.path.relpath(p, Path(run_dir).resolve())
     evidence = {}
     for d in data["docs"]:
+        doc = d["doc_id"]; tid = d["trade_id"] or ""
+        links = {}
+        if (golden / "pdf" / f"{doc}.pdf").exists():
+            links["term sheet (PDF)"] = rel((golden / "pdf" / f"{doc}.pdf").resolve())
+        parsed = (d.get("attested_hashes") or {}).get("document_path")
+        if parsed and Path(parsed).exists():
+            links["parsed text the gate read"] = rel(Path(parsed).resolve())
+        elif (golden / "termsheets" / f"{doc}.txt").exists():
+            links["text the gate read"] = rel((golden / "termsheets" / f"{doc}.txt").resolve())
+        if (Path(run_dir) / doc / "booking.json").exists():
+            links["booking as read by this run"] = f"{doc}/booking.json"
+        if tid and (golden / "bookings" / f"{tid}.json").exists():
+            links["booking store (current record)"] = rel((golden / "bookings" / f"{tid}.json").resolve())
         fs = [{"field": f["field"], "type": f["type"], "severity": f["severity"], "lane": f["lane"],
                "ts": _fmt(f.get("ts_value")), "bk": _fmt(f.get("booking_value")), "detail": f.get("detail", ""),
                "citations": [_clean_cite(c["text_span"]) for c in f.get("citations", [])],
@@ -188,7 +207,8 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
                                               "EXTRACTOR_DISAGREEMENT", "MALFORMED_EXTRACTION", "CLEAN"])}
         fs.sort(key=lambda f: (f["type"] == "CLEAN", f["severity"] != "critical", LEAD_RANK.get(f["field"], 50), order.get(f["type"], 9), f["field"]))
         evidence[d["doc_id"]] = {"trade_id": d["trade_id"], "lane": d["document_lane"], "product": d.get("product_type", "note"),
-                                 "source": d.get("source"), "parse": (d.get("parse") or {}).get("job_id"), "findings": fs}
+                                 "source": d.get("source"), "parse": (d.get("parse") or {}).get("job_id"), "findings": fs,
+                                 "links": links, "attested": d.get("attested_hashes") or {}}
     env = Environment(loader=FileSystemLoader(str(TEMPLATES)), autoescape=True)
     env.filters["musd"] = _musd
     html = env.get_template("desk_view.html.j2").render(
