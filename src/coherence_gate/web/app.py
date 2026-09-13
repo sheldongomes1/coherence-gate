@@ -262,16 +262,16 @@ def api_reset() -> RedirectResponse:
     return RedirectResponse("/", status_code=303)
 
 
-# static: everything in the current run (per-doc booking.json etc.), the golden files the links point to, and the site's docs
-app.mount("/golden", StaticFiles(directory=str(GOLDEN)), name="golden")
-if SITE.exists():
-    app.mount("/site", StaticFiles(directory=str(SITE), html=True), name="site")
-
-
 @app.get("/site/index.html")
 @app.get("/site/desk_view.html")
 def _site_index() -> RedirectResponse:
     return RedirectResponse("/", status_code=302)   # the live desk view, not the frozen static copy
+
+
+# static mounts come AFTER the explicit routes above (a mount registered earlier would shadow them)
+app.mount("/golden", StaticFiles(directory=str(GOLDEN)), name="golden")
+if SITE.exists():
+    app.mount("/site", StaticFiles(directory=str(SITE), html=True), name="site")
 
 
 @app.get("/{path:path}")
