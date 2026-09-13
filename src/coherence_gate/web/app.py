@@ -278,15 +278,19 @@ if SITE.exists():
     app.mount("/site", StaticFiles(directory=str(SITE), html=True), name="site")
 
 
+SERVABLE = {".html", ".css", ".js", ".json", ".jsonl", ".md", ".txt", ".pdf", ".png", ".jpg", ".svg", ".ico", ".csv", ".webp", ".woff2"}
+
+
 @app.get("/{path:path}")
 def fallback(path: str):
-    """Static files from the current run or the site bundle, contained to those directories."""
+    """Static files from the current run or the site bundle: contained to those directories AND limited to
+    web asset types (a Dockerfile or a dotfile that happens to sit in the bundle is not a page)."""
     for base in (RUN, SITE):
         root = base.resolve()
         try:
             p = (root / path).resolve()
         except (OSError, ValueError):
             continue
-        if root in p.parents and p.is_file() and not p.name.endswith((".tmp", ".env")):
+        if root in p.parents and p.is_file() and p.suffix.lower() in SERVABLE and not p.name.startswith("."):
             return FileResponse(str(p), headers=NO_STORE if p.suffix in (".html", ".json", ".jsonl") else None)
     return HTMLResponse("not found", status_code=404)
