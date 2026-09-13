@@ -39,6 +39,10 @@ records a desk disposition (in production, a button on the desk-view row; the CL
 `uv run cg propose` turns feedback into reviewable proposals under `proposals/`, each ending with
 "PROPOSAL ONLY". Nothing is applied by the system: a human applies a proposal in its own commit, runs
 `make eval`, and `make eval-diff` shows the effect. The model never learns.
+One real cycle is in the history: the desk rejected G02's autocall-date finding, `cg propose` drafted a
+3-day tolerance, it was applied in its own commit and measured (`eval_diff_cycle.md`): strict catch
+17/17 → 16/17 and a planted case was auto-cleared, so the proposal was **held** and reverted
+(`proposals/DECISIONS.md`). The proposal file stays on record, unapplied.
 
 Other useful entry points: `uv run cg run golden/termsheets/G05.txt --triage` runs one
 document; `uv run cg eval --stub` runs the harness with no model calls (the Phase 0 state);

@@ -248,18 +248,15 @@
       "version": "2",
       "date": "2026-09-12",
       "note": "CS8c cycle: applied proposal (3-day tolerance on autocall_observation_dates) in its own commit to measure it; see eval_diff.md and the follow-up commit for accept/hold."
+    },
+    {
+      "version": "2",
+      "date": "2026-09-12",
+      "note": "CS8c cycle: proposal HELD (reverted). With the 3-day tolerance the eval auto-cleared the planted G02 date shift (auto_clear_correctness 16/17) and the live rehearsal missed a +1 day booking edit. See eval_diff_cycle.md."
     }
   ],
   "product_type": "note",
   "non_compared": [
     "coupon_rate_basis"
-  ],
-  "tolerances": {
-    "autocall_observation_dates": {
-      "type": "date_days",
-      "days": 3,
-      "origin": "proposals/judgment_change/20260912-191532_G02_autocall_observation_dates_desk_rejected.md",
-      "note": "APPLIED FOR MEASUREMENT: desk says +1..3 day booking dates are business-day adjustments. The eval decides (CS8c cycle)."
-    }
-  }
+  ]
 }

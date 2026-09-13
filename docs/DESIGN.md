@@ -126,6 +126,7 @@ code, model supplies only the verbatim span (ADR-3); merger compares normalized 
 | CS7b model-swap diff | done | `eval_diff.md` (medium vs low sweep), `make eval-diff` |
 | CS8a OTel-shaped traces | done | `otel` span on every trace line (ADR-25); no exporter wired |
 | CS8b desk feedback capture | done | `cg feedback <doc>:<field> --verdict … --note …` → `feedback/feedback.jsonl`; desk-view marker |
-| CS8c feedback → proposals | done (code); one real cycle pending | `cg propose` → `proposals/<kind>/…md` with the PROPOSAL ONLY footer |
-| Release run on 15 docs, pdf source, reference lane | RC1 done (15/17, one Gemini output-cap event), RC2 running | `eval_log.md` |
-| MODEL-RISK filled, showcase frozen, v0.2.0 tag | pending | after RC2 + rehearsal |
+| CS8c feedback → proposals | done, one real cycle in git history (feedback → proposal → apply → eval → diff → HELD) | `proposals/`, `eval_diff_cycle.md`, `proposals/DECISIONS.md` |
+| Release run on 15 docs, pdf source, reference lane | done: run 20260912-191532, 17/17, 0/417, 396/396 both families | `runs/showcase`, `eval_log.md` |
+| MODEL-RISK filled, showcase frozen, v0.2.0 tag | done | `MODEL-RISK.md`, `BRIEF.md`, tag v0.2.0 |
+| Live-check rehearsal (6 booking edits) | 4/6 caught; 1 Gemini deadline event, 1 masked by the tolerance under test | `eval_log.md` |
