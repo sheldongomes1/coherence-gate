@@ -486,3 +486,27 @@ booking changes entirely (defeats STALE). Time-based expiry (a timer is not evid
 **Consequences:** `attested_hashes.booking_terms_keys` in `summary.json`; older runs fall
 back to the whole-record hash. Test: fixings, MTM and version bumps leave the row attested;
 a coupon-memory change makes it STALE.
+
+## ADR-29: A relaunch after a booking change reuses the attested extraction
+
+**Date:** 2026-09-13
+**Status:** Accepted
+
+**Context:** The first live relaunch re-read the term sheet with both families (about two
+minutes) although only the booking had changed. The extraction is attested to the document's
+hash; the comparison is attested to the booking's deal-terms hash. They change independently.
+
+**Decision:** `recheck_document` reuses the stored extractions of both families when the
+document hash is unchanged and re-runs normalize → merge → compare → relations → reference →
+lanes; triage runs only for findings that are new since the prior result (unchanged findings
+keep their desk query). The trace records `load: REUSED_EXTRACTION` and `extract: CACHED`.
+A full re-read is a separate, explicit action ("re-read term sheet"). The demo service builds
+its run context (extractors, parser, cached methodology rules) once per process and warms it
+at startup; Cloud Run runs with CPU always allocated so background jobs are not throttled.
+
+**Alternatives considered:** Always re-extract (honest but wasteful: two model calls to learn
+nothing new about an unchanged document). Skipping triage on recheck (the desk query for a new
+finding is the point of the relaunch).
+
+**Consequences:** A booking edit is checked in seconds; model calls happen when a document is
+first read, when it is deliberately re-read, and once per new finding for the desk query.

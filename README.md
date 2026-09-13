@@ -18,8 +18,10 @@ stated.
 > front page; run report, eval report, brief, model-risk summary and every source PDF, parsed text and booking
 > record are linked from it. It is a live service: **edit booking** on any row (e.g.
 > `/booking/OP-2026-0114`, change `participation_rate_pct` to 95), save, and the row is STALE; press **Relaunch**
-> (top right) and the gate re-reads the term sheet with both model families and re-checks it against the edited
-> booking, about one to four minutes per trade; **Reset** restores the showcase state. Deployed with
+> (top right): the term sheet has not changed, so its attested extraction is reused and the gate re-runs the
+> deterministic steps against the edited booking in seconds, drafting a desk query only for a finding that is
+> new. "re-read term sheet" on a row forces both model families to read the document again (1–4 minutes); it is
+> only needed when the document itself changed. **Reset demo to showcase state** sits in the panel at the bottom. Deployed with
 > `gcloud run deploy coherence-gate-demo --source .` (Dockerfile at the root; API keys from Secret Manager;
 > one instance so the demo state is coherent). The static bundle alone is `make site`.
 >
