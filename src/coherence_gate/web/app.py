@@ -67,18 +67,16 @@ def stale_docs() -> list[str]:
 def _run_docs(job_id: str, doc_ids: list[str], full: bool = False) -> None:
     """full=False: re-check against the current booking reusing the attested extractions (seconds).
     full=True: re-read the term sheet with both families (1–4 min per trade)."""
-    from ..eval.harness import build_context
     from ..pipeline import recheck_document, run_document
     man = _manifest()
     job = jobs[job_id]
     try:
-        if "ctx" not in _ctx_cache:  # reference rules (methodology parse + both extractions) load once, then are reused
-            c = build_context(GOLDEN, STATE / "runs", stub=False, booking_transport="direct", with_triage=True,
-                              source="pdf", parser_name="mixedbread", reference=True, bookings_dir=STORE)
-            _ctx_cache["ctx"] = c
-        ctx = _ctx_cache["ctx"]
+        t_ctx = time.time()
+        ctx = get_ctx()
+        job["timings"] = {"context_s": round(time.time() - t_ctx, 1)}
         ctx.out_dir = RUN  # results replace the trade's folder inside the current run
         ctx.tracer.path = RUN / "trace.jsonl"
+        t_docs = time.time()
         for i, doc in enumerate(doc_ids, 1):
             job.update({"status": "running", "current": doc, "done": i - 1, "total": len(doc_ids), "mode": "full" if full else "recheck"})
             e = man[doc]
@@ -92,8 +90,11 @@ def _run_docs(job_id: str, doc_ids: list[str], full: bool = False) -> None:
                         job["mode"] = f"full ({why})"
                         run_document(GOLDEN / e["termsheet"], ctx, trade_id=None, pdf_path=GOLDEN / e["pdf"], product_type=e.get("product_type"))
             job["done"] = i
+        job["timings"]["docs_s"] = round(time.time() - t_docs, 1)
+        t_r = time.time()
         with lock:
             render_pages()
+        job["timings"]["render_s"] = round(time.time() - t_r, 1)
         job.update({"status": "done", "finished": time.time()})
     except Exception as exc:  # noqa: BLE001
         job.update({"status": "error", "error": f"{type(exc).__name__}: {str(exc)[:300]}"})
@@ -102,9 +103,25 @@ def _run_docs(job_id: str, doc_ids: list[str], full: bool = False) -> None:
 NO_STORE = {"Cache-Control": "no-store, max-age=0"}
 
 
+def get_ctx():
+    """The run context (extractors, parser, methodology reference rules) is built once per process
+    and reused by every job; the reference load is the only slow part (cached parse + cached
+    extractions when the image carries them, otherwise ~1 min of model calls)."""
+    with _ctx_lock:
+        if "ctx" not in _ctx_cache:
+            from ..eval.harness import build_context
+            _ctx_cache["ctx"] = build_context(GOLDEN, STATE / "runs", stub=False, booking_transport="direct", with_triage=True,
+                                              source="pdf", parser_name="mixedbread", reference=True, bookings_dir=STORE)
+        return _ctx_cache["ctx"]
+
+
+_ctx_lock = threading.Lock()
+
+
 @app.on_event("startup")
 def _startup() -> None:
     init_state()
+    threading.Thread(target=get_ctx, name="warm-context", daemon=True).start()  # first click never pays the reference load
 
 
 @app.get("/", response_class=HTMLResponse)
