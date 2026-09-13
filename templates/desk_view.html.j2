@@ -98,46 +98,59 @@
 </script>
 {% if live %}<script>
 (function(){
-  var st = document.getElementById('jobstatus'), btn = document.getElementById('relaunch'), bar = document.getElementById('progress');
-  var rowBtns = document.querySelectorAll('button.rl'), rereads = document.querySelectorAll('a.rr'), resetBtn = document.querySelector('form[action="/api/reset"] button');
-  function setBusy(b){ btn.disabled = b; if (resetBtn) resetBtn.disabled = b; rowBtns.forEach(function(x){ x.disabled = b; }); }
-  function show(text, on, pulse){ st.textContent = text; bar.textContent = text; bar.classList.toggle('on', !!on); bar.classList.toggle('pulse', !!pulse); }
+  var btn = document.getElementById('relaunch'), bar = document.getElementById('progress');
+  var rowBtns = document.querySelectorAll('button.rl'), rereads = document.querySelectorAll('a.rr');
+  var seenActive = false, timer = null;
+  function show(text, on, pulse){ bar.textContent = text; bar.classList.toggle('on', !!on); bar.classList.toggle('pulse', !!pulse); }
   function rowMark(d, text, pulse){ var el = document.getElementById('rs-' + d); if (!el) return; el.textContent = text; el.classList.toggle('pulse', !!pulse); }
-  var t0 = null;
-  function poll(id){
-    fetch('/api/status/' + id).then(function(r){ return r.json(); }).then(function(j){
-      var secs = t0 ? Math.round((Date.now() - t0) / 1000) : 0;
-      if (j.status === 'running' || j.status === 'queued') {
-        var full = (j.mode || '').indexOf('full') === 0;
-        show('Working: ' + (j.current ? 'checking ' + j.current : 'starting') + ' — ' + j.done + '/' + j.total + ' done, ' + secs + 's elapsed. ' +
-             (full ? 'Both model families are re-reading the term sheet, then code compares it with the current booking and triage drafts the query (1–4 min per trade).'
-                   : 'The term sheet is unchanged, so its attested extraction is reused; code re-compares it with the current booking and triage drafts queries for any new finding (seconds).') + ' The page reloads when finished.', true, true);
-        (j.docs || []).forEach(function(d, i){ if (i < j.done) rowMark(d, '✓ re-checked', false); else rowMark(d, 'working' + (d === j.current ? ' ' + secs + 's' : ''), true); });
-        setTimeout(function(){ poll(id); }, 1500);
-      } else if (j.status === 'done') { show('✓ done — reloading', true, false); (j.docs || []).forEach(function(d){ rowMark(d, '✓ done', false); }); location.reload(); }
-      else { show('✗ relaunch failed: ' + (j.error || j.status), true, false); (j.docs || []).forEach(function(d){ rowMark(d, '✗ ' + (j.error || j.status), false); }); setBusy(false); }
+  function rowBusy(d, busy){ rowBtns.forEach(function(b){ if (b.getAttribute('data-doc') === d) b.disabled = busy; }); }
+  function refresh(){
+    fetch('/api/state').then(function(r){ return r.json(); }).then(function(s){
+      var active = Object.values(s.jobs).filter(function(j){ return j.status === 'running' || j.status === 'queued'; });
+      var activeDocs = {}; active.forEach(function(j){ j.docs.forEach(function(d, i){ activeDocs[d] = (j.status === 'running' && d === j.current) ? 'running' : (j.status === 'running' && i < j.done ? 'done' : 'queued'); }); });
+      rowBtns.forEach(function(b){ var d = b.getAttribute('data-doc'); var st = activeDocs[d];
+        if (st === 'running') { b.disabled = true; var j = active.filter(function(x){ return x.current === d; })[0]; rowMark(d, 'working ' + Math.round(j ? j.elapsed_s : 0) + 's', true); }
+        else if (st === 'queued') { b.disabled = true; rowMark(d, 'working', true); }
+        else if (st === 'done') { b.disabled = true; rowMark(d, '✓ re-checked', false); }
+        else if (seenActive || !b.disabled) { b.disabled = false; }
+      });
+      if (active.length) {
+        seenActive = true;
+        var running = active.filter(function(j){ return j.status === 'running'; })[0];
+        var queued = active.filter(function(j){ return j.status === 'queued'; }).length;
+        var full = running && (running.mode || '').indexOf('full') === 0;
+        show('Working' + (running ? ': checking ' + running.current + ' (' + Math.round(running.elapsed_s) + 's) — ' + running.done + '/' + running.total + ' in this job' : '') + (queued ? ' · ' + queued + ' more job(s) queued' : '') + '. ' +
+             (full ? 'Both model families are re-reading the term sheet, then code compares it with the current booking (1–4 min per trade).'
+                   : 'The term sheet is unchanged, so its attested extraction is reused; code re-compares it with the current booking and triage drafts a query for any new finding (seconds).') + ' The page reloads when finished.', true, true);
+        if (!timer) timer = setInterval(refresh, 1000);
+      } else {
+        if (timer) { clearInterval(timer); timer = null; }
+        if (seenActive) { show('✓ done — reloading', true, false); location.reload(); return; }
+        var failed = Object.values(s.jobs).filter(function(j){ return j.status === 'error'; }).slice(-1)[0];
+        if (failed) show('✗ last relaunch failed: ' + failed.error, true, false);
+        else if (s.stale.length) show(s.stale.length + ' booking(s) changed since the last check: ' + s.stale.join(', ') + ' — press Relaunch (top right) to re-check them against the edited booking', true, false);
+      }
     });
   }
   function launch(q, docs){
-    setBusy(true); show('Working…', true, true); (docs || []).forEach(function(d){ rowMark(d, 'working', true); }); t0 = Date.now();
+    (docs || []).forEach(function(d){ rowBusy(d, true); rowMark(d, 'working', true); });
+    show('Working…', true, true);
     fetch('/api/relaunch' + q, {method: 'POST'}).then(function(r){ return r.json(); }).then(function(j){
-      if (!j.job) { show(j.message || 'nothing to do', true, false); (docs || []).forEach(function(d){ rowMark(d, j.message || '', false); }); setBusy(false); return; }
-      poll(j.job);
-    }).catch(function(e){ show('✗ request failed: ' + e, true, false); setBusy(false); });
+      if (!j.job) { show(j.message || 'nothing to do', true, false); (docs || []).forEach(function(d){ rowMark(d, j.message || '', false); rowBusy(d, false); }); return; }
+      seenActive = true; refresh();
+    }).catch(function(e){ show('✗ request failed: ' + e, true, false); (docs || []).forEach(function(d){ rowBusy(d, false); }); });
   }
   btn.addEventListener('click', function(){
     fetch('/api/state').then(function(r){ return r.json(); }).then(function(s){
-      if (s.stale.length) launch('?scope=stale');
-      else if (confirm('No booking has changed since the last check. Re-check the whole book? (15 trades, ~15 minutes)')) launch('?scope=all');
+      if (s.stale.length) launch('?scope=stale', s.stale);
+      else if (confirm('No booking has changed since the last check. Re-check the whole book? (15 trades, seconds each)')) launch('?scope=all', []);
     });
   });
   rowBtns.forEach(function(b){ b.addEventListener('click', function(e){ e.preventDefault(); var d = b.getAttribute('data-doc'); launch('?doc=' + d, [d]); }); });
-  rereads.forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); if (btn.disabled) return; var d = a.getAttribute('data-doc'); launch('?doc=' + d + '&full=1', [d]); }); });
-  fetch('/api/state').then(function(r){ return r.json(); }).then(function(s){
-    var running = Object.keys(s.jobs).filter(function(k){ return s.jobs[k].status === 'running' || s.jobs[k].status === 'queued'; });
-    if (running.length) { setBusy(true); t0 = Date.now() - 1000 * Math.round(Date.now()/1000 - (s.jobs[running[0]].started || Date.now()/1000)); poll(running[0]); }
-    else if (s.stale.length) show(s.stale.length + ' booking(s) changed since the last check: ' + s.stale.join(', ') + ' — press Relaunch (top right) to re-check them against the edited booking', true, false);
-  });
+  rereads.forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); var d = a.getAttribute('data-doc'); launch('?doc=' + d + '&full=1', [d]); }); });
+  // saving a booking redirects here with ?relaunch=<doc>: start that trade's re-check at once, then clean the URL
+  var m = /[?&]relaunch=([A-Za-z0-9_-]+)/.exec(location.search);
+  if (m) { history.replaceState(null, '', location.pathname); launch('?doc=' + m[1], [m[1]]); } else { refresh(); }
 })();
 </script>{% endif %}
 </body></html>

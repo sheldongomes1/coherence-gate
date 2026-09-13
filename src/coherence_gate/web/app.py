@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import os
+import queue
 import shutil
 import threading
 import time
@@ -33,6 +34,7 @@ GOLDEN = ROOT / "golden"
 app = FastAPI(title="Coherence Gate demo")
 jobs: dict[str, dict] = {}
 lock = threading.Lock()
+_queue: "queue.Queue[str]" = queue.Queue()   # job ids, processed one at a time by the worker thread
 _ctx_cache: dict = {}   # the run context (extractors, parser, reference rules) is built once per process
 
 
@@ -64,12 +66,22 @@ def stale_docs() -> list[str]:
     return [d["doc_id"] for d in load_run(RUN)["docs"] if _stale_reason(RUN, d, STORE)]
 
 
+def _worker() -> None:
+    while True:
+        job_id = _queue.get()
+        try:
+            _run_docs(job_id, jobs[job_id]["docs"], jobs[job_id].get("mode") == "full")
+        finally:
+            _queue.task_done()
+
+
 def _run_docs(job_id: str, doc_ids: list[str], full: bool = False) -> None:
     """full=False: re-check against the current booking reusing the attested extractions (seconds).
     full=True: re-read the term sheet with both families (1–4 min per trade)."""
     from ..pipeline import recheck_document, run_document
     man = _manifest()
     job = jobs[job_id]
+    job["started"] = time.time()   # the clock starts when the job actually starts, not when it was queued
     try:
         t_ctx = time.time()
         ctx = get_ctx()
@@ -118,9 +130,22 @@ def get_ctx():
 _ctx_lock = threading.Lock()
 
 
+def _job_view(j: dict) -> dict:
+    now = time.time()
+    v = dict(j)
+    v["elapsed_s"] = round((j.get("finished") or now) - j["started"], 1) if j.get("status") in ("running", "done", "error") else 0.0
+    v["queued_for_s"] = round(now - j.get("queued_at", now), 1) if j.get("status") == "queued" else 0.0
+    return v
+
+
+def _active_docs() -> set[str]:
+    return {d for j in jobs.values() if j["status"] in ("queued", "running") for d in j["docs"]}
+
+
 @app.on_event("startup")
 def _startup() -> None:
     init_state()
+    threading.Thread(target=_worker, name="relaunch-worker", daemon=True).start()
     threading.Thread(target=get_ctx, name="warm-context", daemon=True).start()  # first click never pays the reference load
 
 
@@ -141,7 +166,8 @@ def run_report() -> HTMLResponse:
 
 @app.get("/api/state")
 def api_state() -> JSONResponse:
-    return JSONResponse({"stale": stale_docs(), "jobs": {k: v for k, v in jobs.items()}, "store": str(STORE)})
+    return JSONResponse({"stale": stale_docs(), "jobs": {k: _job_view(v) for k, v in jobs.items()},
+                         "active": sorted(_active_docs()), "store": str(STORE)})
 
 
 @app.post("/api/relaunch")
@@ -156,18 +182,19 @@ def api_relaunch(doc: str | None = None, scope: str = "stale", full: int = 0) ->
         docs = stale_docs()
     if not docs:
         return JSONResponse({"job": None, "message": "nothing is stale; use scope=all to re-check the whole book"})
-    running = [j for j in jobs.values() if j["status"] == "running"]
-    if running:
-        return JSONResponse({"job": None, "message": "a relaunch is already running"}, status_code=409)
+    docs = [d for d in docs if d not in _active_docs()]   # a trade already queued or running is not queued twice
+    if not docs:
+        return JSONResponse({"job": None, "message": "already queued or running"})
     job_id = uuid.uuid4().hex[:8]
-    jobs[job_id] = {"status": "queued", "docs": docs, "done": 0, "total": len(docs), "started": time.time(), "mode": "full" if full else "recheck"}
-    threading.Thread(target=_run_docs, args=(job_id, docs, bool(full)), daemon=True).start()
-    return JSONResponse({"job": job_id, "docs": docs, "mode": "full" if full else "recheck"})
+    jobs[job_id] = {"status": "queued", "docs": docs, "done": 0, "total": len(docs), "queued_at": time.time(),
+                    "started": time.time(), "mode": "full" if full else "recheck"}
+    _queue.put(job_id)
+    return JSONResponse({"job": job_id, "docs": docs, "mode": "full" if full else "recheck", "queue_position": _queue.qsize()})
 
 
 @app.get("/api/status/{job_id}")
 def api_status(job_id: str) -> JSONResponse:
-    return JSONResponse(jobs.get(job_id, {"status": "unknown"}))
+    return JSONResponse(_job_view(jobs[job_id]) if job_id in jobs else {"status": "unknown"})
 
 
 @app.get("/booking/{trade_id}", response_class=HTMLResponse)
@@ -211,7 +238,8 @@ async def booking_save(trade_id: str, request: Request) -> RedirectResponse:
             except (ValueError, json.JSONDecodeError):
                 rec[k] = raw
     p.write_text(json.dumps(rec, indent=2))
-    return RedirectResponse("/", status_code=303)
+    doc = next((d for d, e in _manifest().items() if e["trade_id"] == trade_id), None)
+    return RedirectResponse(f"/?relaunch={doc}" if doc else "/", status_code=303)
 
 
 @app.post("/api/reset")
