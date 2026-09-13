@@ -16,7 +16,10 @@ nav{font-size:13px;color:#6b6862;margin-bottom:14px}nav a{margin-right:12px}</st
 _LINKS = [("index.html", "desk view"), ("run_report.html", "run report"), ("eval_report.html", "eval report"), ("BRIEF.html", "brief"),
           ("eval_log.html", "eval log"), ("eval_diff.html", "model-swap diff"), ("eval_diff_cycle.html", "feedback-cycle diff"),
           ("MODEL-RISK.html", "model risk"), ("README.html", "readme")]
-NAV = ('<nav style="font:13px -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#6b6862;margin-bottom:14px">'
+BANNER = ('<div style="background:#fff3d6;color:#8a5a00;border-bottom:1px solid #e8d9a8;font:13px -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;'
+          'padding:8px 12px;margin:-24px -20px 14px;text-align:center"><b>For demo purposes only — using demo data.</b> '
+          'Fictional issuer and counterparty, synthetic documents, indicative risk figures. Nothing here is a real trade.</div>')
+NAV = (BANNER + '<nav style="font:13px -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#6b6862;margin-bottom:14px">'
        + " · ".join(f'<a href="{h}" style="color:#12314f;text-decoration:none">{t}</a>' for h, t in _LINKS) + "</nav>")
 
 
