@@ -51,4 +51,4 @@ def test_fixings_do_not_invalidate_attestation_but_term_changes_do(tmp_path):
     b.write_text(json.dumps(rec))
     assert _stale_reason(ctx.out_dir, d, store) is None          # fixings and MTM: still attested
     rec["coupon_memory"] = False; b.write_text(json.dumps(rec))
-    assert "booking terms" in _stale_reason(ctx.out_dir, d, store)  # a governed term changed: STALE
+    assert "deal terms" in _stale_reason(ctx.out_dir, d, store)  # a term of the deal changed: STALE
