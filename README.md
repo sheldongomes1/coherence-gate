@@ -14,9 +14,14 @@ with an LLM-drafted desk query citing the clause and the booking field.
 catch rate on planted discrepancies and false-flag rate on clean fields, with its ceiling
 stated.
 
-> **Live demo (static, Cloud Run):** https://coherence-gate-demo-521865321554.us-central1.run.app/ — desk view
-> as the front page; run report, eval report, brief, model-risk summary and every source PDF, parsed text and
-> booking record are linked from it. Rebuilt with `make site && make deploy-site PROJECT=<gcp project> REGION=us-central1`.
+> **Live demo (Cloud Run):** https://coherence-gate-demo-521865321554.us-central1.run.app/ — the desk view is the
+> front page; run report, eval report, brief, model-risk summary and every source PDF, parsed text and booking
+> record are linked from it. It is a live service: **edit booking** on any row (e.g.
+> `/booking/OP-2026-0114`, change `participation_rate_pct` to 95), save, and the row is STALE; press **Relaunch**
+> (top right) and the gate re-reads the term sheet with both model families and re-checks it against the edited
+> booking, about one to four minutes per trade; **Reset** restores the showcase state. Deployed with
+> `gcloud run deploy coherence-gate-demo --source .` (Dockerfile at the root; API keys from Secret Manager;
+> one instance so the demo state is coherent). The static bundle alone is `make site`.
 >
 > Status: **v0.2.0** (Phases 1 and 2 built end to end). Numbers live in [`BRIEF.md`](BRIEF.md)
 > (generated from a run, never typed) and every iteration is in [`eval_log.md`](eval_log.md).
