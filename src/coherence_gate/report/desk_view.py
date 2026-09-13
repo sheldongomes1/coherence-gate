@@ -143,13 +143,27 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
     exposure = {"total": gross(lambda r: True), "attention": gross(lambda r: r["state"] in ("MISMATCH", "DISAGREEMENT")),
                 "stale": gross(lambda r: r["state"] == "STALE"), "attested": gross(lambda r: r["state"] == "ATTESTED"),
                 "notional_total": sum(r["notional_usd"] or 0 for r in rows)}
+    # Evidence for the modal: per document, non-clean findings first, then clean ones (collapsed on the page).
+    evidence = {}
+    for d in data["docs"]:
+        fs = [{"field": f["field"], "type": f["type"], "severity": f["severity"], "lane": f["lane"],
+               "ts": _fmt(f.get("ts_value")), "bk": _fmt(f.get("booking_value")), "detail": f.get("detail", ""),
+               "citations": [c["text_span"] for c in f.get("citations", [])],
+               "consequence": consequence(f) if f["type"] in RED_TYPES else "",
+               "triage": (f.get("triage") or {}).get("desk_query"), "classification": (f.get("triage") or {}).get("classification")}
+              for f in d["findings"]]
+        order = {t: i for i, t in enumerate(["MISMATCH", "TS_ABSENT", "BOOKING_ABSENT", "RELATION_VIOLATION", "REFERENCE_INCONSISTENT",
+                                              "EXTRACTOR_DISAGREEMENT", "MALFORMED_EXTRACTION", "CLEAN"])}
+        fs.sort(key=lambda f: (order.get(f["type"], 9), f["severity"] != "critical", f["field"]))
+        evidence[d["doc_id"]] = {"trade_id": d["trade_id"], "lane": d["document_lane"], "product": d.get("product_type", "note"),
+                                 "source": d.get("source"), "parse": (d.get("parse") or {}).get("job_id"), "findings": fs}
     env = Environment(loader=FileSystemLoader(str(TEMPLATES)), autoescape=True)
     env.filters["musd"] = _musd
     html = env.get_template("desk_view.html.j2").render(
         book=book, run_id=data["run_id"], ts=datetime.now().strftime("%Y-%m-%d %H:%M"), rows=rows,
         n_attested=sum(r["state"] == "ATTESTED" for r in rows), n_attention=sum(r["state"] in ("MISMATCH", "DISAGREEMENT") for r in rows),
         n_stale=sum(r["state"] == "STALE" for r in rows), cost=sum(l["cost_usd"] for l in trace), tools=tools,
-        exposure=exposure)
+        exposure=exposure, evidence_json=json.dumps(evidence, default=str).replace("</", "<\\/"))
     out = out or Path(run_dir) / "desk_view.html"
     out.write_text(html)
     return out
