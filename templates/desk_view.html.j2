@@ -25,7 +25,9 @@
  .banner{background:#fff3d6;color:#8a5a00;border-bottom:1px solid #e8d9a8;font-size:13px;padding:8px 12px;margin:-24px -20px 14px;text-align:center}
  .topnav{font-size:13px;color:var(--muted);margin-bottom:14px}.topnav a{color:#12314f;text-decoration:none;margin-right:10px}
  .relaunch{position:absolute;top:58px;right:24px;display:flex;gap:8px;align-items:center}.btn{background:#12314f;color:#fff;border:0;padding:9px 16px;border-radius:6px;font-size:14px;cursor:pointer}.btn.sec{background:#fff;color:#12314f;border:1px solid #12314f}
- #jobstatus{font-size:12px;color:var(--muted);max-width:360px}.rowact{font-size:11.5px;color:var(--muted);margin-top:3px}.rowact a{color:#12314f}
+ #jobstatus{font-size:12px;color:var(--muted);max-width:360px}.rowact{margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+ .btn.mini{padding:4px 10px;font-size:12px;border-radius:5px}.btn.mini.sec{background:#fff;color:#12314f;border:1px solid #12314f}.btn:disabled{opacity:.5;cursor:default}
+ .rowstatus{font-size:11.5px;color:var(--warn);font-weight:600}
  body{position:relative}
 </style></head><body>
 {% if live %}<div class="banner"><b>For demo purposes only — using demo data.</b> Fictional issuer and counterparty, synthetic documents, indicative risk figures. Nothing here is a real trade.</div>
@@ -40,7 +42,7 @@
 <tbody>
 {% for r in rows %}
 <tr class="r-{{ r.state }}"><td class="mono"><a href="run_report.html#{{ r.doc_id }}">{{ r.trade_id }}</a></td><td>{{ r.product }}</td><td class="mono">{{ r.underlying }}</td><td class="num">{{ r.notional }}</td><td class="mono">{{ r.maturity }}</td><td class="num">{{ r.delta }}</td><td class="num"{% if r.state != 'ATTESTED' %} style="font-weight:700;color:var(--bad)"{% endif %}>{{ r.delta_usd_fmt }}</td><td class="num">{{ r.vega }}</td>
-<td><span class="st st-{{ r.state }}">{{ r.state }}</span><div class="why">{{ r.why }} <a href="run_report.html#{{ r.doc_id }}" class="ev" data-doc="{{ r.doc_id }}">→ evidence</a></div>{% if live %}<div class="rowact"><a href="/booking/{{ r.trade_id }}">edit booking</a> · <a href="#" class="rl" data-doc="{{ r.doc_id }}">relaunch this trade</a></div>{% endif %}</td></tr>
+<td><span class="st st-{{ r.state }}">{{ r.state }}</span><div class="why">{{ r.why }} <a href="run_report.html#{{ r.doc_id }}" class="ev" data-doc="{{ r.doc_id }}">→ evidence</a></div>{% if live %}<div class="rowact"><a class="btn mini sec" href="/booking/{{ r.trade_id }}">Edit booking</a><button class="btn mini rl" data-doc="{{ r.doc_id }}" title="Re-read the term sheet with both families and re-check it against the current booking (~1–4 min)">Relaunch this trade</button><span class="rowstatus" id="rs-{{ r.doc_id }}"></span></div>{% endif %}</td></tr>
 {% endfor %}
 </tbody></table></div>
 <p class="ind">Risk figures (delta, delta USD-equivalent, vega, FX) are indicative fixtures for the demo book and are not computed by this system. Convention: the delta of the booked position from the desk's side (the desk sold the call and issued the note, so both are short the index); the hedge is the mirror image and is not shown. The trust column asserts direction of concern, never magnitude. Trust states: ATTESTED — booking attested against the document, both model families agree on every field; DISAGREEMENT — reading uncertain, human review queued; MISMATCH — documented and booked terms differ; STALE — a prior attestation no longer applies because the document, or a booking field that affects the terms of the deal, changed since. The attestation is a hash of the deal-terms fields of the booking (the fields the document governs), so fixings, marks, accruals and lifecycle flags never invalidate it; an amendment to a term does.</p>
@@ -93,21 +95,28 @@
 {% if live %}<script>
 (function(){
   var st = document.getElementById('jobstatus'), btn = document.getElementById('relaunch');
+  var rowBtns = document.querySelectorAll('button.rl');
+  function setBusy(b){ btn.disabled = b; rowBtns.forEach(function(x){ x.disabled = b; }); }
+  function rowStatus(docs, text){ (docs || []).forEach(function(d){ var el = document.getElementById('rs-' + d); if (el) el.textContent = text; }); }
+  var t0 = null;
   function poll(id){
     fetch('/api/status/' + id).then(function(r){ return r.json(); }).then(function(j){
+      var secs = t0 ? Math.round((Date.now() - t0) / 1000) : 0;
       if (j.status === 'running' || j.status === 'queued') {
-        st.textContent = 'relaunch running: ' + (j.current || '') + ' (' + j.done + '/' + j.total + ' done, ~1 min per trade: both families extract, code compares, triage drafts)';
-        setTimeout(function(){ poll(id); }, 4000);
-      } else if (j.status === 'done') { st.textContent = 'done — reloading'; location.reload(); }
-      else { st.textContent = 'relaunch failed: ' + (j.error || j.status); btn.disabled = false; }
+        st.textContent = 'relaunch running: ' + (j.current || '') + ' (' + j.done + '/' + j.total + ' done, ' + secs + 's; both families extract, code compares, triage drafts)';
+        rowStatus(j.docs, ''); if (j.current) rowStatus([j.current], '⏳ running ' + secs + 's…');
+        (j.docs || []).slice(0, j.done).forEach(function(d){ rowStatus([d], '✓ re-checked, reloading when all done'); });
+        setTimeout(function(){ poll(id); }, 3000);
+      } else if (j.status === 'done') { st.textContent = 'done — reloading'; rowStatus(j.docs, '✓ done'); location.reload(); }
+      else { st.textContent = 'relaunch failed: ' + (j.error || j.status); rowStatus(j.docs, '✗ ' + (j.error || j.status)); setBusy(false); }
     });
   }
-  function launch(q){
-    btn.disabled = true; st.textContent = 'starting…';
+  function launch(q, docs){
+    setBusy(true); st.textContent = 'starting…'; rowStatus(docs, '⏳ queued…'); t0 = Date.now();
     fetch('/api/relaunch' + q, {method: 'POST'}).then(function(r){ return r.json(); }).then(function(j){
-      if (!j.job) { st.textContent = j.message || 'nothing to do'; btn.disabled = false; return; }
+      if (!j.job) { st.textContent = j.message || 'nothing to do'; rowStatus(docs, j.message || ''); setBusy(false); return; }
       st.textContent = 'queued ' + j.docs.join(', '); poll(j.job);
-    });
+    }).catch(function(e){ st.textContent = 'request failed: ' + e; setBusy(false); });
   }
   btn.addEventListener('click', function(){
     fetch('/api/state').then(function(r){ return r.json(); }).then(function(s){
@@ -115,10 +124,10 @@
       else if (confirm('No booking has changed since the last check. Re-check the whole book? (15 trades, ~15 minutes)')) launch('?scope=all');
     });
   });
-  document.querySelectorAll('a.rl').forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); launch('?doc=' + a.getAttribute('data-doc')); }); });
+  rowBtns.forEach(function(b){ b.addEventListener('click', function(e){ e.preventDefault(); var d = b.getAttribute('data-doc'); launch('?doc=' + d, [d]); }); });
   fetch('/api/state').then(function(r){ return r.json(); }).then(function(s){
     var running = Object.keys(s.jobs).filter(function(k){ return s.jobs[k].status === 'running' || s.jobs[k].status === 'queued'; });
-    if (running.length) { btn.disabled = true; poll(running[0]); }
+    if (running.length) { setBusy(true); t0 = Date.now() - 1000 * Math.round(Date.now()/1000 - (s.jobs[running[0]].started || Date.now()/1000)); poll(running[0]); }
     else if (s.stale.length) st.textContent = s.stale.length + ' booking(s) changed since the last check: ' + s.stale.join(', ') + ' — press Relaunch';
   });
 })();
