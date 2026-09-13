@@ -68,6 +68,10 @@ class EvalResult:
     reference_lane: dict | None = None  # CS4 results when the lane ran
     not_evaluable: dict[str, int] = field(default_factory=dict)  # reason -> count of checks that were NOT performed (never auto-cleared, never flagged)
     n_truth_absent: int = 0   # truth values that are ABSENT (agreement/accuracy count agreeing on absence)
+    # family -> {"calls": n, "by_outcome": {outcome: n}, "docs": [...]} for extraction calls that never returned a
+    # reading (API_ERROR / TIMEOUT / DEADLINE / REFUSAL). A billing or transport event lowers the accuracy number
+    # exactly like a misread would; this is the line that says which one it was.
+    never_completed: dict[str, dict] = field(default_factory=dict)
 
     def summary(self) -> dict[str, Any]:
         r = lambda x: {"hit": x.hit, "n": x.n}  # noqa: E731
@@ -77,6 +81,7 @@ class EvalResult:
                 "trap_resolved": r(self.trap_resolved), "auto_clear_correctness": r(self.auto_clear_correctness),
                 "agreement": r(self.agreement),
                 "extraction_accuracy": {k: r(v) for k, v in self.extraction_accuracy.items()},
+                "never_completed": self.never_completed,
                 "cost_total_usd": self.cost_total, "cost_per_doc_usd": self.cost_per_doc,
                 "source": self.source, "field_accuracy": self.field_accuracy, "by_product": self.by_product,
                 "reference_lane": self.reference_lane, "not_evaluable": self.not_evaluable, "n_truth_absent": self.n_truth_absent,
@@ -186,6 +191,20 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
                           "deferred_false_flags": deferred_flags,
                           "not_evaluable": sum(1 for f in ref_findings if f.type == FindingType.NOT_EVALUABLE)}
 
+    # calls that never produced a reading: the model was not asked (or did not answer), it did not read wrongly
+    never: dict[str, dict] = {}
+    for l in ctx.tracer.lines:
+        if l["run_id"] != ctx.run_id or not l["step"].startswith("extract:") or l["doc_id"] not in results:
+            continue
+        if l["outcome"] in ("OK", "MALFORMED", "CACHED"):
+            continue
+        fam = l["step"].split(":", 1)[1]
+        e = never.setdefault(fam, {"calls": 0, "by_outcome": {}, "docs": []})
+        e["calls"] += 1
+        e["by_outcome"][l["outcome"]] = e["by_outcome"].get(l["outcome"], 0) + 1
+        if l["doc_id"] not in e["docs"]:
+            e["docs"].append(l["doc_id"])
+
     costs = [r.cost_usd for r in results.values()]
     total = round(sum(costs), 4)
     ref_cost = round(sum(l["cost_usd"] for l in ctx.tracer.lines if l["doc_id"] == "REF"), 4)
@@ -206,7 +225,7 @@ def score(manifest: dict, results: dict[str, "DocumentResult"], ctx: "RunContext
         cost_min=round(min(costs, default=0), 4), cost_max=round(max(costs, default=0), 4),
         n_docs=len(results), planted_detail=planted_detail, false_flag_detail=ff_detail,
         auto_clear_violations=violations, models=models, source=ctx.source, field_accuracy=field_acc, by_product=by_product,
-        reference_lane=reference_lane, not_evaluable=not_evaluable, n_truth_absent=n_truth_absent,
+        reference_lane=reference_lane, not_evaluable=not_evaluable, n_truth_absent=n_truth_absent, never_completed=never,
         stub=all(l.get("detail") and "stub" in str(l.get("detail")) for l in ctx.tracer.lines if l["step"].startswith("extract:")),
     )
 
@@ -267,10 +286,17 @@ def render_markdown(ev: EvalResult) -> str:
         lines += [f"**Checks not performed ({n_ne}), excluded from every rate above** — a check the gate could not perform is neither a clean field nor a flag; it is listed, never auto-cleared:", ""]
         lines += [f"- {k}: {v}" for k, v in sorted(ev.not_evaluable.items(), key=lambda kv: -kv[1])] + [""]
     # 2. extraction accuracy
-    lines += ["## 2. Extraction accuracy per family (vs the golden truth files; agreeing on absence counts, see n absent above)", "", "| family | correct fields | n |", "|---|---|---|"]
+    lines += ["## 2. Extraction accuracy per family (vs the golden truth files; agreeing on absence counts, see n absent above)", "",
+              "| family | correct fields | n | calls that never completed (billing / transport / deadline / refusal) |", "|---|---|---|---|"]
     for fam, r in ev.extraction_accuracy.items():
-        lines.append(f"| {fam} | {r.render()} | {r.n} |")
+        nc = ev.never_completed.get(fam)
+        why = "0" if not nc else (f"{nc['calls']} on {', '.join(nc['docs'])}: " + ", ".join(f"{k} ×{v}" for k, v in nc["by_outcome"].items()))
+        lines.append(f"| {fam} | {r.render()} | {r.n} | {why} |")
     lines.append("")
+    if ev.never_completed:
+        lines += ["A call that never completed makes every field of that document MALFORMED for that family, which lowers the accuracy "
+                  "number exactly like a misread would. The last column says which it was, so a billing, quota or transport event is "
+                  "read as such and not debugged as a model or parser regression (the trace line carries the provider's message).", ""]
     # 3. per product type
     if ev.by_product:
         lines += ["## 3. Per product type", "", "| product | documents | planted | strict catch | clean fields | false flags |", "|---|---|---|---|---|---|"]

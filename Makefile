@@ -72,6 +72,11 @@ eval-diff:       ## make eval-diff A=runs/<baseline> B=runs/<candidate>
 site:            ## assemble a self-contained static site (desk view = index.html) in site/
 	$(PY) scripts/build_site.py
 
+deploy-service:  ## Cloud Run live service (FastAPI, Dockerfile at root). make deploy-service PROJECT=... REGION=us-central1
+	gcloud run deploy coherence-gate-demo --source . --project $(PROJECT) --region $(REGION) --allow-unauthenticated --quiet \
+	  --min-instances 1 --max-instances 1 --no-cpu-throttling --cpu-boost \
+	  --set-secrets GOOGLE_API_KEY=cg-google-api-key:latest,ANTHROPIC_API_KEY=cg-anthropic-api-key:latest,MXBAI_API_KEY=cg-mxbai-api-key:latest
+
 deploy-site:     ## Cloud Run static site (nginx). make deploy-site PROJECT=... REGION=us-central1
 	@test -d site || $(MAKE) site
 	gcloud run deploy coherence-gate-demo --source site --project $(PROJECT) --region $(REGION) --allow-unauthenticated --quiet
