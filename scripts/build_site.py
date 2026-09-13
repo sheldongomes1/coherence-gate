@@ -13,9 +13,11 @@ CSS = """<style>body{margin:0;padding:24px 20px 60px;background:#fbfaf7;color:#1
 table{border-collapse:collapse;background:#fff;border:1px solid #e4e1da;font-size:13px;margin:10px 0}th,td{padding:6px 9px;border-bottom:1px solid #e4e1da;text-align:left;vertical-align:top}th{background:#f3f1ec}
 code,pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}pre{background:#f6f4ef;padding:10px;overflow-x:auto}h1{font-size:22px}h2{font-size:17px;border-bottom:1px solid #e4e1da;padding-bottom:4px;margin-top:28px}
 nav{font-size:13px;color:#6b6862;margin-bottom:14px}nav a{margin-right:12px}</style>"""
-NAV = ('<nav><a href="index.html">desk view</a><a href="run_report.html">run report</a><a href="eval_report.html">eval report</a>'
-       '<a href="BRIEF.html">brief</a><a href="eval_log.html">eval log</a><a href="eval_diff.html">model-swap diff</a>'
-       '<a href="eval_diff_cycle.html">feedback-cycle diff</a><a href="MODEL-RISK.html">model risk</a><a href="README.html">readme</a></nav>')
+_LINKS = [("index.html", "desk view"), ("run_report.html", "run report"), ("eval_report.html", "eval report"), ("BRIEF.html", "brief"),
+          ("eval_log.html", "eval log"), ("eval_diff.html", "model-swap diff"), ("eval_diff_cycle.html", "feedback-cycle diff"),
+          ("MODEL-RISK.html", "model risk"), ("README.html", "readme")]
+NAV = ('<nav style="font:13px -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#6b6862;margin-bottom:14px">'
+       + " · ".join(f'<a href="{h}" style="color:#12314f;text-decoration:none">{t}</a>' for h, t in _LINKS) + "</nav>")
 
 
 def md_to_html(src: Path, dst: Path, title: str) -> None:
@@ -41,7 +43,7 @@ def main() -> None:
     # nav on the two generated pages too
     for page in ("desk_view.html", "index.html", "run_report.html"):
         p = SITE / page; h = p.read_text()
-        p.write_text(h.replace("<body>", "<body>" + NAV.replace("<nav>", '<nav style="font:13px system-ui;color:#6b6862;margin-bottom:12px">'), 1))
+        p.write_text(h.replace("<body>", "<body>" + NAV, 1))
     (SITE / "Dockerfile").write_text(
         "FROM nginx:1.27-alpine\n"
         "COPY . /usr/share/nginx/html\n"
