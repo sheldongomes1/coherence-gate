@@ -217,7 +217,7 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
                "citations": [_clean_cite(c["text_span"]) for c in f.get("citations", [])],
                "consequence": consequence(f) if f["type"] in RED_TYPES else "",
                "triage": (f.get("triage") or {}).get("desk_query"), "classification": (f.get("triage") or {}).get("classification"),
-               "feedback": ({"verdict": fb_rows[k]["verdict"], "note": fb_rows[k].get("note") or "", "ts": str(fb_rows[k].get("ts", ""))[:16]}
+               "feedback": ({"verdict": fb_rows[k]["verdict"], "note": fb_rows[k].get("note") or "", "ts": str(fb_rows[k].get("ts", ""))[:16].replace("T", " ")}
                             if (k := f"{d['doc_id']}:{f['field']}") in fb_rows else None)}
               for f in d["findings"]]
         order = {t: i for i, t in enumerate(["MISMATCH", "TS_ABSENT", "BOOKING_ABSENT", "RELATION_VIOLATION", "REFERENCE_INCONSISTENT",
