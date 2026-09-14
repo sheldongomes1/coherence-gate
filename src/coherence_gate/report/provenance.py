@@ -14,6 +14,7 @@ runtime dependency — the same reason the rest of the reporting is plain Jinja 
 """
 from __future__ import annotations
 
+import hashlib
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -475,7 +476,7 @@ def render_svg(g: Graph) -> str:
 
 
 def write(run_dir: Path, doc_id: str, golden_href: str | None = None,
-          trace: list[dict] | None = None) -> Path | None:
+          trace: list[dict] | None = None, fingerprint: str | None = None) -> Path | None:
     """Write `<run>/<doc>/provenance.svg`. A failure here must never cost the page: the graph is a
     view of the run, not part of it, so the error is drawn instead of raised."""
     out = Path(run_dir) / doc_id / "provenance.svg"
@@ -489,22 +490,31 @@ def write(run_dir: Path, doc_id: str, golden_href: str | None = None,
                f'<text x="14" y="44" font-size="10" fill="{C["bad"]}">{_esc(f"{type(exc).__name__}: {exc}"[:110])}</text></svg>')
     try:
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(svg)
+        out.write_text(svg if fingerprint is None else f"{svg}{FP}{fingerprint}-->")
         return out
     except OSError:
         return None
 
 
-def _is_fresh(doc_dir: Path, svg: Path, trace_mtime: float) -> bool:
-    """A graph is a pure function of the document's artifacts and the run's trace, so it only needs
-    redrawing when one of those is newer. Without this, rendering a page rewrote fifteen files that
-    had not changed — including the ones committed in `runs/showcase`."""
+FP = "<!--inputs:"          # fingerprint of the artifacts a graph was drawn from, carried in the file
+
+
+def _fingerprint(doc_dir: Path, trace_rows: list[dict]) -> str:
+    """Hash what the graph is drawn FROM. Modification times were the obvious check and the wrong one:
+    a file stamped in the future stays 'fresh' forever, and every file in a copied run shares one
+    timestamp, so equality was carrying the whole decision."""
+    h = hashlib.sha256()
+    for p in sorted(doc_dir.glob("*.json")):
+        h.update(p.name.encode()); h.update(p.read_bytes())
+    h.update(json.dumps(trace_rows, sort_keys=True, default=str).encode())
+    return h.hexdigest()[:16]
+
+
+def _is_fresh(svg: Path, fingerprint: str) -> bool:
     if not svg.exists():
         return False
-    svg_m = svg.stat().st_mtime
-    if trace_mtime > svg_m:
-        return False
-    return all(p.stat().st_mtime <= svg_m for p in doc_dir.glob("*.json"))
+    tail = svg.read_text()[-64:]
+    return f"{FP}{fingerprint}-->" in tail
 
 
 def write_all(run_dir: Path, golden_href: str | None = None, trace: list[dict] | None = None,
@@ -512,12 +522,11 @@ def write_all(run_dir: Path, golden_href: str | None = None, trace: list[dict] |
     """Draw every document whose graph is out of date. Returns the doc ids actually redrawn."""
     run_dir = Path(run_dir)
     trace = read_trace(run_dir) if trace is None else trace
-    tpath = run_dir / "trace.jsonl"
-    t_m = tpath.stat().st_mtime if tpath.exists() else 0.0
     written: list[str] = []
     for d in sorted(p for p in run_dir.iterdir() if p.is_dir() and (p / "summary.json").exists()):
-        if not force and _is_fresh(d, d / "provenance.svg", t_m):
+        fp = _fingerprint(d, [r for r in trace if r.get("doc_id") == d.name])
+        if not force and _is_fresh(d / "provenance.svg", fp):
             continue
-        if write(run_dir, d.name, golden_href, trace=trace):
+        if write(run_dir, d.name, golden_href, trace=trace, fingerprint=fp):
             written.append(d.name)
     return written

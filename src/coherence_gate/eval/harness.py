@@ -29,7 +29,10 @@ def build_context(golden: Path, out_dir: Path, *, stub: bool, config: Config | N
     tracer.step(doc_id="-", step="config", outcome="OK", detail={
         "models": {p.family: p.model for p in config.pins}, "extraction": asdict(config.extraction),
         "prompt_sha": prompt_sha(config.extraction.prompt_version), "stub": stub, "booking_transport": booking_transport,
-        "source": source, "parser": parser_name if source == "pdf" else None, "reference_lane": reference,
+        "source": source, "parser": parser_name if source == "pdf" else None,
+        "reference_lane": {"requested": bool(reference), "loaded": bool(reference and not stub),
+                           "reason": "stub run: the methodology is not extracted, so index claims are NOT_EVALUABLE"
+                                     if (reference and stub) else None},
         "bookings_dir": str(bookings_dir) if bookings_dir else None})
     for pin in config.pins:
         if not pin.pinned:
@@ -59,7 +62,9 @@ def build_context(golden: Path, out_dir: Path, *, stub: bool, config: Config | N
     ctx = RunContext(run_id=run_id, out_dir=run_dir, config=config, tracer=tracer, schema=load_schema(),
                      booking=booking, extractors=extractors, triage=triage,
                      source=source, parser=parser, parsed_dir=golden / "parsed")
-    ctx.reference_wanted = bool(reference and not stub)
+    # wanted even on a stub run: `check_reference` then reports every index claim as NOT_EVALUABLE with
+    # the reason, instead of the claims silently vanishing from the denominators (SKILL.md: absence announces itself)
+    ctx.reference_wanted = bool(reference)
     if reference and not stub:
         from ..reference import load_reference
         ctx.reference = load_reference(ctx)

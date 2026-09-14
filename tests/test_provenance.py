@@ -116,18 +116,25 @@ def test_links_resolve_from_wherever_the_graph_is_read(tmp_path):
         assert (SHOWCASE / doc / h).exists(), f"file link broken: {h}"
 
 
-def test_a_fresh_graph_is_not_redrawn_and_a_stale_one_is(tmp_path):
-    """Rendering a page rewrote fifteen unchanged files, including the ones committed in runs/showcase."""
-    import os, time
+def test_a_fresh_graph_is_not_redrawn_and_a_changed_one_is(tmp_path):
+    """Rendering a page rewrote fifteen unchanged files, including the ones committed in runs/showcase.
+    Freshness is decided by a hash of the inputs, so it survives copied runs and clock games."""
+    import json as _json
+    import os
     run = tmp_path / "run"
     shutil.copytree(SHOWCASE, run)
     first = P.write_all(run, force=True)
     assert first, "nothing was drawn"
     assert P.write_all(run) == [], "unchanged graphs were redrawn"
+
     doc = first[0]
-    time.sleep(0.01)
-    os.utime(run / doc / "summary.json", None)          # that document changed
-    assert P.write_all(run) == [doc]
+    os.utime(run / doc / "summary.json", None)          # touched but unchanged: still fresh
+    assert P.write_all(run) == []
+    os.utime(run / doc / "provenance.svg", (2 ** 31, 2 ** 31))   # stamped far in the future
+    summary = _json.loads((run / doc / "summary.json").read_text())
+    summary["document_lane"] = "AUTO_CLEAR" if summary.get("document_lane") != "AUTO_CLEAR" else "TRIAGE"
+    (run / doc / "summary.json").write_text(_json.dumps(summary))
+    assert P.write_all(run) == [doc], "a genuinely changed document was not redrawn"
 
 
 def test_the_trace_is_parsed_once_for_a_whole_run(tmp_path):

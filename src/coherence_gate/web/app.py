@@ -9,12 +9,14 @@ One instance (Cloud Run max-instances=1) keeps the state coherent; it is a demo,
 """
 from __future__ import annotations
 
+import hashlib
 import html as _html
 from contextlib import asynccontextmanager
 import json
 import os
 import queue
 import shutil
+import tempfile
 import threading
 import time
 import uuid
@@ -109,6 +111,30 @@ def _worker() -> None:
             _queue.task_done()
 
 
+def _full_read(doc: str, entry: dict, ctx) -> None:
+    """Both families re-read the document: minutes, so it cannot run under the page lock. It writes
+    into a staging directory and the finished document is swapped in under the lock, so a page can
+    never pair this trade's new findings.json with its old summary.json."""
+    from ..pipeline import run_document
+    staging = Path(tempfile.mkdtemp(dir=str(STATE), prefix="staging-"))   # same filesystem: rename is atomic
+    try:
+        ctx.out_dir = staging
+        run_document(GOLDEN / entry["termsheet"], ctx, trade_id=None,
+                     pdf_path=GOLDEN / entry["pdf"], product_type=entry.get("product_type"))
+        fresh = staging / doc
+        if fresh.exists():
+            with lock:
+                target, replaced = RUN / doc, RUN / f".{doc}.replaced"
+                shutil.rmtree(replaced, ignore_errors=True)
+                if target.exists():
+                    target.rename(replaced)
+                fresh.rename(target)
+                shutil.rmtree(replaced, ignore_errors=True)
+    finally:
+        ctx.out_dir = RUN
+        shutil.rmtree(staging, ignore_errors=True)
+
+
 def _run_docs(job_id: str, doc_ids: list[str], full: bool = False) -> None:
     """full=False: re-check against the current booking reusing the attested extractions (seconds).
     full=True: re-read the term sheet with both families (1–4 min per trade)."""
@@ -126,16 +152,15 @@ def _run_docs(job_id: str, doc_ids: list[str], full: bool = False) -> None:
         for i, doc in enumerate(doc_ids, 1):
             job.update({"status": "running", "current": doc, "done": i - 1, "total": len(doc_ids), "mode": "full" if full else "recheck"})
             e = man[doc]
-            # no page lock while the pipeline runs: artifacts are written atomically and the worker is single
             if full:
-                run_document(GOLDEN / e["termsheet"], ctx, trade_id=None, pdf_path=GOLDEN / e["pdf"], product_type=e.get("product_type"))
+                _full_read(doc, e, ctx)
             else:
                 try:
                     with lock:   # seconds: a page render never pairs this trade's new findings with its old summary
                         recheck_document(doc, ctx, RUN, product_type=e.get("product_type"))
                 except (FileNotFoundError, ValueError) as why:  # nothing reusable: full read, and say so
                     job["mode"] = f"full ({why})"
-                    run_document(GOLDEN / e["termsheet"], ctx, trade_id=None, pdf_path=GOLDEN / e["pdf"], product_type=e.get("product_type"))
+                    _full_read(doc, e, ctx)
             job["done"] = i
         job["timings"]["docs_s"] = round(time.time() - t_docs, 1)
         t_r = time.time()
@@ -148,6 +173,22 @@ def _run_docs(job_id: str, doc_ids: list[str], full: bool = False) -> None:
 
 
 NO_STORE = {"Cache-Control": "no-store, max-age=0"}
+_page_cache: dict[str, tuple[str, str]] = {}      # page -> (inputs fingerprint, html)
+
+
+def _desk_inputs() -> str:
+    """What the desk view is a function of: the run's artifacts, the editable booking store, and the
+    recorded verdicts. Re-rendering 400 KB for every reader when none of that moved is 30 ms of work
+    per hit for an identical answer."""
+    parts = [str(len(jobs))]
+    for base in (RUN, STORE):
+        for p in sorted(base.rglob("*.json")) if base.exists() else []:
+            st = p.stat()
+            parts.append(f"{p}:{st.st_mtime_ns}:{st.st_size}")
+    if FEEDBACK.exists():
+        st = FEEDBACK.stat()
+        parts.append(f"fb:{st.st_mtime_ns}:{st.st_size}")
+    return hashlib.sha256("|".join(parts).encode()).hexdigest()[:16]
 
 
 def get_ctx():
@@ -185,8 +226,12 @@ def _active_docs() -> set[str]:
 @app.get("/desk_view.html", response_class=HTMLResponse)
 def desk_view() -> HTMLResponse:
     with lock:
-        render_pages("desk")          # STALE is recomputed against the editable store at page time
-        return HTMLResponse((RUN / "desk_view.html").read_text(), headers=NO_STORE)
+        fp = _desk_inputs()
+        cached = _page_cache.get("desk")
+        if not cached or cached[0] != fp:
+            render_pages("desk")      # STALE is recomputed against the editable store at page time
+            _page_cache["desk"] = (fp, (RUN / "desk_view.html").read_text())
+        return HTMLResponse(_page_cache["desk"][1], headers=NO_STORE)
 
 
 @app.get("/run_report.html", response_class=HTMLResponse)
@@ -213,6 +258,10 @@ def api_relaunch(doc: str | None = None, scope: str = "stale", full: int = 0) ->
         docs = stale_docs()
     if not docs:
         return JSONResponse({"job": None, "message": "nothing is stale; use scope=all to re-check the whole book"})
+    known = set(_manifest())
+    unknown = [d for d in docs if d not in known]
+    if unknown:   # refuse before a job id exists: an errored job would otherwise sit in /api/state forever
+        return JSONResponse({"error": f"unknown document(s): {', '.join(unknown[:5])}"}, status_code=400)
     docs = [d for d in docs if d not in _active_docs()]   # a trade already queued or running is not queued twice
     if not docs:
         return JSONResponse({"job": None, "message": "already queued or running"})
@@ -245,13 +294,20 @@ async def api_feedback(request: Request) -> JSONResponse:
     """CS8b: the desk's verdict on one finding. Appends a record in the `cg feedback` shape; never
     changes model or pipeline behaviour (it feeds `cg propose`, which is human-reviewed and eval-gated)."""
     from datetime import datetime, timezone
-    body = await request.json()
+    try:
+        body = await request.json()
+        if not isinstance(body, dict):
+            raise ValueError("body must be a JSON object")
+    except Exception:  # noqa: BLE001 — a public endpoint answers a bad body with 400, never a traceback
+        return JSONResponse({"error": "body must be a JSON object: {doc, field, verdict, note}"}, status_code=400)
     doc, field, verdict = str(body.get("doc", "")), str(body.get("field", "")), str(body.get("verdict", ""))
     note = str(body.get("note", ""))[:500]
     if verdict not in VERDICTS or not doc.isalnum() or not field.replace("_", "").replace(":", "").isalnum():
         return JSONResponse({"error": "verdict must be desk_accepted or desk_rejected; doc and field must name a finding"}, status_code=400)
+    ftype = str(body.get("type") or "")
     fpath = RUN / doc / "findings.json"
-    f = next((x for x in json.loads(fpath.read_text()) if x["field"] == field), None) if fpath.exists() else None
+    candidates = [x for x in json.loads(fpath.read_text()) if x["field"] == field] if fpath.exists() else []
+    f = next((x for x in candidates if x["type"] == ftype), None) or (candidates[0] if candidates else None)
     if f is None:
         return JSONResponse({"error": f"no finding {doc}:{field} in the current run"}, status_code=404)
     run_id = next((json.loads(l)["run_id"] for l in (RUN / "trace.jsonl").read_text().splitlines() if '"config"' in l), RUN.name)
@@ -308,6 +364,7 @@ async def booking_save(trade_id: str, request: Request):
         return HTMLResponse("unknown trade", status_code=404)
     rec = json.loads(p.read_text())
     form = await request.form()
+    bad: list[str] = []
     for k in rec:   # only keys the record already has; values are typed like the existing value, capped in length
         if k in form:
             raw = str(form[k]).strip()[:2000]
@@ -322,7 +379,14 @@ async def booking_save(trade_id: str, request: Request):
                 else:
                     rec[k] = raw
             except (ValueError, json.JSONDecodeError):
-                rec[k] = raw
+                # silently writing "not-a-number" into a numeric booking field would make the store
+                # disagree with itself, and the gate would report a type problem as a term problem
+                bad.append(f"{k}: {raw[:40]!r} is not a {type(old).__name__}")
+    if bad:
+        return HTMLResponse(
+            "<p>Not saved. These values do not fit the booked field's type:</p><ul>"
+            + "".join(f"<li>{_html.escape(b)}</li>" for b in bad)
+            + f'</ul><p><a href="/booking/{_html.escape(trade_id)}">back to the booking</a></p>', status_code=400)
     p.write_text(json.dumps(rec, indent=2))
     doc = next((d for d, e in _manifest().items() if e["trade_id"] == trade_id), None)
     return RedirectResponse(f"/?relaunch={doc}" if doc else "/", status_code=303)
@@ -342,7 +406,11 @@ def _site_index() -> RedirectResponse:
 
 
 # static mounts come AFTER the explicit routes above (a mount registered earlier would shadow them)
-app.mount("/golden", StaticFiles(directory=str(GOLDEN)), name="golden")
+# Only the golden subdirectories the pages actually link to. A wholesale /golden mount also served
+# `truth/` — the eval's answer key — next to the demo it grades.
+for _sub in ("pdf", "parsed", "termsheets", "bookings"):
+    if (GOLDEN / _sub).is_dir():
+        app.mount(f"/golden/{_sub}", StaticFiles(directory=str(GOLDEN / _sub)), name=f"golden_{_sub}")
 
 
 @app.get("/site")

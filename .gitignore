@@ -23,3 +23,5 @@ runs/*
 site/
 # interview packet and prep: personal, never published
 private/
+# the demo service's mutable state: seeded from runs/showcase at startup, never source
+state/
