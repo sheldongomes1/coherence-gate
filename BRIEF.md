@@ -15,15 +15,19 @@ execution tool. This is the system I wish had existed upstream of it.
 ## What it does
 
 ```
-term_sheet.txt ──► Extractor A (Gemini 3.8 Flash) ──┐
-               ──► Extractor B (Claude Opus 5)    ──┴─► guard ─► normalize ─► merge      (code)
-                                                                                 │
-booking store ─► MCP tool booking_lookup(trade_id) ───────────────────► comparator (code)
-                                                                                 │
-                                                                    findings, typed per field
-                                                              ┌──────────────────┴────────────┐
-                                                       AUTO_CLEAR lane                   TRIAGE agent (LLM)
-                                                       agree ∧ pass → log only           drafts the desk query
+term sheet (PDF) ─► parse ─► Extractor A (Gemini 3.8 Flash) ──┐
+                             Extractor B (Claude Opus 5)   ───┴─► guard ─► normalize ─► merge   (code)
+                                                                                    │
+booking store ─► MCP tool booking_lookup(trade_id) ────────────────────────► comparator (code)
+                                                                                    │
+index methodology ─► reference lane (read once, cached) ─► claims vs rules ──────────┤
+                                                                                    │
+                                                               findings, typed per field
+                                         ┌──────────────────────────┼──────────────────────┐
+                                   AUTO_CLEAR lane            TRIAGE agent (LLM)       INFO lane
+                                   agree ∧ pass → no touch    drafts the desk query    not performed:
+                                                                                       never a pass,
+                                                                                       never a flag
 ```
 
 The document is parsed into versioned markdown (Mixedbread, behind a one-module `parse(pdf)`

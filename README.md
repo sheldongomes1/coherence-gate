@@ -25,7 +25,8 @@ stated.
 > `gcloud run deploy coherence-gate-demo --source .` (Dockerfile at the root; API keys from Secret Manager;
 > one instance so the demo state is coherent). The static bundle alone is `make site`.
 >
-> Status: **v0.2.1** (Phases 1 and 2 built end to end; Sunday review pass: NOT_EVALUABLE disposition, fast relaunch, hardened live service). Numbers live in [`BRIEF.md`](BRIEF.md)
+> Status: **v0.3.0** (Phases 1 and 2 built end to end, plus the observability layer: a provenance graph per deal,
+> ADK packaging for Agent Engine, and a BigQuery trace sink. Four independent review passes; every finding fixed). Numbers live in [`BRIEF.md`](BRIEF.md)
 > (generated from a run, never typed) and every iteration is in [`eval_log.md`](eval_log.md).
 > Phase plan and cut lines: [`docs/DESIGN.md`](docs/DESIGN.md).
 
@@ -35,7 +36,7 @@ stated.
 git clone https://github.com/sheldongomes1/coherence-gate && cd coherence-gate
 make setup                 # uv venv + deps; writes .env from .env.example
 # fill GOOGLE_API_KEY and ANTHROPIC_API_KEY in .env
-make test                  # deterministic core: 84+ unit tests, no API calls, ~3 s
+make test                  # deterministic core: 118 unit tests, no API calls, ~3 s
 make demo                  # the three-document walkthrough (triage on, ~3 min, ~$0.40); v2 demo script below
 make eval                  # all 15 golden docs (parsed PDFs, reference lane) -> runs/<ts>/eval_report.md (~12 min, ~$2.50 for the readings; desk queries via `cg triage --run` ~$0.25)
 uv run cg eval --resume runs/<ts>   # re-check documents whose calls completed there from their attested extractions; re-extract the rest (ADR-31)
@@ -116,22 +117,28 @@ plants, on four synthetic layout families, with one prompt per family. n=15: dir
 ## Architecture
 
 ```
-term_sheet.txt ──► Extractor A (Gemini) ──┐
-               ──► Extractor B (Claude) ──┴─► schema guard ─► normalize ─► merger (deterministic)
-                                                                              │
-booking store (JSON) ─► MCP tool booking_lookup(trade_id) ─────────► comparator (deterministic)
-                                                                              │
-                                                                   findings, typed per field
-                                                              ┌───────────────┴───────────────┐
-                                                        AUTO_CLEAR lane                 TRIAGE agent (LLM)
-                                                        (agree ∧ pass; log only)        drafts desk query
-                                                                              │
-                                                    run_report.html · trace.jsonl · eval_report.md
+term sheet (PDF) ─► parse(pdf) ─► Extractor A (Gemini) ──┐      cached, vendor-swappable
+                    parsed md    Extractor B (Claude) ───┴─► schema guard ─► normalize ─► merge   (code)
+                                                                                   │
+booking store ─► MCP tool booking_lookup(trade_id) ───────────────────────► comparator (code)
+                                                                                   │
+index methodology ─► reference lane (both families, cached) ─► claims vs rules ─────┤
+                                                                                   │
+                                                              findings, typed per field
+                                          ┌────────────────────────┼────────────────────────┐
+                                    AUTO_CLEAR lane          TRIAGE agent (LLM)        INFO lane
+                                    agree ∧ pass, no touch   drafts the desk query     not performed:
+                                                                                       never a pass,
+                                                                                       never a flag
+                                                                                   │
+        desk_view.html · run_report.html · <doc>/provenance.svg · trace.jsonl · eval_report.md
+                                                                                   │
+                       BigQuery sink (cost, calls that never completed, drift)  ·  Cloud Trace
 ```
 
 | Decided by code | Done by models |
 |---|---|
-| normalization, merge, match/no-match, tolerances, lanes, scoring | extraction with citations, declaring absence, drafting the desk query |
+| normalization, merge, match/no-match, tolerances, relations, lanes, attestation, scoring | extraction with citations, declaring absence, reading the methodology's rules, drafting the desk query |
 
 ## Documents
 

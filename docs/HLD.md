@@ -27,30 +27,45 @@ for what it cannot.
 ## 3. System architecture
 
 ```
-                        ┌─────────────────────────────────────────────────────────────┐
-                        │                     pipeline.py (one document)              │
-                        │                                                             │
- termsheet.txt ────────►│  load ──► extract(A: Gemini) ──┐                            │
-                        │       └─► extract(B: Claude) ──┴─► schema_guard ──► merger  │
-                        │                                                     │       │
- golden/bookings/*.json │   booking MCP server ◄── booking client ◄───────────┤       │
- (books & records)      │   booking_lookup(trade_id)                          ▼       │
-                        │                                                 comparator  │
-                        │                                                     │       │
-                        │                                          findings[] (typed) │
-                        │                                                     │       │
-                        │                                                   lanes     │
-                        │                                        ┌────────────┴─────┐ │
-                        │                                        ▼                  ▼ │
-                        │                                  AUTO_CLEAR           TRIAGE │
-                        │                                  (log only)        agent(LLM)│
-                        │                                                     │        │
-                        │  trace.jsonl ◄── every step ────────────────────────┘        │
-                        └─────────────────────────────────────────────────────────────┘
-                                                      │
-                        runs/<ts>/  findings.json · extractions/ · triage.json · trace.jsonl · run_report.html
-                                                      │
-                        eval/harness.py runs 12 docs ─► eval/scoring.py vs manifest.json ─► eval_report.md
+   term sheet (PDF or text)            booking store (books & records)      Versa methodology (PDF)
+            │                                      │                                  │
+            ▼                                      │                                  ▼
+     parse(pdf)   vendor ML, cached, swappable     │                     reference lane: both families
+            │     parsed markdown is what is cited │                     read the rulebook once, cached
+            ▼                                      │                                  │
+  ┌──────────────────────────────┐                 │                                  │
+  │ extract A (Gemini)           │  independent    │                                  │
+  │ extract B (Claude)           │  never told     │                                  │
+  └──────────────┬───────────────┘  about each other                                  │
+                 ▼                                 │                                  │
+       schema_guard   span must be verbatim; char offsets recomputed in code           │
+                 ▼                                 │                                  │
+       normalize ──► merge        agree or EXTRACTOR_DISAGREEMENT, never arbitrated    │
+                 │                                 ▼                                  │
+                 │                    booking_lookup(trade_id)  ── MCP only ──┐        │
+                 └─────────────┬───────────────────────────────────────────────┘       │
+                               ▼                                                       │
+                      comparator (tolerance table, in code) ── relations ──────────────┘
+                               │                               arithmetic      claims vs rules
+                               ▼
+                       findings[] typed:  CLEAN · MISMATCH · TS_ABSENT · BOOKING_ABSENT
+                               │          EXTRACTOR_DISAGREEMENT · MALFORMED_EXTRACTION
+                               │          RELATION_VIOLATION · REFERENCE_INCONSISTENT · NOT_EVALUABLE
+                               ▼
+                 lanes:   AUTO_CLEAR          TRIAGE                 INFO
+                          zero human touch    triage agent (LLM)     a check that was not performed:
+                                              drafts the desk query  never a pass, never a flag
+                               │
+  trace.jsonl ◄── every step, every model call, OTel-shaped spans ──┘
+                               │
+   runs/<ts>/   findings · extractions · merged · booking · triage · summary (attested hashes)
+                desk_view.html · run_report.html · <doc>/provenance.svg · eval_report.md
+                               │
+        ┌──────────────────────┼───────────────────────┐
+        ▼                      ▼                       ▼
+  BigQuery sink          desk feedback            eval/scoring vs manifest.json
+  (cost, never-           → proposals →           catch rate · false flags · ceiling
+   completed, drift)       human + eval gate
 ```
 
 ### 3.1 Components
@@ -66,7 +81,13 @@ for what it cannot.
 | `lanes.py` | code | AUTO_CLEAR vs TRIAGE, per field and per document | Yes |
 | `triage/agent.py` | model | For each non-clean finding: classify (advisory) and draft the desk query from the finding, its citations and the booking field (never the whole document, ADR-17) | No |
 | `trace.py` | code | Append one JSON line per step; wraps every model call | — |
-| `report/` | code | Static HTML + trace pretty-print | — |
+| `ingest/` | vendor + code | `parse(pdf)` behind one interface (Mixedbread, local fallback); parsed markdown is cached and is what every citation anchors into | No |
+| `reference/lane.py` | model + code | Extract the index methodology once (both families, cached); check term-sheet claims against its rules; `binding=default\|deferred` → NOT_EVALUABLE | Yes (the check; the rule is read by models) |
+| `report/` | code | Desk view, run report, trace pretty-print | — |
+| `report/provenance.py` | code | Per-deal graph drawn from the stored artifacts; every box links to the artifact that step produced (ADR-33) | — |
+| `web/app.py` | code | The demo service: desk view, booking edit, relaunch (recheck vs full re-read), desk feedback | — |
+| `sink/bq.py` | code | Load a run's trace into BigQuery, partitioned and clustered, with the drift views (ADR-35) | — |
+| `adk/` | code | The same functions composed as ADK workflow agents for Agent Engine; no LLM planner (ADR-34) | No |
 | `eval/` | code | Run all golden docs; binary scoring; `eval_report.md` with ceiling | — |
 
 ### 3.2 Data flow for one document (happy path, G11)
@@ -129,7 +150,21 @@ the report prints it in red and the autonomy story is declared dead in the same 
 prompt_tokens, output_tokens, latency_ms, outcome, cost_usd, detail`. Model version is the
 provider-reported id from the response where available. Cost uses `config/models.yaml`
 prices. `make trace` renders the latest run as a table; the eval report sums cost per
-document from these lines, never from estimates.
+document from these lines, never from estimates. Two things read the trace and neither changes it:
+
+- **Per-deal provenance graph** (ADR-33, `report/provenance.py`): the six stages for one document —
+  inputs, parse, the two readings, normalize and merge, the deterministic decision, lanes and output —
+  with what flowed on each edge, what each step cost, and a link from every box to the artifact that
+  step produced. Colour separates completed from reused-under-an-unchanged-hash from never-completed,
+  so a resumed run cannot read as a cheap one. Drawn from stored artifacts, so it can be produced for
+  any past run, including the ones parked as invalid.
+- **BigQuery sink** (ADR-35, `cg trace-export`): the same lines, partitioned by day and clustered by
+  run, step and document, with two derived columns — `family` and `completed` — and three views:
+  cost by run split into readings and desk queries, calls that never completed by family, and the
+  per-family latency and thinking profile. The questions that only exist across runs are SQL.
+
+On Agent Engine the OTel-shaped spans land in Cloud Trace without a second instrumentation; the sink
+is the offline path for runs that happen on a laptop.
 
 ## 7. Evaluation architecture
 
@@ -144,9 +179,19 @@ document. Every number carries its n. See LLD §14.
 Both model families are first-class in Vertex Model Garden: Gemini via `google-genai` with
 `GOOGLE_GENAI_USE_VERTEXAI=true`, Claude via `AnthropicVertex`. The pipeline is a sequence of
 tool-shaped functions (ADK pattern) with the booking store already behind an MCP tool, so
-wrapping it as an ADK agent on Agent Engine is a packaging step, not a redesign. Traces are
-newline JSON, loadable into BigQuery unchanged. None of this is built in Phase 1; it is what
-keeps Phase 1 honest about "runs under an existing governance surface".
+wrapping it as an ADK agent on Agent Engine is a packaging step, not a redesign — and as of v0.3.0 it
+is built (`src/coherence_gate/adk/`, ADR-34): a `SequentialAgent` over a `ParallelAgent` for the two
+readings, composed of the same functions the direct path calls, with no `LlmAgent` anywhere in the
+tree. The acceptance test is the artifact: the same document through both paths produces identical
+findings, identical lanes and identical attestation hashes, so the framework demonstrably changes
+nothing about the result. ADK is an optional install and is absent from the lock, because adding it
+moved two of the demo image's transitive pins — a framework that quietly changes the service's
+dependency floor belongs in its own environment, which is what Agent Engine provides.
+
+The demo itself runs as a FastAPI service on Cloud Run (one instance, secrets from Secret Manager,
+no CPU throttling) with the booking store reached through the same MCP tool the eval uses.
+`scripts/deploy_agent_engine.py` preflights the Agent Engine path (auth, project, API, staging
+bucket, agent tree, pinned requirements) and only deploys behind an explicit flag.
 
 ## 9. Risks and mitigations
 
@@ -186,3 +231,19 @@ keeps Phase 1 honest about "runs under an existing governance surface".
 
 Trust boundaries unchanged: models never decide; the parse vendor is swappable; the reference
 lane can only flag `rule` bindings; a wholesale extractor failure short-circuits triage.
+
+## 11. v0.3 additions (2026-09-14; ADR-33..35)
+
+| Change | Where | Why it is here |
+|---|---|---|
+| Per-deal provenance graph | `report/provenance.py`, evidence modal, run report, `<doc>/provenance.svg` | "Where did this finding come from" was answerable only by reading a JSONL file |
+| ADK packaging | `adk/app.py`, `cg run --via adk`, `make adk-check` | The Agent Engine path, proven equivalent by test rather than asserted |
+| BigQuery trace sink | `sink/bq.py`, `cg trace-export`, three views | Drift, cost and failure questions only exist across runs |
+| Agent Engine preflight | `scripts/deploy_agent_engine.py`, `make agent-engine` | Deployability checked, not claimed; deploy is behind a flag |
+| Hardening from four review passes | `web/app.py`, `pipeline.py`, `eval/harness.py` | A recheck that re-drafted a desk query cost money on every click; public endpoints answered bad input with tracebacks; a stub run skipped the reference lane silently |
+
+The state after those passes: a re-check of an unchanged book makes zero model calls and takes
+0.1 s for fifteen documents; the desk view is cached on a fingerprint of the run, the store and the
+recorded verdicts (2.4 ms warm, 277 req/s); a full re-read is staged and swapped under the page lock
+so no page can pair new findings with an old summary; and the eval's answer key is no longer served
+next to the demo it grades.

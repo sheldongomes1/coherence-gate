@@ -402,3 +402,38 @@ extractions in session state would mean re-serialising the artifacts the attesta
 - `tests/test_adk_wrapper.py` replays the frozen run's stored extractions through both paths and
   asserts identical artifacts, asserts no `LlmAgent` exists in the tree, and asserts the import error
   names the optional install when ADK is absent.
+
+## 21. `web/app.py` — the demo service, as hardened (v0.3.0)
+
+State lives under `STATE_DIR`: an editable copy of the booking store, the "current" run seeded from
+`runs/showcase`, and `feedback.jsonl`. The directory is never committed; the image excludes it and the
+container seeds it at startup.
+
+- **Rendering.** `render_pages(which)` renders only the page being served. `GET /` renders the desk
+  view and serves it from a cache keyed by a fingerprint of the run's artifacts, the booking store and
+  the recorded verdicts; the run report is rebuilt when a job changes artifacts, not on every page load.
+- **Relaunch.** `scope=stale|all`, `full=0|1`. The recheck path holds the page lock (seconds) so a page
+  can never pair a trade's new findings with its old summary. The full re-read takes minutes, so it
+  runs into a staging directory and the finished document is renamed into place under the lock
+  (`_full_read`). Documents are validated against the manifest before a job id exists.
+- **Spend.** Re-checks make no model call unless a finding is new. Full re-reads are budgeted per
+  rolling hour (`CG_FULL_REREADS_PER_HOUR`, default 20) and the job queue is capped at 8; both answer
+  429 rather than queueing. The worker is restarted if it ever dies, so a job cannot sit at "working"
+  forever.
+- **Input.** Every public endpoint answers malformed input with 400 and a message: a non-JSON feedback
+  body, an unknown verdict, an unknown document, a booking value that does not fit the field's existing
+  type (which is refused rather than coerced into the store).
+- **Surface.** Only the golden subdirectories the pages link to are mounted (`pdf`, `parsed`,
+  `termsheets`, `bookings`); the eval's `truth/` and `manifest.json` are not served. The static
+  fallback is contained to the run and site directories and limited to web asset types.
+- **Feedback.** `POST /api/feedback` appends a record in the `cg feedback` shape, keyed by document,
+  field and finding type, and re-renders the desk view. It changes no model and no pipeline behaviour;
+  it feeds `cg propose`, which a human applies and the eval gates.
+
+## 22. Identity of a finding across a save and reload
+
+`pipeline._finding_key(field, type, ts_value, booking_value)` uses canonical JSON with `default=str`.
+This exists because `str()` is not stable across the JSON round trip: in memory a stepping schedule is
+`[Decimal('100'), Decimal('95')]` and on disk it is `["100", "95"]`. With a `str()` key one finding per
+book never matched itself, so every recheck re-drafted its desk query and paid for it. Tested by
+round-tripping every non-clean finding in the frozen run and by asserting a recheck re-drafts nothing.

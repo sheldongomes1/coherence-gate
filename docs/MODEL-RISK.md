@@ -89,6 +89,21 @@ by the extraction step. Models read and explain; code decides.
   gate (see eval_diff.md); no feedback path alters model or pipeline
   behavior directly.
 
+- **Per-deal provenance.** Every result carries a graph drawn from its own stored artifacts: the
+  inputs, the vendor parse, the two independent readings, the deterministic decision, the lanes and
+  the attestation, with a link from each step to the artifact it produced and a colour separating a
+  reading that was purchased from one reused under an unchanged document hash. Lineage for a single
+  finding is a picture, not a log file (ADR-33).
+- **Trace warehouse.** Each run's trace loads into BigQuery partitioned by day and clustered by run,
+  step and document, with views for cost by run, calls that never completed by family, and the
+  per-family latency and thinking profile. Two derived columns carry the distinctions a headline
+  number hides: which family made the call, and whether the model answered at all (ADR-35). The two
+  control-plane failures of release day (an exhausted credit balance, a suspended host) are rows in
+  that table rather than anecdotes.
+- **Deployment path.** The same functions run under ADK workflow agents for Agent Engine, with no
+  model choosing control flow, and an acceptance test asserting identical findings, lanes and
+  attestation hashes through both paths (ADR-34).
+
 ## 6. Model change management
 
 All judgment artifacts — schema, prompts, tolerance tables, golden set,
