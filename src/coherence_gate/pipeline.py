@@ -84,10 +84,25 @@ def _agreed_trade_id(norm: dict[Family, dict[str, NormalizedField]]) -> str | No
     return vals.pop() if len(vals) == 1 else None
 
 
-def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
-                 pdf_path: Path | None = None, product_type: str | None = None) -> DocumentResult:
-    """`doc_path` is the canonical .txt; when ctx.source == "pdf", `pdf_path` is parsed and the
-    parsed markdown becomes the source text every citation anchors into (CS2 citation chain)."""
+@dataclass
+class ReadResult:
+    """Everything the read stage establishes before either family sees the document."""
+    doc_id: str
+    text: str
+    sha: str
+    parse_meta: dict | None
+    product_type: str
+    schema: Schema
+    mark: int
+
+
+def read_document(doc_path: Path, ctx: RunContext, pdf_path: Path | None = None,
+                  product_type: str | None = None) -> ReadResult:
+    """Parse (or load) the document and detect its product type: the stage before extraction.
+
+    Factored out of `run_document` so the ADK packaging (`coherence_gate.adk`) can compose the same
+    function rather than re-implement it; two implementations of the read stage would eventually
+    disagree about the sha everything else is attested to."""
     doc_id = doc_path.stem
     mark = ctx.tracer.mark()
     parse_meta = None
@@ -123,13 +138,23 @@ def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
         how = "given"
     schema = ctx.schemas[product_type]
     ctx.tracer.step(doc_id=doc_id, step="detect_product", outcome=product_type, detail={"by": how, "schema": schema.version})
+    return ReadResult(doc_id=doc_id, text=text, sha=sha, parse_meta=parse_meta,
+                      product_type=product_type, schema=schema, mark=mark)
+
+
+def run_document(doc_path: Path, ctx: RunContext, trade_id: str | None = None,
+                 pdf_path: Path | None = None, product_type: str | None = None) -> DocumentResult:
+    """`doc_path` is the canonical .txt; when ctx.source == "pdf", `pdf_path` is parsed and the
+    parsed markdown becomes the source text every citation anchors into (CS2 citation chain)."""
+    r = read_document(doc_path, ctx, pdf_path, product_type)
 
     # 1. dual-family extraction, concurrently (independent by design — neither sees the other)
     with ThreadPoolExecutor(max_workers=2) as pool:
-        futs = {fam: pool.submit(ex.extract, text, doc_id=doc_id, tracer=ctx.tracer, schema=schema)
+        futs = {fam: pool.submit(ex.extract, r.text, doc_id=r.doc_id, tracer=ctx.tracer, schema=r.schema)
                 for fam, ex in ctx.extractors.items()}
         extractions = {fam: f.result() for fam, f in futs.items()}
-    return _complete(doc_id, text, sha, product_type, schema, extractions, parse_meta, doc_path, ctx, trade_id, mark=mark)
+    return _complete(r.doc_id, r.text, r.sha, r.product_type, r.schema, extractions, r.parse_meta,
+                     doc_path, ctx, trade_id, mark=r.mark)
 
 
 def recheck_document(doc_id: str, ctx: RunContext, prior_dir: Path, trade_id: str | None = None,

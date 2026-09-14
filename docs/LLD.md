@@ -385,3 +385,20 @@ error into the picture instead. `write_all(run_dir)` does the run.
 - `tests/test_provenance.py` asserts the graph matches the trace, that a reused reading is drawn as
   reused, that a missing artifact is visible rather than blank, and that drawing leaves every other
   file in the run byte-identical.
+
+## 20. `adk/` — the Agent Engine packaging (ADR-34, optional)
+
+`build_app(work)` returns `SequentialAgent(read_document → ParallelAgent(extract_gemini ‖ extract_claude)
+→ decide_and_explain)`. The agents are `BaseAgent` subclasses whose `_run_async_impl` calls
+`pipeline.read_document`, `extractor.extract` and `pipeline._complete` on a worker thread
+(`asyncio.to_thread`) and yields one ADK event per stage carrying the state delta. `Work` holds the
+objects between stages; ADK session state carries only the small JSON-shaped facts, because putting
+extractions in session state would mean re-serialising the artifacts the attestation hashes.
+
+- `run_document_adk(doc, ctx, ...)` / `run_document_adk_sync(...)`: same signature and same return
+  type as `pipeline.run_document`; `cg run --via adk` uses it.
+- A stage that yields no result raises rather than returning an empty `DocumentResult`: a failure
+  must not read like a clean run (SKILL.md).
+- `tests/test_adk_wrapper.py` replays the frozen run's stored extractions through both paths and
+  asserts identical artifacts, asserts no `LlmAgent` exists in the tree, and asserts the import error
+  names the optional install when ADK is absent.

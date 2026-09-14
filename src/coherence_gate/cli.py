@@ -51,10 +51,15 @@ def cmd_run(a: argparse.Namespace) -> int:
         doc = Path(a.termsheet)
         pdf = doc if doc.suffix.lower() == ".pdf" else None
         txt = doc if doc.suffix.lower() == ".txt" else Path(a.golden) / "termsheets" / f"{doc.stem}.txt"
-        r = run_document(txt, ctx, trade_id=a.trade_id, pdf_path=pdf)
+        if getattr(a, "via", "direct") == "adk":     # same functions, composed by ADK workflow agents (ADR-34)
+            from .adk import run_document_adk_sync
+            r = run_document_adk_sync(txt, ctx, trade_id=a.trade_id, pdf_path=pdf)
+        else:
+            r = run_document(txt, ctx, trade_id=a.trade_id, pdf_path=pdf)
     finally:
         ctx.booking.close()
-    console.print(f"[bold]{r.doc_id}[/] lane={r.document_lane} trade_id={r.trade_id} cost=${r.cost_usd:.4f} → {r.out_dir}")
+    console.print(f"[bold]{r.doc_id}[/] lane={r.document_lane} trade_id={r.trade_id} cost=${r.cost_usd:.4f} "
+                  f"via={getattr(a, 'via', 'direct')} → {r.out_dir}")
     t = Table("field", "type", "sev", "lane", "detail")
     for f in r.findings:
         t.add_row(f.field, f.type, f.severity, f.lane, f.detail[:90])
@@ -294,7 +299,10 @@ def main(argv: list[str] | None = None) -> int:
     e.set_defaults(fn=cmd_eval)
     rs = sub.add_parser("rescore", help="re-score a stored run from its artifacts with the current scoring code (no model call)")
     rs.add_argument("--run", required=True); rs.add_argument("--golden", default="golden"); rs.set_defaults(fn=cmd_rescore)
-    r = sub.add_parser("run"); common(r); r.add_argument("termsheet"); r.add_argument("--trade-id"); r.set_defaults(fn=cmd_run)
+    r = sub.add_parser("run"); common(r); r.add_argument("termsheet"); r.add_argument("--trade-id")
+    r.add_argument("--via", choices=["direct", "adk"], default="direct",
+                   help="adk: run the same functions through the ADK workflow agents (needs `uv pip install google-adk`)")
+    r.set_defaults(fn=cmd_run)
     t = sub.add_parser("trace"); t.add_argument("--latest", nargs="?", const="runs"); t.add_argument("--run"); t.set_defaults(fn=cmd_trace)
     ck = sub.add_parser("check", help="live check: one document (pdf or txt) against its booking"); common(ck)
     ck.add_argument("document"); ck.add_argument("--trade", help="trade id (default: the id both extractors read)")

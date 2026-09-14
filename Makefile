@@ -72,6 +72,10 @@ eval-diff:       ## make eval-diff A=runs/<baseline> B=runs/<candidate>
 site:            ## assemble a self-contained static site (desk view = index.html) in site/
 	$(PY) scripts/build_site.py
 
+adk-check:       ## install google-adk (optional) and assert the ADK path gives an identical result
+	uv pip install google-adk
+	uv run pytest -q tests/test_adk_wrapper.py
+
 deploy-service:  ## Cloud Run live service (FastAPI, Dockerfile at root). make deploy-service PROJECT=... REGION=us-central1
 	gcloud run deploy coherence-gate-demo --source . --project $(PROJECT) --region $(REGION) --allow-unauthenticated --quiet \
 	  --min-instances 1 --max-instances 1 --no-cpu-throttling --cpu-boost \
