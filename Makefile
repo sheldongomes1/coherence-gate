@@ -72,6 +72,12 @@ eval-diff:       ## make eval-diff A=runs/<baseline> B=runs/<candidate>
 site:            ## assemble a self-contained static site (desk view = index.html) in site/
 	$(PY) scripts/build_site.py
 
+trace-export:    ## load a run's trace into BigQuery. make trace-export RUN=runs/showcase [DRY=1]
+	$(PY) -m coherence_gate.cli trace-export --run $(RUN) $(if $(DRY),--dry-run,)
+
+agent-engine:    ## preflight the Vertex AI Agent Engine deployment (creates nothing)
+	$(PY) scripts/deploy_agent_engine.py
+
 adk-check:       ## install google-adk (optional) and assert the ADK path gives an identical result
 	uv pip install google-adk
 	uv run pytest -q tests/test_adk_wrapper.py

@@ -33,6 +33,32 @@ def cmd_eval(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_trace_export(a: argparse.Namespace) -> int:
+    """CS11: load a run's trace into BigQuery so drift questions become SQL (ADR-35)."""
+    from .sink.bq import export_run, prepare
+    run = Path(a.run) if a.run else _latest(Path("runs"))
+    if a.dry_run:
+        plan = prepare(run, a.project, a.dataset, a.table, Path(a.out) if a.out else None)
+        console.print(f"[bold]{plan.rows} rows[/] from run(s) {', '.join(plan.run_ids)} → {plan.table}")
+        console.print(f"rows:   {plan.ndjson}\nschema: {plan.schema}\n")
+        for cmd in plan.commands:
+            console.print("  " + " ".join(cmd))
+        return 0
+    res = export_run(run, a.project, a.dataset, a.table, replace=a.replace,
+                     out_dir=Path(a.out) if a.out else None)
+    for name, ok, msg in res["steps"]:
+        console.print(f"  {'✓' if ok else '✗'} {name}: {msg[:120]}")
+    if res.get("skipped"):
+        console.print(f"[yellow]{res['skipped']}[/] ({res['already_present']} rows already in {res['table']})")
+    elif res.get("loaded"):
+        from .sink.bq import VIEWS
+        console.print(f"[bold green]loaded[/] {res['rows']} rows into {res['table']} (+{len(VIEWS)} views)")
+    else:
+        console.print("[bold red]not loaded[/] — see the messages above")
+        return 1
+    return 0
+
+
 def cmd_rescore(a: argparse.Namespace) -> int:
     from .eval.harness import rescore
     ev = rescore(Path(a.run), Path(a.golden))
@@ -297,6 +323,13 @@ def main(argv: list[str] | None = None) -> int:
     e = sub.add_parser("eval"); common(e); e.add_argument("--only", nargs="*")
     e.add_argument("--resume", help="prior run dir: reuse the stored extractions of documents whose calls completed there; extract the rest again")
     e.set_defaults(fn=cmd_eval)
+    te = sub.add_parser("trace-export", help="load a run's trace.jsonl into BigQuery (partitioned, clustered, with views)")
+    te.add_argument("--run"); te.add_argument("--project", default="signal-intel-prod")
+    te.add_argument("--dataset", default="coherence_gate"); te.add_argument("--table", default="trace")
+    te.add_argument("--replace", action="store_true", help="reload a run that is already present")
+    te.add_argument("--dry-run", action="store_true", help="write the rows and print the bq commands; no cloud call")
+    te.add_argument("--out", help="staging directory for the rows and schema (default: a temp dir; never the run)")
+    te.set_defaults(fn=cmd_trace_export)
     rs = sub.add_parser("rescore", help="re-score a stored run from its artifacts with the current scoring code (no model call)")
     rs.add_argument("--run", required=True); rs.add_argument("--golden", default="golden"); rs.set_defaults(fn=cmd_rescore)
     r = sub.add_parser("run"); common(r); r.add_argument("termsheet"); r.add_argument("--trade-id")

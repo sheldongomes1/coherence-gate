@@ -164,6 +164,16 @@ tests/                       unit tests for the deterministic core, no network
 runs/                        one directory per run (git-ignored); runs/showcase is committed
 ```
 
+## Where the trace goes
+
+`trace.jsonl` is the record of truth for a run. Two things read it and neither changes it: the
+per-deal provenance graph (ADR-33) and `cg trace-export`, which loads a run into BigQuery
+(partitioned, clustered, idempotent) with three views — cost by run split into readings and desk
+queries, calls that never completed by family, and the per-family latency and thinking profile
+(ADR-35). On Agent Engine the same OTel-shaped spans land in Cloud Trace with no second
+instrumentation; `scripts/deploy_agent_engine.py` preflights that path and `make agent-engine`
+runs the check without creating anything.
+
 ## Deployability
 
 Both families are first-class in Vertex Model Garden: Gemini through `google-genai` with
