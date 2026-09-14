@@ -20,6 +20,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from ..config import ROOT
+
 # palette: the desk view's, so the graph does not look like a foreign object on the page
 C = {
     "bg": "#fbfaf7", "fg": "#1c1b19", "muted": "#6b6862", "line": "#d8d4cb",
@@ -141,15 +143,23 @@ def build(run_dir: Path, doc_id: str, golden_href: str | None = None,
 
     # ---- column 0: what went in -------------------------------------------------------------
     import os
-    golden = (Path(__file__).resolve().parents[3] / "golden")
+    # ROOT honours CG_ROOT. Deriving it from __file__ works in a checkout and breaks in the image,
+    # where the package is pip-installed into site-packages: the golden files were then "missing",
+    # and the two grounding links silently disappeared from every deployed graph.
+    golden = ROOT / "golden"
     base = Path(relative_to).resolve() if relative_to else run_dir.resolve()
     gh = golden_href if golden_href is not None else os.path.relpath(golden, base)
     ap = os.path.relpath((run_dir / doc_id).resolve(), base)
     ap = "" if ap == "." else ap + "/"          # artifact prefix: "G14/" from the run dir, "" from the doc dir
 
+    missing: list[str] = []
+
     def gref(*parts: str) -> str | None:
-        p = golden.joinpath(*parts)
-        return f"{gh}/{'/'.join(parts)}" if p.exists() else None
+        rel = "/".join(parts)
+        if golden.joinpath(*parts).exists():
+            return f"{gh}/{rel}"
+        missing.append(rel)      # absence announces itself, here too (SKILL.md)
+        return None
 
     sha = str(att.get("document_sha256") or summary.get("sha256") or "")
     doc_href = gref("pdf", f"{doc_id}.pdf") if source == "pdf" else gref("termsheets", f"{doc_id}.txt")
@@ -158,7 +168,8 @@ def build(run_dir: Path, doc_id: str, golden_href: str | None = None,
         title="Term sheet" + (" (PDF)" if source == "pdf" else " (text)"),
         sub=f"{doc_id} · {summary.get('product_type', 'note')}",
         metrics="sha " + (sha[:12] or "?"),
-        tip="The document as received. Every citation anchors into the text read from this file.",
+        tip=("The document as received. Every citation anchors into the text read from this file."
+             + ("" if doc_href else " (not published alongside this run, so there is nothing to link to)")),
         href=doc_href))
 
     booking = _load(d / "booking.json") or {}

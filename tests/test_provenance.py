@@ -153,3 +153,24 @@ def test_the_trace_is_parsed_once_for_a_whole_run(tmp_path):
     finally:
         P.read_trace = real
     assert reads["n"] == 0, f"trace.jsonl was re-read {reads['n']} times despite being supplied"
+
+
+def test_source_links_survive_an_installed_package(tmp_path, monkeypatch):
+    """In the demo image the package is pip-installed into site-packages, so a path derived from
+    __file__ points outside /app. The golden files were then judged missing and the term-sheet and
+    parsed-text links silently vanished from every deployed graph."""
+    fake_root = tmp_path / "app"
+    (fake_root / "golden" / "pdf").mkdir(parents=True)
+    (fake_root / "golden" / "parsed").mkdir(parents=True)
+    doc = _doc_with(lambda s: s.get("source") == "pdf")
+    (fake_root / "golden" / "pdf" / f"{doc}.pdf").write_bytes(b"%PDF-1.4")
+    (fake_root / "golden" / "parsed" / f"{doc}.md").write_text("# parsed")
+    monkeypatch.setattr(P, "ROOT", fake_root)          # what CG_ROOT does in the image
+    g = P.build(SHOWCASE, doc, golden_href="golden")
+    assert g.by_id("doc").href == f"golden/pdf/{doc}.pdf"
+    assert g.by_id("parse").href == f"golden/parsed/{doc}.md"
+
+    monkeypatch.setattr(P, "ROOT", tmp_path / "nowhere")
+    g2 = P.build(SHOWCASE, doc, golden_href="golden")
+    assert g2.by_id("doc").href is None
+    assert "nothing to link to" in g2.by_id("doc").tip, "a dropped link must say why"
