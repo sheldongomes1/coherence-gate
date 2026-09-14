@@ -114,3 +114,35 @@ def test_links_resolve_from_wherever_the_graph_is_read(tmp_path):
     assert hrefs
     for h in hrefs:
         assert (SHOWCASE / doc / h).exists(), f"file link broken: {h}"
+
+
+def test_a_fresh_graph_is_not_redrawn_and_a_stale_one_is(tmp_path):
+    """Rendering a page rewrote fifteen unchanged files, including the ones committed in runs/showcase."""
+    import os, time
+    run = tmp_path / "run"
+    shutil.copytree(SHOWCASE, run)
+    first = P.write_all(run, force=True)
+    assert first, "nothing was drawn"
+    assert P.write_all(run) == [], "unchanged graphs were redrawn"
+    doc = first[0]
+    time.sleep(0.01)
+    os.utime(run / doc / "summary.json", None)          # that document changed
+    assert P.write_all(run) == [doc]
+
+
+def test_the_trace_is_parsed_once_for_a_whole_run(tmp_path):
+    """One page renders fifteen graphs; re-reading trace.jsonl per document read it fifteen times."""
+    run = tmp_path / "run"
+    shutil.copytree(SHOWCASE, run)
+    trace = P.read_trace(run)
+    assert trace and all(isinstance(r, dict) for r in trace)
+    reads = {"n": 0}
+    real = P.read_trace
+    P.read_trace = lambda rd: (reads.__setitem__("n", reads["n"] + 1), real(rd))[1]
+    try:
+        P.write_all(run, trace=trace, force=True)
+        for d in sorted(p.name for p in run.iterdir() if p.is_dir() and (p / "summary.json").exists()):
+            P.build(run, d, trace=trace)
+    finally:
+        P.read_trace = real
+    assert reads["n"] == 0, f"trace.jsonl was re-read {reads['n']} times despite being supplied"

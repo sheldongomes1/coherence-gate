@@ -61,3 +61,19 @@ def test_rescore_reproduces_the_stored_numbers(tmp_path):
         assert before[k] == after[k], k
     assert "Rescored" in (first.run_dir / "eval_report.md").read_text()
     assert ev.n_docs == 2
+
+
+def test_rescore_carries_appendices_other_commands_wrote(tmp_path):
+    """`cg ablation` and `cg triage` append sections a rescore cannot regenerate; dropping them would
+    lose evidence silently."""
+    from coherence_gate.eval.harness import rescore
+    golden = ROOT / "golden"
+    ev = run_eval(golden, tmp_path / "runs", stub=True, only=["G11"], source="txt", reference=False)
+    report = ev.run_dir / "eval_report.md"
+    report.write_text(report.read_text().rstrip() + "\n\n## Parse tax (ablation: canonical text vs parsed PDF)\n\n"
+                      "gemini 368/396 -> 396/396\n\n**Desk queries drafted afterwards** (`cg triage --run`): 3 findings, $0.0400.\n")
+    rescore(ev.run_dir, golden)
+    after = report.read_text()
+    assert "## Parse tax (ablation" in after and "gemini 368/396 -> 396/396" in after
+    assert "**Desk queries drafted afterwards**" in after and "$0.0400" in after
+    assert "Rescored" in after

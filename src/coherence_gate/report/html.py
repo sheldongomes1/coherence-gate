@@ -67,7 +67,8 @@ def render(run_dir: Path, out: Path | None = None, golden_href: str | None = Non
     try:                        # provenance graph per document (CS9), inlined for this page
         from . import provenance
         for d in docs:
-            d["graph"] = provenance.render_svg(provenance.build(run_dir, d["doc_id"], golden_href))
+            d["graph"] = provenance.render_svg(
+                provenance.build(run_dir, d["doc_id"], golden_href, trace=data["trace"]))
     except Exception:  # noqa: BLE001
         for d in docs:
             d.setdefault("graph", "")

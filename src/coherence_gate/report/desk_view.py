@@ -200,9 +200,11 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
     graphs: dict[str, str] = {}
     try:
         from . import provenance
-        provenance.write_all(run_dir)
+        trace = data["trace"]                     # already parsed by load_run: never re-read per document
+        provenance.write_all(run_dir, trace=trace)
         for d_ in data["docs"]:
-            graphs[d_["doc_id"]] = provenance.render_svg(provenance.build(run_dir, d_["doc_id"], golden_href))
+            graphs[d_["doc_id"]] = provenance.render_svg(
+                provenance.build(run_dir, d_["doc_id"], golden_href, trace=trace))
     except Exception:  # noqa: BLE001 — a view of the run must never cost the page
         graphs = {}
 

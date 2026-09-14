@@ -105,23 +105,29 @@ def _tone(outcome: str) -> tuple[str, str]:
     return C["ok"], C["okbg"]
 
 
+def read_trace(run_dir: Path) -> list[dict]:
+    """Parse `trace.jsonl` once. Callers rendering a whole run pass the result into every `build`,
+    because re-reading and re-parsing the file per document made one page read it fifteen times."""
+    p = Path(run_dir) / "trace.jsonl"
+    if not p.exists():
+        return []
+    out = []
+    for line in p.read_text().splitlines():
+        try:
+            out.append(json.loads(line))
+        except ValueError:
+            continue
+    return out
+
+
 def build(run_dir: Path, doc_id: str, golden_href: str | None = None,
-          relative_to: Path | None = None) -> Graph:
+          relative_to: Path | None = None, trace: list[dict] | None = None) -> Graph:
     """Read one document's stored artifacts and trace lines into a graph. Missing artifacts become
     nodes that say so (a blank box would be exactly the silent failure this product exists to stop)."""
     run_dir = Path(run_dir)
     d = run_dir / doc_id
     summary = _load(d / "summary.json") or {}
-    trace = []
-    tpath = run_dir / "trace.jsonl"
-    if tpath.exists():
-        for line in tpath.read_text().splitlines():
-            try:
-                row = json.loads(line)
-            except ValueError:
-                continue
-            if row.get("doc_id") == doc_id:
-                trace.append(row)
+    trace = [r for r in (trace if trace is not None else read_trace(run_dir)) if r.get("doc_id") == doc_id]
     step = {}
     for row in trace:                                   # last line per step wins (a relaunch rewrites it)
         step[row["step"]] = row
@@ -468,13 +474,14 @@ def render_svg(g: Graph) -> str:
     return "".join(parts)
 
 
-def write(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Path | None:
+def write(run_dir: Path, doc_id: str, golden_href: str | None = None,
+          trace: list[dict] | None = None) -> Path | None:
     """Write `<run>/<doc>/provenance.svg`. A failure here must never cost the page: the graph is a
     view of the run, not part of it, so the error is drawn instead of raised."""
     out = Path(run_dir) / doc_id / "provenance.svg"
     try:
         # the file's own links resolve from the file's own directory
-        svg = render_svg(build(run_dir, doc_id, golden_href, relative_to=Path(run_dir) / doc_id))
+        svg = render_svg(build(run_dir, doc_id, golden_href, relative_to=Path(run_dir) / doc_id, trace=trace))
     except Exception as exc:  # noqa: BLE001
         svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 60" width="100%" role="img">'
                f'<rect width="560" height="60" fill="{C["badbg"]}" rx="6"/>'
@@ -488,12 +495,29 @@ def write(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Path | 
         return None
 
 
-def write_all(run_dir: Path, golden_href: str | None = None) -> dict[str, str]:
-    """Draw every document in the run. Returns doc_id -> svg markup, for inlining in a page."""
+def _is_fresh(doc_dir: Path, svg: Path, trace_mtime: float) -> bool:
+    """A graph is a pure function of the document's artifacts and the run's trace, so it only needs
+    redrawing when one of those is newer. Without this, rendering a page rewrote fifteen files that
+    had not changed — including the ones committed in `runs/showcase`."""
+    if not svg.exists():
+        return False
+    svg_m = svg.stat().st_mtime
+    if trace_mtime > svg_m:
+        return False
+    return all(p.stat().st_mtime <= svg_m for p in doc_dir.glob("*.json"))
+
+
+def write_all(run_dir: Path, golden_href: str | None = None, trace: list[dict] | None = None,
+              force: bool = False) -> list[str]:
+    """Draw every document whose graph is out of date. Returns the doc ids actually redrawn."""
     run_dir = Path(run_dir)
-    svgs: dict[str, str] = {}
+    trace = read_trace(run_dir) if trace is None else trace
+    tpath = run_dir / "trace.jsonl"
+    t_m = tpath.stat().st_mtime if tpath.exists() else 0.0
+    written: list[str] = []
     for d in sorted(p for p in run_dir.iterdir() if p.is_dir() and (p / "summary.json").exists()):
-        p = write(run_dir, d.name, golden_href)
-        if p:
-            svgs[d.name] = p.read_text()
-    return svgs
+        if not force and _is_fresh(d, d / "provenance.svg", t_m):
+            continue
+        if write(run_dir, d.name, golden_href, trace=trace):
+            written.append(d.name)
+    return written

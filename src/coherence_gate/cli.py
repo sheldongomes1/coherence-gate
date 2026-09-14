@@ -75,8 +75,12 @@ def cmd_run(a: argparse.Namespace) -> int:
                         source=a.source, parser_name=a.parser)
     try:
         doc = Path(a.termsheet)
-        pdf = doc if doc.suffix.lower() == ".pdf" else None
+        pdf = doc if doc.suffix.lower() == ".pdf" else Path(a.golden) / "pdf" / f"{doc.stem}.pdf"
         txt = doc if doc.suffix.lower() == ".txt" else Path(a.golden) / "termsheets" / f"{doc.stem}.txt"
+        if ctx.source == "pdf" and not pdf.exists():
+            # `cg run <file>.txt` is what the README shows; a missing PDF means a text run, said out loud
+            console.print(f"[yellow]no PDF at {pdf}; reading the canonical text instead (--source txt)[/]")
+            ctx.source, pdf = "txt", None
         if getattr(a, "via", "direct") == "adk":     # same functions, composed by ADK workflow agents (ADR-34)
             from .adk import run_document_adk_sync
             r = run_document_adk_sync(txt, ctx, trade_id=a.trade_id, pdf_path=pdf)

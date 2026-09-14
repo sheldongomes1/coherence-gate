@@ -208,7 +208,22 @@ def rescore(run_dir: Path, golden: Path) -> scoring.EvalResult:
             f"catch {prev.get('catch_strict', {}).get('hit', '?')}/{prev.get('catch_strict', {}).get('n', '?')}, false flags "
             f"{prev.get('false_flag_fields', {}).get('hit', '?')}/{prev.get('false_flag_fields', {}).get('n', '?')}.\n\n")
     text = scoring.render_markdown(ev)
+    # Sections other commands appended (`cg ablation` writes the parse tax, `cg triage` the desk-query
+    # spend) are not reproducible from the artifacts this function reads, so they are carried across
+    # rather than silently dropped; the alternative is a rescored report that quietly loses evidence.
+    prior_text = (run_dir / "eval_report.md").read_text() if (run_dir / "eval_report.md").exists() else ""
+    carried = []
+    for marker in ("## Parse tax", "**Desk queries drafted afterwards**"):
+        if marker in prior_text and marker not in text:
+            block = prior_text[prior_text.index(marker):]
+            for later in ("## Parse tax", "**Desk queries drafted afterwards**"):
+                if later != marker and later in block:
+                    block = block[:block.index(later)]
+            carried.append(block.rstrip())
     head, _, rest = text.partition("\n\n")
-    (run_dir / "eval_report.md").write_text(head + "\n\n" + note + rest)
+    body = head + "\n\n" + note + rest
+    if carried:
+        body = body.rstrip() + "\n\n" + "\n\n".join(carried) + "\n"
+    (run_dir / "eval_report.md").write_text(body)
     (run_dir / "summary.json").write_text(json.dumps(ev.summary(), indent=2))
     return ev

@@ -108,7 +108,10 @@ def read_document(doc_path: Path, ctx: RunContext, pdf_path: Path | None = None,
     parse_meta = None
     if ctx.source == "pdf":
         from .ingest import parse_document
-        assert pdf_path is not None and ctx.parser is not None and ctx.parsed_dir is not None
+        if pdf_path is None or ctx.parser is None or ctx.parsed_dir is None:
+            raise ValueError(
+                f"source is 'pdf' but no PDF was given for {doc_id}: pass the .pdf, or run with --source txt "
+                f"(pdf_path={pdf_path}, parser={'set' if ctx.parser else 'none'})")
         with ctx.tracer.timed(doc_id=doc_id, step="parse") as u:
             try:
                 res, cached = parse_document(doc_id, pdf_path, ctx.parser, ctx.parsed_dir)
@@ -189,10 +192,22 @@ def recheck_document(doc_id: str, ctx: RunContext, prior_dir: Path, trade_id: st
                             "reason": "document unchanged; extractions attested to this hash"})
     for fam, e in extractions.items():
         ctx.tracer.step(doc_id=doc_id, step=f"extract:{fam}", outcome="CACHED", model=e.model, model_version=e.model_version)
-    prior_findings = {(f["field"], f["type"], str(f.get("ts_value")), str(f.get("booking_value"))): f
+    prior_findings = {_finding_key(f["field"], f["type"], f.get("ts_value"), f.get("booking_value")): f
                       for f in json.loads((prior / "findings.json").read_text())} if (prior / "findings.json").exists() else {}
     return _complete(doc_id, text, sha, product_type, schema, extractions, summary.get("parse"), doc_path, ctx, trade_id,
                      prior_findings=prior_findings, mark=mark, extra_cost=prior_cost)
+
+
+def _finding_key(field: str, ftype: Any, ts_value: Any, booking_value: Any) -> tuple:
+    """Identity of a finding across a save-and-reload, used to reuse an already-drafted desk query.
+
+    `str()` is not stable across the JSON round trip: in memory a stepping schedule is
+    `[Decimal('100'), Decimal('95')]` and on disk it is `["100", "95"]`, so a `str()` key made the
+    same finding look new on every recheck and paid for a fresh desk query. Canonical JSON with
+    `default=str` gives both forms the same text, so a recheck of an unchanged book is free.
+    """
+    canon = lambda v: json.dumps(v, default=str, sort_keys=True)  # noqa: E731
+    return (field, str(ftype), canon(ts_value), canon(booking_value))
 
 
 def _complete(doc_id: str, text: str, sha: str, product_type: str, schema: Schema, extractions: dict[Family, Extraction],
@@ -240,7 +255,7 @@ def _complete(doc_id: str, text: str, sha: str, product_type: str, schema: Schem
     # reuse prior desk queries for findings that did not change (recheck path); triage only the new ones
     if prior_findings:
         for f in findings:
-            k = (f.field, f.type, str(f.ts_value), str(f.booking_value))
+            k = _finding_key(f.field, f.type, f.ts_value, f.booking_value)
             if k in prior_findings and prior_findings[k].get("triage"):
                 f.triage = TriageNote.model_validate(prior_findings[k]["triage"])
 

@@ -76,11 +76,16 @@ def init_state(reset: bool = False) -> None:
     render_pages()
 
 
-def render_pages() -> None:
+def render_pages(which: str = "both") -> None:
+    """Render what the caller actually serves. `GET /` used to rebuild the run report too and throw
+    it away: ~50 ms and a 2.8 MB page built for nobody on every hit. The report depends only on the
+    run's artifacts, so it is rebuilt when a job changes them, not when someone loads the desk view."""
     from ..report.desk_view import render as render_desk
     from ..report.html import render as render_html
-    render_html(RUN)
-    render_desk(RUN, store_dir=STORE, golden_href="golden", live=True, feedback_path=FEEDBACK)
+    if which in ("both", "report"):
+        render_html(RUN)
+    if which in ("both", "desk"):
+        render_desk(RUN, store_dir=STORE, golden_href="golden", live=True, feedback_path=FEEDBACK)
 
 
 def _manifest() -> dict:
@@ -180,7 +185,7 @@ def _active_docs() -> set[str]:
 @app.get("/desk_view.html", response_class=HTMLResponse)
 def desk_view() -> HTMLResponse:
     with lock:
-        render_pages()
+        render_pages("desk")          # STALE is recomputed against the editable store at page time
         return HTMLResponse((RUN / "desk_view.html").read_text(), headers=NO_STORE)
 
 
@@ -257,7 +262,7 @@ async def api_feedback(request: Request) -> JSONResponse:
     with lock:
         with FEEDBACK.open("a") as fh:
             fh.write(json.dumps(row, default=str) + "\n")
-        render_pages()
+        render_pages("desk")          # the verdict shows on the desk view; the run report is unaffected
     n = sum(1 for l in FEEDBACK.read_text().splitlines() if l.strip())
     return JSONResponse({"recorded": row, "n_feedback": n})
 

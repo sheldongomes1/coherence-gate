@@ -43,3 +43,19 @@ def test_feedback_endpoint_records_a_verdict_and_rejects_bad_input(tmp_path):
     assert c.post("/api/feedback", json={"doc": doc, "field": f["field"], "verdict": "maybe"}).status_code == 400
     assert c.post("/api/feedback", json={"doc": "NOPE", "field": "x", "verdict": "desk_accepted"}).status_code == 404
     assert 'id="fbcount"' in c.get("/").text
+
+
+def test_loading_the_desk_view_does_not_rebuild_the_run_report(tmp_path):
+    """GET / used to render run_report.html and throw it away: ~50 ms and a 2.8 MB page built for nobody."""
+    import os, time
+    c = _client(tmp_path)
+    from coherence_gate.web import app as web
+    web.init_state()
+    report = web.RUN / "run_report.html"
+    before = report.stat().st_mtime
+    time.sleep(0.02)
+    assert c.get("/").status_code == 200
+    assert report.stat().st_mtime == before, "the desk view rebuilt the run report"
+    # a job that changes artifacts still refreshes both pages
+    web.render_pages("both")
+    assert report.stat().st_mtime > before
