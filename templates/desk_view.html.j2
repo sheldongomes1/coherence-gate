@@ -22,6 +22,8 @@
  #modal .q{border:1px solid var(--line);border-left:4px solid var(--bad);padding:8px 10px;margin:6px 0;border-radius:4px;font-size:13px}
  #modal details{margin-top:14px}#modal summary{cursor:pointer;color:var(--muted);font-size:13px}
  #modal .cons{color:var(--bad);font-weight:600}
+  #modal .prov{margin-top:14px}#modal .prov svg{width:100%;height:auto;border:1px solid var(--line);border-radius:6px;background:#fff}
+  #modal .prov summary{font-weight:600;color:var(--fg)}#modal .prov .hint{color:var(--muted);font-size:11.5px;margin:4px 0 6px}
   .fb{margin-top:6px;font-size:12px}.fb .btn{font-size:11px;padding:2px 8px}.fb input{font:12px system-ui;padding:2px 6px;width:46%;border:1px solid var(--line);border-radius:4px;margin-right:4px}
   .fb .v{display:inline-block;padding:1px 7px;border-radius:4px;font-weight:600;font-size:11px}.fb .v-desk_accepted{background:var(--badbg);color:var(--bad)}.fb .v-desk_rejected{background:var(--okbg);color:var(--ok)}
  .banner{background:#fff3d6;color:#8a5a00;border-bottom:1px solid #e8d9a8;font-size:13px;padding:8px 12px;margin:-24px -20px 14px;text-align:center}
@@ -116,6 +118,9 @@
     } else {
       html += '<p>No findings requiring attention: every field agrees across both families and matches the booking.</p>';
     }
+    if (d.graph) html += '<details class="prov" open><summary>Provenance: how this result was produced</summary>'
+      + '<div class="hint">Read back from what this run stored: no step is re-run to draw it. Green completed, blue reused under an unchanged document hash, red never completed. Every box links to the artifact that step produced.</div>'
+      + d.graph + '</details>';
     if (ne.length) html += '<details><summary>' + ne.length + ' check' + (ne.length !== 1 ? 's' : '') + ' NOT EVALUABLE (not performed: deferred parameter, missing input or the families disagree on the rule — never auto-cleared, never a flag)</summary><div class="wrap"><table><thead>' + head + '</thead><tbody>' + ne.map(row).join('') + '</tbody></table></div></details>';
     html += '<details><summary>' + ok.length + ' field' + (ok.length !== 1 ? 's' : '') + ' CLEAN (auto-cleared with citations)</summary><div class="wrap"><table><thead>' + head + '</thead><tbody>' + ok.map(row).join('') + '</tbody></table></div></details>';
     body.innerHTML = html; bd.classList.add('open'); document.body.style.overflow = 'hidden';

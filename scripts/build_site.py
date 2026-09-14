@@ -6,6 +6,7 @@ from pathlib import Path
 import markdown
 
 from coherence_gate.report.desk_view import render as render_desk
+from coherence_gate.report.html import render as render_html
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
@@ -39,6 +40,7 @@ def main() -> None:
     for sub in ("pdf", "parsed", "bookings", "termsheets"):
         shutil.copytree(ROOT / "golden" / sub, SITE / "golden" / sub)
     render_desk(ROOT / "runs" / "showcase", out=SITE / "desk_view.html", golden_href="golden")
+    render_html(ROOT / "runs" / "showcase", out=SITE / "run_report.html", golden_href="golden")
     (SITE / "index.html").write_text((SITE / "desk_view.html").read_text())
     pages = {"eval_report.md": ROOT / "runs" / "showcase" / "eval_report.md", "BRIEF.md": ROOT / "BRIEF.md", "README.md": ROOT / "README.md",
              "eval_log.md": ROOT / "eval_log.md", "eval_diff.md": ROOT / "eval_diff.md", "eval_diff_cycle.md": ROOT / "eval_diff_cycle.md",

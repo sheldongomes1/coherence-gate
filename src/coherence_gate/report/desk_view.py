@@ -195,6 +195,17 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
         if golden_href is not None:
             return golden_href + "/" + os.path.relpath(p, golden.resolve())
         return os.path.relpath(p, Path(run_dir).resolve())
+    # Provenance graphs (CS9): drawn from what the run already stored, so this cannot change a result.
+    # The file on disk keeps run-dir-relative links; the copy inlined below is built for THIS page.
+    graphs: dict[str, str] = {}
+    try:
+        from . import provenance
+        provenance.write_all(run_dir)
+        for d_ in data["docs"]:
+            graphs[d_["doc_id"]] = provenance.render_svg(provenance.build(run_dir, d_["doc_id"], golden_href))
+    except Exception:  # noqa: BLE001 — a view of the run must never cost the page
+        graphs = {}
+
     evidence = {}
     for d in data["docs"]:
         doc = d["doc_id"]; tid = d["trade_id"] or ""
@@ -225,7 +236,8 @@ def render(run_dir: Path, out: Path | None = None, store_dir: Path | None = None
         fs.sort(key=lambda f: ({"CLEAN": 2, "NOT_EVALUABLE": 1}.get(f["type"], 0), f["severity"] != "critical", LEAD_RANK.get(f["field"], 50), order.get(f["type"], 9), f["field"]))
         evidence[d["doc_id"]] = {"trade_id": d["trade_id"], "lane": d["document_lane"], "product": d.get("product_type", "note"),
                                  "source": d.get("source"), "parse": (d.get("parse") or {}).get("job_id"), "findings": fs,
-                                 "links": links, "attested": d.get("attested_hashes") or {}}
+                                 "links": links, "attested": d.get("attested_hashes") or {},
+                                 "graph": graphs.get(d["doc_id"], "")}
     env = Environment(loader=FileSystemLoader(str(TEMPLATES)), autoescape=True)
     env.filters["musd"] = _musd
     html = env.get_template("desk_view.html.j2").render(

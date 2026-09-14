@@ -92,11 +92,15 @@ its missing barrier, G09 survives the per-quarter/per-annum trap.
 3. **G09, "2.0625% per quarter (8.25% p.a.)"**: the two families may extract different raw
    numbers; `normalize.py` maps both to 8.25 per annum; no finding. Code decided, not a
    prompt.
-4. **`eval_report.md`** (`make eval`): catch rate on planted discrepancies, false-flag rate on
+4. **Provenance graph** (in the evidence modal and the run report, `<run>/<doc>/provenance.svg`): the six stages
+   for one deal, what flowed between them, what each cost, and a link from every box to the artifact that step
+   produced. Drawn from what the run stored, so it re-runs nothing (ADR-33).
+5. **`eval_report.md`** (`make eval`): catch rate on planted discrepancies, false-flag rate on
    clean fields, cross-family agreement, auto-clear correctness, cost per document, and the
-   honest ceiling (n=12, directional). `eval_log.md` shows every iteration, including the
-   run that hung and the normalizer fixes.
-5. **`make trace`**: one full run, every model call with model id, provider-reported version,
+   honest ceiling (n=15, directional). `eval_log.md` shows every iteration, including the
+   run that hung, the normalizer fixes, and the three runs release day lost to a billing
+   balance and a sleeping laptop.
+6. **`make trace`**: one full run, every model call with model id, provider-reported version,
    tokens, latency and cost.
 
 ## What the eval measures (and cannot)

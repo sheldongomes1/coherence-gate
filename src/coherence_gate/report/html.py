@@ -47,7 +47,7 @@ def load_run(run_dir: Path) -> dict:
     return {"run_id": run_id, "docs": docs, "trace": trace, "cost": cost, "calls": calls}
 
 
-def render(run_dir: Path, out: Path | None = None) -> Path:
+def render(run_dir: Path, out: Path | None = None, golden_href: str | None = None) -> Path:
     from .desk_view import LEAD_RANK, RED_TYPES, AMBER_TYPES, trust_state
     data = load_run(run_dir)
     docs = data["docs"]
@@ -64,6 +64,13 @@ def render(run_dir: Path, out: Path | None = None) -> Path:
         d["findings"].sort(key=lambda f: (not f["attention"], f["not_evaluable"], f["severity"] != "critical", LEAD_RANK.get(f["field"], 50), f["field"]))
         d["n_attention"] = sum(f["attention"] for f in d["findings"])
     docs.sort(key=lambda d: (state_order.get(d["trust"], 9), -d["exposure"], d["doc_id"]))
+    try:                        # provenance graph per document (CS9), inlined for this page
+        from . import provenance
+        for d in docs:
+            d["graph"] = provenance.render_svg(provenance.build(run_dir, d["doc_id"], golden_href))
+    except Exception:  # noqa: BLE001
+        for d in docs:
+            d.setdefault("graph", "")
     all_f = [f for d in docs for f in d["findings"]]
     models = sorted({l["model"] for l in data["trace"] if l.get("model")})
     env = Environment(loader=FileSystemLoader(str(TEMPLATES)), autoescape=True)

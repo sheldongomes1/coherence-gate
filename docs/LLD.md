@@ -365,3 +365,23 @@ runs/<YYYYMMDD-HHMMSS>/
   present; `field_accuracy`, `by_product`, `reference_lane` in `summary.json`; report v2 order.
 - `eval/ablation.render_parse_tax(txt_run, pdf_run)` → `parse_tax.md` appended to the pdf run's
   report. `scripts/eval_diff.py`, `scripts/fill_brief.py`, `scripts/fill_model_risk.py`.
+
+## 19. `report/provenance.py` — per-deal provenance graph (CS9, ADR-33)
+
+`build(run_dir, doc_id, golden_href=None) -> Graph` reads `summary.json`, `extraction_{fam}.json`,
+`merged.json`, `booking.json`, `findings.json`, `triage.json` and the document's lines from
+`trace.jsonl`, and returns nodes (six stages: inputs, parse, read, reconcile, decide, explain and
+output) plus the edges between them with what flowed on each. `render_svg(graph) -> str` lays the
+stages out in columns, the parallel work inside a stage in rows, and writes plain SVG with no
+dependency; `write(run_dir, doc_id)` persists `<doc>/provenance.svg` and never raises, drawing the
+error into the picture instead. `write_all(run_dir)` does the run.
+
+- Node colour is the outcome: green completed, blue `CACHED`/`REUSED_EXTRACTION`, red
+  `API_ERROR`/`TIMEOUT`/`MALFORMED`/`NOT_FOUND`, dark grey for the code steps.
+- A node with an artifact is wrapped in an SVG `<a>`, so the box is the link to its own payload;
+  `golden_href` follows the same contract as `desk_view.render` so links resolve in the run
+  directory, on the live service and in the static bundle alike.
+- Styles are scoped to `.pgraph` because an inline `<svg>` shares the host page's stylesheet.
+- `tests/test_provenance.py` asserts the graph matches the trace, that a reused reading is drawn as
+  reused, that a missing artifact is visible rather than blank, and that drawing leaves every other
+  file in the run byte-identical.
