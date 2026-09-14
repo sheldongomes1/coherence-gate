@@ -129,6 +129,7 @@ code, model supplies only the verbatim span (ADR-3); merger compares normalized 
 | CS8c feedback → proposals | done, one real cycle in git history (feedback → proposal → apply → eval → diff → HELD) | `proposals/`, `eval_diff_cycle.md`, `proposals/DECISIONS.md` |
 | Release run on 15 docs, pdf source, reference lane | done: v0.2.0 run 20260912-191532 (17/17, 0/417); v0.2.1 run 20260913-113753 (17/17, 0/399, resumed per ADR-31) | `runs/showcase`, `eval_log.md` |
 | MODEL-RISK filled, showcase frozen, v0.2.0 tag | done | `MODEL-RISK.md`, `BRIEF.md`, tag v0.2.0 |
+| **v0.3.0 tagged + live (2026-09-14)** | done | Cloud Run revision 00030; observability layer (ADR-33..35); four independent review passes, every P0/P1 fixed; re-check of an unchanged book proven free (0 calls, 0.1 s) |
 | CS11 BigQuery trace sink + Agent Engine preflight (2026-09-14) | done | `sink/bq.py`, ADR-35; `cg trace-export`, 3 views; `scripts/deploy_agent_engine.py` (deploy behind a flag) |\n| CS10 ADK packaging for Agent Engine (2026-09-14) | done | `src/coherence_gate/adk/`, ADR-34; `cg run --via adk`, `make adk-check`; optional dependency |
 | CS9 provenance graph per deal (2026-09-14) | done | `report/provenance.py`, ADR-33; in the evidence modal and the run report |
 | v0.2.1 review pass (2026-09-13): independent review → P0/P1/P2 fixed | done | ADR-29 fast relaunch, ADR-30 NOT_EVALUABLE/INFO lane, cost breakdown by source, web hardening (containment, escaping, MCP, atomic writes), report column 'calls that never completed', `cg eval --resume` (ADR-31), tag v0.2.1 |

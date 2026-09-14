@@ -150,7 +150,7 @@ index methodology ─► reference lane (both families, cached) ─► claims vs
 | [`docs/DESIGN.md`](docs/DESIGN.md) | phases 1–3, priorities, cut lines, timeline |
 | [`docs/HLD.md`](docs/HLD.md) | components, data flows, trust boundaries, autonomy model |
 | [`docs/LLD.md`](docs/LLD.md) | module contracts, normalization and tolerance tables, scoring formulas |
-| [`docs/DECISIONS.md`](docs/DECISIONS.md) | 30 ADRs, including the ones made at build checkpoints (schema shape, effort, triage context, attestation, relaunch) |
+| [`docs/DECISIONS.md`](docs/DECISIONS.md) | 35 ADRs, including the ones made at build checkpoints (schema shape, effort, triage context, attestation, relaunch) |
 | [`docs/lessons.md`](docs/lessons.md) | what broke during the build and what it taught |
 | [`docs/V2-CHANGES.md`](docs/V2-CHANGES.md) | the v0.2 change sets (PDF ingestion, option product, reference lane, desk view, live check) |
 | [`MODEL-RISK.md`](MODEL-RISK.md) | model-risk summary in committee format, values filled from a run (`scripts/fill_model_risk.py`; template in `docs/`) |
