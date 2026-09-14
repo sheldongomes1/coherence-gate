@@ -105,7 +105,8 @@ def _tone(outcome: str) -> tuple[str, str]:
     return C["ok"], C["okbg"]
 
 
-def build(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Graph:
+def build(run_dir: Path, doc_id: str, golden_href: str | None = None,
+          relative_to: Path | None = None) -> Graph:
     """Read one document's stored artifacts and trace lines into a graph. Missing artifacts become
     nodes that say so (a blank box would be exactly the silent failure this product exists to stop)."""
     run_dir = Path(run_dir)
@@ -134,7 +135,10 @@ def build(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Graph:
     # ---- column 0: what went in -------------------------------------------------------------
     import os
     golden = (Path(__file__).resolve().parents[3] / "golden")
-    gh = golden_href if golden_href is not None else os.path.relpath(golden, run_dir.resolve())
+    base = Path(relative_to).resolve() if relative_to else run_dir.resolve()
+    gh = golden_href if golden_href is not None else os.path.relpath(golden, base)
+    ap = os.path.relpath((run_dir / doc_id).resolve(), base)
+    ap = "" if ap == "." else ap + "/"          # artifact prefix: "G14/" from the run dir, "" from the doc dir
 
     def gref(*parts: str) -> str | None:
         p = golden.joinpath(*parts)
@@ -159,7 +163,7 @@ def build(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Graph:
         metrics=f"{n_terms} fields" if found else "not found",
         outcome="" if found else "NOT_FOUND",
         tip="The bank's truth for this trade, reached only through the MCP tool.",
-        href=f"{doc_id}/booking.json"))
+        href=f"{ap}booking.json"))
 
     ref_step = step.get("reference_check")
     if ref_step:
@@ -201,7 +205,7 @@ def build(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Graph:
             metrics=" · ".join(bits), outcome=out,
             tip=("Reads the document into the versioned schema: every field is cited to a verbatim span "
                  "or explicitly declared absent. Never decides anything."),
-            href=f"{doc_id}/extraction_{fam}.json" if ex else None))
+            href=f"{ap}extraction_{fam}.json" if ex else None))
         row1 += 1
 
     bl = step.get("booking_lookup", {})
@@ -211,7 +215,7 @@ def build(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Graph:
         metrics=" · ".join(x for x in (bl.get("outcome", ""), _ms(bl.get("latency_ms"))) if x),
         outcome=bl.get("outcome", "" if found else "NOT_FOUND"),
         tip="MCP tool: the only path to books and records, in the eval and in the live service alike.",
-        href=f"{doc_id}/booking.json"))
+        href=f"{ap}booking.json"))
 
     # ---- column 2: agreement ----------------------------------------------------------------
     merged = _load(d / "merged.json") or {}
@@ -224,7 +228,7 @@ def build(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Graph:
         outcome="MALFORMED" if (merged and n_agree < len(merged)) else mg.get("outcome", ""),
         tip=("Canonical forms in code (per-quarter vs per-annum, date formats, enums), then the two "
              "families are compared to each other. Disagreement is a finding, never arbitrated."),
-        href=f"{doc_id}/merged.json" if merged else None))
+        href=f"{ap}merged.json" if merged else None))
 
     # ---- column 3: the decision -------------------------------------------------------------
     findings = _load(d / "findings.json") or []
@@ -238,7 +242,7 @@ def build(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Graph:
         metrics=f"{len(merged) or len(findings)} checks · {counts.get('MISMATCH', 0)} mismatch",
         outcome=cmp_step.get("outcome", ""),
         tip="The match / no-match call. No model is consulted here: this is the line the product rests on.",
-        href=f"{doc_id}/findings.json" if findings else None))
+        href=f"{ap}findings.json" if findings else None))
     row3 = 1
     if any(str(f.get("field", "")).startswith("rel:") for f in findings):
         n_rel = sum(1 for f in findings if str(f.get("field", "")).startswith("rel:"))
@@ -267,7 +271,7 @@ def build(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Graph:
         sub="autonomy earned per field", metrics=" · ".join(lane_bits),
         outcome=summary.get("document_lane", ""),
         tip="Agree and pass → auto-clear with zero human touch. Anything else is a typed finding.",
-        href=f"{doc_id}/auto_clear.json"))
+        href=f"{ap}auto_clear.json"))
 
     tri_lines = [v for k, v in step.items() if k.startswith("triage:")]
     triage_rows = _load(d / "triage.json") or []
@@ -282,7 +286,7 @@ def build(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Graph:
             outcome="MALFORMED" if failed_tri else "OK",
             tip=("The only place a model writes prose: it explains a finding code already made and drafts "
                  "the query, given the finding and its citations, never the whole document."),
-            href=f"{doc_id}/triage.json" if triage_rows else None))
+            href=f"{ap}triage.json" if triage_rows else None))
 
     out_row = 2 if (tri_lines or n_drafted) else 1
     att_metrics = "not attested"
@@ -298,7 +302,7 @@ def build(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Graph:
         outcome="MISMATCH" if counts.get("MISMATCH") else ("AUTO_CLEAR" if summary.get("document_lane") == "AUTO_CLEAR" else ""),
         tip=("The result is bound to the document hash and to the hash of the booking fields that affect the "
              "terms of the deal, so a fixing never disturbs it and an amendment expires it."),
-        href=f"{doc_id}/summary.json"))
+        href=f"{ap}summary.json"))
 
     # ---- edges: what actually flows ------------------------------------------------------------
     n_fields = len(merged) or 28
@@ -469,7 +473,8 @@ def write(run_dir: Path, doc_id: str, golden_href: str | None = None) -> Path | 
     view of the run, not part of it, so the error is drawn instead of raised."""
     out = Path(run_dir) / doc_id / "provenance.svg"
     try:
-        svg = render_svg(build(run_dir, doc_id, golden_href))
+        # the file's own links resolve from the file's own directory
+        svg = render_svg(build(run_dir, doc_id, golden_href, relative_to=Path(run_dir) / doc_id))
     except Exception as exc:  # noqa: BLE001
         svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 60" width="100%" role="img">'
                f'<rect width="560" height="60" fill="{C["badbg"]}" rx="6"/>'

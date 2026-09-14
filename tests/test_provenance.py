@@ -97,3 +97,20 @@ def test_write_never_raises_even_on_a_broken_run(tmp_path, monkeypatch):
     monkeypatch.setattr(P, "build", lambda *a, **k: (_ for _ in ()).throw(RuntimeError("boom")))
     out = P.write(run, "G01")
     assert out and "unavailable" in out.read_text() and "boom" in out.read_text()
+
+
+def test_links_resolve_from_wherever_the_graph_is_read(tmp_path):
+    """The same graph is inlined in a page that sits in the run directory and written as a file that
+    sits one level deeper. Both copies must link to artifacts that actually exist from their own place."""
+    import re
+    doc = _doc_with(lambda s: True)
+    page = P.build(SHOWCASE, doc)                       # as inlined in desk_view.html / run_report.html
+    for n in page.nodes:
+        if n.href:
+            assert (SHOWCASE / n.href).exists(), f"page link broken: {n.href}"
+    P.write(SHOWCASE, doc)
+    svg = (SHOWCASE / doc / "provenance.svg").read_text()
+    hrefs = set(re.findall(r'(?<!xlink:)href="([^"]+)"', svg))
+    assert hrefs
+    for h in hrefs:
+        assert (SHOWCASE / doc / h).exists(), f"file link broken: {h}"
